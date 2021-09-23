@@ -1,5 +1,7 @@
 package leagueoflegendsproject.DTOs;
 
+import java.util.Objects;
+
 public class PlayersChampionStatsDto {
     private double winRatio;
     private String champName;
@@ -24,6 +26,9 @@ public class PlayersChampionStatsDto {
         this.avgKill = avgKill;
         this.avgDeath = avgDeath;
         this.avgAssists = avgAssists;
+    }
+
+    public PlayersChampionStatsDto() {
     }
 
     public double getWinRatio() {
@@ -83,6 +88,40 @@ public class PlayersChampionStatsDto {
     }
 
     public double getKDA() {
-        return (avgKill + avgAssists)/avgDeath;
+        return (avgKill + avgAssists) / avgDeath;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayersChampionStatsDto that = (PlayersChampionStatsDto) o;
+        return Double.compare(that.winRatio, winRatio) == 0 &&
+                Double.compare(that.CS, CS) == 0 &&
+                playedMatches == that.playedMatches &&
+                Double.compare(that.avgKill, avgKill) == 0 &&
+                Double.compare(that.avgDeath, avgDeath) == 0 &&
+                Double.compare(that.avgAssists, avgAssists) == 0 &&
+                Double.compare(that.KDA, KDA) == 0 &&
+                Objects.equals(champName, that.champName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(winRatio, champName, CS, playedMatches, avgKill, avgDeath, avgAssists, KDA);
+    }
+
+    @Override
+    public String toString() {
+        return "PlayersChampionStatsDto{" +
+                "winRatio=" + winRatio +
+                ", champName='" + champName + '\'' +
+                ", CS=" + CS +
+                ", playedMatches=" + playedMatches +
+                ", avgKill=" + avgKill +
+                ", avgDeath=" + avgDeath +
+                ", avgAssists=" + avgAssists +
+                ", KDA=" + KDA +
+                '}';
     }
 }

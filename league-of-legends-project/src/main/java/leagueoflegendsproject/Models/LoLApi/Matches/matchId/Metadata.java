@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Metadata{
@@ -47,4 +49,19 @@ public class Metadata{
 			",participants = '" + participants + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Metadata metadata = (Metadata) o;
+		return Objects.equals(dataVersion, metadata.dataVersion) &&
+				Objects.equals(matchId, metadata.matchId) &&
+				Objects.equals(participants, metadata.participants);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(dataVersion, matchId, participants);
+	}
 }

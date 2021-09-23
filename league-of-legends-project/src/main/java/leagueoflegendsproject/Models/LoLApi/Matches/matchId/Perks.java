@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Perks{
@@ -35,4 +37,18 @@ public class Perks{
 			",styles = '" + styles + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Perks perks = (Perks) o;
+		return Objects.equals(statPerks, perks.statPerks) &&
+				Objects.equals(styles, perks.styles);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(statPerks, styles);
+	}
 }

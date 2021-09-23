@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class SelectionsItem{
 
 	@SerializedName("perk")
@@ -58,4 +60,20 @@ public class SelectionsItem{
 			",var1 = '" + var1 + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		SelectionsItem that = (SelectionsItem) o;
+		return perk == that.perk &&
+				var3 == that.var3 &&
+				var2 == that.var2 &&
+				var1 == that.var1;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(perk, var3, var2, var1);
+	}
 }

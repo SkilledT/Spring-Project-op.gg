@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Info{
@@ -179,4 +181,30 @@ public class Info{
 			",participants = '" + participants + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Info info = (Info) o;
+		return gameId == info.gameId &&
+				queueId == info.queueId &&
+				gameDuration == info.gameDuration &&
+				gameStartTimestamp == info.gameStartTimestamp &&
+				gameCreation == info.gameCreation &&
+				mapId == info.mapId &&
+				Objects.equals(gameType, info.gameType) &&
+				Objects.equals(teams, info.teams) &&
+				Objects.equals(platformId, info.platformId) &&
+				Objects.equals(gameName, info.gameName) &&
+				Objects.equals(tournamentCode, info.tournamentCode) &&
+				Objects.equals(gameVersion, info.gameVersion) &&
+				Objects.equals(gameMode, info.gameMode) &&
+				Objects.equals(participants, info.participants);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(gameId, gameType, queueId, gameDuration, teams, gameStartTimestamp, platformId, gameCreation, gameName, tournamentCode, gameVersion, mapId, gameMode, participants);
+	}
 }

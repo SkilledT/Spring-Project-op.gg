@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class StatPerks{
 
 	@SerializedName("offense")
@@ -46,4 +48,19 @@ public class StatPerks{
 			",flex = '" + flex + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		StatPerks statPerks = (StatPerks) o;
+		return offense == statPerks.offense &&
+				defense == statPerks.defense &&
+				flex == statPerks.flex;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(offense, defense, flex);
+	}
 }

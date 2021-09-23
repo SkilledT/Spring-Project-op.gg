@@ -3,6 +3,9 @@ package leagueoflegendsproject.Helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -12,10 +15,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-58162ee4-6d7a-45cd-81f9-d6fdd489625d";
+    private final String riotApiKey = "RGAPI-4af642fe-85f3-4d40-9d75-5a35f2827608";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {

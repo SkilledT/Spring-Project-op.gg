@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.puuid;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Response{
@@ -23,4 +25,17 @@ public class Response{
 			"matches = '" + matches + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Response response = (Response) o;
+		return Objects.equals(matches, response.matches);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(matches);
+	}
 }

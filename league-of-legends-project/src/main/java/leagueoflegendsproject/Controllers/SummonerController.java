@@ -12,7 +12,7 @@ import java.io.IOException;
 @RequestMapping("/api/v1/summoner")
 public class SummonerController {
 
-    private HttpSummonerService httpSummonerService;
+    private final HttpSummonerService httpSummonerService;
 
     public SummonerController(final HttpSummonerService httpSummonerService) {
         this.httpSummonerService = httpSummonerService;

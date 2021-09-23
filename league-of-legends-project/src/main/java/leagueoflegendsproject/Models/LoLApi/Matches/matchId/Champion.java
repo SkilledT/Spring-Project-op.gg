@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Champion{
 
 	@SerializedName("kills")
@@ -34,4 +36,18 @@ public class Champion{
 			",first = '" + first + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Champion champion = (Champion) o;
+		return kills == champion.kills &&
+				first == champion.first;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(kills, first);
+	}
 }

@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Inhibitor{
 
 	@SerializedName("kills")
@@ -34,4 +36,18 @@ public class Inhibitor{
 			",first = '" + first + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Inhibitor inhibitor = (Inhibitor) o;
+		return kills == inhibitor.kills &&
+				first == inhibitor.first;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(kills, first);
+	}
 }

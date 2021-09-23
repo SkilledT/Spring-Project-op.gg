@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.SerializedName;
 
 public class TeamsItem{
@@ -59,4 +61,20 @@ public class TeamsItem{
 			",win = '" + win + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		TeamsItem teamsItem = (TeamsItem) o;
+		return teamId == teamsItem.teamId &&
+				win == teamsItem.win &&
+				Objects.equals(bans, teamsItem.bans) &&
+				Objects.equals(objectives, teamsItem.objectives);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(teamId, bans, objectives, win);
+	}
 }

@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Objectives{
 
 	@SerializedName("baron")
@@ -82,4 +84,22 @@ public class Objectives{
 			",tower = '" + tower + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Objectives that = (Objectives) o;
+		return Objects.equals(baron, that.baron) &&
+				Objects.equals(inhibitor, that.inhibitor) &&
+				Objects.equals(dragon, that.dragon) &&
+				Objects.equals(riftHerald, that.riftHerald) &&
+				Objects.equals(champion, that.champion) &&
+				Objects.equals(tower, that.tower);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(baron, inhibitor, dragon, riftHerald, champion, tower);
+	}
 }

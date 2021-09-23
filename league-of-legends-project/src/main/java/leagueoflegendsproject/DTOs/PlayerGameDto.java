@@ -1,5 +1,7 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
+
 public class PlayerGameDto {
     private String champName;
     private String nickname;
@@ -9,6 +11,12 @@ public class PlayerGameDto {
         this.champName = champName;
         this.nickname = nickname;
         this.puuid = puuid;
+    }
+
+    public PlayerGameDto(ParticipantsItem participantsItem){
+        this.champName = participantsItem.getChampionName();
+        this.nickname = participantsItem.getSummonerName();
+        this.puuid = participantsItem.getPuuid();
     }
 
     public PlayerGameDto() {

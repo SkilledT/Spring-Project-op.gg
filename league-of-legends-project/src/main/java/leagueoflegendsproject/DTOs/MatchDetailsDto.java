@@ -14,171 +14,198 @@ public class MatchDetailsDto {
     private int champLvl;
     private int killedMinions;
     private double pInKill;
-    private List<ItemMatchDto> list;
+    private List<ItemMatchDto> items;
     private int controlWardsPurchased;
     private List<PlayerGameDto> allies;
     private List<PlayerGameDto> enemies;
     private boolean isWin;
 
-    public MatchDetailsDto(String championName,
-                           long timeDurationOfMatch,
-                           String championIconUrl,
-                           long summoner1Id,
-                           long summoner2Id,
-                           int kills,
-                           int deaths,
-                           int assists,
-                           int champLvl,
-                           int killedMinions,
-                           double pInKill,
-                           List<ItemMatchDto> list,
-                           int controlWardsPurchased,
-                           List<PlayerGameDto> allies,
-                           List<PlayerGameDto> enemies,
-                           boolean isWin) {
-        this.championName = championName;
-        this.timeDurationOfMatch = timeDurationOfMatch;
-        this.championIconUrl = championIconUrl;
-        this.summoner1Id = summoner1Id;
-        this.summoner2Id = summoner2Id;
-        this.kills = kills;
-        this.deaths = deaths;
-        this.assists = assists;
-        this.champLvl = champLvl;
-        this.killedMinions = killedMinions;
-        this.pInKill = pInKill;
-        this.list = list;
-        this.controlWardsPurchased = controlWardsPurchased;
-        this.allies = allies;
-        this.enemies = enemies;
-        this.isWin = isWin;
+
+    public static final class Builder{
+        private String championName;
+        private long timeDurationOfMatch;
+        private String championIconUrl;
+        private long summoner1Id;
+        private long summoner2Id;
+        private int kills;
+        private int deaths;
+        private int assists;
+        private int champLvl;
+        private int killedMinions;
+        private double pInKill;
+        private List<ItemMatchDto> items;
+        private int controlWardsPurchased;
+        private List<PlayerGameDto> allies;
+        private List<PlayerGameDto> enemies;
+        private boolean isWin;
+
+        public Builder championName(String championName){
+            this.championName = championName;
+            return this;
+        }
+
+        public Builder timeDurationOfMatch(long timeDurationOfMatch){
+            this.timeDurationOfMatch = timeDurationOfMatch;
+            return this;
+        }
+
+        public Builder championIconUrl(String championIconUrl){
+            this.championIconUrl = championIconUrl;
+            return this;
+        }
+
+        public Builder summoner1Id(long summoner1Id){
+            this.summoner1Id = summoner1Id;
+            return this;
+        }
+
+        public Builder summoner2Id(long summoner2Id){
+            this.summoner2Id = summoner2Id;
+            return this;
+        }
+
+        public Builder kills(int kills){
+            this.kills = kills;
+            return this;
+        }
+
+        public Builder deaths(int deaths){
+            this.deaths = deaths;
+            return this;
+        }
+
+        public Builder assists(int assists){
+            this.assists = assists;
+            return this;
+        }
+
+        public Builder champLvl(int champLvl){
+            this.champLvl = champLvl;
+            return this;
+        }
+
+        public Builder killedMinions(int killedMinions){
+            this.killedMinions = killedMinions;
+            return this;
+        }
+
+        public Builder controlWardsPurchased(int controlWardsPurchased){
+            this.controlWardsPurchased = controlWardsPurchased;
+            return this;
+        }
+
+        public Builder pInKill(double pInKill){
+            this.pInKill = pInKill;
+            return this;
+        }
+
+        public Builder list(List<ItemMatchDto> list){
+            this.items = list;
+            return this;
+        }
+
+        public Builder allies(List<PlayerGameDto> allies){
+            this.allies = allies;
+            return this;
+        }
+
+        public Builder enemies(List<PlayerGameDto> enemies){
+            this.enemies = enemies;
+            return this;
+        }
+
+        public Builder isWin(boolean isWin){
+            this.isWin = isWin;
+            return this;
+        }
+
+        public MatchDetailsDto build(){
+            if (championName.isEmpty())
+                throw new IllegalStateException("ChampionName cannot be empty");
+
+            MatchDetailsDto matchDetailsDto = new MatchDetailsDto();
+            matchDetailsDto.championName = this.championName;
+            matchDetailsDto.timeDurationOfMatch = this.timeDurationOfMatch;
+            matchDetailsDto.championName = this.championIconUrl;
+            matchDetailsDto.summoner1Id = this.summoner1Id;
+            matchDetailsDto.summoner2Id = this.summoner2Id;
+            matchDetailsDto.kills = this.kills;
+            matchDetailsDto.deaths = this.deaths;
+            matchDetailsDto.assists = this.assists;
+            matchDetailsDto.champLvl = this.champLvl;
+            matchDetailsDto.killedMinions = this.killedMinions;
+            matchDetailsDto.pInKill = this.pInKill;
+            matchDetailsDto.items = this.items;
+            matchDetailsDto.controlWardsPurchased = this.controlWardsPurchased;
+            matchDetailsDto.allies = this.allies;
+            matchDetailsDto.enemies = this.enemies;
+            matchDetailsDto.isWin = this.isWin;
+            return matchDetailsDto;
+        }
+
     }
 
     public String getChampionName() {
         return championName;
     }
 
-    public void setChampionName(String championName) {
-        this.championName = championName;
-    }
-
     public long getTimeDurationOfMatch() {
         return timeDurationOfMatch;
-    }
-
-    public void setTimeDurationOfMatch(long timeDurationOfMatch) {
-        this.timeDurationOfMatch = timeDurationOfMatch;
     }
 
     public String getChampionIconUrl() {
         return championIconUrl;
     }
 
-    public void setChampionIconUrl(String championIconUrl) {
-        this.championIconUrl = championIconUrl;
-    }
-
     public long getSummoner1Id() {
         return summoner1Id;
-    }
-
-    public void setSummoner1Id(long summoner1Id) {
-        this.summoner1Id = summoner1Id;
     }
 
     public long getSummoner2Id() {
         return summoner2Id;
     }
 
-    public void setSummoner2Id(long summoner2Id) {
-        this.summoner2Id = summoner2Id;
-    }
-
     public int getKills() {
         return kills;
-    }
-
-    public void setKills(int kills) {
-        this.kills = kills;
     }
 
     public int getDeaths() {
         return deaths;
     }
 
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
     public int getAssists() {
         return assists;
-    }
-
-    public void setAssists(int assists) {
-        this.assists = assists;
     }
 
     public int getChampLvl() {
         return champLvl;
     }
 
-    public void setChampLvl(int champLvl) {
-        this.champLvl = champLvl;
-    }
-
     public int getKilledMinions() {
         return killedMinions;
-    }
-
-    public void setKilledMinions(int killedMinions) {
-        this.killedMinions = killedMinions;
     }
 
     public double getpInKill() {
         return pInKill;
     }
 
-    public void setpInKill(double pInKill) {
-        this.pInKill = pInKill;
-    }
-
-    public List<ItemMatchDto> getList() {
-        return list;
-    }
-
-    public void setList(List<ItemMatchDto> list) {
-        this.list = list;
+    public List<ItemMatchDto> getItems() {
+        return items;
     }
 
     public int getControlWardsPurchased() {
         return controlWardsPurchased;
     }
 
-    public void setControlWardsPurchased(int controlWardsPurchased) {
-        this.controlWardsPurchased = controlWardsPurchased;
-    }
-
     public List<PlayerGameDto> getAllies() {
         return allies;
-    }
-
-    public void setAllies(List<PlayerGameDto> allies) {
-        this.allies = allies;
     }
 
     public List<PlayerGameDto> getEnemies() {
         return enemies;
     }
 
-    public void setEnemies(List<PlayerGameDto> enemies) {
-        this.enemies = enemies;
-    }
-
     public boolean isWin() {
         return isWin;
-    }
-
-    public void setWin(boolean win) {
-        isWin = win;
     }
 }

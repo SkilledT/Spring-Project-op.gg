@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Match {
 
 	@SerializedName("metadata")
@@ -34,4 +36,18 @@ public class Match {
 			",info = '" + info + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Match match = (Match) o;
+		return Objects.equals(metadata, match.metadata) &&
+				Objects.equals(info, match.info);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(metadata, info);
+	}
 }

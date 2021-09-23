@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Summoner {
 
 	@SerializedName("accountId")
@@ -94,4 +96,23 @@ public class Summoner {
 			",summonerLevel = '" + summonerLevel + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Summoner summoner = (Summoner) o;
+		return profileIconId == summoner.profileIconId &&
+				revisionDate == summoner.revisionDate &&
+				summonerLevel == summoner.summonerLevel &&
+				Objects.equals(accountId, summoner.accountId) &&
+				Objects.equals(name, summoner.name) &&
+				Objects.equals(puuid, summoner.puuid) &&
+				Objects.equals(id, summoner.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountId, profileIconId, revisionDate, name, puuid, id, summonerLevel);
+	}
 }

@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class ParticipantsItem{
 
 	@SerializedName("bountyLevel")
@@ -1270,4 +1272,121 @@ public class ParticipantsItem{
 			",spell4Casts = '" + spell4Casts + '\'' + 
 			"}";
 		}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ParticipantsItem that = (ParticipantsItem) o;
+		return bountyLevel == that.bountyLevel &&
+				totalUnitsHealed == that.totalUnitsHealed &&
+				largestMultiKill == that.largestMultiKill &&
+				spell2Casts == that.spell2Casts &&
+				champExperience == that.champExperience &&
+				summonerLevel == that.summonerLevel &&
+				damageDealtToObjectives == that.damageDealtToObjectives &&
+				turretTakedowns == that.turretTakedowns &&
+				magicDamageTaken == that.magicDamageTaken &&
+				deaths == that.deaths &&
+				objectivesStolen == that.objectivesStolen &&
+				detectorWardsPlaced == that.detectorWardsPlaced &&
+				magicDamageDealtToChampions == that.magicDamageDealtToChampions &&
+				wardsKilled == that.wardsKilled &&
+				pentaKills == that.pentaKills &&
+				spell3Casts == that.spell3Casts &&
+				firstTowerKill == that.firstTowerKill &&
+				wardsPlaced == that.wardsPlaced &&
+				totalDamageDealt == that.totalDamageDealt &&
+				largestKillingSpree == that.largestKillingSpree &&
+				totalDamageDealtToChampions == that.totalDamageDealtToChampions &&
+				summoner2Id == that.summoner2Id &&
+				totalTimeSpentDead == that.totalTimeSpentDead &&
+				inhibitorKills == that.inhibitorKills &&
+				totalTimeCCDealt == that.totalTimeCCDealt &&
+				participantId == that.participantId &&
+				profileIcon == that.profileIcon &&
+				teamEarlySurrendered == that.teamEarlySurrendered &&
+				goldSpent == that.goldSpent &&
+				unrealKills == that.unrealKills &&
+				consumablesPurchased == that.consumablesPurchased &&
+				visionScore == that.visionScore &&
+				firstBloodKill == that.firstBloodKill &&
+				longestTimeSpentLiving == that.longestTimeSpentLiving &&
+				killingSprees == that.killingSprees &&
+				sightWardsBoughtInGame == that.sightWardsBoughtInGame &&
+				turretsLost == that.turretsLost &&
+				quadraKills == that.quadraKills &&
+				item4 == that.item4 &&
+				nexusTakedowns == that.nexusTakedowns &&
+				item3 == that.item3 &&
+				item6 == that.item6 &&
+				item5 == that.item5 &&
+				item0 == that.item0 &&
+				item2 == that.item2 &&
+				summoner1Id == that.summoner1Id &&
+				item1 == that.item1 &&
+				totalDamageShieldedOnTeammates == that.totalDamageShieldedOnTeammates &&
+				summoner2Casts == that.summoner2Casts &&
+				goldEarned == that.goldEarned &&
+				nexusLost == that.nexusLost &&
+				physicalDamageTaken == that.physicalDamageTaken &&
+				champLevel == that.champLevel &&
+				totalDamageTaken == that.totalDamageTaken &&
+				neutralMinionsKilled == that.neutralMinionsKilled &&
+				championTransform == that.championTransform &&
+				tripleKills == that.tripleKills &&
+				damageSelfMitigated == that.damageSelfMitigated &&
+				inhibitorsLost == that.inhibitorsLost &&
+				inhibitorTakedowns == that.inhibitorTakedowns &&
+				largestCriticalStrike == that.largestCriticalStrike &&
+				totalHealsOnTeammates == that.totalHealsOnTeammates &&
+				summoner1Casts == that.summoner1Casts &&
+				damageDealtToBuildings == that.damageDealtToBuildings &&
+				magicDamageDealt == that.magicDamageDealt &&
+				timePlayed == that.timePlayed &&
+				timeCCingOthers == that.timeCCingOthers &&
+				physicalDamageDealtToChampions == that.physicalDamageDealtToChampions &&
+				totalMinionsKilled == that.totalMinionsKilled &&
+				visionWardsBoughtInGame == that.visionWardsBoughtInGame &&
+				kills == that.kills &&
+				firstTowerAssist == that.firstTowerAssist &&
+				championId == that.championId &&
+				turretKills == that.turretKills &&
+				firstBloodAssist == that.firstBloodAssist &&
+				trueDamageTaken == that.trueDamageTaken &&
+				assists == that.assists &&
+				itemsPurchased == that.itemsPurchased &&
+				objectivesStolenAssists == that.objectivesStolenAssists &&
+				damageDealtToTurrets == that.damageDealtToTurrets &&
+				totalHeal == that.totalHeal &&
+				win == that.win &&
+				gameEndedInSurrender == that.gameEndedInSurrender &&
+				physicalDamageDealt == that.physicalDamageDealt &&
+				trueDamageDealtToChampions == that.trueDamageDealtToChampions &&
+				dragonKills == that.dragonKills &&
+				baronKills == that.baronKills &&
+				doubleKills == that.doubleKills &&
+				nexusKills == that.nexusKills &&
+				trueDamageDealt == that.trueDamageDealt &&
+				spell1Casts == that.spell1Casts &&
+				gameEndedInEarlySurrender == that.gameEndedInEarlySurrender &&
+				teamId == that.teamId &&
+				spell4Casts == that.spell4Casts &&
+				Objects.equals(perks, that.perks) &&
+				Objects.equals(individualPosition, that.individualPosition) &&
+				Objects.equals(riotIdName, that.riotIdName) &&
+				Objects.equals(role, that.role) &&
+				Objects.equals(puuid, that.puuid) &&
+				Objects.equals(championName, that.championName) &&
+				Objects.equals(teamPosition, that.teamPosition) &&
+				Objects.equals(summonerId, that.summonerId) &&
+				Objects.equals(lane, that.lane) &&
+				Objects.equals(summonerName, that.summonerName) &&
+				Objects.equals(riotIdTagline, that.riotIdTagline);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(bountyLevel, totalUnitsHealed, largestMultiKill, spell2Casts, champExperience, summonerLevel, damageDealtToObjectives, turretTakedowns, magicDamageTaken, perks, deaths, objectivesStolen, detectorWardsPlaced, magicDamageDealtToChampions, wardsKilled, pentaKills, spell3Casts, firstTowerKill, individualPosition, riotIdName, wardsPlaced, totalDamageDealt, largestKillingSpree, totalDamageDealtToChampions, summoner2Id, role, totalTimeSpentDead, inhibitorKills, puuid, totalTimeCCDealt, participantId, profileIcon, teamEarlySurrendered, goldSpent, unrealKills, consumablesPurchased, visionScore, firstBloodKill, longestTimeSpentLiving, killingSprees, sightWardsBoughtInGame, turretsLost, quadraKills, item4, nexusTakedowns, item3, item6, item5, item0, item2, summoner1Id, item1, totalDamageShieldedOnTeammates, summoner2Casts, goldEarned, nexusLost, physicalDamageTaken, champLevel, totalDamageTaken, neutralMinionsKilled, championTransform, tripleKills, damageSelfMitigated, inhibitorsLost, inhibitorTakedowns, largestCriticalStrike, totalHealsOnTeammates, summoner1Casts, damageDealtToBuildings, magicDamageDealt, timePlayed, championName, timeCCingOthers, teamPosition, physicalDamageDealtToChampions, totalMinionsKilled, visionWardsBoughtInGame, kills, firstTowerAssist, championId, turretKills, firstBloodAssist, trueDamageTaken, assists, itemsPurchased, objectivesStolenAssists, summonerId, damageDealtToTurrets, totalHeal, win, lane, gameEndedInSurrender, physicalDamageDealt, summonerName, trueDamageDealtToChampions, dragonKills, baronKills, doubleKills, nexusKills, trueDamageDealt, spell1Casts, gameEndedInEarlySurrender, teamId, riotIdTagline, spell4Casts);
+	}
 }

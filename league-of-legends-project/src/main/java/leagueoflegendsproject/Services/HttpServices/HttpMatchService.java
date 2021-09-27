@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,7 +65,7 @@ public class HttpMatchService {
      *
      * @return Match class' objects that contains details about summoner's match from Riot's API
      */
-    public Match getMatchById(String id) throws IOException, InterruptedException {
+    Match getMatchById(String id) throws IOException, InterruptedException {
         HttpResponseWrapper<Match> matchHttpResponseWrapper =
                 riotHttpClient.get("https://europe.api.riotgames.com/lol/match/v5/matches/" + id,
                         Match.class);
@@ -72,44 +75,17 @@ public class HttpMatchService {
     }
 
     public List<PlayersChampionStatsDto> getChampionStatsByNickname(String nickname) throws IOException, InterruptedException {
-        List<Match> matches = getMatchCollectionByNickname(nickname);
-        String userPuuid = summonerService.getSummonerByName(nickname).getPuuid();
-
-        List<ParticipantsItem> participants = new ArrayList<>();
-        List<List<ParticipantsItem>> lists = matches.stream()
-                .map(e -> e.getInfo().getParticipants())
-                .collect(Collectors.toList());
-        for (var list : lists){
-            participants.addAll(list);
-        }
-        participants = participants.stream()
-                .filter(e -> e.getPuuid().equals(userPuuid))
-                .collect(Collectors.toList());
-        Map<String, List<ParticipantsItem>> byChampName = participants.stream().collect(
-                Collectors.groupingBy(ParticipantsItem::getChampionName)
-        );
+        Map<String, List<ParticipantsItem>> byChampName = getMapGroupedBy(nickname, ParticipantsItem::getChampionName);
 
         List<PlayersChampionStatsDto> playersChampionStatsDtos = new ArrayList<>();
         for (var key : byChampName.keySet()){
             var values = byChampName.get(key);
             double winRatio = countWinRatio(values);
             String champName = key;
-            double CS = values.stream()
-                    .mapToDouble(ParticipantsItem::getTotalMinionsKilled)
-                    .average()
-                    .orElse(Double.NaN);
-            double avgKills = values.stream()
-                    .mapToDouble(ParticipantsItem::getKills)
-                    .average()
-                    .orElse(Double.NaN);
-            double avgDeaths = values.stream()
-                    .mapToDouble(ParticipantsItem::getDeaths)
-                    .average()
-                    .orElse(Double.NaN);
-            double avgAssists = values.stream()
-                    .mapToDouble(ParticipantsItem::getAssists)
-                    .average()
-                    .orElse(Double.NaN);
+            double CS = getAverageValue(values, ParticipantsItem::getTotalMinionsKilled);
+            double avgKills = getAverageValue(values, ParticipantsItem::getKills);
+            double avgDeaths = getAverageValue(values, ParticipantsItem::getDeaths);
+            double avgAssists = getAverageValue(values, ParticipantsItem::getAssists);
             int playedMatches = values.size();
             PlayersChampionStatsDto playersChampionStatsDto =
                     new PlayersChampionStatsDto(winRatio, champName, CS, playedMatches, avgKills, avgDeaths, avgAssists);
@@ -118,15 +94,19 @@ public class HttpMatchService {
         return playersChampionStatsDtos;
     }
 
+    private <T> double getAverageValue(Collection<T> collection, ToDoubleFunction<T> toDoubleFunction){
+        return collection.stream().mapToDouble(toDoubleFunction)
+                .average()
+                .orElse(Double.NaN);
+    }
+
     private double countWinRatio(List<ParticipantsItem> participantsItems){
-        long victories = participantsItems.stream()
-                .filter(ParticipantsItem::isWin)
-                .count();
+        double victories = getNumberOfElements(participantsItems, ParticipantsItem::isWin);
         long playedGames = participantsItems.size();
         return (double)victories/(double)playedGames;
     }
 
-    private List<MatchDetailsDto> getPlayerMatchDetailsList(String nickname) throws IOException, InterruptedException {
+    public List<MatchDetailsDto> getPlayerMatchDetailsList(String nickname) throws IOException, InterruptedException {
         var matches = getMatchCollectionByNickname(nickname);
         List<MatchDetailsDto> matchDetailList = new ArrayList<>();
         for (var match : matches){
@@ -162,6 +142,7 @@ public class HttpMatchService {
                 .allies(allies)
                 .enemies(enemies)
                 .isWin(participant.isWin())
+                .position(participant.getRole())
                 .build();
     }
 
@@ -178,6 +159,23 @@ public class HttpMatchService {
     }
 
     public List<PreferedRoleDto> getSummonersPreferredRole(String nickname) throws IOException, InterruptedException {
+        Map<String, List<ParticipantsItem>> byRole = getMapGroupedBy(nickname, ParticipantsItem::getRole);
+        int playedMatches = byRole.keySet().stream().mapToInt(key -> byRole.get(key).size()).sum();
+        List<PreferedRoleDto> preferredRoleDots = new ArrayList<>();
+
+        for (String roleName : byRole.keySet()){
+            var values = byRole.get(roleName);
+            double victories = getNumberOfElements(values, ParticipantsItem::isWin);
+            double defeats = getNumberOfElements(values, e -> !e.isWin());
+            double winRatio = victories / (defeats + victories);
+            int numberOfPickedRole = byRole.get(roleName).size();
+            double pickRatio = (double) numberOfPickedRole / (double) playedMatches;
+            preferredRoleDots.add(new PreferedRoleDto(pickRatio, winRatio, roleName));
+        }
+        return preferredRoleDots;
+    }
+
+    private <T> Map<T, List<ParticipantsItem>> getMapGroupedBy(String nickname, Function<ParticipantsItem, T> function) throws IOException, InterruptedException {
         List<Match> matches = getMatchCollectionByNickname(nickname);
         String userPuuid = summonerService.getSummonerByName(nickname).getPuuid();
         List<ParticipantsItem> participants = new ArrayList<>();
@@ -190,23 +188,13 @@ public class HttpMatchService {
         participants = participants.stream()
                 .filter(e -> e.getPuuid().equals(userPuuid))
                 .collect(Collectors.toList());
-        Map<String, List<ParticipantsItem>> byRole = participants.stream()
-                .collect(Collectors.groupingBy(ParticipantsItem::getRole));
-        int playedMatches = participants.size();
-        List<PreferedRoleDto> preferredRoleDots = new ArrayList<>();
-
-        for (var roleName : byRole.keySet()){
-            double victories = byRole.get(roleName).stream()
-                    .filter(ParticipantsItem::isWin)
-                    .count();
-            double defeats = byRole.get(roleName).stream()
-                    .filter(e -> !e.isWin())
-                    .count();
-            double winRatio = victories / (defeats + victories);
-            int numberOfPickedRole = byRole.get(roleName).size();
-            double pickRatio = (double) numberOfPickedRole / (double) playedMatches;
-            preferredRoleDots.add(new PreferedRoleDto(pickRatio, winRatio, roleName));
-        }
-        return preferredRoleDots;
+        Map<T, List<ParticipantsItem>> groupedBy = participants.stream()
+                .collect(Collectors.groupingBy(function));
+        return groupedBy;
     }
+
+    private <T> double getNumberOfElements(Collection<T> collection, Predicate<T> filter){
+        return collection.stream().filter(filter).count();
+    }
+
 }

@@ -19,6 +19,7 @@ public class MatchDetailsDto {
     private List<PlayerGameDto> allies;
     private List<PlayerGameDto> enemies;
     private boolean isWin;
+    private String position;
 
 
     public static final class Builder{
@@ -38,9 +39,15 @@ public class MatchDetailsDto {
         private List<PlayerGameDto> allies;
         private List<PlayerGameDto> enemies;
         private boolean isWin;
+        private String position;
 
-        public Builder championName(String championName){
-            this.championName = championName;
+        public Builder championName(String champName){
+            this.championName = champName;
+            return this;
+        }
+
+        public Builder position(String position){
+            this.position = position;
             return this;
         }
 
@@ -126,7 +133,7 @@ public class MatchDetailsDto {
             MatchDetailsDto matchDetailsDto = new MatchDetailsDto();
             matchDetailsDto.championName = this.championName;
             matchDetailsDto.timeDurationOfMatch = this.timeDurationOfMatch;
-            matchDetailsDto.championName = this.championIconUrl;
+            matchDetailsDto.championIconUrl = this.championIconUrl;
             matchDetailsDto.summoner1Id = this.summoner1Id;
             matchDetailsDto.summoner2Id = this.summoner2Id;
             matchDetailsDto.kills = this.kills;
@@ -140,6 +147,7 @@ public class MatchDetailsDto {
             matchDetailsDto.allies = this.allies;
             matchDetailsDto.enemies = this.enemies;
             matchDetailsDto.isWin = this.isWin;
+            matchDetailsDto.position = this.position;
             return matchDetailsDto;
         }
 
@@ -207,5 +215,9 @@ public class MatchDetailsDto {
 
     public boolean isWin() {
         return isWin;
+    }
+
+    public String getPosition() {
+        return position;
     }
 }

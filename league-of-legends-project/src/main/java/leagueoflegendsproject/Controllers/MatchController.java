@@ -42,4 +42,26 @@ public class MatchController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/details/{nickname}")
+    public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname){
+        try {
+            var matches = matchService.getPlayerMatchDetailsList(nickname);
+            return ResponseEntity.ok(matches);
+        } catch (InterruptedException | IOException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/rolePreferences/{nickname}")
+    public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname){
+        try {
+            var matches = matchService.getSummonersPreferredRole(nickname);
+            return ResponseEntity.ok(matches);
+        } catch (InterruptedException | IOException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

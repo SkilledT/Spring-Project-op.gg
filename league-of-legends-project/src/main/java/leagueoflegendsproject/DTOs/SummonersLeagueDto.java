@@ -1,6 +1,9 @@
 package leagueoflegendsproject.DTOs;
 
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
+
+import java.util.Arrays;
 
 public class SummonersLeagueDto {
     private String tier;
@@ -23,8 +26,8 @@ public class SummonersLeagueDto {
     public SummonersLeagueDto() {
     }
 
-    public SummonersLeagueDto(SummonerLeague summonerLeague){
-        var summoner =  summonerLeague.getResponse().stream()
+    public SummonersLeagueDto(SummonerLeagueResponseItem[] summonerLeague){
+        var summoner = Arrays.stream(summonerLeague)
                 .filter(e -> e.getQueueType().equals("RANKED_SOLO_5x5"))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("This summoner does not participate in SoloQ"));

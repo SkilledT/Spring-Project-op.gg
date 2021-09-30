@@ -3,6 +3,7 @@ package leagueoflegendsproject.Services.HttpServices;
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -46,7 +47,7 @@ public class HttpSummonerService {
         Summoner summoner = getSummonerByName(nickname);
         String summonerEncryptedId = summoner.getId();
         String url = "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerEncryptedId;
-        var response =  riotHttpClient.get(url, SummonerLeague.class)
+        var response =  riotHttpClient.get(url, SummonerLeagueResponseItem[].class)
                 .getResponse();
         return new SummonersLeagueDto(response);
     }

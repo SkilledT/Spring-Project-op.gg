@@ -1,9 +1,12 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.NumericalHelpers;
+
 import java.util.List;
 
 public class MatchDetailsDto {
     private String championName;
+    private String championUrl;
     private long timeDurationOfMatch;
     private String championIconUrl;
     private long summoner1Id;
@@ -102,7 +105,7 @@ public class MatchDetailsDto {
         }
 
         public Builder pInKill(double pInKill){
-            this.pInKill = pInKill;
+            this.pInKill = NumericalHelpers.doubleWithTwoPlaces(pInKill);
             return this;
         }
 
@@ -148,6 +151,7 @@ public class MatchDetailsDto {
             matchDetailsDto.enemies = this.enemies;
             matchDetailsDto.isWin = this.isWin;
             matchDetailsDto.position = this.position;
+            matchDetailsDto.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+this.championName+".png";
             return matchDetailsDto;
         }
 
@@ -219,5 +223,9 @@ public class MatchDetailsDto {
 
     public String getPosition() {
         return position;
+    }
+
+    public String getChampionUrl() {
+        return championUrl;
     }
 }

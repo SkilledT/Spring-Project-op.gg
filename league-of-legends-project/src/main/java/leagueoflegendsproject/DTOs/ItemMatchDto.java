@@ -9,6 +9,11 @@ public class ItemMatchDto {
         this.itemUrl = itemUrl;
     }
 
+    public ItemMatchDto(int itemId) {
+        this.itemId = itemId;
+        this.itemUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/item/"+itemId+".png";
+    }
+
     public int getItemId() {
         return itemId;
     }

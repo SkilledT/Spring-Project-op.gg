@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-public class ResponseItem{
+public class SummonerLeagueResponseItem {
 
 	@SerializedName("wins")
 	private int wins;
@@ -173,7 +173,7 @@ public class ResponseItem{
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		ResponseItem that = (ResponseItem) o;
+		SummonerLeagueResponseItem that = (SummonerLeagueResponseItem) o;
 		return wins == that.wins &&
 				freshBlood == that.freshBlood &&
 				leaguePoints == that.leaguePoints &&

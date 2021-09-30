@@ -8,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class SummonerLeague {
 
 	@SerializedName("Response")
-	private List<ResponseItem> response;
+	private List<SummonerLeagueResponseItem> response;
 
-	public void setResponse(List<ResponseItem> response){
+	public void setResponse(List<SummonerLeagueResponseItem> response){
 		this.response = response;
 	}
 
-	public List<ResponseItem> getResponse(){
+	public List<SummonerLeagueResponseItem> getResponse(){
 		return response;
 	}
 

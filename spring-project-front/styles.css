@@ -1,0 +1,60 @@
+.main{
+    display: flex;
+}
+
+.left-panel{
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel{
+    flex: 1;
+}
+
+.summoner-details{
+    background-color: cornflowerblue;
+}
+
+.chmapion-details{
+    background-color: cornsilk;
+}
+
+.match{
+    display: flex;
+    background-color: darkgrey;
+    flex: 1;
+    margin: 10px;
+    border-radius: 2em;
+    padding: 2em;
+    height: 10vh;
+}
+
+.champ-pic-and-name, .spells, .kill-death-assists, .champ-performance,
+.items, .allies, .enemies, .time-of-game, .match-details{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 40px;
+    margin: auto;
+}
+
+.upper-items, .lower-items, .participant{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.champ-name, .champ-pic, .spell-1, .spell-2, .k-d-a, .kda, .lvl, .cs, .participation-in-kill, 
+.item, .pic {
+    flex: 1;
+}
+
+.nickname {
+    flex: 4;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
@@ -24,9 +25,19 @@ public class SummonerController {
         try {
             var summoner = httpSummonerService.getSummonerByName(name);
             return ResponseEntity.ok(summoner);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/league")
+    public ResponseEntity<?> getSummonerLeagueByNickname(){
+        String name = "Skilled Teaser";
+        try {
+            var summoner = httpSummonerService.getSummonerLeagueByNickname(name);
+            return ResponseEntity.ok(summoner);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return ResponseEntity.badRequest().build();

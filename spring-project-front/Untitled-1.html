@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+</head>
+
+<body>
+    <section class="main">
+        <section class="left-panel">
+            <section class="summoner-details">
+                <table id="summoner">
+
+                </table>
+            </section>
+            <section class="chmapion-details">
+                <table id="champions">
+                </table>
+
+                
+                <div class="champion">
+                    <div class="champion-pic">
+                
+                    </div>
+                    <div class="champion-name-and-cs">
+                        <div class="champion-name">
+                
+                        </div>
+                        <div class="champion-cs">
+                
+                        </div>
+                    </div>
+                    <div class="champion-kda-and-k/d/a">
+                        <div class="champion-kda">
+                
+                        </div>
+                        <div class="champion-k/d/a">
+                        
+                        </div>
+                    </div>
+                    <div class="champion-winratio-and-played-matches">
+                        <div class="champion-winratio">
+                
+                        </div>
+                        <div class="champion-played-matches">
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section class="right panel">
+            <section class="curves">
+                <section class="left-bar">
+
+                </section>
+                <section class="middle-bar">
+
+                </section>
+                <section class="right-bar">
+
+                </section>
+            </section>
+
+            <section class="match-details" id="matches-section">
+                    
+            </section>
+        </section>
+    </section>
+
+
+    
+
+    <script>
+        var championSection = document.getElementById("summoner");
+        let url = `http://localhost:8080/api/v1/summoner/league`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(element => {
+                var card = createElement('div', {}, ["card", "mb-3"], championSection);
+                    var cardRow = createElement('div', {}, ["row", "g-0"], card);
+                        var cardRowCol = createElement('div', {}, ['col-md-4'], cardRow);
+                            var cardRowColImg = createElement('img', {'src' : `ranked-emblems/Emblem_${element.tier}.png`}, [], cardRowCol);
+                        var cardRowCol2 = createElement('div', {}, ['col-md-8'], cardRow);
+                            var cardRowCol2Body = createElement('div', {}, ['card-body'], cardRowCol2);
+                                createElement('h5', {}, ['card-title'], cardRowCol2Body)
+                                .appendChild(document.createTextNode(`${element.tier} ${element.rank}`));
+                                createElement('p', {}, ["card-text"], cardRowCol2Body)
+                                .appendChild(document.createTextNode(`${element.leaguePoints} LP / ${element.wins}W ${element.loses}P`));
+                                createElement('p', {}, ["card-text"], cardRowCol2Body)
+                                .appendChild(document.createTextNode(`Win Ratio ${(element.winRatio*100).toFixed(2)}%`));
+        });
+
+        var championTable = `<tr>
+            <th>Win Ratio</th>
+            <th>Champion Name</th>
+            <th>CS</th>
+            <th>Played Matches</th>
+            <th>Kills</th>
+            <th>Deats</th>
+            <th>Assists</th>
+            <th>KDA</th>
+            </tr>`;
+        
+        var championStats = document.getElementById("champions");
+        championStats.innerHTML += championTable;
+
+
+        let urlChampion = `http://localhost:8080/api/v1/match/championStats/SSW%20Miszi%20M`;
+
+        fetch(urlChampion)
+        .then(response => response.json())
+        .then(elements => {
+            elements.forEach(function(element){
+                championStats.innerHTML += `<tr>
+            <td>${element.winRatio.toFixed(2)}</td>
+            <td>${element.champName}</td>  
+            <td>${element.cs}</td>  
+            <td>${element.playedMatches}</td>  
+            <td>${element.avgKill.toFixed(2)}</td>  
+            <td>${element.avgDeath.toFixed(2)}</td>  
+            <td>${element.avgAssists.toFixed(2)}</td>  
+            <td>${element.kda.toFixed(2)}</td>                  
+            </tr>`;
+            });
+        });
+
+
+        fetch(urlChampion)
+        .then(response => response.json())
+        .then(elements => {
+            elements.forEach(function(element){
+                
+            });
+        });
+
+        let matchesUrl = "http://localhost:8080/api/v1/match/details/SSW%20Miszi%20M";
+
+        function millisToMinutesAndSeconds(millis) {
+            var minutes = Math.floor(millis / 60000);
+            var seconds = ((millis % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+        };
+
+        function createElement(elementType, attributes, classes, parent){
+            var newdiv = document.createElement(elementType);  
+            for(let key in attributes){
+                newdiv.setAttribute(key, attributes[key]);
+            };
+            classes.forEach(e => newdiv.classList.add(e));
+            parent.appendChild(newdiv);
+            return newdiv;
+        };
+
+        fetch(matchesUrl)
+        .then(response => response.json())
+        .then(matches => {
+            matches.forEach(function(element){
+                var match = createElement("div", {}, ["match"], document.getElementById("matches-section"));
+                    var champPicAndNameSection = createElement("div", {}, ["champ-pic-and-name"], match);
+                        var champPic = createElement("div", {}, ["champ-pic", "img-fluid", "rounded-start"], champPicAndNameSection);
+                            var champPicImg = createElement("img", {"src" : element.championUrl}, [], champPic);
+                        var champName = createElement("div", {}, ["champ-name"], champPicAndNameSection);
+                            var champNameText = document.createTextNode(element.championName);
+                    var spells = createElement("div", {}, ["spells"], match);
+                        var spell1 = createElement("div", {}, ["spell-1"], spells);
+                            var spell1Img = createElement("img", {"src" : "src"}, [], spell1);
+                        var spell2 = createElement("div", {}, ["spell-2"], spells);
+                            var spell2Img = createElement("img", {"src" : "src"}, [], spell2);
+                    var killsDeatsAssists = createElement("div", {}, ["kill-death-assists"], match);
+                        var k_d_a = createElement("div", {}, ["k-d-a"], killsDeatsAssists);
+                            var k_d_aText = document.createTextNode(`${element.kills}/${element.deaths}/${element.assists}`);
+                        var kda = createElement("div", {}, ["kda"], killsDeatsAssists);
+                            var kdaText = document.createTextNode(`KDA: ${((element.kills + element.assists)/element.deaths).toFixed(2)}`);
+                    var champPerformance = createElement("div", {}, ["champ-performance"], match);
+                        var lvl = createElement("div", {}, ["lvl"], champPerformance);
+                            var lvlText = document.createTextNode("LVL: " + element.champLvl);
+                        var cs = createElement("div", {}, ["cs"], champPerformance);
+                            var csText = document.createTextNode("CS: " + element.killedMinions);
+                        var pInKill = createElement("div", {}, ["participation-in-kill"], champPerformance);
+                            var pInKillText = document.createTextNode("P/InKill: " + element.pInKill.toFixed(2));
+                    var items = createElement("div", {}, ["items"], match);
+                        var upperItems = createElement("div", {}, ["upper-items"], items);
+                        for(var i = 0; i < 3; i++){
+                            var item = createElement("div", {}, ["item"], upperItems);
+                                var itemImg = createElement("img", {"src" : element.items[i].itemUrl}, [], item);
+                        }
+                        var lowerItems = createElement("div", {}, ["lower-items"], items);
+                        for(var i = 3; i < 6; i++){
+                            var item = createElement("div", {}, ["item"], lowerItems);
+                                var itemImg = createElement("img", {"src" : element.items[i].itemUrl}, [], item);
+                        }
+                    var allies = createElement("div", {}, ["allies"], match);
+                        element.allies.forEach(ally => {
+                            var participantDiv = createElement("div", {}, ["participant"], allies);
+                                var participantPicDiv = createElement("div", {}, ["pic"], participantDiv);
+                                    var participantPic = createElement("img", {"src" : ally.championUrl}, [], participantPicDiv);
+                                var participantNicknameDiv = createElement("div", {}, ["nickname"], participantDiv);
+                                    participantNicknameDiv.appendChild(document.createTextNode(ally.nickname));
+                        });
+                    var enemies = createElement("div", {}, ["enemies"], match);
+                        element.enemies.forEach(enemy => {
+                                var participantDiv = createElement("div", {}, ["participant"], enemies);
+                                    var participantPicDiv = createElement("div", {}, ["pic"], participantDiv);
+                                        var participantPic = createElement("img", {"src" : enemy.championUrl}, [], participantPicDiv);
+                                    var participantNicknameDiv = createElement("div", {}, ["nickname"], participantDiv);
+                                        participantNicknameDiv.appendChild(document.createTextNode(enemy.nickname));
+                        });
+                    champName.appendChild(champNameText);
+                    k_d_a.appendChild(k_d_aText);
+                    kda.appendChild(kdaText);
+                    lvl.appendChild(lvlText);
+                    cs.appendChild(csText);
+                    pInKill.appendChild(pInKillText);
+            });
+
+        });
+        
+    </script>    
+</body>
+
+</html>

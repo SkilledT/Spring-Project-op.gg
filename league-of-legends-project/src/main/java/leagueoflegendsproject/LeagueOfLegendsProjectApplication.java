@@ -1,5 +1,6 @@
 package leagueoflegendsproject;
 
+import leagueoflegendsproject.Filters.CorsFilter;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,5 +20,8 @@ public class LeagueOfLegendsProjectApplication {
 	public RiotHttpClient getInstanceOfRiotHttpClient(){
 		return new RiotHttpClient();
 	}
+
+	@Bean
+	public CorsFilter getInstanceOfCorsFilter(){return new CorsFilter();}
 
 }

@@ -1,9 +1,6 @@
 package leagueoflegendsproject.Services.HttpServices;
 
-import leagueoflegendsproject.DTOs.MatchDetailsDto;
-import leagueoflegendsproject.DTOs.PlayerGameDto;
-import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
-import leagueoflegendsproject.DTOs.PreferedRoleDto;
+import leagueoflegendsproject.DTOs.*;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
@@ -125,6 +122,14 @@ public class HttpMatchService {
                 getTeamMembers(match, matchId, true);
         List<PlayerGameDto> enemies =
                 getTeamMembers(match, matchId, false);
+        List<ItemMatchDto> itemList = Arrays.asList(
+                new ItemMatchDto(participant.getItem1()),
+                new ItemMatchDto(participant.getItem2()),
+                new ItemMatchDto(participant.getItem3()),
+                new ItemMatchDto(participant.getItem4()),
+                new ItemMatchDto(participant.getItem5()),
+                new ItemMatchDto(participant.getItem0())
+                );
         //TODO: championIcon have to be downloaded from file
         // participation in kill is not fully done yet
         return new MatchDetailsDto.Builder()
@@ -143,6 +148,7 @@ public class HttpMatchService {
                 .enemies(enemies)
                 .isWin(participant.isWin())
                 .position(participant.getRole())
+                .list(itemList)
                 .build();
     }
 

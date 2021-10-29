@@ -20,7 +20,7 @@ import java.time.Duration;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-c2569647-9e68-4ee2-a003-be74d88de541";
+    private final String riotApiKey = "RGAPI-776aecc1-5427-4b1c-ad14-7c5755e6495b";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {

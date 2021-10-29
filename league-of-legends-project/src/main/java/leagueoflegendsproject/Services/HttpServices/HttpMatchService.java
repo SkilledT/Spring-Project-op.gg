@@ -52,7 +52,7 @@ public class HttpMatchService {
     }
 
     public List<Match> getMatchCollectionByNickname(String nickname) throws IOException, InterruptedException {
-        return getMatchCollectionByNickname(nickname, 4);
+        return getMatchCollectionByNickname(nickname, 10);
     }
 
     /**
@@ -72,7 +72,8 @@ public class HttpMatchService {
     }
 
     public List<PlayersChampionStatsDto> getChampionStatsByNickname(String nickname) throws IOException, InterruptedException {
-        Map<String, List<ParticipantsItem>> byChampName = getMapGroupedBy(nickname, ParticipantsItem::getChampionName);
+        List<Match> matches = getMatchCollectionByNickname(nickname);
+        Map<String, List<ParticipantsItem>> byChampName = getMapGroupedBy(nickname, ParticipantsItem::getChampionName, matches);
 
         List<PlayersChampionStatsDto> playersChampionStatsDtos = new ArrayList<>();
         for (var key : byChampName.keySet()){
@@ -88,6 +89,7 @@ public class HttpMatchService {
                     new PlayersChampionStatsDto(winRatio, champName, CS, playedMatches, avgKills, avgDeaths, avgAssists);
             playersChampionStatsDtos.add(playersChampionStatsDto);
         }
+        playersChampionStatsDtos.sort(Comparator.comparing(PlayersChampionStatsDto::getPlayedMatches).reversed());
         return playersChampionStatsDtos;
     }
 
@@ -130,7 +132,7 @@ public class HttpMatchService {
                 new ItemMatchDto(participant.getItem5()),
                 new ItemMatchDto(participant.getItem0())
                 );
-        //TODO: championIcon have to be downloaded from file
+        //TODO:
         // participation in kill is not fully done yet
         return new MatchDetailsDto.Builder()
                 .championName(participant.getChampionName())
@@ -164,8 +166,8 @@ public class HttpMatchService {
                 .collect(Collectors.toList());
     }
 
-    public List<PreferedRoleDto> getSummonersPreferredRole(String nickname) throws IOException, InterruptedException {
-        Map<String, List<ParticipantsItem>> byRole = getMapGroupedBy(nickname, ParticipantsItem::getRole);
+    private List<PreferedRoleDto> getSummonersPreferredRole(String nickname, List<Match> matches) throws IOException, InterruptedException {
+        Map<String, List<ParticipantsItem>> byRole = getMapGroupedBy(nickname, ParticipantsItem::getRole, matches);
         int playedMatches = byRole.keySet().stream().mapToInt(key -> byRole.get(key).size()).sum();
         List<PreferedRoleDto> preferredRoleDots = new ArrayList<>();
 
@@ -181,8 +183,35 @@ public class HttpMatchService {
         return preferredRoleDots;
     }
 
-    private <T> Map<T, List<ParticipantsItem>> getMapGroupedBy(String nickname, Function<ParticipantsItem, T> function) throws IOException, InterruptedException {
+    public LastMatchesDto getLastMatchesPreferations(String nickname) throws IOException, InterruptedException {
         List<Match> matches = getMatchCollectionByNickname(nickname);
+        List<ParticipantsItem> participantsItems = getParticipantItems(nickname, matches);
+        int playedGames = matches.size();
+        double avgKills = getAverageValue(participantsItems, ParticipantsItem::getKills);
+        double avgDeaths = getAverageValue(participantsItems, ParticipantsItem::getDeaths);
+        double avgAssists = getAverageValue(participantsItems, ParticipantsItem::getAssists);
+        double avgKDA = (avgKills + avgAssists) / avgDeaths;
+        long victories = participantsItems.stream().filter(ParticipantsItem::isWin).count();
+        long defeats = playedGames - victories;
+        List<PreferedRoleDto> preferredRoles = getSummonersPreferredRole(nickname, matches).stream()
+                .sorted((e1, e2) -> (int) (e1.getPickRatio() - e2.getPickRatio()))
+                .limit(2).collect(Collectors.toList());
+        LastMatchesDto lastMatchesDto =
+                new LastMatchesDto.Builder()
+                    .playedGames(playedGames)
+                    .avgKills(avgKills)
+                    .avgDeaths(avgDeaths)
+                    .avgAssists(avgAssists)
+                    .avgKDA(avgKDA)
+                    .roles(preferredRoles)
+                    .defeats(defeats)
+                    .victories(victories)
+                    .build();
+
+        return lastMatchesDto;
+    }
+
+    private List<ParticipantsItem> getParticipantItems(String nickname, List<Match> matches) throws IOException, InterruptedException {
         String userPuuid = summonerService.getSummonerByName(nickname).getPuuid();
         List<ParticipantsItem> participants = new ArrayList<>();
         List<List<ParticipantsItem>> lists = matches.stream()
@@ -191,10 +220,15 @@ public class HttpMatchService {
         for (var list : lists){
             participants.addAll(list);
         }
-        participants = participants.stream()
+        return participants.stream()
                 .filter(e -> e.getPuuid().equals(userPuuid))
                 .collect(Collectors.toList());
-        Map<T, List<ParticipantsItem>> groupedBy = participants.stream()
+    }
+
+    private <T> Map<T, List<ParticipantsItem>> getMapGroupedBy(String nickname, Function<ParticipantsItem, T> function, List<Match> matches) throws IOException, InterruptedException {
+        List<ParticipantsItem> participantsItems = getParticipantItems(nickname, matches);
+
+        Map<T, List<ParticipantsItem>> groupedBy = participantsItems.stream()
                 .collect(Collectors.groupingBy(function));
         return groupedBy;
     }

@@ -7,25 +7,27 @@ public class PlayersChampionStatsDto {
     private String champName;
     private double CS;
     private int playedMatches;
-    private double avgKill;
-    private double avgDeath;
+    private double avgKills;
+    private double avgDeaths;
     private double avgAssists;
     private double KDA;
+    private String champUrl;
 
     public PlayersChampionStatsDto(double winRatio,
                                    String champName,
                                    double CS,
                                    int playedMatches,
-                                   double avgKill,
-                                   double avgDeath,
+                                   double avgKills,
+                                   double avgDeaths,
                                    double avgAssists) {
         this.winRatio = winRatio;
         this.champName = champName;
         this.CS = CS;
         this.playedMatches = playedMatches;
-        this.avgKill = avgKill;
-        this.avgDeath = avgDeath;
+        this.avgKills = avgKills;
+        this.avgDeaths = avgDeaths;
         this.avgAssists = avgAssists;
+        this.champUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+champName+".png";
     }
 
     public PlayersChampionStatsDto() {
@@ -63,20 +65,20 @@ public class PlayersChampionStatsDto {
         this.playedMatches = playedMatches;
     }
 
-    public double getAvgKill() {
-        return avgKill;
+    public double getAvgKills() {
+        return avgKills;
     }
 
-    public void setAvgKill(double avgKill) {
-        this.avgKill = avgKill;
+    public void setAvgKills(double avgKills) {
+        this.avgKills = avgKills;
     }
 
-    public double getAvgDeath() {
-        return avgDeath;
+    public double getAvgDeaths() {
+        return avgDeaths;
     }
 
-    public void setAvgDeath(double avgDeath) {
-        this.avgDeath = avgDeath;
+    public void setAvgDeaths(double avgDeaths) {
+        this.avgDeaths = avgDeaths;
     }
 
     public double getAvgAssists() {
@@ -88,7 +90,15 @@ public class PlayersChampionStatsDto {
     }
 
     public double getKDA() {
-        return (avgKill + avgAssists) / avgDeath;
+        return (avgKills + avgAssists) / avgDeaths;
+    }
+
+    public String getChampUrl() {
+        return champUrl;
+    }
+
+    public void setChampUrl(String champUrl) {
+        this.champUrl = champUrl;
     }
 
     @Override
@@ -99,8 +109,8 @@ public class PlayersChampionStatsDto {
         return Double.compare(that.winRatio, winRatio) == 0 &&
                 Double.compare(that.CS, CS) == 0 &&
                 playedMatches == that.playedMatches &&
-                Double.compare(that.avgKill, avgKill) == 0 &&
-                Double.compare(that.avgDeath, avgDeath) == 0 &&
+                Double.compare(that.avgKills, avgKills) == 0 &&
+                Double.compare(that.avgDeaths, avgDeaths) == 0 &&
                 Double.compare(that.avgAssists, avgAssists) == 0 &&
                 Double.compare(that.KDA, KDA) == 0 &&
                 Objects.equals(champName, that.champName);
@@ -108,7 +118,7 @@ public class PlayersChampionStatsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(winRatio, champName, CS, playedMatches, avgKill, avgDeath, avgAssists, KDA);
+        return Objects.hash(winRatio, champName, CS, playedMatches, avgKills, avgDeaths, avgAssists, KDA);
     }
 
     @Override
@@ -118,8 +128,8 @@ public class PlayersChampionStatsDto {
                 ", champName='" + champName + '\'' +
                 ", CS=" + CS +
                 ", playedMatches=" + playedMatches +
-                ", avgKill=" + avgKill +
-                ", avgDeath=" + avgDeath +
+                ", avgKill=" + avgKills +
+                ", avgDeath=" + avgDeaths +
                 ", avgAssists=" + avgAssists +
                 ", KDA=" + KDA +
                 '}';

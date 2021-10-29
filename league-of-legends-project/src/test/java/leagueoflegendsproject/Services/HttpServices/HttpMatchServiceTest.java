@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -202,15 +201,15 @@ class HttpMatchServiceTest {
 
         PlayersChampionStatsDto playersChampionStatsDto1 = new PlayersChampionStatsDto();
         playersChampionStatsDto1.setAvgAssists(4.0d);
-        playersChampionStatsDto1.setAvgDeath(4.0d);
-        playersChampionStatsDto1.setAvgKill(4.0d);
+        playersChampionStatsDto1.setAvgDeaths(4.0d);
+        playersChampionStatsDto1.setAvgKills(4.0d);
         playersChampionStatsDto1.setChampName("Shen");
         playersChampionStatsDto1.setWinRatio(0.5d);
 
         PlayersChampionStatsDto playersChampionStatsDto2 = new PlayersChampionStatsDto();
         playersChampionStatsDto2.setAvgAssists(4.0d);
-        playersChampionStatsDto2.setAvgDeath(4.0d);
-        playersChampionStatsDto2.setAvgKill(4.0d);
+        playersChampionStatsDto2.setAvgDeaths(4.0d);
+        playersChampionStatsDto2.setAvgKills(4.0d);
         playersChampionStatsDto2.setChampName("Fizz");
         playersChampionStatsDto2.setWinRatio(1.0d);
 

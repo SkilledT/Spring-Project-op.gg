@@ -27,5 +27,18 @@ public class ParticipantItems {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "matchParticipantKey")
+    @JoinColumns({
+            @JoinColumn(name = "summoner_id", referencedColumnName = "Summoner_summoner_id"),
+            @JoinColumn(name = "match_id", referencedColumnName = "Match_match_Id")
+    })
     private MatchParticipant matchParticipant;
+
+
+    public void setMatchParticipant(MatchParticipant matchParticipant) {
+        this.matchParticipant = matchParticipant;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }

@@ -3,6 +3,7 @@ package leagueoflegendsproject.Models.Database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -148,6 +149,31 @@ public class MatchParticipant {
     private Boolean gameEndedInEarlySurrender;
     @Column(name = "spell4_casts")
     private Integer spell4Casts;
+
+    public MatchParticipant(ParticipantsItem participant){
+
+    }
+
+
+    public void setSummoner(Summoner summoner) {
+        this.summoner = summoner;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    public void setChampion(Champion champion) {
+        this.champion = champion;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public void setParticipantItemsSet(Set<ParticipantItems> participantItemsSet) {
+        this.participantItemsSet = participantItemsSet;
+    }
 
     @Override
     public String toString() {

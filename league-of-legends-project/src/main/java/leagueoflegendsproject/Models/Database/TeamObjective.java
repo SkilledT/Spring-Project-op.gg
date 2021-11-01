@@ -22,9 +22,12 @@ public class TeamObjective {
     private TeamObjectiveKey key;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @MapsId(value = "teamId")
-    @JoinColumn(name = "team_team_id")
-    private Team team;
+    @MapsId(value = "matchTeamKey")
+    @JoinColumns({
+            @JoinColumn(name = "match_id", referencedColumnName = "match_id"),
+            @JoinColumn(name = "team_id", referencedColumnName = "team_id")
+    })
+    private MatchTeam matchTeam;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "objectiveId")
@@ -35,4 +38,35 @@ public class TeamObjective {
 
     @Type(type = "numeric_boolean")
     private Boolean first;
+
+    public TeamObjective(TeamObjectiveKey key, MatchTeam matchTeam, Objective objective, Integer kills, Boolean first) {
+        this.key = key;
+        this.matchTeam = matchTeam;
+        this.objective = objective;
+        this.kills = kills;
+        this.first = first;
+    }
+
+    public TeamObjective() {
+    }
+
+    public void setKey(TeamObjectiveKey key) {
+        this.key = key;
+    }
+
+    public void setMatchTeam(MatchTeam matchTeam) {
+        this.matchTeam = matchTeam;
+    }
+
+    public void setObjective(Objective objective) {
+        this.objective = objective;
+    }
+
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    public void setFirst(Boolean first) {
+        this.first = first;
+    }
 }

@@ -26,4 +26,11 @@ public class Item {
     @OneToMany
     Set<ParticipantItems> participantItemsSet;
 
+    public Item(Long id, Integer iconId){
+        this.id = id;
+        this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/item/" + iconId + ".png";
+        //profileIcon
+        //this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/"+ iconId + ".png";
+    }
+
 }

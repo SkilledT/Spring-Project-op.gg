@@ -21,13 +21,37 @@ public class Team {
     @Column(name = "team_id")
     private Long id;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private Set<Ban> banSet;
+    public Team(Long id){
+        this.id = id;
+    }
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private Set<TeamObjective> teamObjectiveSet;
+    private Set<MatchParticipant> banSet;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private Set<MatchParticipant> matchParticipantSet;
+    private Set<MatchTeam> teamObjectiveSet;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<MatchParticipant> getBanSet() {
+        return banSet;
+    }
+
+    public void setBanSet(Set<MatchParticipant> banSet) {
+        this.banSet = banSet;
+    }
+
+    public Set<MatchTeam> getTeamObjectiveSet() {
+        return teamObjectiveSet;
+    }
+
+    public void setTeamObjectiveSet(Set<MatchTeam> teamObjectiveSet) {
+        this.teamObjectiveSet = teamObjectiveSet;
+    }
 }

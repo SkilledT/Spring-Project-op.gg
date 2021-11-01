@@ -1,7 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +33,13 @@ public class Summoner {
 
     @OneToMany(mappedBy = "summoner")
     private Set<MatchParticipant> matchParticipantSet;
+
+    public Summoner(ParticipantsItem participantsItem){
+        this.summonerId = participantsItem.getSummonerId();
+        this.lvl = participantsItem.getSummonerLevel();
+        this.profileIconId = participantsItem.getProfileIcon();
+        this.summonerNickname = participantsItem.getSummonerName();
+    }
 
     @Override
     public String toString() {

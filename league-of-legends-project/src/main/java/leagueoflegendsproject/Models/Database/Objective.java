@@ -23,4 +23,8 @@ public class Objective {
 
     @OneToMany(mappedBy = "objective", cascade = CascadeType.ALL)
     private Set<TeamObjective> teamObjective;
+
+    public Objective(String name){
+        this.id = name;
+    }
 }

@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,4 +35,15 @@ public class Champion {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "champion")
     private Set<Ban> ban;
 
+    public Champion(ParticipantsItem participantsItem){
+        this.id = (long) participantsItem.getChampionId();
+        this.name = participantsItem.getChampionName();
+        this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/champion/" + participantsItem.getChampionName() +".png";
+    }
+
+    public Champion(Long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/champion/" + name +".png";
+    }
 }

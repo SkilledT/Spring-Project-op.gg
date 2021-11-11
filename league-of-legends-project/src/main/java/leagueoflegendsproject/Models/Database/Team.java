@@ -1,50 +1,51 @@
 package leagueoflegendsproject.Models.Database;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
-@Table
+@Table(name = "Team")
 public class Team {
 
     @Id
     @Column(name = "team_id")
-    private Long id;
+    private Integer id;
 
-    public Team(Long id){
+    @OneToMany(mappedBy = "team")
+    private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "team")
+    private Set<MatchTeam> teamObjectiveSet = new HashSet<>();
+
+    public Team(Integer id, Set<MatchParticipant> matchParticipantSet, Set<MatchTeam> teamObjectiveSet) {
+        this.id = id;
+        this.matchParticipantSet = matchParticipantSet;
+        this.teamObjectiveSet = teamObjectiveSet;
+    }
+
+    public Team() {
+    }
+
+    public Team(Integer id) {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private Set<MatchParticipant> banSet;
-
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private Set<MatchTeam> teamObjectiveSet;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Set<MatchParticipant> getBanSet() {
-        return banSet;
+    public Set<MatchParticipant> getMatchParticipantSet() {
+        return matchParticipantSet;
     }
 
-    public void setBanSet(Set<MatchParticipant> banSet) {
-        this.banSet = banSet;
+    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
+        this.matchParticipantSet = matchParticipantSet;
     }
 
     public Set<MatchTeam> getTeamObjectiveSet() {
@@ -53,5 +54,18 @@ public class Team {
 
     public void setTeamObjectiveSet(Set<MatchTeam> teamObjectiveSet) {
         this.teamObjectiveSet = teamObjectiveSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(id, team.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

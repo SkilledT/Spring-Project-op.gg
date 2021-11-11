@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    Optional<Item> findById(Long id);
+    @Override
+    Optional<Item> findById(Integer integer);
 }

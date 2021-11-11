@@ -1,62 +1,166 @@
 package leagueoflegendsproject.Models.Database;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "Match")
 public class Match {
 
     @Id
     @Column(name = "match_id")
-    private String id;
+    private String matchId;
 
-    private Long gameId;
+    private Integer gameId;
 
     private String gameType;
 
-    private Long queueId;
+    private Integer queueId;
 
-    private Long gameDuration;
+    private Integer gameDuration;
 
     @Transient
-    private Long gameStartTimestamp;
+    private Integer gameStartTimestamp;
 
     private String platformId;
 
-    private Long gameCreation;
+    private Integer gameCreation;
 
-    private Long mapId;
+    private Integer mapId;
 
     private String gameMode;
 
-    @OneToMany(mappedBy = "match")
-    private Set<MatchParticipant> matchParticipantSet;
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match")
-    private Set<MatchTeam> matchTeamSet;
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    private Set<MatchTeam> matchTeamSet = new HashSet<>();
 
     public Match(){}
 
+    public Match(String matchId, Integer gameId, String gameType, Integer queueId, Integer gameDuration, Integer gameStartTimestamp, String platformId, Integer gameCreation, Integer mapId, String gameMode, Set<MatchParticipant> matchParticipantSet, Set<MatchTeam> matchTeamSet) {
+        this.matchId = matchId;
+        this.gameId = gameId;
+        this.gameType = gameType;
+        this.queueId = queueId;
+        this.gameDuration = gameDuration;
+        this.gameStartTimestamp = gameStartTimestamp;
+        this.platformId = platformId;
+        this.gameCreation = gameCreation;
+        this.mapId = mapId;
+        this.gameMode = gameMode;
+        this.matchParticipantSet = matchParticipantSet;
+        this.matchTeamSet = matchTeamSet;
+    }
+
     public Match(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match){
-        this.id = match.getMetadata().getMatchId();
-        this.gameId = match.getInfo().getGameId();
+        this.matchId = match.getMetadata().getMatchId();
+        this.gameId = (int) match.getInfo().getGameId();
         this.gameType = match.getInfo().getGameType();
-        this.queueId = (long) match.getInfo().getQueueId();
-        this.gameDuration = (long) match.getInfo().getGameDuration();
+        this.queueId = match.getInfo().getQueueId();
+        this.gameDuration = 0;
         this.platformId = match.getInfo().getPlatformId();
-        this.gameCreation = (long) match.getInfo().getGameCreation();
-        this.mapId = (long) match.getInfo().getMapId();
+        this.gameCreation = 0;
+        this.mapId = match.getInfo().getMapId();
         this.gameMode = match.getInfo().getGameMode();
+        this.gameStartTimestamp = 0;
+    }
+
+    public String getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(String id) {
+        this.matchId = id;
+    }
+
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    public Integer getQueueId() {
+        return queueId;
+    }
+
+    public void setQueueId(Integer queueId) {
+        this.queueId = queueId;
+    }
+
+    public Integer getGameDuration() {
+        return gameDuration;
+    }
+
+    public void setGameDuration(Integer gameDuration) {
+        this.gameDuration = gameDuration;
+    }
+
+    public Integer getGameStartTimestamp() {
+        return gameStartTimestamp;
+    }
+
+    public void setGameStartTimestamp(Integer gameStartTimestamp) {
+        this.gameStartTimestamp = gameStartTimestamp;
+    }
+
+    public String getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(String platformId) {
+        this.platformId = platformId;
+    }
+
+    public Integer getGameCreation() {
+        return gameCreation;
+    }
+
+    public void setGameCreation(Integer gameCreation) {
+        this.gameCreation = gameCreation;
+    }
+
+    public Integer getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(Integer mapId) {
+        this.mapId = mapId;
+    }
+
+    public String getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public Set<MatchParticipant> getMatchParticipantSet() {
+        return matchParticipantSet;
+    }
+
+    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
+        this.matchParticipantSet = matchParticipantSet;
+    }
+
+    public Set<MatchTeam> getMatchTeamSet() {
+        return matchTeamSet;
+    }
+
+    public void setMatchTeamSet(Set<MatchTeam> matchTeamSet) {
+        this.matchTeamSet = matchTeamSet;
     }
 
     @Override
@@ -64,84 +168,20 @@ public class Match {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Match match = (Match) o;
-        return id.equals(match.id);
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setGameId(Long gameId) {
-        this.gameId = gameId;
-    }
-
-    public void setGameType(String gameType) {
-        this.gameType = gameType;
-    }
-
-    public void setQueueId(Long queueId) {
-        this.queueId = queueId;
-    }
-
-    public void setGameDuration(Long gameDuration) {
-        this.gameDuration = gameDuration;
-    }
-
-    public void setGameStartTimestamp(Long gameStartTimestamp) {
-        this.gameStartTimestamp = gameStartTimestamp;
-    }
-
-    public void setPlatformId(String platformId) {
-        this.platformId = platformId;
-    }
-
-    public void setGameCreation(Long gameCreation) {
-        this.gameCreation = gameCreation;
-    }
-
-    public void setMapId(Long mapId) {
-        this.mapId = mapId;
-    }
-
-    public void setGameMode(String gameMode) {
-        this.gameMode = gameMode;
-    }
-
-    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
-        this.matchParticipantSet = matchParticipantSet;
-    }
-
-    public Set<MatchParticipant> getMatchParticipantSet() {
-        return matchParticipantSet;
-    }
-
-    public void setMatchTeamSet(Set<MatchTeam> matchTeamSet) {
-        this.matchTeamSet = matchTeamSet;
-    }
-
-    public Set<MatchTeam> getMatchTeamSet() {
-        return matchTeamSet;
+        return Objects.equals(matchId, match.matchId) &&
+                Objects.equals(gameId, match.gameId) &&
+                Objects.equals(gameType, match.gameType) &&
+                Objects.equals(queueId, match.queueId) &&
+                Objects.equals(gameDuration, match.gameDuration) &&
+                Objects.equals(gameStartTimestamp, match.gameStartTimestamp) &&
+                Objects.equals(platformId, match.platformId) &&
+                Objects.equals(gameCreation, match.gameCreation) &&
+                Objects.equals(mapId, match.mapId) &&
+                Objects.equals(gameMode, match.gameMode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Match{" +
-                "id='" + id + '\'' +
-                ", gameId=" + gameId +
-                ", gameType='" + gameType + '\'' +
-                ", queueId=" + queueId +
-                ", gameDuration=" + gameDuration +
-                ", gameStartTimestamp=" + gameStartTimestamp +
-                ", platformId='" + platformId + '\'' +
-                ", gameCreation=" + gameCreation +
-                ", mapId=" + mapId +
-                ", gameMode='" + gameMode + '\'' +
-                ", matchParticipantSet=" + matchParticipantSet +
-                '}';
+        return Objects.hash(matchId, gameId, gameType, queueId, gameDuration, gameStartTimestamp, platformId, gameCreation, mapId, gameMode);
     }
 }

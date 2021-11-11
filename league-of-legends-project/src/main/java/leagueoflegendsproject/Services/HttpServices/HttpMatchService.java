@@ -5,6 +5,7 @@ import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
+import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,14 @@ public class HttpMatchService {
 
     private final RiotHttpClient riotHttpClient;
     private final HttpSummonerService summonerService;
+    private final DbMatchService dbMatchService;
 
     public HttpMatchService(final RiotHttpClient riotHttpClient,
-                            final HttpSummonerService summonerService) {
+                            final HttpSummonerService summonerService,
+                            final DbMatchService dbMatchService) {
         this.riotHttpClient = riotHttpClient;
         this.summonerService = summonerService;
+        this.dbMatchService = dbMatchService;
     }
 
     /**
@@ -46,6 +50,7 @@ public class HttpMatchService {
         List<Match> matches = new ArrayList<>();
         for (String id : matchesIds){
             Match match = getMatchById(id);
+            dbMatchService.AddMatchToDb(match);
             matches.add(match);
         }
         return matches;

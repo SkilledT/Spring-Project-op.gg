@@ -8,9 +8,8 @@ import java.util.Objects;
 @Embeddable
 public class MatchParticipantKey implements Serializable {
 
-    private String summonerId;
-
-    private String matchId;
+    private String summonerId = new String();
+    private String matchId = new String();
 
     public MatchParticipantKey(String summonerId, String matchId) {
         this.summonerId = summonerId;

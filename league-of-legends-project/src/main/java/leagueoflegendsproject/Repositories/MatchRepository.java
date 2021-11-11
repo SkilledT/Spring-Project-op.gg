@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, String> {
+
+    @Override
+    <S extends Match> S save(S s);
 }

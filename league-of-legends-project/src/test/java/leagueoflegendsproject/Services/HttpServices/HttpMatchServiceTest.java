@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 class HttpMatchServiceTest {
 
+    /*
     private RiotHttpClient mockRiotHttpClient;
     private HttpSummonerService mockSummonerService;
 
@@ -229,4 +230,5 @@ class HttpMatchServiceTest {
     @Test
     void getSummonersPreferredRole() {
     }
+    */
 }

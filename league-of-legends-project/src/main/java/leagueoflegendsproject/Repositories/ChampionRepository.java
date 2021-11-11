@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ChampionRepository extends JpaRepository<Champion, Long> {
+public interface ChampionRepository extends JpaRepository<Champion, Integer> {
 
-    Optional<Champion> findById(Long aLong);
+    @Override
+    Optional<Champion> findById(Integer integer);
 }

@@ -5,6 +5,7 @@ import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
+import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;

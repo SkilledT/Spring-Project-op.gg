@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -18,7 +17,7 @@ import javax.persistence.*;
 public class Ban {
 
     @EmbeddedId
-    private BanKey banKey;
+    private BanKey banKey = new BanKey();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "matchTeamKey")
@@ -33,9 +32,17 @@ public class Ban {
     @JoinColumn(name = "champion_id")
     private Champion champion;
 
-
-
     private Integer pickTurn;
+
+    public Ban(BanKey banKey, MatchTeam matchTeam, Champion champion, Integer pickTurn) {
+        this.banKey = banKey;
+        this.matchTeam = matchTeam;
+        this.champion = champion;
+        this.pickTurn = pickTurn;
+    }
+
+    public Ban() {
+    }
 
     public BanKey getBanKey() {
         return banKey;
@@ -67,5 +74,21 @@ public class Ban {
 
     public void setPickTurn(Integer pickTurn) {
         this.pickTurn = pickTurn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ban ban = (Ban) o;
+        return Objects.equals(banKey, ban.banKey) &&
+                Objects.equals(matchTeam, ban.matchTeam) &&
+                Objects.equals(champion, ban.champion) &&
+                Objects.equals(pickTurn, ban.pickTurn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(banKey, matchTeam, champion, pickTurn);
     }
 }

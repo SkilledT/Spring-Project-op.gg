@@ -1,28 +1,41 @@
 package leagueoflegendsproject.Models.Database.Keys;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class TeamObjectiveKey implements Serializable {
 
     private String objectiveId;
 
     @Embedded
-    private MatchTeamKey matchTeamKey;
+    private MatchTeamKey matchTeamKey = new MatchTeamKey();
 
     public TeamObjectiveKey() {
+    }
+
+    public TeamObjectiveKey(String objectiveId, MatchTeamKey matchTeamKey) {
+        this.objectiveId = objectiveId;
+        this.matchTeamKey = matchTeamKey;
+    }
+
+    public String getObjectiveId() {
+        return objectiveId;
+    }
+
+    public void setObjectiveId(String objectiveId) {
+        this.objectiveId = objectiveId;
+    }
+
+    public MatchTeamKey getMatchTeamKey() {
+        return matchTeamKey;
+    }
+
+    public void setMatchTeamKey(MatchTeamKey matchTeamKey) {
+        this.matchTeamKey = matchTeamKey;
     }
 
     @Override

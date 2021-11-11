@@ -14,11 +14,29 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class BanKey implements Serializable {
 
     @Embedded
-    private MatchTeamKey matchTeamKey;
+    private MatchTeamKey matchTeamKey = new MatchTeamKey();
 
-    private Long championId;
+    private Integer championId;
+
+    public BanKey(MatchTeamKey matchTeamKey, Integer championId) {
+        this.matchTeamKey = matchTeamKey;
+        this.championId = championId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BanKey banKey = (BanKey) o;
+        return Objects.equals(matchTeamKey, banKey.matchTeamKey) &&
+                Objects.equals(championId, banKey.championId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matchTeamKey, championId);
+    }
 }

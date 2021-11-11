@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class Summoner {
     private String summonerNickname;
 
     @OneToMany(mappedBy = "summoner")
-    private Set<MatchParticipant> matchParticipantSet;
+    private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
     public Summoner(ParticipantsItem participantsItem){
         this.summonerId = participantsItem.getSummonerId();
@@ -41,14 +42,61 @@ public class Summoner {
         this.summonerNickname = participantsItem.getSummonerName();
     }
 
+    public Summoner(){}
+
+    public String getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId(String summonerId) {
+        this.summonerId = summonerId;
+    }
+
+    public Integer getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(Integer lvl) {
+        this.lvl = lvl;
+    }
+
+    public Integer getProfileIconId() {
+        return profileIconId;
+    }
+
+    public void setProfileIconId(Integer profileIconId) {
+        this.profileIconId = profileIconId;
+    }
+
+    public String getSummonerNickname() {
+        return summonerNickname;
+    }
+
+    public void setSummonerNickname(String summonerNickname) {
+        this.summonerNickname = summonerNickname;
+    }
+
+    public Set<MatchParticipant> getMatchParticipantSet() {
+        return matchParticipantSet;
+    }
+
+    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
+        this.matchParticipantSet = matchParticipantSet;
+    }
+
     @Override
-    public String toString() {
-        return "Summoner{" +
-                "summonerId='" + summonerId + '\'' +
-                ", lvl=" + lvl +
-                ", profileIconId=" + profileIconId +
-                ", summonerNickname='" + summonerNickname + '\'' +
-                ", matchParticipantSet=" + matchParticipantSet +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Summoner summoner = (Summoner) o;
+        return Objects.equals(summonerId, summoner.summonerId) &&
+                Objects.equals(lvl, summoner.lvl) &&
+                Objects.equals(profileIconId, summoner.profileIconId) &&
+                Objects.equals(summonerNickname, summoner.summonerNickname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(summonerId, lvl, profileIconId, summonerNickname);
     }
 }

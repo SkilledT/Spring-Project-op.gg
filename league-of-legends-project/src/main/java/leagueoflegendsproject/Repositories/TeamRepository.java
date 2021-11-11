@@ -2,10 +2,12 @@ package leagueoflegendsproject.Repositories;
 
 import leagueoflegendsproject.Models.Database.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface TeamRepository extends JpaRepository<Team, Long> {
+@Repository
+public interface TeamRepository extends JpaRepository<Team, Integer> {
 
-    Optional<Team> findById(Long aLong);
+    Optional<Team> findById(Integer aLong);
 }

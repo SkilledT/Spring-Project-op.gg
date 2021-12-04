@@ -21,7 +21,7 @@ public class SummonerController {
 
     @GetMapping()
     public ResponseEntity<?> getSummonerByName(){
-        String name = "Skilled Teaser";
+        String name = "SSW Miszi M";
         try {
             var summoner = httpSummonerService.getSummonerByName(name);
             return ResponseEntity.ok(summoner);
@@ -33,7 +33,7 @@ public class SummonerController {
 
     @GetMapping("/league")
     public ResponseEntity<?> getSummonerLeagueByNickname(){
-        String name = "Skilled Teaser";
+        String name = "SSW Miszi M";
         try {
             var summoner = httpSummonerService.getSummonerLeagueByNickname(name);
             return ResponseEntity.ok(summoner);

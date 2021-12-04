@@ -1,6 +1,6 @@
 package leagueoflegendsproject.Repositories;
 
-import leagueoflegendsproject.Models.Database.Champion;
+import leagueoflegendsproject.Models.Database.Champion.Champion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +11,10 @@ public interface ChampionRepository extends JpaRepository<Champion, Integer> {
 
     @Override
     Optional<Champion> findById(Integer integer);
+
+    @Override
+    <S extends Champion> S save(S s);
+
+    @Override
+    boolean existsById(Integer integer);
 }

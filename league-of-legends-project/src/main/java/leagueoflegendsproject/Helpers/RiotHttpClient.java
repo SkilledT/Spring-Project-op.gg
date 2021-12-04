@@ -2,7 +2,10 @@ package leagueoflegendsproject.Helpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
+import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -14,14 +17,16 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.*;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-5fc41f1f-550b-44ce-9093-752580582d1b";
+    private final String riotApiKey = "RGAPI-dce76696-9219-4f3d-9932-90e7168bcfa6";
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    private final static String RIOT_CHAMPION_URL = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/en_US/champion.json";
 
     public RiotHttpClient() {
     }
@@ -40,6 +45,45 @@ public class RiotHttpClient implements IRiotHttpClient {
             return new HttpResponseWrapper<>(true, jsonResponse, response.body());
         }
         return new HttpResponseWrapper<T>(false, null, response.body());
+    }
+
+    public HttpResponseWrapper<List<ChampionItem>> getChampions() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(RIOT_CHAMPION_URL))
+                .GET()
+                .header(headerApiKey, riotApiKey)
+                .build();
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        Object o = gson.fromJson(response.body(), Object.class);
+        List keys = new ArrayList();
+        Collection values = null;
+        if (o instanceof Map) {
+            Map map = (Map) o;
+            keys.addAll(map.keySet());
+            values = map.values();
+        } else if (o instanceof Collection) {
+            values = (Collection) o;
+        }
+
+        for (var val : values){
+            if (val instanceof LinkedTreeMap){
+                Map champMap = ((LinkedTreeMap) val);
+                List<ChampionItem> championItemList = new ArrayList<>();
+                JSONObject jsonObject = new JSONObject(champMap);
+                Set<String> championNames = jsonObject.keySet();
+                for (var cName : championNames){
+                    var cValues = champMap.get(cName);
+                    var json = gson.toJson(cValues);
+                    var cItem = gson.fromJson(json, ChampionItem.class);
+                    championItemList.add(cItem);
+                }
+                return new HttpResponseWrapper<>(true, championItemList, champMap.toString());
+            }
+        }
+        return new HttpResponseWrapper(false, null, response.body());
     }
 
     public <T> HttpResponseWrapper put(String url, T data) throws IOException, InterruptedException {

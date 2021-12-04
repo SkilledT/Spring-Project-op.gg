@@ -22,9 +22,7 @@ public class Item {
 
     public Item(Integer id){
         this.id = id;
-        this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/item/" + id + ".png";
-        //profileIcon
-        //this.iconUrl = "http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/"+ iconId + ".png";
+        this.iconUrl = "https://ddragon.leagueoflegends.com/cdn/11.22.1/img/item/" + id + ".png";
     }
 
     public Item(Integer id, String iconUrl, Set<ParticipantItems> participantItemsSet) {

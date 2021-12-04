@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import org.hibernate.annotations.Type;

@@ -1,6 +1,7 @@
 package leagueoflegendsproject;
 
 import leagueoflegendsproject.Filters.CorsFilter;
+import leagueoflegendsproject.Helpers.ChampionProvider;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

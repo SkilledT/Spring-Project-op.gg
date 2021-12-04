@@ -1,10 +1,8 @@
 package leagueoflegendsproject.Services.DbServices;
 
-import leagueoflegendsproject.DTOs.ItemMatchDto;
-import leagueoflegendsproject.DTOs.MatchDetailsDto;
-import leagueoflegendsproject.DTOs.PlayerGameDto;
-import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
+import leagueoflegendsproject.DTOs.*;
 import leagueoflegendsproject.Models.Database.*;
+import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.BanKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
@@ -13,6 +11,7 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,6 +54,7 @@ public class DbMatchService {
         this.banRepository = banRepository;
     }
 
+    @Transactional
     public void AddMatchToDb(Match match){
         if (matchRepository.findById(match.getMetadata().getMatchId()).isPresent())
             return;
@@ -198,7 +198,7 @@ public class DbMatchService {
         List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummonerNickname(nickname);
         return matchParticipant.stream().map(mp -> {
             List<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
-                    .map(item -> new ItemMatchDto(item.getId()))
+                    .map(item -> new ItemMatchDto(item.getId(), item.getItem().getIconUrl()))
                     .collect(Collectors.toList());
             List<PlayerGameDto> allies = mp.getMatch().getMatchParticipantSet().stream()
                     .filter(e -> e.getTeam().getId().equals(mp.getTeam().getId()))
@@ -229,7 +229,7 @@ public class DbMatchService {
                     .list(itemMatchDtos)
                     .allies(allies)
                     .enemies(enemies)
-                    .pInKill(pInKill)
+                    .pInKill(0)
                     .build();
         }).collect(Collectors.toList());
     }
@@ -252,5 +252,28 @@ public class DbMatchService {
             String champUrl = champion.getIconUrl();
             return new PlayersChampionStatsDto(winRatio, champName, avgCS, playedMatches, avgKills, avgDeaths, avgAssists, KDA, champUrl);
         }).collect(Collectors.toSet());
+    }
+
+    public List<PreferedRoleDto> getPreferredRole(String nickname){
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummonerNickname(nickname);
+        Map<String, Long> roles =
+                matchParticipant.stream()
+                        .filter(e -> !e.getIndividualPosition().equals("Invalid"))
+                        .collect(Collectors.groupingBy(MatchParticipant::getIndividualPosition, Collectors.counting()));
+        return roles.keySet().stream().map(lane -> {
+            long picks = roles.get(lane);
+            long playedGames = matchParticipant.size();
+            double pickRatio = (double) picks / (double) playedGames;
+            long wins = matchParticipant.stream()
+                    .filter(MatchParticipant::getWin)
+                    .filter(e -> e.getLane().equals(lane))
+                    .count();
+            long playedOnLane = matchParticipant.stream()
+                    .filter(e -> e.getLane().equals(lane))
+                    .count();
+            double winRatio = (double) wins / (double) playedOnLane;
+            return new PreferedRoleDto(pickRatio, winRatio, lane);
+        }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
+                .collect(Collectors.toList());
     }
 }

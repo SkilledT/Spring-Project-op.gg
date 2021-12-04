@@ -20,12 +20,12 @@ public class Match {
 
     private Integer gameDuration;
 
-    @Transient
+    @Column(name = "game_start_timestamp")
     private Integer gameStartTimestamp;
 
     private String platformId;
 
-    private Integer gameCreation;
+    private Long gameCreation;
 
     private Integer mapId;
 
@@ -39,7 +39,7 @@ public class Match {
 
     public Match(){}
 
-    public Match(String matchId, Integer gameId, String gameType, Integer queueId, Integer gameDuration, Integer gameStartTimestamp, String platformId, Integer gameCreation, Integer mapId, String gameMode, Set<MatchParticipant> matchParticipantSet, Set<MatchTeam> matchTeamSet) {
+    public Match(String matchId, Integer gameId, String gameType, Integer queueId, Integer gameDuration, Integer gameStartTimestamp, String platformId, Long gameCreation, Integer mapId, String gameMode, Set<MatchParticipant> matchParticipantSet, Set<MatchTeam> matchTeamSet) {
         this.matchId = matchId;
         this.gameId = gameId;
         this.gameType = gameType;
@@ -61,10 +61,10 @@ public class Match {
         this.queueId = match.getInfo().getQueueId();
         this.gameDuration = 0;
         this.platformId = match.getInfo().getPlatformId();
-        this.gameCreation = 0;
+        this.gameCreation = match.getInfo().getGameCreation();
         this.mapId = match.getInfo().getMapId();
         this.gameMode = match.getInfo().getGameMode();
-        this.gameStartTimestamp = 0;
+        this.gameStartTimestamp = (int) match.getInfo().getGameStartTimestamp();
     }
 
     public String getMatchId() {
@@ -123,11 +123,11 @@ public class Match {
         this.platformId = platformId;
     }
 
-    public Integer getGameCreation() {
+    public Long getGameCreation() {
         return gameCreation;
     }
 
-    public void setGameCreation(Integer gameCreation) {
+    public void setGameCreation(Long gameCreation) {
         this.gameCreation = gameCreation;
     }
 

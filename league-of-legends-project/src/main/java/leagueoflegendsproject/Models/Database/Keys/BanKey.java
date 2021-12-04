@@ -13,7 +13,6 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
-@NoArgsConstructor
 public class BanKey implements Serializable {
 
     @Embedded
@@ -24,6 +23,9 @@ public class BanKey implements Serializable {
     public BanKey(MatchTeamKey matchTeamKey, Integer championId) {
         this.matchTeamKey = matchTeamKey;
         this.championId = championId;
+    }
+
+    public BanKey() {
     }
 
     @Override

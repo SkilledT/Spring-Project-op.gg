@@ -1,6 +1,9 @@
 package leagueoflegendsproject.Controllers;
 
+import leagueoflegendsproject.Models.Database.Champion.Champion;
+import leagueoflegendsproject.Services.DbServices.DbChampionService;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
+import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
 import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,18 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/match")
 public class MatchController {
 
     private final HttpMatchService matchService;
+    private final HttpChampionService httpChampionService;
     private final DbMatchService dbMatchService;
+    private final DbChampionService dbChampionService;
 
     public MatchController(final HttpMatchService matchService,
-                           final DbMatchService dbMatchService) {
+                           final DbMatchService dbMatchService,
+                           final HttpChampionService httpChampionService,
+                           final DbChampionService dbChampionService) {
         this.matchService = matchService;
         this.dbMatchService = dbMatchService;
+        this.httpChampionService = httpChampionService;
+        this.dbChampionService = dbChampionService;
     }
 
     @GetMapping("/{nickname}")
@@ -38,19 +49,22 @@ public class MatchController {
         return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
     }
 
-    @GetMapping("/refresh/{nickname}")
-    public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
-        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 30));
-    }
-
     @GetMapping("/rolePreferences/{nickname}")
     public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname){
-        try {
-            var matches = matchService.getLastMatchesPreferations(nickname);
-            return ResponseEntity.ok(matches);
-        } catch (InterruptedException | IOException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname));
+    }
+
+    @GetMapping("/refresh/{nickname}")
+    public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
+        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 10));
+    }
+
+    @GetMapping("/refresh/champion")
+    public ResponseEntity<?> refreshChampions() throws IOException, InterruptedException {
+        var championItems = httpChampionService.getChampionList();
+        Set<Champion> champions = championItems.stream()
+                .map(dbChampionService::saveChampion)
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok("ok");
     }
 }

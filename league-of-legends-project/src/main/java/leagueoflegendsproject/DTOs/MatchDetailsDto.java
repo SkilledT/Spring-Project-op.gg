@@ -23,6 +23,8 @@ public class MatchDetailsDto {
     private List<PlayerGameDto> enemies;
     private boolean isWin;
     private String position;
+    private String spell1Url;
+    private String spell2Url;
 
 
     public static final class Builder{
@@ -152,7 +154,53 @@ public class MatchDetailsDto {
             matchDetailsDto.isWin = this.isWin;
             matchDetailsDto.position = this.position;
             matchDetailsDto.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+this.championName+".png";
+            matchDetailsDto.spell1Url = getSummonerSpellIconUrl((int)this.summoner1Id);
+            matchDetailsDto.spell2Url = getSummonerSpellIconUrl((int)this.summoner2Id);
             return matchDetailsDto;
+        }
+
+        private String getSummonerSpellIconUrl(Integer id){
+            return "https://ddragon.leagueoflegends.com/cdn/11.22.1/img/spell/Summoner"+getRightSummonerSpellName(id)+".png";
+        }
+
+        private String getRightSummonerSpellName(Integer id){
+        /*
+        21: Barrier
+        1: Cleanse
+        14: Ignite
+        3: Exhaust
+        4: Flash
+        6: Ghost
+        7: Heal
+        13: Clarity
+        11: Smite
+        12: Teleport
+        54: Placeholder
+         */
+            switch (id){
+                case 21:
+                    return "Barrier";
+                case 1:
+                    return "Boost";
+                case 14:
+                    return "Dot";
+                case 3:
+                    return "Exhaust";
+                case 4:
+                    return "Flash";
+                case 6:
+                    return "Haste";
+                case 7:
+                    return "Heal";
+                case 13:
+                    return "Mana";
+                case 11:
+                    return "Smite";
+                case 12:
+                    return "Teleport";
+                default:
+                    return "_UltBook_Placeholder";
+            }
         }
 
     }
@@ -227,5 +275,13 @@ public class MatchDetailsDto {
 
     public String getChampionUrl() {
         return championUrl;
+    }
+
+    public String getSpell1Url() {
+        return spell1Url;
+    }
+
+    public String getSpell2Url() {
+        return spell2Url;
     }
 }

@@ -33,12 +33,7 @@ public class HttpMatchService {
         this.dbMatchService = dbMatchService;
     }
 
-    /**
-     * Returns list of Match class that contains details about summoner's matches from Riot's API
-     * @param  nickname User's nickname used in game
-     *
-     * @return List of Match class' objects that contains details about summoner's matches from Riot's API
-     */
+
     public List<Match> getMatchCollectionByNickname(String nickname, int numberOfMatches) throws IOException, InterruptedException {
         String puuid = summonerService.getSummonerByName(nickname).getPuuid();
         HttpResponseWrapper<String[]> matchesId = riotHttpClient.get(
@@ -60,13 +55,7 @@ public class HttpMatchService {
         return getMatchCollectionByNickname(nickname, 10);
     }
 
-    /**
-     * Returns Match class object that contains details about summoner's match from Riot's API
-     * Riot's path: /lol/match/v5/matches/{matchId}
-     * @param id Id of match played by user
-     *
-     * @return Match class' objects that contains details about summoner's match from Riot's API
-     */
+
     Match getMatchById(String id) throws IOException, InterruptedException {
         HttpResponseWrapper<Match> matchHttpResponseWrapper =
                 riotHttpClient.get("https://europe.api.riotgames.com/lol/match/v5/matches/" + id,

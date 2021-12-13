@@ -26,7 +26,6 @@ public class RiotHttpClient implements IRiotHttpClient {
     private final String headerApiKey = "X-Riot-Token";
     private final String riotApiKey = "RGAPI-dce76696-9219-4f3d-9932-90e7168bcfa6";
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final static String RIOT_CHAMPION_URL = "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/en_US/champion.json";
 
     public RiotHttpClient() {
     }
@@ -50,7 +49,7 @@ public class RiotHttpClient implements IRiotHttpClient {
     public HttpResponseWrapper<List<ChampionItem>> getChampions() throws IOException, InterruptedException {
         Gson gson = new Gson();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(RIOT_CHAMPION_URL))
+                .uri(URI.create(RiotLinksProvider.RIOT_CHAMPION_URL))
                 .GET()
                 .header(headerApiKey, riotApiKey)
                 .build();

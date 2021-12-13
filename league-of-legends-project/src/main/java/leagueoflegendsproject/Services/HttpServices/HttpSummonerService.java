@@ -21,13 +21,6 @@ public class HttpSummonerService {
         this.riotHttpClient = riotHttpClient;
     }
 
-    /**
-     * Returns object of Summoner class that contains details about summoner from Riot's API
-     * Riot's path: lol/summoner/v4/summoners/by-name/{summonerName}
-     * @param  nickname User's nickname used in game
-     *
-     * @return Summoner object that contains details about summoner from Riot's API
-    */
     public Summoner getSummonerByName(String nickname)
             throws IOException, InterruptedException {
         nickname = nickname.replace(" ", "%20");
@@ -36,13 +29,6 @@ public class HttpSummonerService {
                 .getResponse();
     }
 
-    /**
-     * Returns object of SummonerLeagueDto class that contains details about summoner's league from Riot's API
-     * Riot's path: /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
-     * @param  nickname User's nickname used in game
-     *
-     * @return Summoner object that contains details about summoner from Riot's API
-     */
     public SummonersLeagueDto getSummonerLeagueByNickname(String nickname)
             throws IOException, InterruptedException {
         Summoner summoner = getSummonerByName(nickname);

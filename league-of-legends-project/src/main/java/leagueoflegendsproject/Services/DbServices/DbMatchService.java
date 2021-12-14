@@ -29,6 +29,8 @@ public class DbMatchService {
     private final ChampionRepository championRepository;
     private final TeamObjectiveRepository teamObjectiveRepository;
     private final ObjectiveRepository objectiveRepository;
+    private final MatchParticipantPerkRepository matchParticipantPerkRepository;
+    private final PerkRepository perkRepository;
 
     public DbMatchService(final SummonerRepository summonerRepository,
                           final ItemRepository itemRepository,
@@ -40,6 +42,8 @@ public class DbMatchService {
                           final ParticipantItemsRepository participantItemsRepository,
                           final MatchParticipantRepository matchParticipantRepository,
                           final ObjectiveRepository objectiveRepository,
+                          final PerkRepository perkRepository,
+                          final MatchParticipantPerkRepository matchParticipantPerkRepository,
                           final ChampionRepository championRepository) {
         this.summonerRepository = summonerRepository;
         this.itemRepository = itemRepository;
@@ -52,6 +56,8 @@ public class DbMatchService {
         this.teamObjectiveRepository = teamObjectiveRepository;
         this.matchTeamRepositoru = matchTeamRepositoru;
         this.banRepository = banRepository;
+        this.perkRepository = perkRepository;
+        this.matchParticipantPerkRepository = matchParticipantPerkRepository;
     }
 
     @Transactional
@@ -80,6 +86,13 @@ public class DbMatchService {
                     List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
 
             items.forEach(participantItem -> saveItem(dbMatchParticipant, participantItem));
+
+            participant.getPerks().getStyles()
+                    .forEach(stylesItem -> {
+                        stylesItem.getSelections().forEach(selectionsItem -> {
+                            savePerk(dbMatchParticipant, selectionsItem.getPerk());
+                        });
+                    });
 
             return saveMatchTeam(dbMatch, participant.getTeamId());
         }).collect(Collectors.toSet());
@@ -151,6 +164,15 @@ public class DbMatchService {
         participantItems.setItem(item);
         participantItems.setMatchParticipant(matchParticipant);
         participantItemsRepository.save(participantItems);
+    }
+
+    private void savePerk(MatchParticipant matchParticipant, Integer perkId){
+        MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
+        Perk perk = perkRepository.findById(perkId)
+                .orElseThrow(() -> new IllegalStateException("There is no such a perk in DB"));
+        matchParticipantPerk.setMatchParticipant(matchParticipant);
+        matchParticipantPerk.setPerk(perk);
+        matchParticipantPerkRepository.save(matchParticipantPerk);
     }
 
     private void saveBan(MatchTeam matchTeam, Integer championId, int pickTurn){

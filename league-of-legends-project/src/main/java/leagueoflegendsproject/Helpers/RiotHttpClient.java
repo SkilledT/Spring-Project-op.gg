@@ -24,7 +24,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-dce76696-9219-4f3d-9932-90e7168bcfa6";
+    private final String riotApiKey = "RGAPI-34369491-a895-4080-8917-dfe9b399854a";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {

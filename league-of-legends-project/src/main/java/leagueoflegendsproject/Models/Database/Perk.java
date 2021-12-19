@@ -7,6 +7,23 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Perk")
+@SqlResultSetMappings({
+        @SqlResultSetMapping(
+                name = "perkTreeMapping",
+                entities = @EntityResult(
+                        entityClass = Perk.class,
+                        fields = {
+                                @FieldResult(name = "id", column = "id"),
+                                @FieldResult(name = "name", column = "name"),
+                                @FieldResult(name = "icon", column = "icon"),
+                                @FieldResult(name = "shortDesc", column = "short_desc"),
+                                @FieldResult(name = "longDesc", column = "long_desc"),
+                                @FieldResult(name = "slotNumber", column = "slot_number"),
+                                @FieldResult(name = "treeNumber", column = "tree_number")
+                        }
+                )
+        )
+})
 public class Perk {
 
     @Id
@@ -28,19 +45,25 @@ public class Perk {
     @Column(name = "slot_number")
     private Integer slotNumber;
 
+    @Column(name = "tree_number")
+    private Integer treeNumber;
+
     @OneToMany(mappedBy = "perk")
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
 
     public Perk() {
     }
 
-    public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber ,Set<MatchParticipantPerk> matchParticipantPerkSet) {
+    public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber,
+                Set<MatchParticipantPerk> matchParticipantPerkSet,
+                Integer treeNumber) {
         this.id = id;
         this.name = name;
         this.icon = icon;
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.slotNumber = slotNumber;
+        this.treeNumber = treeNumber;
         this.matchParticipantPerkSet = matchParticipantPerkSet;
     }
 
@@ -100,6 +123,14 @@ public class Perk {
         this.slotNumber = slotNumber;
     }
 
+    public Integer getTreeNumber() {
+        return treeNumber;
+    }
+
+    public void setTreeNumber(Integer treeNumber) {
+        this.treeNumber = treeNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,11 +141,12 @@ public class Perk {
                 Objects.equals(icon, perk.icon) &&
                 Objects.equals(shortDesc, perk.shortDesc) &&
                 Objects.equals(longDesc, perk.longDesc) &&
-                Objects.equals(slotNumber, perk.slotNumber);
+                Objects.equals(slotNumber, perk.slotNumber) &&
+                Objects.equals(treeNumber, perk.treeNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, icon, shortDesc, longDesc, slotNumber);
+        return Objects.hash(id, name, icon, shortDesc, longDesc, slotNumber, treeNumber);
     }
 }

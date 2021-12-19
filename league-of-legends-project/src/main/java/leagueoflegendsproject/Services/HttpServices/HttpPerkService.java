@@ -31,6 +31,7 @@ public class HttpPerkService {
         HttpResponseWrapper<ResponseItem[]> response = riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
         ResponseItem[] perkResponse = response.getResponse();
         List<Perk> result = new ArrayList<>();
+        int treeNumber = 0;
         for (ResponseItem responseItem : perkResponse) {
             var slots = responseItem.getSlots();
             for (int i = 0; i < slots.size(); i++) {
@@ -43,10 +44,12 @@ public class HttpPerkService {
                     perk.setShortDesc(runesItem.getShortDesc());
                     perk.setName(runesItem.getName());
                     perk.setSlotNumber(i);
+                    perk.setTreeNumber(treeNumber);
                     result.add(perk);
                     dbPerkService.savePerk(perk);
                 }
             }
+            treeNumber++;
         }
         return result;
     }

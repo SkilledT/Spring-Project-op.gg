@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PerkRepository extends JpaRepository<Perk, Integer> {
+public interface PerkRepository extends JpaRepository<Perk, Integer>, PerkRepositoryCustom {
 
     @Override
     <S extends Perk> S save(S s);

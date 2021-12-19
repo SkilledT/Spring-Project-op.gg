@@ -3,6 +3,7 @@ package leagueoflegendsproject.Services.HttpServices;
 import leagueoflegendsproject.DTOs.*;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
@@ -37,7 +38,7 @@ public class HttpMatchService {
     public List<Match> getMatchCollectionByNickname(String nickname, int numberOfMatches) throws IOException, InterruptedException {
         String puuid = summonerService.getSummonerByName(nickname).getPuuid();
         HttpResponseWrapper<String[]> matchesId = riotHttpClient.get(
-                        "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + numberOfMatches,
+                RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
                         String[].class);
         if (!matchesId.isSuccess())
                 throw new IllegalStateException("Data from Riot's API cannot be retried");
@@ -58,7 +59,7 @@ public class HttpMatchService {
 
     Match getMatchById(String id) throws IOException, InterruptedException {
         HttpResponseWrapper<Match> matchHttpResponseWrapper =
-                riotHttpClient.get("https://europe.api.riotgames.com/lol/match/v5/matches/" + id,
+                riotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id),
                         Match.class);
         if (!matchHttpResponseWrapper.isSuccess())
             throw new IllegalStateException("Data from Riot's API cannot be retried");

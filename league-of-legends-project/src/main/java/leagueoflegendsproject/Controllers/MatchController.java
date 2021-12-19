@@ -6,6 +6,7 @@ import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
 import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
 import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
+import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +26,12 @@ public class MatchController {
     private final HttpPerkService httpPerkService;
     private final DbMatchService dbMatchService;
     private final DbChampionService dbChampionService;
+    private final HttpSummonerService httpSummonerService;
 
     public MatchController(final HttpMatchService matchService,
                            final DbMatchService dbMatchService,
                            final HttpChampionService httpChampionService,
+                           final HttpSummonerService httpSummonerService,
                            final HttpPerkService httpPerkService,
                            final DbChampionService dbChampionService) {
         this.matchService = matchService;
@@ -36,6 +39,7 @@ public class MatchController {
         this.httpChampionService = httpChampionService;
         this.dbChampionService = dbChampionService;
         this.httpPerkService = httpPerkService;
+        this.httpSummonerService = httpSummonerService;
     }
 
     @GetMapping("/{nickname}")
@@ -76,5 +80,30 @@ public class MatchController {
     public ResponseEntity<?> refreshPerks() throws Exception {
         var perks = httpPerkService.getPerks();
         return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/refresh/challengers")
+    public ResponseEntity<?> refreshChallengersData() throws IOException, InterruptedException {
+        new Thread(() -> {
+            try {
+                getMatchData();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        return ResponseEntity.ok("ok");
+    }
+
+    private synchronized void getMatchData() throws IOException, InterruptedException {
+        var nicknames = httpSummonerService.getSummonerChallengersNicknames();
+        nicknames.forEach(nickname -> {
+            try {
+                matchService.getMatchCollectionByNickname(nickname, 20);
+                wait(1000*60);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 }

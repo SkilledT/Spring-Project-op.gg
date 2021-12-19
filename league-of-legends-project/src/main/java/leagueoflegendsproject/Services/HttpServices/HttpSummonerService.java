@@ -2,15 +2,18 @@ package leagueoflegendsproject.Services.HttpServices;
 
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
-import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.EntriesItem;
+import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.Response;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
-import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -24,7 +27,7 @@ public class HttpSummonerService {
     public Summoner getSummonerByName(String nickname)
             throws IOException, InterruptedException {
         nickname = nickname.replace(" ", "%20");
-        String url = "https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nickname;
+        String url = RiotLinksProvider.SummonerLinksProvider.getSummonerByNicknameUrl(nickname);
         return riotHttpClient.get(url, Summoner.class)
                 .getResponse();
     }
@@ -33,10 +36,19 @@ public class HttpSummonerService {
             throws IOException, InterruptedException {
         Summoner summoner = getSummonerByName(nickname);
         String summonerEncryptedId = summoner.getId();
-        String url = "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerEncryptedId;
+        String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
         var response =  riotHttpClient.get(url, SummonerLeagueResponseItem[].class)
                 .getResponse();
         return new SummonersLeagueDto(response);
+    }
+
+    public List<String> getSummonerChallengersNicknames() throws IOException, InterruptedException {
+        String url = RiotLinksProvider.SummonerLinksProvider.RIOT_CHALLENGERS_URL;
+        return riotHttpClient.get(url, Response.class).getResponse()
+                .getEntries()
+                .stream()
+                .map(EntriesItem::getSummonerName)
+                .collect(Collectors.toList());
     }
 
 

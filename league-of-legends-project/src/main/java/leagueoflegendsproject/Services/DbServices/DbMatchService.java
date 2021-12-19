@@ -169,7 +169,13 @@ public class DbMatchService {
     private void savePerk(MatchParticipant matchParticipant, Integer perkId){
         MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
         Perk perk = perkRepository.findById(perkId)
-                .orElseThrow(() -> new IllegalStateException("There is no such a perk in DB"));
+                .orElseThrow(() ->
+                        new IllegalStateException("There is no such a perk in DB, ID: " + perkId
+                        + ", champion: " + matchParticipant.getChampionName()
+                                + ", player: " + matchParticipant.getSummoner().getSummonerNickname()
+                        )
+                );
+
         matchParticipantPerk.setMatchParticipant(matchParticipant);
         matchParticipantPerk.setPerk(perk);
         matchParticipantPerkRepository.save(matchParticipantPerk);

@@ -15,7 +15,8 @@ public class PerkRepositoryCustomImpl implements PerkRepositoryCustom {
     @Override
     public List<Perk> findMostPopularPerksMainTreeForChampionByItsName(String championName) {
         Query query = this.entityManager
-                .createNativeQuery("select * from [dbo].perkMainTree(:championName, (SELECT [dbo].mostPopularPerTreeForChampion(:championName)))", "perkTreeMapping");
+                .createNativeQuery("select * from [dbo].perkMainTree(:championName, (SELECT [dbo].mostPopularPerTreeForChampion(:championName)))",
+                        "perkTreeMapping");
         query.setParameter("championName", championName);
         return query.getResultList();
     }
@@ -23,7 +24,8 @@ public class PerkRepositoryCustomImpl implements PerkRepositoryCustom {
     @Override
     public List<Perk> findMostPopularPerksSubTreeForChampionByItsName(String championName) {
         Query query = this.entityManager
-                .createNativeQuery("select * from [dbo].perkSubTree(:championName, (SELECT [dbo].mostPopularPerTreeForChampion(:championName)))", "perkTreeMapping");
+                .createNativeQuery("select * from [dbo].perkSubTree(:championName, (SELECT [dbo].mostPopularPerTreeForChampion(:championName)))",
+                        "perkTreeMapping");
         query.setParameter("championName", championName);
         List<Perk> perkList = query.getResultList();
         return perkList;

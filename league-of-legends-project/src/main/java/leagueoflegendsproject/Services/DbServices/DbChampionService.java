@@ -1,12 +1,15 @@
 package leagueoflegendsproject.Services.DbServices;
 
 import leagueoflegendsproject.Models.Database.Champion.*;
+import leagueoflegendsproject.Models.Database.TemporaryTables.ChampionWithWinRatioEntity;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import leagueoflegendsproject.Repositories.*;
+import leagueoflegendsproject.Repositories.Interfaces.ChampionRepositoryCustom;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,14 +22,22 @@ public class DbChampionService {
     private final InfoRepository infoRepository;
     private final StatsRepository statsRepository;
     private final TagRepository tagRepository;
+    private final ChampionRepositoryCustom championRepositoryCustom;
 
-    public DbChampionService(ChampionRepository championRepository, ChampionTagRepository championTagRepository, ImageRepository imageRepository, InfoRepository infoRepository, StatsRepository statsRepository, TagRepository tagRepository) {
+    public DbChampionService(ChampionRepository championRepository,
+                             ChampionTagRepository championTagRepository,
+                             ImageRepository imageRepository,
+                             InfoRepository infoRepository,
+                             ChampionRepositoryCustom championRepositoryCustom,
+                             StatsRepository statsRepository,
+                             TagRepository tagRepository) {
         this.championRepository = championRepository;
         this.championTagRepository = championTagRepository;
         this.imageRepository = imageRepository;
         this.infoRepository = infoRepository;
         this.statsRepository = statsRepository;
         this.tagRepository = tagRepository;
+        this.championRepositoryCustom = championRepositoryCustom;
     }
 
     public Champion saveChampion(ChampionItem championItem){
@@ -81,5 +92,9 @@ public class DbChampionService {
     private Image createAndSaveImage(ChampionItem championItem){
         Image image = new Image(championItem);
         return imageRepository.save(image);
+    }
+
+    public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches){
+        return championRepositoryCustom.getChampionWithWinRatioEntity(championName, minimumMatches);
     }
 }

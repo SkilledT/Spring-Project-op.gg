@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Controllers;
 
 import leagueoflegendsproject.DTOs.PerkDto;
+import leagueoflegendsproject.Repositories.Interfaces.ChampionRepositoryCustom;
 import leagueoflegendsproject.Repositories.MatchParticipantPerkRepository;
 import leagueoflegendsproject.Repositories.PerkRepository;
 import org.springframework.http.ResponseEntity;

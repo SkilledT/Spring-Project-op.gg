@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PerkRepository extends JpaRepository<Perk, Integer>, PerkRepositoryCustom {
+public interface PerkRepository extends JpaRepository<Perk, Integer>, leagueoflegendsproject.Repositories.PerkRepositoryCustom {
 
     @Override
     <S extends Perk> S save(S s);

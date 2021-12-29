@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
+import leagueoflegendsproject.Models.LoLApi.Items.Item;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -81,6 +82,48 @@ public class RiotHttpClient implements IRiotHttpClient {
                 }
                 return new HttpResponseWrapper<>(true, championItemList, champMap.toString());
             }
+        }
+        return new HttpResponseWrapper(false, null, response.body());
+    }
+
+    public HttpResponseWrapper<List<Item>> getItems() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(RiotLinksProvider.ItemLinkProvider.RIOT_ITEMS_URL))
+                .GET()
+                .header(headerApiKey, riotApiKey)
+                .build();
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        Object o = gson.fromJson(response.body(), Object.class);
+        List keys = new ArrayList();
+        Collection values = null;
+        if (o instanceof Map) {
+            Map map = (Map) o;
+            keys.addAll(map.keySet());
+            values = map.values();
+        } else if (o instanceof Collection) {
+            values = (Collection) o;
+        }
+
+        int i = 0;
+        for (var val : values){
+            if (val instanceof LinkedTreeMap && i == 3){
+                Map champMap = ((LinkedTreeMap) val);
+                List<Item> championItemList = new ArrayList<>();
+                JSONObject jsonObject = new JSONObject(champMap);
+                Set<String> championNames = jsonObject.keySet();
+                for (var cName : championNames){
+                    var cValues = champMap.get(cName);
+                    var json = gson.toJson(cValues);
+                    Item cItem = gson.fromJson(json, Item.class);
+                    cItem.setId(Integer.parseInt(cName));
+                    championItemList.add(cItem);
+                }
+                return new HttpResponseWrapper<>(true, championItemList, champMap.toString());
+            }
+            i++;
         }
         return new HttpResponseWrapper(false, null, response.body());
     }

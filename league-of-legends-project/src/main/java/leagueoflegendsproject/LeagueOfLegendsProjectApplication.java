@@ -14,6 +14,7 @@ public class LeagueOfLegendsProjectApplication {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		SpringApplication.run(LeagueOfLegendsProjectApplication.class, args);
 		//new Thread(new ChallengerDataRetriever()).start();
+		new RiotHttpClient().getItems();
 	}
 
 

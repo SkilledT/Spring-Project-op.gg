@@ -28,7 +28,8 @@ public class HttpPerkService {
     }
 
     public List<Perk> getPerks() throws Exception {
-        HttpResponseWrapper<ResponseItem[]> response = riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
+        HttpResponseWrapper<ResponseItem[]> response =
+                riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
         ResponseItem[] perkResponse = response.getResponse();
         List<Perk> result = new ArrayList<>();
         int treeNumber = 0;

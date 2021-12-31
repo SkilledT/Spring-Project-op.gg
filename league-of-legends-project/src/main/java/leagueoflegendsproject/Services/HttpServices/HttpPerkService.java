@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class HttpPerkService {
 
     private final RiotHttpClient riotHttpClient;

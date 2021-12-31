@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class HttpChampionService {
 
     private final RiotHttpClient riotHttpClient;

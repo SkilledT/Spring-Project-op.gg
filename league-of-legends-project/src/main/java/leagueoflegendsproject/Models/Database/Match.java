@@ -31,10 +31,10 @@ public class Match {
 
     private String gameMode;
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
     private Set<MatchTeam> matchTeamSet = new HashSet<>();
 
     public Match(){}

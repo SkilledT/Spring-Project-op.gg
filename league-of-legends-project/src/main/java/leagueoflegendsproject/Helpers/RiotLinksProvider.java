@@ -46,6 +46,9 @@ public class RiotLinksProvider {
         public static String getIconUrl(Item item){
             return basicUrl + item.getIconUrl();
         }
+        public static String getIconUrl(String iconId){
+            return basicUrl + iconId + ".png";
+        }
     }
 
 }

@@ -1,24 +1,21 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+
 public class ItemMatchDto {
-    private int itemId;
+    private String itemId;
     private String itemUrl;
 
-    public ItemMatchDto(int itemId, String itemUrl) {
+    public ItemMatchDto(String itemId) {
         this.itemId = itemId;
-        this.itemUrl = itemUrl;
+        this.itemUrl = RiotLinksProvider.ItemLinkProvider.getIconUrl(itemId);
     }
 
-    public ItemMatchDto(int itemId) {
-        this.itemId = itemId;
-        this.itemUrl = "https://ddragon.leagueoflegends.com/cdn/11.22.1/img/item/"+itemId+".png";
-    }
-
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

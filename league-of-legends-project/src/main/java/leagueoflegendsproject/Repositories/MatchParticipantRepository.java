@@ -16,6 +16,7 @@ public interface MatchParticipantRepository extends JpaRepository<MatchParticipa
     @Override
     <S extends MatchParticipant> S save(S s);
 
+    //TODO: Uneffective query - we need to take x matches that user took part in
     @Query(value = "select * from Match_participant inner join Summoner on Match_participant.Summoner_summoner_id = Summoner.summoner_id where summoner_nickname = :nickname", nativeQuery = true)
     List<MatchParticipant> findBySummonerNickname(String nickname);
 }

@@ -9,6 +9,8 @@ import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
 import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DbMatchService {
 
     private final SummonerRepository summonerRepository;
@@ -226,7 +229,7 @@ public class DbMatchService {
         List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummonerNickname(nickname);
         return matchParticipant.stream().map(mp -> {
             List<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
-                    .map(item -> new ItemMatchDto(item.getId(), item.getItem().getIconUrl()))
+                    .map(item -> new ItemMatchDto(String.valueOf(item.getItem().getId())))
                     .collect(Collectors.toList());
             List<PlayerGameDto> allies = mp.getMatch().getMatchParticipantSet().stream()
                     .filter(e -> e.getTeam().getId().equals(mp.getTeam().getId()))

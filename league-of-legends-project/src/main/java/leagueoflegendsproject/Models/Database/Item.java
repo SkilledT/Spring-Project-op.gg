@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Models.ItemCookBook;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -34,6 +35,12 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     Set<ParticipantItems> participantItemsSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "itemComponent")
+    Set<ItemCookBook> itemComponentSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "itemMaster")
+    Set<ItemCookBook> itemMasterSet = new HashSet<>();
 
     public Item(Integer id){
         this.id = id;
@@ -140,6 +147,22 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<ItemCookBook> getItemComponentSet() {
+        return itemComponentSet;
+    }
+
+    public void setItemComponentSet(Set<ItemCookBook> itemComponentSet) {
+        this.itemComponentSet = itemComponentSet;
+    }
+
+    public Set<ItemCookBook> getItemMasterSet() {
+        return itemMasterSet;
+    }
+
+    public void setItemMasterSet(Set<ItemCookBook> itemMasterSet) {
+        this.itemMasterSet = itemMasterSet;
     }
 
     public Item toUpdate(leagueoflegendsproject.Models.LoLApi.Items.Item item){

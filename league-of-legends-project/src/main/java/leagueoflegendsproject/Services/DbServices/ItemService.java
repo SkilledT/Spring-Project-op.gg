@@ -2,6 +2,8 @@ package leagueoflegendsproject.Services.DbServices;
 
 import leagueoflegendsproject.Models.Database.Item;
 import leagueoflegendsproject.Repositories.ItemRepository;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service

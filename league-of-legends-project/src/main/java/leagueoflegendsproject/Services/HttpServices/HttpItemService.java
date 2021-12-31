@@ -3,6 +3,8 @@ package leagueoflegendsproject.Services.HttpServices;
 import leagueoflegendsproject.DTOs.ItemDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Services.DbServices.ItemService;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

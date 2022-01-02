@@ -3,8 +3,6 @@ package leagueoflegendsproject.Services.HttpServices;
 import leagueoflegendsproject.DTOs.ItemDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Services.DbServices.ItemService;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,6 +26,9 @@ public class HttpItemService {
         if (itemsWrapper.isSuccess()){
             var items = itemsWrapper.getResponse();
             var dbItems = items.stream().map(itemService::addItem).collect(Collectors.toList());
+            //TODO: Learn if we dont assign any Cascade.TYPE whether it is ALL or not
+            itemService.deleteAllItemCookBook();
+            items.forEach(itemService::addParentalItems);
             return dbItems.stream().map(ItemDto::new).collect(Collectors.toList());
         }
         return Collections.emptyList();

@@ -1,7 +1,6 @@
 package leagueoflegendsproject.Models.Database;
 
 
-import leagueoflegendsproject.Models.ItemCookBook;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -12,12 +11,38 @@ import java.util.Set;
 @Entity
 @Table(name = "Item")
 @AllArgsConstructor
+@SqlResultSetMappings({
+        @SqlResultSetMapping(
+                name = "basicItemMapping",
+                classes = @ConstructorResult(
+                        targetClass = Item.class,
+                        columns = {
+                                @ColumnResult(name = "item_id", type = Integer.class),
+                                @ColumnResult(name = "icon_url", type = String.class),
+                                @ColumnResult(name = "description", type = String.class),
+                                @ColumnResult(name = "plain_text", type = String.class),
+                                @ColumnResult(name = "total_cost", type = Integer.class),
+                                @ColumnResult(name = "sell", type = Integer.class),
+                                @ColumnResult(name = "base_cost", type = Integer.class),
+                                @ColumnResult(name = "name", type = String.class),
+                        }
+                )
+        )
+})
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                procedureName = "get_most_popular_items_for_champion",
+                name = "mostPopularItemsForChampion",
+                parameters = {
+                        @StoredProcedureParameter(name = "championName", type = String.class, mode = ParameterMode.IN)
+                }
+        )
+})
 public class Item {
 
     @Id
     @Column(name = "item_id")
     private Integer id;
-
     @Column(name = "icon_url")
     private String iconUrl;
     @Column(name = "description")
@@ -72,6 +97,17 @@ public class Item {
         this.totalCost = totalCost;
         this.sell = sell;
         this.baseCost = baseCost;
+    }
+
+    public Item(Integer id, String iconUrl, String description, String plainText, Integer totalCost, Integer sell, Integer baseCost, String name) {
+        this.id = id;
+        this.iconUrl = iconUrl;
+        this.description = description;
+        this.plainText = plainText;
+        this.totalCost = totalCost;
+        this.sell = sell;
+        this.baseCost = baseCost;
+        this.name = name;
     }
 
     public Item() {

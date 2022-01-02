@@ -1,7 +1,6 @@
 package leagueoflegendsproject.Repositories;
 
 import leagueoflegendsproject.Models.Database.Champion.Champion;
-import leagueoflegendsproject.Repositories.Interfaces.ChampionRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,30 +1,31 @@
-package leagueoflegendsproject.Models;
+package leagueoflegendsproject.Models.Database;
 
-import leagueoflegendsproject.Models.Database.Item;
-import leagueoflegendsproject.Models.Database.Keys.ItemCookBookKey;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "item_cook_book")
+@Table(name = "Item_cook_book")
 public class ItemCookBook {
 
-    @EmbeddedId
-    ItemCookBookKey key = new ItemCookBookKey();
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "item_id")
-    @MapsId(value = "itemId")
-    Item itemMaster;
+    @Nullable
+    private Item itemMaster;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "component_id")
-    @MapsId(value = "componentId")
-    Item itemComponent;
+    @Nullable
+    private Item itemComponent;
 
-    public ItemCookBook(ItemCookBookKey key, Item itemMaster, Item itemComponent) {
-        this.key = key;
+    public ItemCookBook(Integer id, Item itemMaster, Item itemComponent) {
+        this.id = id;
         this.itemMaster = itemMaster;
         this.itemComponent = itemComponent;
     }
@@ -32,12 +33,12 @@ public class ItemCookBook {
     public ItemCookBook() {
     }
 
-    public ItemCookBookKey getKey() {
-        return key;
+    public Integer getId() {
+        return id;
     }
 
-    public void setKey(ItemCookBookKey key) {
-        this.key = key;
+    public void setId(Integer key) {
+        this.id = key;
     }
 
     public Item getItemMaster() {
@@ -61,11 +62,11 @@ public class ItemCookBook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemCookBook that = (ItemCookBook) o;
-        return Objects.equals(key, that.key) && Objects.equals(itemMaster, that.itemMaster) && Objects.equals(itemComponent, that.itemComponent);
+        return Objects.equals(id, that.id) && Objects.equals(itemMaster, that.itemMaster) && Objects.equals(itemComponent, that.itemComponent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, itemMaster, itemComponent);
+        return Objects.hash(id, itemMaster, itemComponent);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,9 +27,17 @@ public class HttpPerkService {
         this.dbPerkService = dbPerkService;
     }
 
-    public List<Perk> getPerks() throws Exception {
+    public List<Perk> getPerks() {
         HttpResponseWrapper<ResponseItem[]> response =
-                riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
+                null;
+        try {
+            response = riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
+            if (!response.isSuccess())
+                throw new IllegalArgumentException("Unable to retrieve data from Riot API, message: " + response.getResponseMessage());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         ResponseItem[] perkResponse = response.getResponse();
         List<Perk> result = new ArrayList<>();
         int treeNumber = 0;
@@ -46,7 +55,12 @@ public class HttpPerkService {
                     perk.setSlotNumber(i);
                     perk.setTreeNumber(treeNumber);
                     result.add(perk);
-                    dbPerkService.savePerk(perk);
+                    try {
+                        dbPerkService.savePerk(perk);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             treeNumber++;

@@ -149,4 +149,17 @@ public class Perk {
     public int hashCode() {
         return Objects.hash(id, name, icon, shortDesc, longDesc, slotNumber, treeNumber);
     }
+
+    @Override
+    public String toString() {
+        return "Perk{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", shortDesc='" + shortDesc + '\'' +
+                ", longDesc='" + longDesc + '\'' +
+                ", slotNumber=" + slotNumber +
+                ", treeNumber=" + treeNumber +
+                '}';
+    }
 }

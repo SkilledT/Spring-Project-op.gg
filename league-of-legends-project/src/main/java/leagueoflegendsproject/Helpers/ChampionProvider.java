@@ -19,7 +19,7 @@ public class ChampionProvider implements Runnable {
         try {
             System.out.println(riotHttpClient.getChampions());
             Thread.sleep(1000 * 60 * 60 * 24 * 14);
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

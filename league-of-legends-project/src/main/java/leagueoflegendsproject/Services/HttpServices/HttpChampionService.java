@@ -21,7 +21,7 @@ public class HttpChampionService {
         this.riotHttpClient = riotHttpClient;
     }
 
-    public List<ChampionItem> getChampionList() throws IOException, InterruptedException {
+    public List<ChampionItem> getChampionList() {
         if (riotHttpClient.getChampions().isSuccess())
             return riotHttpClient.getChampions().getResponse();
         return Collections.emptyList();

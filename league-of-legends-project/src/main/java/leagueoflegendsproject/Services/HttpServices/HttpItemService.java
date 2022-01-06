@@ -2,6 +2,7 @@ package leagueoflegendsproject.Services.HttpServices;
 
 import leagueoflegendsproject.DTOs.ItemDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
+import leagueoflegendsproject.Models.LoLApi.Items.Item;
 import leagueoflegendsproject.Services.DbServices.ItemService;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,15 @@ public class HttpItemService {
     public List<ItemDto> refreshItems() throws IOException, InterruptedException {
         var itemsWrapper = riotHttpClient.getItems();
         if (itemsWrapper.isSuccess()){
-            var items = itemsWrapper.getResponse();
-            var dbItems = items.stream().map(itemService::addItem).collect(Collectors.toList());
-            //TODO: Learn if we dont assign any Cascade.TYPE whether it is ALL or not
+            List<Item> items = itemsWrapper.getResponse();
+            var dbItems = items
+                    .stream()
+                    .map(itemService::addItem)
+                    .collect(Collectors.toList());
             itemService.deleteAllItemCookBook();
             items.forEach(itemService::addParentalItems);
-            return dbItems.stream().map(ItemDto::new).collect(Collectors.toList());
+            return dbItems.stream().map(ItemDto::new)
+                    .collect(Collectors.toList());
         }
         return Collections.emptyList();
     }

@@ -2,6 +2,7 @@ package leagueoflegendsproject.Models.Database;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.HashSet;

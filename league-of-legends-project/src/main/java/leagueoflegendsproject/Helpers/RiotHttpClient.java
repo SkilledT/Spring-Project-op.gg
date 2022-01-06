@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
+import com.sun.jdi.request.InvalidRequestStateException;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import leagueoflegendsproject.Models.LoLApi.Items.Item;
 import net.minidev.json.JSONObject;
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.management.InvalidApplicationException;
 import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -25,7 +28,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-abd5187f-92b0-4609-b148-c0aba3a64e6b";
+    private final String riotApiKey = "RGAPI-2c2183c7-58f6-40cd-8fb4-7bc13babf226";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {
@@ -47,15 +50,21 @@ public class RiotHttpClient implements IRiotHttpClient {
         return new HttpResponseWrapper<T>(false, null, response.body());
     }
 
-    public HttpResponseWrapper<List<ChampionItem>> getChampions() throws IOException, InterruptedException {
+    public HttpResponseWrapper<List<ChampionItem>> getChampions() {
         Gson gson = new Gson();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(RiotLinksProvider.RIOT_CHAMPION_URL))
                 .GET()
                 .header(headerApiKey, riotApiKey)
                 .build();
-        HttpResponse<String> response =
-                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response;
+        try {
+             response =
+                    httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new InvalidRequestStateException("Unable to send request to RIOT's API");
+        }
 
         Object o = gson.fromJson(response.body(), Object.class);
         List keys = new ArrayList();

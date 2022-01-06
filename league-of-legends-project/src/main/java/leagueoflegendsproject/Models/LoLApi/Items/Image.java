@@ -25,6 +25,34 @@ public class Image{
 	@SerializedName("group")
 	private String group;
 
+	public void setW(int w) {
+		W = w;
+	}
+
+	public void setSprite(String sprite) {
+		this.sprite = sprite;
+	}
+
+	public void setX(int x) {
+		X = x;
+	}
+
+	public void setH(int h) {
+		H = h;
+	}
+
+	public void setY(int y) {
+		Y = y;
+	}
+
+	public void setFull(String full) {
+		this.full = full;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
 	public int getW(){
 		return W;
 	}

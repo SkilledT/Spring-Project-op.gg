@@ -4,6 +4,7 @@ import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerL
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SummonersLeagueDto {
     private String tier;
@@ -95,5 +96,18 @@ public class SummonersLeagueDto {
 
     public void setWinRatio(double winRatio) {
         this.winRatio = winRatio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SummonersLeagueDto that = (SummonersLeagueDto) o;
+        return leaguePoints == that.leaguePoints && wins == that.wins && loses == that.loses && Double.compare(that.winRatio, winRatio) == 0 && Objects.equals(tier, that.tier) && Objects.equals(rank, that.rank) && Objects.equals(summonerName, that.summonerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tier, rank, summonerName, leaguePoints, wins, loses, winRatio);
     }
 }

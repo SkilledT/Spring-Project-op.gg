@@ -16,6 +16,16 @@ public class Gold{
 	@SerializedName("base")
 	private int base;
 
+	public Gold(int total, boolean purchasable, int sell, int base) {
+		this.total = total;
+		this.purchasable = purchasable;
+		this.sell = sell;
+		this.base = base;
+	}
+
+	public Gold() {
+	}
+
 	public int getTotal(){
 		return total;
 	}

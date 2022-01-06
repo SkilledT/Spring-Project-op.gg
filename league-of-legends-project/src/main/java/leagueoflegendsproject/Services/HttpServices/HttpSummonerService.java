@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Services.HttpServices;
 
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
+import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.EntriesItem;
@@ -24,21 +25,35 @@ public class HttpSummonerService {
         this.riotHttpClient = riotHttpClient;
     }
 
-    public Summoner getSummonerByName(String nickname)
-            throws IOException, InterruptedException {
+    public Summoner getSummonerByName(String nickname) {
         nickname = nickname.replace(" ", "%20");
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerByNicknameUrl(nickname);
-        return riotHttpClient.get(url, Summoner.class)
-                .getResponse();
+        HttpResponseWrapper<Summoner> responseWrapper;
+        try {
+            responseWrapper = riotHttpClient.get(url, Summoner.class);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
+        }
+        if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
+            throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
+        return responseWrapper.getResponse();
     }
 
-    public SummonersLeagueDto getSummonerLeagueByNickname(String nickname)
-            throws IOException, InterruptedException {
+    public SummonersLeagueDto getSummonerLeagueByNickname(String nickname) {
         Summoner summoner = getSummonerByName(nickname);
         String summonerEncryptedId = summoner.getId();
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
-        var response =  riotHttpClient.get(url, SummonerLeagueResponseItem[].class)
-                .getResponse();
+        HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper;
+        try {
+            responseWrapper = riotHttpClient.get(url, SummonerLeagueResponseItem[].class);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
+        }
+        if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
+            throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
+        SummonerLeagueResponseItem[] response = responseWrapper.getResponse();
         return new SummonersLeagueDto(response);
     }
 

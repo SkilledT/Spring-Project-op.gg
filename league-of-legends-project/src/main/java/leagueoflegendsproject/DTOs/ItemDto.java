@@ -102,4 +102,17 @@ public class ItemDto {
     public int hashCode() {
         return Objects.hash(iconUrl, description, plainText, totalCost, sell, baseCost, name);
     }
+
+    @Override
+    public String toString() {
+        return "ItemDto{" +
+                "iconUrl='" + iconUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", plainText='" + plainText + '\'' +
+                ", totalCost=" + totalCost +
+                ", sell=" + sell +
+                ", baseCost=" + baseCost +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

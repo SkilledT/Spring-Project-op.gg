@@ -22,24 +22,14 @@ public class SummonerController {
     @GetMapping()
     public ResponseEntity<?> getSummonerByName(){
         String name = "SSW Miszi M";
-        try {
-            var summoner = httpSummonerService.getSummonerByName(name);
-            return ResponseEntity.ok(summoner);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.badRequest().build();
+        var summoner = httpSummonerService.getSummonerByName(name);
+        return ResponseEntity.ok(summoner);
     }
 
     @GetMapping("/league")
     public ResponseEntity<?> getSummonerLeagueByNickname(){
         String name = "SSW Miszi M";
-        try {
-            var summoner = httpSummonerService.getSummonerLeagueByNickname(name);
-            return ResponseEntity.ok(summoner);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.badRequest().build();
+        var summoner = httpSummonerService.getSummonerLeagueByNickname(name);
+        return ResponseEntity.ok(summoner);
     }
 }

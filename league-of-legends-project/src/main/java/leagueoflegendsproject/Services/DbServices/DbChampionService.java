@@ -1,5 +1,6 @@
 package leagueoflegendsproject.Services.DbServices;
 
+import leagueoflegendsproject.DTOs.ChampionShortDto;
 import leagueoflegendsproject.Models.Database.Champion.*;
 import leagueoflegendsproject.Models.Database.TemporaryTables.ChampionWithWinRatioEntity;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
@@ -96,5 +97,15 @@ public class DbChampionService {
 
     public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches){
         return championRepositoryCustom.getChampionWithWinRatioEntity(championName, minimumMatches);
+    }
+
+    public List<Champion> getAllChampions(){
+        return championRepository.findAll();
+    }
+
+    public List<ChampionShortDto> getShortChampionDetails(){
+        return getAllChampions().stream()
+                .map(ChampionShortDto::new)
+                .collect(Collectors.toList());
     }
 }

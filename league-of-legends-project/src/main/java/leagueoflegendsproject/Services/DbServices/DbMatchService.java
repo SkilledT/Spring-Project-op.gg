@@ -242,7 +242,10 @@ public class DbMatchService {
             double teamKills = mp.getTeam().getMatchParticipantSet().stream()
                     .filter(e -> e.getTeam().getId().equals(mp.getTeam().getId()))
                     .mapToDouble(MatchParticipant::getKills).count();
-            double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills == 0 ? 1 : teamKills)) * 100;
+            double teamAssists = mp.getTeam().getMatchParticipantSet().stream()
+                    .filter(e -> e.getTeam().getId().equals(mp.getTeam().getId()))
+                    .mapToDouble(MatchParticipant::getAssists).count();
+            double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + teamAssists == 0 ? 1 : teamKills + teamAssists)) * 100;
             return new MatchDetailsDto.Builder()
                     .timeDurationOfMatch(mp.getMatch().getGameDuration())
                     .assists(mp.getAssists())
@@ -260,7 +263,7 @@ public class DbMatchService {
                     .list(itemMatchDtos)
                     .allies(allies)
                     .enemies(enemies)
-                    .pInKill(0)
+                    .pInKill(pInKill)
                     .build();
         }).collect(Collectors.toList());
     }

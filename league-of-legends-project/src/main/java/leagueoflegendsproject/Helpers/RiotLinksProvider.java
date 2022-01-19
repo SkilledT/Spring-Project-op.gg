@@ -51,4 +51,13 @@ public class RiotLinksProvider {
         }
     }
 
+    public static class ChampionLinkProvider{
+        public static final String basicUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+
+        public static String getSlashImg(String full){
+            full = full.replace(".", "_0.").replace("png", "jpg");
+            return basicUrl + full;
+        }
+    }
+
 }

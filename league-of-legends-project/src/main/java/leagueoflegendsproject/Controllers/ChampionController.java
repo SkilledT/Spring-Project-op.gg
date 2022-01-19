@@ -22,4 +22,11 @@ public class ChampionController {
         var response = championService.getChampionWithWinRatioEntity(championName, 3);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getChampionsDetails(){
+        var response = championService.getShortChampionDetails();
+        return ResponseEntity.ok(response);
+    }
+
 }

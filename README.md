@@ -33,3 +33,6 @@ End-points / Current Feature:\
 Future feature:\
 &emsp;Security\
 &emsp;Graphs with performance based on chosen role and related matches (Gonna try out Strategy pattern)\
+
+Table Schema\
+![image info](./images/table_schema.png)

@@ -7,8 +7,10 @@ import leagueoflegendsproject.Models.Database.Keys.BanKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
 import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
+import leagueoflegendsproject.Models.Database.TemporaryTables.MatchParticipantShortModel;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
+import leagueoflegendsproject.Repositories.Interfaces.CustomMatchParticipantRepository;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,7 @@ public class DbMatchService {
     private final ObjectiveRepository objectiveRepository;
     private final MatchParticipantPerkRepository matchParticipantPerkRepository;
     private final PerkRepository perkRepository;
+    private final CustomMatchParticipantRepository customMatchParticipantRepository;
 
     public DbMatchService(final SummonerRepository summonerRepository,
                           final ItemRepository itemRepository,
@@ -47,6 +50,7 @@ public class DbMatchService {
                           final ObjectiveRepository objectiveRepository,
                           final PerkRepository perkRepository,
                           final MatchParticipantPerkRepository matchParticipantPerkRepository,
+                          final CustomMatchParticipantRepository customMatchParticipantRepository,
                           final ChampionRepository championRepository) {
         this.summonerRepository = summonerRepository;
         this.itemRepository = itemRepository;
@@ -61,6 +65,7 @@ public class DbMatchService {
         this.banRepository = banRepository;
         this.perkRepository = perkRepository;
         this.matchParticipantPerkRepository = matchParticipantPerkRepository;
+        this.customMatchParticipantRepository = customMatchParticipantRepository;
     }
 
     @Transactional

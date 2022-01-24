@@ -47,6 +47,7 @@ public class MatchParticipant {
 
 
     @Type(type = "numeric_boolean")
+    @Column(name = "win")
     private Boolean win;
     private Integer bountyLevel;
     private Integer totalUnitsHealed;
@@ -57,6 +58,7 @@ public class MatchParticipant {
     private Integer turretTakedowns;
     private Integer damageDealtToObjectives;
     private Integer magicDamageTaken;
+    @Column(name = "deaths")
     private Integer deaths;
     private Integer objectivesStolen;
     private Integer detectorWardsPlaced;
@@ -67,6 +69,7 @@ public class MatchParticipant {
     private Integer spell3Casts;
     @Type(type = "numeric_boolean")
     private Boolean firstTowerKill;
+    @Column(name = "individual_position")
     private String individualPosition;
     private Integer wardsPlaced;
     private Integer totalDamageDealt;
@@ -100,6 +103,7 @@ public class MatchParticipant {
     private Integer goldEarned;
     private Integer nexusLost;
     private Integer physicalDamageTaken;
+    @Column(name = "champ_lvl")
     private Integer champLvl;
     private Integer totalDamageTaken;
     private Integer neutralMinionsKilled;
@@ -115,13 +119,17 @@ public class MatchParticipant {
     private Integer damageDealtsToBuildings;
     private Integer magicDamageDealt;
     private Integer timePlayed;
+    @Column(name = "champion_Name")
     private String championName;
     @Column(name = "time_ccing_others")
     private Integer timeCCingOthers;
     private String teamPosition;
     private Integer physicalDamageDealtToChampions;
+    @Column(name = "total_minions_killed")
     private Integer totalMinionsKilled;
+    @Column(name = "vision_wards_bought_in_game")
     private Integer visionWardsBoughtInGame;
+    @Column(name = "kills")
     private Integer Kills;
     @Type(type = "numeric_boolean")
     private Boolean firstTowerAssist;
@@ -129,6 +137,7 @@ public class MatchParticipant {
     @Type(type = "numeric_boolean")
     private Boolean firstBloodAssist;
     private Integer trueDamageTaken;
+    @Column(name = "assists")
     private Integer assists;
     private Integer itemsPurchased;
     private Integer objectivesStolenAssists;
@@ -336,6 +345,38 @@ public class MatchParticipant {
         this.gameEndedInEarlySurrender = gameEndedInEarlySurrender;
         this.spell4Casts = spell4Casts;
         this.matchParticipantPerkSet = matchParticipantPerk;
+    }
+
+    public MatchParticipant(Team team,
+                            Match match,
+                            Summoner summoner,
+                            Champion champion,
+                            Boolean win,
+                            Integer Kills,
+                            Integer deaths,
+                            Integer assists,
+                            Integer totalMinionsKilled,
+                            Integer champLvl,
+                            String championName,
+                            String individualPosition,
+                            Integer summoner1Id,
+                            Integer summoner2Id,
+                            Integer visionWardsBoughtInGame){
+        this.team = team;
+        this.match = match;
+        this.summoner = summoner;
+        this.champion = champion;
+        this.win = win;
+        this.Kills = Kills;
+        this.deaths = deaths;
+        this.assists = assists;
+        this.totalMinionsKilled = totalMinionsKilled;
+        this.champLvl = champLvl;
+        this.championName = championName;
+        this.individualPosition = individualPosition;
+        this.summoner1Id = summoner1Id;
+        this.summoner2Id = summoner2Id;
+        this.visionWardsBoughtInGame = visionWardsBoughtInGame;
     }
 
     public MatchParticipant() {

@@ -11,24 +11,23 @@ public class Match {
     @Id
     @Column(name = "match_id")
     private String matchId;
-
+    @Column(name = "game_id")
     private Integer gameId;
-
+    @Column(name = "game_type")
     private String gameType;
-
+    @Column(name = "queue_id")
     private Integer queueId;
-
+    @Column(name = "game_duration")
     private Integer gameDuration;
-
     @Column(name = "game_start_timestamp")
     private Integer gameStartTimestamp;
-
+    @Column(name = "platform_id")
     private String platformId;
-
+    @Column(name = "game_creation")
     private Long gameCreation;
-
+    @Column(name = "map_id")
     private Integer mapId;
-
+    @Column(name = "game_mode")
     private String gameMode;
 
     @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)

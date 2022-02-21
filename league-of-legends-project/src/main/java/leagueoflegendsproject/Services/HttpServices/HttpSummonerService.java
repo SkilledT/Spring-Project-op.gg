@@ -66,5 +66,10 @@ public class HttpSummonerService {
                 .collect(Collectors.toList());
     }
 
+    public List<Summoner> getChallengersDto() throws IOException, InterruptedException {
+        List<String> challengerNicknames = getSummonerChallengersNicknames();
+        return null;
+    }
+
 
 }

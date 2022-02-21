@@ -7,6 +7,7 @@ import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Repositories.Interfaces.ChampionRepositoryCustom;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +104,7 @@ public class DbChampionService {
         return championRepository.findAll();
     }
 
+    @Cacheable(cacheNames = "Champions")
     public List<ChampionShortDto> getShortChampionDetails(){
         return getAllChampions().stream()
                 .map(ChampionShortDto::new)

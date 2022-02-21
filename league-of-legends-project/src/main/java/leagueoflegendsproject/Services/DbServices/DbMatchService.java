@@ -12,6 +12,7 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Repositories.Interfaces.CustomMatchParticipantRepository;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -230,6 +231,7 @@ public class DbMatchService {
         return matchTeam;
     }
 
+    @Cacheable(cacheNames = "Players_Match_Collection")
     public List<MatchDetailsDto> getMatchesByNickname(String nickname){
         List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummonerNickname(nickname);
         return matchParticipant.stream().map(mp -> {
@@ -250,7 +252,7 @@ public class DbMatchService {
             double teamAssists = mp.getTeam().getMatchParticipantSet().stream()
                     .filter(e -> e.getTeam().getId().equals(mp.getTeam().getId()))
                     .mapToDouble(MatchParticipant::getAssists).count();
-            double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + teamAssists == 0 ? 1 : teamKills + teamAssists)) * 100;
+            double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + teamAssists == 0 ? 1 : (teamKills + teamAssists)));
             return new MatchDetailsDto.Builder()
                     .timeDurationOfMatch(mp.getMatch().getGameDuration())
                     .assists(mp.getAssists())
@@ -310,7 +312,7 @@ public class DbMatchService {
             long playedOnLane = matchParticipant.stream()
                     .filter(e -> e.getLane().equals(lane))
                     .count();
-            double winRatio = (double) wins / (double) playedOnLane;
+            double winRatio = (double) wins / (playedOnLane == 0 ? 1 : (double) playedOnLane);
             return new PreferedRoleDto(pickRatio, winRatio, lane);
         }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
                 .collect(Collectors.toList());

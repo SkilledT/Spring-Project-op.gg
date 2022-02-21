@@ -26,4 +26,5 @@ public class LeagueOfLegendsProjectApplication {
 	@Bean
 	public CorsFilter getInstanceOfCorsFilter(){return new CorsFilter();}
 
+
 }

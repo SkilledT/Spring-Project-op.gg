@@ -42,6 +42,13 @@ public class Summoner {
         this.summonerNickname = participantsItem.getSummonerName();
     }
 
+    public Summoner(leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner responseSummoner){
+        this.summonerId = responseSummoner.getId();
+        this.lvl = responseSummoner.getSummonerLevel();
+        this.profileIconId = responseSummoner.getProfileIconId();
+        this.summonerNickname = responseSummoner.getName();
+    }
+
     public Summoner(){}
 
     public String getSummonerId() {

@@ -10,4 +10,9 @@ import java.util.Optional;
 public interface SummonerRepository extends JpaRepository<Summoner, String> {
 
     Optional<Summoner> findById(String s);
+
+    @Override
+    <S extends Summoner> S save(S s);
+
+    Optional<Summoner> findSummonerBySummonerNickname(String nickname);
 }

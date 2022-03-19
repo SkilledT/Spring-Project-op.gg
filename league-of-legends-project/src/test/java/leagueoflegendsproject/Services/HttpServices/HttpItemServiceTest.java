@@ -4,6 +4,7 @@ import leagueoflegendsproject.DTOs.ItemDto;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Helpers.TestUtils.HttpItemBuilder;
 import leagueoflegendsproject.Models.LoLApi.Items.Gold;
 import leagueoflegendsproject.Models.LoLApi.Items.Image;
 import leagueoflegendsproject.Models.LoLApi.Items.Item;
@@ -67,22 +68,25 @@ class HttpItemServiceTest {
         Image image = new Image();
         image.setFull("full.png");
         // HttpItems
-        Item item1 = new Item();
-        item1.setDescription("desc1");
-        item1.setName("Rabadon's Deathcap");
-        item1.setColloq("setColloq1");
-        item1.setPlaintext("setPlaintext1");
-        item1.setId(1);
-        item1.setGold(gold);
-        item1.setImage(image);
-        Item item2 = new Item();
-        item2.setName("Tear of Goddess");
-        item2.setDescription("desc2");
-        item2.setColloq("setColloq2");
-        item2.setPlaintext("setPlaintext2");
-        item2.setId(2);
-        item2.setGold(gold);
-        item2.setImage(image);
+        Item item1 = new HttpItemBuilder()
+                .withGold(gold)
+                .withImage(image)
+                .withDescription("desc1")
+                .withName("Rabadon's Deathcap")
+                .withPlainText("setPlaintext1")
+                .withId(1)
+                .withColloq("setColloq1")
+                .build();
+
+        Item item2 = new HttpItemBuilder()
+                .withGold(gold)
+                .withImage(image)
+                .withDescription("desc2")
+                .withName("Tear of Goddess")
+                .withPlainText("setPlaintext2")
+                .withId(2)
+                .withColloq("setColloq2")
+                .build();
         List<Item> httpItems = List.of(item1, item2);
 
         //DTO Items

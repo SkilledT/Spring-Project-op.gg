@@ -42,10 +42,7 @@ public class DbChampionService {
         this.championRepositoryCustom = championRepositoryCustom;
     }
 
-    public Champion saveChampion(ChampionItem championItem){
-        if (championRepository.existsById(Integer.parseInt(championItem.getKey())))
-            return championRepository.findById(Integer.parseInt(championItem.getKey())).orElseThrow();
-
+    public Champion saveChampion(ChampionItem championItem) {
         Stats stats = createAndSaveStats(championItem);
         Info info = createAndSaveInfo(championItem);
         Image image = createAndSaveImage(championItem);
@@ -69,7 +66,7 @@ public class DbChampionService {
         return champion;
     }
 
-    private Set<Tag> fetchOrCreateTagList(ChampionItem championItem){
+    private Set<Tag> fetchOrCreateTagList(ChampionItem championItem) {
         Set<Tag> tags = championItem.getTags().stream()
                 .map(tagName -> tagRepository.findByName(tagName)
                         .orElseGet(() -> {
@@ -81,31 +78,31 @@ public class DbChampionService {
         return tags;
     }
 
-    private Stats createAndSaveStats(ChampionItem championItem){
+    private Stats createAndSaveStats(ChampionItem championItem) {
         Stats stats = new Stats(championItem);
         return statsRepository.save(stats);
     }
 
-    private Info createAndSaveInfo(ChampionItem championItem){
+    private Info createAndSaveInfo(ChampionItem championItem) {
         Info info = new Info(championItem);
         return infoRepository.save(info);
     }
 
-    private Image createAndSaveImage(ChampionItem championItem){
+    private Image createAndSaveImage(ChampionItem championItem) {
         Image image = new Image(championItem);
         return imageRepository.save(image);
     }
 
-    public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches){
+    public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches) {
         return championRepositoryCustom.getChampionWithWinRatioEntity(championName, minimumMatches);
     }
 
-    public List<Champion> getAllChampions(){
+    public List<Champion> getAllChampions() {
         return championRepository.findAll();
     }
 
     @Cacheable(cacheNames = "Champions")
-    public List<ChampionShortDto> getShortChampionDetails(){
+    public List<ChampionShortDto> getShortChampionDetails() {
         return getAllChampions().stream()
                 .map(ChampionShortDto::new)
                 .collect(Collectors.toList());

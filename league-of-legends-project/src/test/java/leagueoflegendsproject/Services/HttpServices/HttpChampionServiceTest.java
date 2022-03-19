@@ -2,6 +2,7 @@ package leagueoflegendsproject.Services.HttpServices;
 
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
+import leagueoflegendsproject.Helpers.TestUtils.HttpItemBuilder;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

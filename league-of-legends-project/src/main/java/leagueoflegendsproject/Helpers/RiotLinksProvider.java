@@ -3,9 +3,11 @@ package leagueoflegendsproject.Helpers;
 import leagueoflegendsproject.Models.Database.Item;
 import leagueoflegendsproject.Models.Database.Perk;
 
+import java.util.List;
+
 public class RiotLinksProvider {
 
-    private final static String RIOT_VERSION = "11.24.1";
+    private final static String RIOT_VERSION = "12.5.1";
     public final static String RIOT_CHAMPION_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/champion.json";
     public final static String RIOT_CHAMPION_PERKS_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/runesReforged.json";
 
@@ -21,13 +23,17 @@ public class RiotLinksProvider {
 
     public static class SummonerLinksProvider{
         public static final String RIOT_CHALLENGERS_URL = "https://eun1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5";
-
+        private static final String RIOT_PROFILE_ICON_URL = "https://ddragon.leagueoflegends.com/cdn/"+RIOT_VERSION+"/img/profileicon/%s.png";
         public static String getSummonerByNicknameUrl(String nickname){
             return "https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + nickname;
         }
 
         public static String getSummonerLeagueByNicknameUrl(String summonerEncryptedId){
             return "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerEncryptedId;
+        }
+
+        public static String getRiotProfileIconUrl(Integer iconId){
+            return String.format(RIOT_PROFILE_ICON_URL, iconId);
         }
     }
 

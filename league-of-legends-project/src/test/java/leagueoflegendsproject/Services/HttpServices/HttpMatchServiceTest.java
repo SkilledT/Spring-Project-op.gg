@@ -3,14 +3,17 @@ package leagueoflegendsproject.Services.HttpServices;
 import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Info;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
+import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,14 +26,18 @@ import static org.mockito.Mockito.when;
 
 class HttpMatchServiceTest {
 
-    /*
+
     private RiotHttpClient mockRiotHttpClient;
     private HttpSummonerService mockSummonerService;
+    private DbMatchService mockDbMatchService;
+    @Autowired
+    private DbMatchService dbMatchService;
 
     @BeforeEach
     void setUp() {
         this.mockRiotHttpClient = mock(RiotHttpClient.class);
         this.mockSummonerService = mock(HttpSummonerService.class);
+        this.dbMatchService = mock(DbMatchService.class);
     }
 
     @AfterEach
@@ -48,10 +55,10 @@ class HttpMatchServiceTest {
         HttpResponseWrapper<String[]> responseWrapper =
                 new HttpResponseWrapper<>(false, null, "Wrong request");
 
-        when(mockSummonerService.getSummonerByName(nickname)).thenReturn(summoner);
+        when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner);
         when(mockRiotHttpClient.get(url, String[].class)).thenReturn(responseWrapper);
 
-        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService);
+        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbMatchService);
 
         var exception = catchThrowable(() -> toTest.getMatchCollectionByNickname(nickname, numberOfMatches));
         assertThat(exception)
@@ -64,7 +71,7 @@ class HttpMatchServiceTest {
         String nickname = "Skilled";
         String puuid = "SkilledTeaserPuuid";
         int numberOfMatches = 20;
-        String url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + numberOfMatches;
+        String url = RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches);
 
         Summoner summoner = new Summoner();
         summoner.setPuuid(puuid);
@@ -83,19 +90,19 @@ class HttpMatchServiceTest {
         HttpResponseWrapper<String[]> responseWrapper =
                 new HttpResponseWrapper<>(true, responses, "OK");
 
-        when(mockSummonerService.getSummonerByName(nickname)).thenReturn(summoner);
+        when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner);
         when(mockRiotHttpClient.get(url, String[].class)).thenReturn(responseWrapper);
 
-        HttpMatchService matchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService);
+        HttpMatchService matchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbMatchService);
         var toTest = Mockito.spy(matchService);
         Mockito.doReturn(fakeMatch).when(toTest).getMatchById(responses[0]);
         Mockito.doReturn(fakeMatch2).when(toTest).getMatchById(responses[1]);
 
-        assertThat(toTest.getMatchCollectionByNickname(nickname))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
                 .contains(fakeMatch);
-        assertThat(toTest.getMatchCollectionByNickname(nickname))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
                 .contains(fakeMatch2);
-        assertThat(toTest.getMatchCollectionByNickname(nickname))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
                 .contains(fakeMatch, fakeMatch2);
     }
 
@@ -121,7 +128,7 @@ class HttpMatchServiceTest {
         when(mockRiotHttpClient.get(url, Match.class)).thenReturn(fakeHttpResponse);
         when(mockRiotHttpClient.get(url2, Match.class)).thenReturn(fakeHttpResponse2);
 
-        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService);
+        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbMatchService);
         var result = toTest.getMatchById(fakeId);
         var result2 = toTest.getMatchById(fakeId2);
 
@@ -133,7 +140,7 @@ class HttpMatchServiceTest {
         assertNotEquals(result, result2);
         assertEquals(fakeMatch2, result2);
     }
-
+    /*
     @Test
     void getChampionStatsByNickname() throws IOException, InterruptedException {
         String nickname = "SkilledT";
@@ -214,8 +221,8 @@ class HttpMatchServiceTest {
         playersChampionStatsDto2.setChampName("Fizz");
         playersChampionStatsDto2.setWinRatio(1.0d);
 
-        when(mockSummonerService.getSummonerByName(nickname)).thenReturn(summoner1);
-        when(mockSummonerService.getSummonerByName(nickname2)).thenReturn(summoner2);
+        when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner1);
+        when(mockSummonerService.getSummonerByNameHTTP(nickname2)).thenReturn(summoner2);
 
         HttpMatchService httpMatchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService);
         var toTest = Mockito.spy(httpMatchService);
@@ -225,10 +232,6 @@ class HttpMatchServiceTest {
 
         assertThat(result).contains(playersChampionStatsDto1);
         assertThat(result).contains(playersChampionStatsDto2);
-    }
+    }*/
 
-    @Test
-    void getSummonersPreferredRole() {
-    }
-    */
 }

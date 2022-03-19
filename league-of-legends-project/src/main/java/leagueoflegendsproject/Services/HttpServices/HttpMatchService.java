@@ -1,11 +1,9 @@
 package leagueoflegendsproject.Services.HttpServices;
 
-import leagueoflegendsproject.DTOs.*;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
-import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -13,10 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.ToDoubleFunction;
-import java.util.stream.Collectors;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -36,7 +30,7 @@ public class HttpMatchService {
 
 
     public List<Match> getMatchCollectionByNickname(String nickname, int numberOfMatches) throws IOException, InterruptedException {
-        String puuid = summonerService.getSummonerByName(nickname).getPuuid();
+        String puuid = summonerService.getSummonerByNameHTTP(nickname).getPuuid();
         HttpResponseWrapper<String[]> matchesId = riotHttpClient.get(
                 RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
                         String[].class);

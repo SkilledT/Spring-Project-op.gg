@@ -22,4 +22,5 @@ public interface ChampionRepository extends JpaRepository<Champion, Integer> {
 
     @Override
     <S extends Champion> List<S> findAll(Example<S> example);
+
 }

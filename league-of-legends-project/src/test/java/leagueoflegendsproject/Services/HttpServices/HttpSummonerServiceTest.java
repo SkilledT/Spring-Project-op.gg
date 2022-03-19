@@ -6,6 +6,7 @@ import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
+import leagueoflegendsproject.Services.DbServices.DbSummonerService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,8 @@ import static org.mockito.Mockito.*;
 class HttpSummonerServiceTest {
 
     private RiotHttpClient mockRiotHttpClient;
+    @Autowired
+    private DbSummonerService dbSummonerService;
 
     @BeforeEach
     void setUp() {
@@ -38,6 +41,7 @@ class HttpSummonerServiceTest {
     void tearDown() {
     }
 
+
     @Test
     void getSummonerByName_ShouldThrowException_WhenResponseFromApiIsNotASummonerObject() throws IOException, InterruptedException {
         String nickname = "someName";
@@ -47,8 +51,8 @@ class HttpSummonerServiceTest {
 
         when(mockRiotHttpClient.get(url, Summoner.class))
                 .thenReturn(riotResponse);
-        var toTest = new HttpSummonerService(mockRiotHttpClient);
-        var result = catchThrowable(() -> toTest.getSummonerByName(nickname));
+        var toTest = new HttpSummonerService(mockRiotHttpClient, dbSummonerService);
+        var result = catchThrowable(() -> toTest.getSummonerByNameHTTP(nickname));
 
         assertThat(result)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -74,10 +78,10 @@ class HttpSummonerServiceTest {
 
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
-        var toTest = spy(new HttpSummonerService(mockRiotHttpClient));
-        doReturn(summoner).when(toTest).getSummonerByName(nickname);
+        var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
+        doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
 
-        var result = catchThrowable(() -> toTest.getSummonerLeagueByNickname(nickname));
+        var result = catchThrowable(() -> toTest.getSummonerLeagueByNicknameHTTP(nickname));
         assertThat(result)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Unable to retrieve object");
@@ -102,10 +106,10 @@ class HttpSummonerServiceTest {
 
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
-        var toTest = spy(new HttpSummonerService(mockRiotHttpClient));
-        doReturn(summoner).when(toTest).getSummonerByName(nickname);
+        var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
+        doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
 
-        var result = catchThrowable(() -> toTest.getSummonerLeagueByNickname(nickname));
+        var result = catchThrowable(() -> toTest.getSummonerLeagueByNicknameHTTP(nickname));
         assertThat(result)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Unable to retrieve object");
@@ -146,10 +150,10 @@ class HttpSummonerServiceTest {
 
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
-        var toTest = spy(new HttpSummonerService(mockRiotHttpClient));
-        doReturn(summoner).when(toTest).getSummonerByName(nickname);
+        var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
+        doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
 
-        var serviceResponse = toTest.getSummonerLeagueByNickname(nickname);
+        var serviceResponse = toTest.getSummonerLeagueByNicknameHTTP(nickname);
 
         assertEquals(shouldReturn, serviceResponse);
     }

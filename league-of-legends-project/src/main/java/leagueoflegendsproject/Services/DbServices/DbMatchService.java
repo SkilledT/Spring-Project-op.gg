@@ -7,10 +7,10 @@ import leagueoflegendsproject.Models.Database.Keys.BanKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
 import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
-import leagueoflegendsproject.Models.Database.TemporaryTables.MatchParticipantShortModel;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Repositories.Interfaces.CustomMatchParticipantRepository;
+import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static leagueoflegendsproject.Helpers.MatchUtils.checkIfMatchIsSoloQ;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -38,6 +40,7 @@ public class DbMatchService {
     private final MatchParticipantPerkRepository matchParticipantPerkRepository;
     private final PerkRepository perkRepository;
     private final CustomMatchParticipantRepository customMatchParticipantRepository;
+    private final HttpSummonerService httpSummonerService;
 
     public DbMatchService(final SummonerRepository summonerRepository,
                           final ItemRepository itemRepository,
@@ -52,6 +55,7 @@ public class DbMatchService {
                           final PerkRepository perkRepository,
                           final MatchParticipantPerkRepository matchParticipantPerkRepository,
                           final CustomMatchParticipantRepository customMatchParticipantRepository,
+                          final HttpSummonerService httpSummonerService,
                           final ChampionRepository championRepository) {
         this.summonerRepository = summonerRepository;
         this.itemRepository = itemRepository;
@@ -67,11 +71,15 @@ public class DbMatchService {
         this.perkRepository = perkRepository;
         this.matchParticipantPerkRepository = matchParticipantPerkRepository;
         this.customMatchParticipantRepository = customMatchParticipantRepository;
+        this.httpSummonerService = httpSummonerService;
     }
+
+
 
     @Transactional
     public void AddMatchToDb(Match match){
-        if (matchRepository.findById(match.getMetadata().getMatchId()).isPresent())
+        var repoMatch = matchRepository.findById(match.getMetadata().getMatchId()).orElse(null);
+        if (repoMatch != null || !checkIfMatchIsSoloQ(match))
             return;
         leagueoflegendsproject.Models.Database.Match dbMatch =
                 matchRepository.findById(match.getMetadata().getMatchId())
@@ -84,7 +92,7 @@ public class DbMatchService {
             dbChampion.update(participant);
             Summoner summoner = summonerRepository
                     .findById(participant.getSummonerId())
-                    .orElseGet(() -> new Summoner(participant));
+                    .orElseGet(() -> httpSummonerService.fetchSummonerAndSaveToDbHTTP(participant.getSummonerName()));
 
             MatchParticipant matchParticipant =
                     matchParticipantRepository.findById(new MatchParticipantKey(dbMatch.getMatchId(), summoner.getSummonerId()))
@@ -271,8 +279,10 @@ public class DbMatchService {
                     .allies(allies)
                     .enemies(enemies)
                     .pInKill(pInKill)
+                    .withGameCreation(mp.getMatch().getGameCreation())
                     .build();
-        }).collect(Collectors.toList());
+        }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
+                .collect(Collectors.toList());
     }
 
     public Set<PlayersChampionStatsDto> getChampionStatsByNickname(String nickname){

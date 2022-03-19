@@ -2,6 +2,7 @@ package leagueoflegendsproject.DTOs;
 
 import leagueoflegendsproject.Helpers.NumericalHelpers;
 
+import java.util.Date;
 import java.util.List;
 
 public class MatchDetailsDto {
@@ -25,6 +26,7 @@ public class MatchDetailsDto {
     private String position;
     private String spell1Url;
     private String spell2Url;
+    private Date gameCreation;
 
 
     public static final class Builder{
@@ -45,6 +47,7 @@ public class MatchDetailsDto {
         private List<PlayerGameDto> enemies;
         private boolean isWin;
         private String position;
+        private Long gameCreation;
 
         public Builder championName(String champName){
             this.championName = champName;
@@ -131,9 +134,16 @@ public class MatchDetailsDto {
             return this;
         }
 
+        public Builder withGameCreation(long gameCreation){
+            this.gameCreation = gameCreation;
+            return this;
+        }
+
         public MatchDetailsDto build(){
             if (championName.isEmpty())
                 throw new IllegalStateException("ChampionName cannot be empty");
+            else if(gameCreation == 0)
+                throw new IllegalStateException("GameCreation cannot be empty");
 
             MatchDetailsDto matchDetailsDto = new MatchDetailsDto();
             matchDetailsDto.championName = this.championName;
@@ -156,6 +166,7 @@ public class MatchDetailsDto {
             matchDetailsDto.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+this.championName+".png";
             matchDetailsDto.spell1Url = getSummonerSpellIconUrl((int)this.summoner1Id);
             matchDetailsDto.spell2Url = getSummonerSpellIconUrl((int)this.summoner2Id);
+            matchDetailsDto.gameCreation = NumericalHelpers.parseUnixTimestampToDateTime(this.gameCreation);
             return matchDetailsDto;
         }
 
@@ -283,5 +294,9 @@ public class MatchDetailsDto {
 
     public String getSpell2Url() {
         return spell2Url;
+    }
+
+    public Date getGameCreation() {
+        return gameCreation;
     }
 }

@@ -18,6 +18,9 @@ public interface MatchParticipantRepository extends JpaRepository<MatchParticipa
     @Override
     <S extends MatchParticipant> S save(S s);
 
-    @Query(value = "select top 10 * from Match_participant inner join Summoner on Match_participant.Summoner_summoner_id = Summoner.summoner_id where summoner_nickname = :nickname", nativeQuery = true)
+    @Query(value = "select top 10 * from Match_participant " +
+            "inner join Summoner on Match_participant.Summoner_summoner_id = Summoner.summoner_id " +
+            "inner join Match M on M.match_id = Match_participant.Match_match_id " +
+            "where summoner_nickname = :nickname order by M.game_creation desc", nativeQuery = true)
     List<MatchParticipant> findBySummonerNickname(String nickname);
 }

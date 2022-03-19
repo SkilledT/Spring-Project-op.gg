@@ -4,6 +4,7 @@ import leagueoflegendsproject.Models.Database.Summoner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,4 +16,6 @@ public interface SummonerRepository extends JpaRepository<Summoner, String> {
     <S extends Summoner> S save(S s);
 
     Optional<Summoner> findSummonerBySummonerNickname(String nickname);
+
+    List<Summoner> findSummonerByTier(String tier);
 }

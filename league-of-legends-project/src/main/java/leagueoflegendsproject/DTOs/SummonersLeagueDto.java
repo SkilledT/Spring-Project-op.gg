@@ -1,21 +1,28 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Models.Database.Summoner;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+@AllArgsConstructor
+@Data
 public class SummonersLeagueDto {
     private String tier;
     private String rank;
     private String summonerName;
-    private long leaguePoints;
-    private long wins;
-    private long loses;
+    private int leaguePoints;
+    private int wins;
+    private int loses;
     private double winRatio;
+    private String iconLink;
 
-    public SummonersLeagueDto(String tier, String rank, String summonerName, long leaguePoints, long wins, long loses) {
+    public SummonersLeagueDto(String tier, String rank, String summonerName, int leaguePoints, int wins, int loses) {
         this.tier = tier;
         this.rank = rank;
         this.summonerName = summonerName;
@@ -42,6 +49,18 @@ public class SummonersLeagueDto {
         this.winRatio = (double) wins / (double) playedMatches;
     }
 
+    public SummonersLeagueDto(Summoner summoner) {
+        this.tier = summoner.getTier();
+        this.rank = summoner.getRank();
+        this.summonerName = summoner.getSummonerNickname();
+        this.leaguePoints = summoner.getLeaguePoints();
+        this.wins = summoner.getWins();
+        this.loses = summoner.getLosses();
+        long playedMatches = wins + loses;
+        this.winRatio = (double) wins / (double) playedMatches;
+        this.iconLink = RiotLinksProvider.SummonerLinksProvider.getRiotProfileIconUrl(summoner.getProfileIconId());
+    }
+
     public String getTier() {
         return tier;
     }
@@ -66,27 +85,27 @@ public class SummonersLeagueDto {
         this.summonerName = summonerName;
     }
 
-    public long getLeaguePoints() {
+    public int getLeaguePoints() {
         return leaguePoints;
     }
 
-    public void setLeaguePoints(long leaguePoints) {
+    public void setLeaguePoints(int leaguePoints) {
         this.leaguePoints = leaguePoints;
     }
 
-    public long getWins() {
+    public int getWins() {
         return wins;
     }
 
-    public void setWins(long wins) {
+    public void setWins(int wins) {
         this.wins = wins;
     }
 
-    public long getLoses() {
+    public int getLoses() {
         return loses;
     }
 
-    public void setLoses(long loses) {
+    public void setLoses(int loses) {
         this.loses = loses;
     }
 
@@ -96,6 +115,14 @@ public class SummonersLeagueDto {
 
     public void setWinRatio(double winRatio) {
         this.winRatio = winRatio;
+    }
+
+    public String getIconLink() {
+        return iconLink;
+    }
+
+    public void setIconLink(String iconLink) {
+        this.iconLink = iconLink;
     }
 
     @Override

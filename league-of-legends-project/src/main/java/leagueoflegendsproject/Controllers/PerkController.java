@@ -1,9 +1,12 @@
 package leagueoflegendsproject.Controllers;
 
 import leagueoflegendsproject.DTOs.PerkDto;
+import leagueoflegendsproject.Repositories.ChampionPerkRepository;
 import leagueoflegendsproject.Repositories.Interfaces.ChampionRepositoryCustom;
 import leagueoflegendsproject.Repositories.MatchParticipantPerkRepository;
 import leagueoflegendsproject.Repositories.PerkRepository;
+import leagueoflegendsproject.Services.DbServices.DbPerkService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,32 +20,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/perk")
 public class PerkController {
 
-    MatchParticipantPerkRepository matchParticipantPerkRepository;
-    PerkRepository perkRepository;
+    DbPerkService dbPerkService;
 
-    public PerkController(MatchParticipantPerkRepository matchParticipantPerkRepository,
-                          PerkRepository perkRepository) {
-        this.matchParticipantPerkRepository = matchParticipantPerkRepository;
-        this.perkRepository = perkRepository;
+
+    public PerkController(DbPerkService dbPerkService) {
+        this.dbPerkService = dbPerkService;
     }
 
-    @GetMapping("/mainTree/{championName}")
-    public ResponseEntity<?> getMainTreeByChampionName(@PathVariable String championName){
-        List<PerkDto> perkDtoList = perkRepository
-                .findMostPopularPerksMainTreeForChampionByItsName(championName)
-                .stream()
-                .map(PerkDto::new)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(perkDtoList);
+    @GetMapping("/tree/{championName}/{type}")
+    public ResponseEntity<?> getPerkTreeByChampionNameAndType(@PathVariable String championName, @PathVariable String type){
+        return ResponseEntity.ok(dbPerkService.getPerkByChampionNameAndTreeType(championName, type));
     }
 
-    @GetMapping("/subTree/{championName}")
-    public ResponseEntity<?> getSubTreeByChampionName(@PathVariable String championName){
-        List<PerkDto> perkDtoList = perkRepository
-                .findMostPopularPerksSubTreeForChampionByItsName(championName)
-                .stream()
-                .map(PerkDto::new)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(perkDtoList);
-    }
 }

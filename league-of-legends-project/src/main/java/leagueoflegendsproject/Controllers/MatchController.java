@@ -64,7 +64,7 @@ public class MatchController {
 
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
-        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 10));
+        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 3));
     }
 
     @GetMapping("/refresh/champion")
@@ -95,7 +95,7 @@ public class MatchController {
     }
 
     private synchronized void getMatchData() throws IOException, InterruptedException {
-        var nicknames = httpSummonerService.getSummonerChallengersNicknames();
+        var nicknames = httpSummonerService.getSummonerChallengersNicknamesHTTP();
         nicknames.forEach(nickname -> {
             try {
                 matchService.getMatchCollectionByNickname(nickname, 20);

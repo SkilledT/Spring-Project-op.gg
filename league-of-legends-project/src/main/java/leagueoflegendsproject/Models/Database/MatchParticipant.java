@@ -19,22 +19,22 @@ public class MatchParticipant {
     @EmbeddedId
     private MatchParticipantKey matchParticipantKey = new MatchParticipantKey();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "summoner_summoner_id")
     @MapsId(value = "summonerId")
     private Summoner summoner;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "Match_match_id")
     @MapsId(value = "matchId")
     private Match match;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "champion_id")
     @Nullable
     private Champion champion;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Team_team_id")
     @Nullable
     private Team team;

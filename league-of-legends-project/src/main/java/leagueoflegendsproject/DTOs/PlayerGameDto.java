@@ -1,5 +1,6 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 
 public class PlayerGameDto {
@@ -12,14 +13,14 @@ public class PlayerGameDto {
         this.champName = champName;
         this.nickname = nickname;
         this.puuid = puuid;
-        this.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+champName+".png";
+        this.championUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(champName);
     }
 
     public PlayerGameDto(ParticipantsItem participantsItem){
         this.champName = participantsItem.getChampionName();
         this.nickname = participantsItem.getSummonerName();
         this.puuid = participantsItem.getPuuid();
-        this.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+participantsItem.getChampionName()+".png";
+        this.championUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(champName);
     }
 
     public PlayerGameDto() {

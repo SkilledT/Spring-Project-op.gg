@@ -1,9 +1,11 @@
 package leagueoflegendsproject.DTOs;
 
 import leagueoflegendsproject.Helpers.NumericalHelpers;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class MatchDetailsDto {
     private String championName;
@@ -18,10 +20,10 @@ public class MatchDetailsDto {
     private int champLvl;
     private int killedMinions;
     private double pInKill;
-    private List<ItemMatchDto> items;
+    private Set<ItemMatchDto> items;
     private int controlWardsPurchased;
-    private List<PlayerGameDto> allies;
-    private List<PlayerGameDto> enemies;
+    private Set<PlayerGameDto> allies;
+    private Set<PlayerGameDto> enemies;
     private boolean isWin;
     private String position;
     private String spell1Url;
@@ -41,10 +43,10 @@ public class MatchDetailsDto {
         private int champLvl;
         private int killedMinions;
         private double pInKill;
-        private List<ItemMatchDto> items;
+        private Set<ItemMatchDto> items;
         private int controlWardsPurchased;
-        private List<PlayerGameDto> allies;
-        private List<PlayerGameDto> enemies;
+        private Set<PlayerGameDto> allies;
+        private Set<PlayerGameDto> enemies;
         private boolean isWin;
         private String position;
         private Long gameCreation;
@@ -114,17 +116,17 @@ public class MatchDetailsDto {
             return this;
         }
 
-        public Builder list(List<ItemMatchDto> list){
+        public Builder list(Set<ItemMatchDto> list){
             this.items = list;
             return this;
         }
 
-        public Builder allies(List<PlayerGameDto> allies){
+        public Builder allies(Set<PlayerGameDto> allies){
             this.allies = allies;
             return this;
         }
 
-        public Builder enemies(List<PlayerGameDto> enemies){
+        public Builder enemies(Set<PlayerGameDto> enemies){
             this.enemies = enemies;
             return this;
         }
@@ -163,7 +165,7 @@ public class MatchDetailsDto {
             matchDetailsDto.enemies = this.enemies;
             matchDetailsDto.isWin = this.isWin;
             matchDetailsDto.position = this.position;
-            matchDetailsDto.championUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+this.championName+".png";
+            matchDetailsDto.championUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(this.championName);
             matchDetailsDto.spell1Url = getSummonerSpellIconUrl((int)this.summoner1Id);
             matchDetailsDto.spell2Url = getSummonerSpellIconUrl((int)this.summoner2Id);
             matchDetailsDto.gameCreation = NumericalHelpers.parseUnixTimestampToDateTime(this.gameCreation);
@@ -260,7 +262,7 @@ public class MatchDetailsDto {
         return pInKill;
     }
 
-    public List<ItemMatchDto> getItems() {
+    public Set<ItemMatchDto> getItems() {
         return items;
     }
 
@@ -268,11 +270,11 @@ public class MatchDetailsDto {
         return controlWardsPurchased;
     }
 
-    public List<PlayerGameDto> getAllies() {
+    public Set<PlayerGameDto> getAllies() {
         return allies;
     }
 
-    public List<PlayerGameDto> getEnemies() {
+    public Set<PlayerGameDto> getEnemies() {
         return enemies;
     }
 

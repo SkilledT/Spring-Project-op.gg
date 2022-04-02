@@ -20,11 +20,11 @@ public class ParticipantItems {
     private Integer id;
 
     @JoinColumn(name = "item_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private Item item;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumns({
             @JoinColumn(name = "summoner_id", referencedColumnName = "Summoner_summoner_id"),
             @JoinColumn(name = "match_id", referencedColumnName = "Match_match_Id")

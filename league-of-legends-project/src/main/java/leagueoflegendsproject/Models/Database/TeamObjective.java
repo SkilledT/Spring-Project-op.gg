@@ -14,7 +14,7 @@ public class TeamObjective {
     @EmbeddedId
     private TeamObjectiveKey key = new TeamObjectiveKey();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @MapsId(value = "matchTeamKey")
     @JoinColumns({
             @JoinColumn(name = "match_id", referencedColumnName = "match_id"),
@@ -22,7 +22,7 @@ public class TeamObjective {
     })
     private MatchTeam matchTeam;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @MapsId(value = "objectiveId")
     @JoinColumn(name = "objective_name")
     private Objective objective;

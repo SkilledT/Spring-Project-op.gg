@@ -1,5 +1,7 @@
 package leagueoflegendsproject.DTOs;
 
+import java.util.Objects;
+
 public class PreferedRoleDto {
     private double pickRatio;
     private double winRatio;
@@ -44,7 +46,20 @@ public class PreferedRoleDto {
         return iconUrl;
     }
 
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+    public void setIconUrl() {
+        this.iconUrl = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-"+name.toLowerCase()+".png";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PreferedRoleDto that = (PreferedRoleDto) o;
+        return Double.compare(that.pickRatio, pickRatio) == 0 && Double.compare(that.winRatio, winRatio) == 0 && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pickRatio, winRatio, name);
     }
 }

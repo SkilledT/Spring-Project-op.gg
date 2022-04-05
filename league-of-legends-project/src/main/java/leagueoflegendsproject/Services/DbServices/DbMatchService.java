@@ -10,7 +10,6 @@ import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
-import leagueoflegendsproject.Repositories.Interfaces.CustomMatchParticipantRepository;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
@@ -34,13 +33,12 @@ public class DbMatchService {
     private final ParticipantItemsRepository participantItemsRepository;
     private final MatchParticipantRepository matchParticipantRepository;
     private final BanRepository banRepository;
-    private final MatchTeamRepository matchTeamRepositoru;
+    private final MatchTeamRepository matchTeamRepository;
     private final ChampionRepository championRepository;
     private final TeamObjectiveRepository teamObjectiveRepository;
     private final ObjectiveRepository objectiveRepository;
     private final MatchParticipantPerkRepository matchParticipantPerkRepository;
     private final PerkRepository perkRepository;
-    private final CustomMatchParticipantRepository customMatchParticipantRepository;
     private final HttpSummonerService httpSummonerService;
 
     public DbMatchService(final SummonerRepository summonerRepository,
@@ -49,13 +47,12 @@ public class DbMatchService {
                           final MatchRepository matchRepository,
                           final BanRepository banRepository,
                           final TeamObjectiveRepository teamObjectiveRepository,
-                          final MatchTeamRepository matchTeamRepositoru,
+                          final MatchTeamRepository matchTeamRepository,
                           final ParticipantItemsRepository participantItemsRepository,
                           final MatchParticipantRepository matchParticipantRepository,
                           final ObjectiveRepository objectiveRepository,
                           final PerkRepository perkRepository,
                           final MatchParticipantPerkRepository matchParticipantPerkRepository,
-                          final CustomMatchParticipantRepository customMatchParticipantRepository,
                           final HttpSummonerService httpSummonerService,
                           final ChampionRepository championRepository) {
         this.summonerRepository = summonerRepository;
@@ -67,11 +64,10 @@ public class DbMatchService {
         this.objectiveRepository = objectiveRepository;
         this.matchRepository = matchRepository;
         this.teamObjectiveRepository = teamObjectiveRepository;
-        this.matchTeamRepositoru = matchTeamRepositoru;
+        this.matchTeamRepository = matchTeamRepository;
         this.banRepository = banRepository;
         this.perkRepository = perkRepository;
         this.matchParticipantPerkRepository = matchParticipantPerkRepository;
-        this.customMatchParticipantRepository = customMatchParticipantRepository;
         this.httpSummonerService = httpSummonerService;
     }
 
@@ -214,7 +210,7 @@ public class DbMatchService {
         Champion champion = championRepository
                 .findById(championId)
                 .orElseGet(() -> new Champion(championId, String.valueOf(championId)));
-        MatchTeam dbMatchTeam = matchTeamRepositoru.findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
+        MatchTeam dbMatchTeam = matchTeamRepository.findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
                 .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
         ban.setMatchTeam(dbMatchTeam);
         ban.setChampion(champion);
@@ -223,7 +219,7 @@ public class DbMatchService {
     }
 
     private TeamObjective saveTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
-        MatchTeam dbMatchTeam = matchTeamRepositoru
+        MatchTeam dbMatchTeam = matchTeamRepository
                 .findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
                 .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
         Objective dbObjective = objectiveRepository.findById(objective.getName())
@@ -256,7 +252,7 @@ public class DbMatchService {
                     Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
                     Set<MatchParticipant> enemiesMatchParticipantSet = new HashSet<>();
                     Integer teamId = mp.getTeam().getId();
-                    for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()){
+                    for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()) {
                         if (innerMp.getTeam().getId().equals(teamId))
                             alliesMatchParticipantSet.add(innerMp);
                         else
@@ -275,7 +271,7 @@ public class DbMatchService {
                             .mapToDouble(MatchParticipant::getKills).count();
                     double teamAssists = alliesMatchParticipantSet.stream()
                             .mapToDouble(MatchParticipant::getAssists).count();
-                    double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + teamAssists == 0 ? 1 : (teamKills + teamAssists)));
+                    double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + (teamAssists == 0 ? 1 : (teamKills + teamAssists))));
                     return new MatchDetailsDto.Builder()
                             .timeDurationOfMatch(mp.getMatch().getGameDuration())
                             .assists(mp.getAssists())
@@ -325,19 +321,19 @@ public class DbMatchService {
                 matchParticipant.stream()
                         .filter(e -> !e.getIndividualPosition().equals("Invalid"))
                         .collect(Collectors.groupingBy(MatchParticipant::getIndividualPosition, Collectors.counting()));
-        return roles.keySet().stream().map(lane -> {
-                    long picks = roles.get(lane);
-                    long playedGames = matchParticipant.size();
+        long playedGames = matchParticipant.size();
+        return roles.keySet().stream().map(individualPosition -> {
+                    long picks = roles.get(individualPosition);
                     double pickRatio = (double) picks / (double) playedGames;
                     long wins = matchParticipant.stream()
                             .filter(MatchParticipant::getWin)
-                            .filter(e -> e.getLane().equals(lane))
+                            .filter(e -> e.getIndividualPosition().equals(individualPosition))
                             .count();
                     long playedOnLane = matchParticipant.stream()
-                            .filter(e -> e.getLane().equals(lane))
+                            .filter(e -> e.getIndividualPosition().equals(individualPosition))
                             .count();
                     double winRatio = (double) wins / (playedOnLane == 0 ? 1 : (double) playedOnLane);
-                    return new PreferedRoleDto(pickRatio, winRatio, lane);
+                    return new PreferedRoleDto(pickRatio, winRatio, individualPosition);
                 }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
                 .collect(Collectors.toList());
     }

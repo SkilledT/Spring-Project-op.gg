@@ -37,7 +37,7 @@ class HttpMatchServiceTest {
     void setUp() {
         this.mockRiotHttpClient = mock(RiotHttpClient.class);
         this.mockSummonerService = mock(HttpSummonerService.class);
-        this.dbMatchService = mock(DbMatchService.class);
+        this.mockDbMatchService = mock(DbMatchService.class);
     }
 
     @AfterEach
@@ -93,7 +93,7 @@ class HttpMatchServiceTest {
         when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner);
         when(mockRiotHttpClient.get(url, String[].class)).thenReturn(responseWrapper);
 
-        HttpMatchService matchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbMatchService);
+        HttpMatchService matchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService, mockDbMatchService);
         var toTest = Mockito.spy(matchService);
         Mockito.doReturn(fakeMatch).when(toTest).getMatchById(responses[0]);
         Mockito.doReturn(fakeMatch2).when(toTest).getMatchById(responses[1]);

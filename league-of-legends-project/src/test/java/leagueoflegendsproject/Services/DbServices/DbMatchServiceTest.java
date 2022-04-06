@@ -1,8 +1,10 @@
 package leagueoflegendsproject.Services.DbServices;
 
+import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.DTOs.PreferedRoleDto;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Helpers.TestUtils.MatchParticipantBuilder;
+import leagueoflegendsproject.Helpers.TestUtils.PlayersChampionStatsDtoBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PreferedRoleDtoBuilder;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Repositories.*;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -67,7 +70,54 @@ class DbMatchServiceTest {
     }
 
     @Test
-    void getChampionStatsByNickname() {
+    void getChampionStatsByNickname_shouldReturnSetOfPlayersChampionStatsDto() {
+        // Given
+        String position = Constants.MatchParticipantConstnts.IndividualPosition.UTILITY.toString();
+        int championId = 1000;
+        String championName = "Akali";
+        MatchParticipant matchParticipant1 = new MatchParticipantBuilder()
+                .withIndividualPosition(position)
+                .isWon(false)
+                .withChampionName(championName, championId)
+                .withKills(3)
+                .withDeaths(3)
+                .withAssists(3)
+                .withTotalMinionsKilled(50)
+                .build();
+        MatchParticipant matchParticipant2 = new MatchParticipantBuilder()
+                .withIndividualPosition(position)
+                .isWon(true)
+                .withChampionName(championName, championId)
+                .withKills(5)
+                .withDeaths(5)
+                .withAssists(5)
+                .withTotalMinionsKilled(100)
+                .build();
+        List<MatchParticipant> matchParticipantList = List.of(matchParticipant1, matchParticipant2);
+        PlayersChampionStatsDto expectedPlayersChampionStatsDto = new PlayersChampionStatsDtoBuilder()
+                .withWinRatio(0.5d)
+                .withChampName(championName)
+                .withCS(75)
+                .withAvgKills(4)
+                .withAvgAssists(4)
+                .withAvgDeaths(4)
+                .withPlayedMatches(2)
+                .withKDA(2.0)
+                .build();
+
+        Set<PlayersChampionStatsDto> expectedResult = Set.of(expectedPlayersChampionStatsDto);
+
+        // When
+        when(mockMatchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
+                .thenReturn(matchParticipantList);
+        var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
+                mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
+                mockHttpSummonerService, mockChampionRepository);
+        var actualResult = toTest.getChampionStatsByNickname("Skilled Teaser");
+
+        // Then
+        assertEquals(expectedResult.size(), actualResult.size(), "size is not equals");
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

@@ -113,6 +113,10 @@ public class PlayersChampionStatsDto {
         this.champUrl = champUrl;
     }
 
+    public void setKDA(double KDA) {
+        this.KDA = KDA;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

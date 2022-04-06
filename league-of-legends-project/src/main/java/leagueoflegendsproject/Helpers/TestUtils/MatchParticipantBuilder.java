@@ -1,5 +1,6 @@
 package leagueoflegendsproject.Helpers.TestUtils;
 
+import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 
 public class MatchParticipantBuilder {
@@ -19,8 +20,28 @@ public class MatchParticipantBuilder {
         return this;
     }
 
-    public MatchParticipantBuilder withLane(String lane) {
-        this.matchParticipant.setLane(lane);
+    public MatchParticipantBuilder withChampionName(String championName, Integer championId) {
+        this.matchParticipant.setChampion(new Champion(championId, championName));
+        return this;
+    }
+
+    public MatchParticipantBuilder withKills(int kills) {
+        this.matchParticipant.setKills(kills);
+        return this;
+    }
+
+    public MatchParticipantBuilder withDeaths(int deaths) {
+        this.matchParticipant.setDeaths(deaths);
+        return this;
+    }
+
+    public MatchParticipantBuilder withAssists(int assists) {
+        this.matchParticipant.setAssists(assists);
+        return this;
+    }
+
+    public MatchParticipantBuilder withTotalMinionsKilled(int totalMinionsKilled) {
+        this.matchParticipant.setTotalMinionsKilled(totalMinionsKilled);
         return this;
     }
 

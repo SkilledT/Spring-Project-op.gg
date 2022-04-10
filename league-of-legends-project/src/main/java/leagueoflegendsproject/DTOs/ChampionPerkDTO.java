@@ -1,5 +1,7 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.ChampionPerk;
 
 import java.util.Objects;
@@ -19,9 +21,9 @@ public class ChampionPerkDTO {
     public ChampionPerkDTO(ChampionPerk championPerk) {
         this.id = championPerk.getPerk().getId();
         this.name = championPerk.getPerk().getName();
-        this.icon = championPerk.getPerk().getIcon();
-        this.shortDesc = championPerk.getPerk().getShortDesc();
-        this.longDesc = championPerk.getPerk().getLongDesc();
+        this.icon = RiotLinksProvider.PerkLinksProvider.getPerkIconUrl(championPerk.getPerk());
+        this.shortDesc = championPerk.getPerk().getShortDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, "");
+        this.longDesc = championPerk.getPerk().getLongDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, "");
         this.slotNumber = championPerk.getPerk().getSlotNumber();
         this.treeNumber = championPerk.getPerk().getTreeNumber();
     }

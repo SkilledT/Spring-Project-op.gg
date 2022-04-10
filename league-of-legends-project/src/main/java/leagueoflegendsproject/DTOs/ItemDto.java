@@ -1,13 +1,13 @@
 package leagueoflegendsproject.DTOs;
 
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ItemDto {
 
     private String iconUrl;
-    private String description;
+    private String longDesc;
     private String plainText;
     private Integer totalCost;
     private Integer sell;
@@ -26,7 +26,7 @@ public class ItemDto {
 
     public ItemDto(Item item) {
         this.iconUrl = RiotLinksProvider.ItemLinkProvider.getIconUrl(item);
-        this.description = item.getDescription();
+        this.longDesc = item.getDescription() != null ? item.getDescription().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, "") : null;
         this.plainText = item.getPlainText();
         this.totalCost = item.getTotalCost();
         this.sell = item.getSell();
@@ -42,12 +42,12 @@ public class ItemDto {
         this.iconUrl = iconUrl;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLongDesc() {
+        return longDesc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
     }
 
     public String getPlainText() {
@@ -95,19 +95,19 @@ public class ItemDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemDto itemDto = (ItemDto) o;
-        return Objects.equals(iconUrl, itemDto.iconUrl) && Objects.equals(description, itemDto.description) && Objects.equals(plainText, itemDto.plainText) && Objects.equals(totalCost, itemDto.totalCost) && Objects.equals(sell, itemDto.sell) && Objects.equals(baseCost, itemDto.baseCost) && Objects.equals(name, itemDto.name);
+        return Objects.equals(iconUrl, itemDto.iconUrl) && Objects.equals(longDesc, itemDto.longDesc) && Objects.equals(plainText, itemDto.plainText) && Objects.equals(totalCost, itemDto.totalCost) && Objects.equals(sell, itemDto.sell) && Objects.equals(baseCost, itemDto.baseCost) && Objects.equals(name, itemDto.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iconUrl, description, plainText, totalCost, sell, baseCost, name);
+        return Objects.hash(iconUrl, longDesc, plainText, totalCost, sell, baseCost, name);
     }
 
     @Override
     public String toString() {
         return "ItemDto{" +
                 "iconUrl='" + iconUrl + '\'' +
-                ", description='" + description + '\'' +
+                ", description='" + longDesc + '\'' +
                 ", plainText='" + plainText + '\'' +
                 ", totalCost=" + totalCost +
                 ", sell=" + sell +

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class DbPerkService {
     public List<ChampionPerkDTO> getPerkByChampionNameAndTreeType(String championName, String treeType){
         return championPerkRepository.findChampionPerkByChampionNameAndType(championName, treeType).stream()
                 .map(ChampionPerkDTO::new)
+                .sorted(Comparator.comparingInt(ChampionPerkDTO::getSlotNumber))
                 .collect(Collectors.toList());
     }
 

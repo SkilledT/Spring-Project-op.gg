@@ -12,9 +12,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.management.InvalidApplicationException;
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -28,7 +26,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-2c0a658a-5be0-42c0-b5c4-17fa6f583b65";
+    private final String riotApiKey = "RGAPI-6408dda3-a6f9-4e88-a5ab-d5ec52f9b3f4";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {
@@ -48,6 +46,11 @@ public class RiotHttpClient implements IRiotHttpClient {
             return new HttpResponseWrapper<>(true, jsonResponse, response.body());
         }
         return new HttpResponseWrapper<T>(false, null, response.body());
+    }
+
+    public static <T> T parseResponseToClassObject(String responseBody, Class<T> responseClass) {
+        GsonBuilder gson = new GsonBuilder();
+        return gson.create().fromJson(responseBody, responseClass);
     }
 
     public HttpResponseWrapper<List<ChampionItem>> getChampions() {

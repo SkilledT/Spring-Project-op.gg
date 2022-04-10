@@ -18,13 +18,19 @@ public class ChampionController {
     }
 
     @GetMapping("/strongAganist/{championName}")
-    public ResponseEntity<?> getChampionsWithWinRatio(@PathVariable String championName){
-        var response = championService.getChampionWithWinRatioEntity(championName, 3);
+    public ResponseEntity<?> getStrongChampionsWithWinRatio(@PathVariable String championName) {
+        var response = championService.getChampionsStrongAgainst(championName);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/weakAganist/{championName}")
+    public ResponseEntity<?> getWeakChampionsWithWinRatio(@PathVariable String championName) {
+        var response = championService.getChampionsWeakAgainst(championName);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public ResponseEntity<?> getChampionsDetails(){
+    public ResponseEntity<?> getChampionsDetails() {
         var response = championService.getShortChampionDetails();
         return ResponseEntity.ok(response);
     }

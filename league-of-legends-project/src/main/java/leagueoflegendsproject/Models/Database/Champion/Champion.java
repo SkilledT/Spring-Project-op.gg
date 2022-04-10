@@ -23,15 +23,19 @@ public class Champion {
     private Integer id;
 
     //id or name
+    @Column(name = "name")
     private String name;
 
     @Column(name = "icon_url")
+    @Nullable
     private String iconUrl;
 
     @Column(name = "title")
+    @Nullable
     private String title;
 
     @Column(name = "blurb")
+    @Nullable
     private String blurb;
 
     @OneToMany(mappedBy = "champion")

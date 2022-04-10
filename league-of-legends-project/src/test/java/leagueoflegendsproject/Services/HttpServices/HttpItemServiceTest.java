@@ -20,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,7 +91,7 @@ class HttpItemServiceTest {
         //DTO Items
         ItemDto itemDto1 = new ItemDto();
         itemDto1.setName("Rabadon's Deathcap");
-        itemDto1.setDescription("desc1");
+        itemDto1.setLongDesc("desc1");
         itemDto1.setBaseCost(gold.getBase());
         itemDto1.setSell(gold.getSell());
         itemDto1.setTotalCost(gold.getTotal());
@@ -100,7 +99,7 @@ class HttpItemServiceTest {
         itemDto1.setPlainText("setPlaintext1");
         ItemDto itemDto2 = new ItemDto();
         itemDto2.setName("Tear of Goddess");
-        itemDto2.setDescription("desc2");
+        itemDto2.setLongDesc("desc2");
         itemDto2.setBaseCost(gold.getBase());
         itemDto2.setSell(gold.getSell());
         itemDto2.setTotalCost(gold.getTotal());

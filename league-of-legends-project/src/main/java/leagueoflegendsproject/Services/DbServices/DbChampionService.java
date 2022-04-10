@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Services.DbServices;
 
 import leagueoflegendsproject.DTOs.ChampionShortDto;
+import leagueoflegendsproject.DTOs.ChampionStatsDTO;
 import leagueoflegendsproject.Models.Database.Champion.*;
 import leagueoflegendsproject.Models.Database.TemporaryTables.ChampionWithWinRatioEntity;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
@@ -25,6 +26,7 @@ public class DbChampionService {
     private final StatsRepository statsRepository;
     private final TagRepository tagRepository;
     private final ChampionRepositoryCustom championRepositoryCustom;
+    private final ChampionStatsRepository championStatsRepository;
 
     public DbChampionService(ChampionRepository championRepository,
                              ChampionTagRepository championTagRepository,
@@ -32,6 +34,7 @@ public class DbChampionService {
                              InfoRepository infoRepository,
                              ChampionRepositoryCustom championRepositoryCustom,
                              StatsRepository statsRepository,
+                             ChampionStatsRepository championStatsRepository,
                              TagRepository tagRepository) {
         this.championRepository = championRepository;
         this.championTagRepository = championTagRepository;
@@ -40,6 +43,7 @@ public class DbChampionService {
         this.statsRepository = statsRepository;
         this.tagRepository = tagRepository;
         this.championRepositoryCustom = championRepositoryCustom;
+        this.championStatsRepository = championStatsRepository;
     }
 
     public Champion saveChampion(ChampionItem championItem) {
@@ -95,6 +99,20 @@ public class DbChampionService {
 
     public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches) {
         return championRepositoryCustom.getChampionWithWinRatioEntity(championName, minimumMatches);
+    }
+
+    public List<ChampionStatsDTO> getChampionsStrongAgainst(String championName) {
+        return championStatsRepository.findTop3ChampionStatsByChampionNameOrderByWinRatioDesc(championName)
+                .stream()
+                .map(ChampionStatsDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<ChampionStatsDTO> getChampionsWeakAgainst(String championName) {
+        return championStatsRepository.findTop3ChampionStatsByChampionNameOrderByWinRatioAsc(championName)
+                .stream()
+                .map(ChampionStatsDTO::new)
+                .collect(Collectors.toList());
     }
 
     public List<Champion> getAllChampions() {

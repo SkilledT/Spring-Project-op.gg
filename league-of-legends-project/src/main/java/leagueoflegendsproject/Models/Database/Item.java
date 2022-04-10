@@ -45,18 +45,25 @@ public class Item {
     @Column(name = "item_id")
     private Integer id;
     @Column(name = "icon_url")
+    @Nullable
     private String iconUrl;
     @Column(name = "description")
+    @Nullable
     private String description;
     @Column(name = "plain_text")
+    @Nullable
     private String plainText;
     @Column(name = "total_cost")
+    @Nullable
     private Integer totalCost;
     @Column(name = "sell")
+    @Nullable
     private Integer sell;
     @Column(name = "base_cost")
+    @Nullable
     private Integer baseCost;
     @Column(name = "name")
+    @Nullable
     private String name;
 
     @OneToMany(mappedBy = "item")

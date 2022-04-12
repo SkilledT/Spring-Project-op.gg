@@ -38,7 +38,7 @@ public class SummonersLeagueDto {
         var summoner = Arrays.stream(summonerLeague)
                 .filter(e -> e.getQueueType().equals("RANKED_SOLO_5x5"))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("This summoner does not participate in SoloQ"));
+                .orElse(SummonerLeagueResponseItem.getFakeSummonerLeagueResponseItem(Summoner.getInvalidSummoner()));
         this.tier = summoner.getTier();
         this.rank = summoner.getRank();
         this.summonerName = summoner.getSummonerName();

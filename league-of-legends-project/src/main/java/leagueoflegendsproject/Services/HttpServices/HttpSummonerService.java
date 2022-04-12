@@ -33,15 +33,16 @@ public class HttpSummonerService {
     public Summoner getSummonerByNameHTTP(String nickname) {
         nickname = nickname.replace(" ", "%20");
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerByNicknameUrl(nickname);
-        HttpResponseWrapper<Summoner> responseWrapper;
+        HttpResponseWrapper<Summoner> responseWrapper = null;
         try {
             responseWrapper = riotHttpClient.get(url, Summoner.class);
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
+            //throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
+            System.out.println("Unable to retrieve object, message: " + e.getMessage());
         }
-        if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
+        if (responseWrapper == null || !responseWrapper.isSuccess())
+            //throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
+            System.out.println("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         return responseWrapper.getResponse();
     }
 
@@ -67,6 +68,8 @@ public class HttpSummonerService {
 
     public leagueoflegendsproject.Models.Database.Summoner fetchSummonerAndSaveToDbHTTP(String nickname) {
         Summoner summoner = getSummonerByNameHTTP(nickname);
+        if (summoner == null)
+            return leagueoflegendsproject.Models.Database.Summoner.getInvalidSummoner();
         String summonerEncryptedId = summoner.getId();
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
         HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper;

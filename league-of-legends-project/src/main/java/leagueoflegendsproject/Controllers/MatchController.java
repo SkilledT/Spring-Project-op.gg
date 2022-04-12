@@ -98,10 +98,10 @@ public class MatchController {
         var nicknames = httpSummonerService.getSummonerChallengersNicknamesHTTP();
         nicknames.forEach(nickname -> {
             try {
-                matchService.getMatchCollectionByNickname(nickname, 20);
+                matchService.getMatchCollectionByNickname(nickname, 5);
                 wait(1000*60);
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         });
 

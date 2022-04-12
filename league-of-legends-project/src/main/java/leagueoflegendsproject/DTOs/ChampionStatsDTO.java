@@ -15,7 +15,7 @@ public class ChampionStatsDTO {
         this.winRatio = championStats.getWinRatio();
         this.championName = championStats.getEnemyChampion();
         this.numberOfMatches = championStats.getGames();
-        this.iconUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(championStats.getChampionName());
+        this.iconUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(championStats.getEnemyChampion());
     }
 
     public ChampionStatsDTO() {

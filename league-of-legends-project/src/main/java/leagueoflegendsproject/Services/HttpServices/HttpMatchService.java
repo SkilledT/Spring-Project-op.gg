@@ -4,6 +4,7 @@ import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
+import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -30,7 +31,10 @@ public class HttpMatchService {
 
 
     public List<Match> getMatchCollectionByNickname(String nickname, int numberOfMatches) throws IOException, InterruptedException {
-        String puuid = summonerService.getSummonerByNameHTTP(nickname).getPuuid();
+        Summoner summoner = summonerService.getSummonerByNameHTTP(nickname);
+        if (summoner == null)
+            return Collections.emptyList();
+        String puuid = summoner.getPuuid();
         HttpResponseWrapper<String[]> matchesId = riotHttpClient.get(
                 RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
                         String[].class);

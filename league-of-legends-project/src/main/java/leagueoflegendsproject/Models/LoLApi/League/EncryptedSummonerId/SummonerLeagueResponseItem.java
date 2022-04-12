@@ -1,7 +1,9 @@
 package leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId;
 
 import com.google.gson.annotations.SerializedName;
+import leagueoflegendsproject.Models.Database.Summoner;
 
+import java.beans.Transient;
 import java.util.Objects;
 
 public class SummonerLeagueResponseItem {
@@ -167,6 +169,18 @@ public class SummonerLeagueResponseItem {
 			",rank = '" + rank + '\'' + 
 			",summonerId = '" + summonerId + '\'' + 
 			"}";
+		}
+
+		@Transient
+		public static SummonerLeagueResponseItem getFakeSummonerLeagueResponseItem(Summoner summoner) {
+		 	var responseItem = new SummonerLeagueResponseItem();
+			responseItem.tier = summoner.getTier();
+			responseItem.rank = summoner.getRank();
+			responseItem.summonerName = summoner.getSummonerNickname();
+			responseItem.leaguePoints = summoner.getLeaguePoints();
+			responseItem.wins = summoner.getWins();
+			responseItem.losses = summoner.getLosses();
+			return responseItem;
 		}
 
 	@Override

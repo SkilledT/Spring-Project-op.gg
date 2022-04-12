@@ -159,6 +159,20 @@ public class Summoner {
         this.matchParticipantSet = matchParticipantSet;
     }
 
+    public static Summoner getInvalidSummoner() {
+        var summoner = new Summoner();
+        summoner.summonerId = "fakeId";
+        summoner.lvl = 100;
+        summoner.profileIconId = 100;
+        summoner.summonerNickname = "InvalidSummonerName-1";
+        summoner.wins = 0;
+        summoner.losses = 0;
+        summoner.leaguePoints = 0;
+        summoner.rank = "Diamond";
+        summoner.tier = "I";
+        return summoner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -34,7 +34,7 @@ public class ItemController {
     }
 
     @GetMapping("/mostPopular/{championName}")
-    public ResponseEntity<?> getMostPopularItemsForChampion(@PathVariable String championName){
+    public ResponseEntity<?> getMostPopularItemsForChampion(@PathVariable String championName) {
         return ResponseEntity.ok(
                 itemService.getMostPopularItemsForChampion(championName)
                         .stream()

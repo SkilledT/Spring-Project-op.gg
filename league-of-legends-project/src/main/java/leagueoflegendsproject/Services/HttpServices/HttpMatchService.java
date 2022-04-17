@@ -37,12 +37,12 @@ public class HttpMatchService {
         String puuid = summoner.getPuuid();
         HttpResponseWrapper<String[]> matchesId = riotHttpClient.get(
                 RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
-                        String[].class);
+                String[].class);
         if (!matchesId.isSuccess())
-                throw new IllegalStateException("Data from Riot's API cannot be retried");
+            throw new IllegalStateException("Data from Riot's API cannot be retried");
         String[] matchesIds = matchesId.getResponse();
         List<Match> matches = new ArrayList<>();
-        for (String id : matchesIds){
+        for (String id : matchesIds) {
             Match match = getMatchById(id);
             dbMatchService.AddMatchToDb(match);
             matches.add(match);
@@ -52,6 +52,7 @@ public class HttpMatchService {
 
 
     Match getMatchById(String id) throws IOException, InterruptedException {
+
         HttpResponseWrapper<Match> matchHttpResponseWrapper =
                 riotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id),
                         Match.class);

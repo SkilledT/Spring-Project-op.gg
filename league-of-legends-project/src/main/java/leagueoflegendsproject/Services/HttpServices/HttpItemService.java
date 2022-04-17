@@ -24,7 +24,7 @@ public class HttpItemService {
 
     public List<ItemDto> refreshItems() throws IOException, InterruptedException {
         var itemsWrapper = riotHttpClient.getItems();
-        if (itemsWrapper.isSuccess()){
+        if (itemsWrapper.isSuccess()) {
             List<Item> items = itemsWrapper.getResponse();
             var dbItems = items
                     .stream()

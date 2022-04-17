@@ -27,21 +27,21 @@ public class SummonerController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getSummonerByName(){
+    public ResponseEntity<?> getSummonerByName() {
         String name = "SSW Miszi M";
         Summoner summoner = httpSummonerService.getSummonerByNameHTTP(name);
         return ResponseEntity.ok(summoner);
     }
 
     @GetMapping("/league/{summonerName}")
-    public ResponseEntity<?> getSummonerLeagueByNickname(@PathVariable String summonerName){
+    public ResponseEntity<?> getSummonerLeagueByNickname(@PathVariable String summonerName) {
         String name = "Gande";
         SummonersLeagueDto summoner = httpSummonerService.getSummonerLeagueByNicknameHTTP(summonerName);
         return ResponseEntity.ok(summoner);
     }
 
     @GetMapping("/challengers")
-    public ResponseEntity<?> getChallengers(){
+    public ResponseEntity<?> getChallengers() {
         String tier = "Challenger";
         var challengers = dbSummonerService.getSummonerByTier(tier);
         return ResponseEntity.ok(challengers);

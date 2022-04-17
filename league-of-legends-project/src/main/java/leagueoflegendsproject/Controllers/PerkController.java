@@ -28,7 +28,7 @@ public class PerkController {
     }
 
     @GetMapping("/tree/{championName}/{type}")
-    public ResponseEntity<?> getPerkTreeByChampionNameAndType(@PathVariable String championName, @PathVariable String type){
+    public ResponseEntity<?> getPerkTreeByChampionNameAndType(@PathVariable String championName, @PathVariable String type) {
         return ResponseEntity.ok(dbPerkService.getPerkByChampionNameAndTreeType(championName, type));
     }
 

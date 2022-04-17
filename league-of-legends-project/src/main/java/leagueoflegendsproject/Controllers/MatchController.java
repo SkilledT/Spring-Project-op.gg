@@ -43,22 +43,22 @@ public class MatchController {
     }
 
     @GetMapping("/{nickname}")
-    public ResponseEntity<?> getAllMatchesByNickname(@PathVariable String nickname){
+    public ResponseEntity<?> getAllMatchesByNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
     }
 
     @GetMapping("/championStats/{nickname}")
-    public ResponseEntity<?> getChampionStatsByNickname(@PathVariable String nickname){
+    public ResponseEntity<?> getChampionStatsByNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(dbMatchService.getChampionStatsByNickname(nickname));
     }
 
     @GetMapping("/details/{nickname}")
-    public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname){
+    public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname) {
         return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
     }
 
     @GetMapping("/rolePreferences/{nickname}")
-    public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname){
+    public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname) {
         return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname));
     }
 
@@ -83,10 +83,11 @@ public class MatchController {
     }
 
     @GetMapping("/refresh/challengers")
-    public ResponseEntity<?> refreshChallengersData() throws IOException, InterruptedException {
+    public ResponseEntity<?> refreshChallengersData() {
         new Thread(() -> {
             try {
                 getMatchData();
+                System.out.println("Retrieving challengers data has been completed");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -99,7 +100,7 @@ public class MatchController {
         nicknames.forEach(nickname -> {
             try {
                 matchService.getMatchCollectionByNickname(nickname, 5);
-                wait(1000*60);
+                wait(1000 * 60);
             } catch (IOException | InterruptedException e) {
                 System.out.println(e.getMessage());
             }

@@ -26,7 +26,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-e891b341-254d-453e-b19c-2eb044aff764";
+    private final String riotApiKey = "RGAPI-ce557ce4-9892-4e74-8d1c-16a9cc26d64e";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {
@@ -62,7 +62,7 @@ public class RiotHttpClient implements IRiotHttpClient {
                 .build();
         HttpResponse<String> response;
         try {
-             response =
+            response =
                     httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -80,13 +80,13 @@ public class RiotHttpClient implements IRiotHttpClient {
             values = (Collection) o;
         }
 
-        for (var val : values){
-            if (val instanceof LinkedTreeMap){
+        for (var val : values) {
+            if (val instanceof LinkedTreeMap) {
                 Map champMap = ((LinkedTreeMap) val);
                 List<ChampionItem> championItemList = new ArrayList<>();
                 JSONObject jsonObject = new JSONObject(champMap);
                 Set<String> championNames = jsonObject.keySet();
-                for (var cName : championNames){
+                for (var cName : championNames) {
                     var cValues = champMap.get(cName);
                     var json = gson.toJson(cValues);
                     var cItem = gson.fromJson(json, ChampionItem.class);
@@ -120,13 +120,13 @@ public class RiotHttpClient implements IRiotHttpClient {
         }
 
         int i = 0;
-        for (var val : values){
-            if (val instanceof LinkedTreeMap && i == 3){
+        for (var val : values) {
+            if (val instanceof LinkedTreeMap && i == 3) {
                 Map champMap = ((LinkedTreeMap) val);
                 List<Item> championItemList = new ArrayList<>();
                 JSONObject jsonObject = new JSONObject(champMap);
                 Set<String> championNames = jsonObject.keySet();
-                for (var cName : championNames){
+                for (var cName : championNames) {
                     var cValues = champMap.get(cName);
                     var json = gson.toJson(cValues);
                     Item cItem = gson.fromJson(json, Item.class);
@@ -188,7 +188,8 @@ public class RiotHttpClient implements IRiotHttpClient {
                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         if (response.statusCode() < 300) {
             GsonBuilder gsonBuilder = new GsonBuilder();
-            Type collectionType = new TypeToken<T>(){}.getType();
+            Type collectionType = new TypeToken<T>() {
+            }.getType();
             TResponse jsonResponse = gsonBuilder.create().fromJson(response.body(), collectionType);
             return new HttpResponseWrapper<>(true, jsonResponse, response.body());
         }

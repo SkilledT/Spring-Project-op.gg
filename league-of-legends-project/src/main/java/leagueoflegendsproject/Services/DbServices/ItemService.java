@@ -27,8 +27,8 @@ public class ItemService {
         this.itemRepositoryCustom = itemRepositoryCustom;
     }
 
-    public Item addItem(leagueoflegendsproject.Models.LoLApi.Items.Item item){
-        if (!itemRepository.existsById(item.getId())){
+    public Item addItem(leagueoflegendsproject.Models.LoLApi.Items.Item item) {
+        if (!itemRepository.existsById(item.getId())) {
             return itemRepository.save(new Item(item));
         }
         var dbItem = itemRepository.findById(item.getId())
@@ -36,17 +36,17 @@ public class ItemService {
         return itemRepository.save(updateItem(dbItem, item));
     }
 
-    public Item updateItem(Item dbItem, leagueoflegendsproject.Models.LoLApi.Items.Item item){
+    public Item updateItem(Item dbItem, leagueoflegendsproject.Models.LoLApi.Items.Item item) {
         return itemRepository.save(dbItem.toUpdate(item));
     }
 
-    public void addParentalItems(leagueoflegendsproject.Models.LoLApi.Items.Item item){
+    public void addParentalItems(leagueoflegendsproject.Models.LoLApi.Items.Item item) {
         if (item.getInto() == null)
             return;
 
         Item itemComponent = itemRepository.findById(item.getId())
                 .orElseThrow(() -> new IllegalStateException("There's no such an item in DB"));
-        for (String id : item.getInto()){
+        for (String id : item.getInto()) {
             ItemCookBook itemCookBook = new ItemCookBook();
             itemCookBook.setItemComponent(itemComponent);
             Item masterItem = itemRepository.findById(Integer.valueOf(id))
@@ -56,12 +56,12 @@ public class ItemService {
         }
     }
 
-    public List<Item> getMostPopularItemsForChampion(String championName){
+    public List<Item> getMostPopularItemsForChampion(String championName) {
         var res = itemRepositoryCustom.getMostPopularItemsForChampion(championName);
         return res;
     }
 
-    public void deleteAllItemCookBook(){
+    public void deleteAllItemCookBook() {
         itemCookBookRepository.deleteAll();
     }
 }

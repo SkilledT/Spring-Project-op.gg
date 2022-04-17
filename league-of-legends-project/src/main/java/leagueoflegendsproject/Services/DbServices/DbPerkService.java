@@ -33,7 +33,7 @@ public class DbPerkService {
                 .orElseThrow(() -> new Exception("There is not such a perk, but should be, why?"));
     }
 
-    public List<ChampionPerkDTO> getPerkByChampionNameAndTreeType(String championName, String treeType){
+    public List<ChampionPerkDTO> getPerkByChampionNameAndTreeType(String championName, String treeType) {
         return championPerkRepository.findChampionPerkByChampionNameAndType(championName, treeType).stream()
                 .map(ChampionPerkDTO::new)
                 .sorted(Comparator.comparingInt(ChampionPerkDTO::getSlotNumber))

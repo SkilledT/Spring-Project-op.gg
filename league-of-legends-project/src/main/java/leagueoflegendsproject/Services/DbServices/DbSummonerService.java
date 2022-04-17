@@ -16,12 +16,12 @@ public class DbSummonerService {
         this.summonerRepository = summonerRepository;
     }
 
-    public Summoner addSummoner(leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner responseSummoner){
+    public Summoner addSummoner(leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner responseSummoner) {
         Summoner dbSummoner = new Summoner(responseSummoner);
         return this.summonerRepository.save(dbSummoner);
     }
 
-    public Summoner addSummoner(Summoner summoner){
+    public Summoner addSummoner(Summoner summoner) {
         return this.summonerRepository.save(summoner);
     }
 
@@ -30,7 +30,7 @@ public class DbSummonerService {
                 .orElseThrow(() -> new Exception("No such summoner in DB"));
     }
 
-    public List<SummonersLeagueDto> getSummonerByTier(String tier){
+    public List<SummonersLeagueDto> getSummonerByTier(String tier) {
         return this.summonerRepository.findSummonerByTier(tier).stream()
                 .map(SummonersLeagueDto::new)
                 .collect(Collectors.toList());

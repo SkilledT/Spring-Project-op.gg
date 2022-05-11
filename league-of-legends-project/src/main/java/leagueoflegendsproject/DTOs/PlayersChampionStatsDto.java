@@ -19,18 +19,9 @@ public class PlayersChampionStatsDto {
                                    int playedMatches,
                                    double avgKills,
                                    double avgDeaths,
-                                   double avgAssists) {
-        this.winRatio = winRatio;
-        this.champName = champName;
-        this.CS = CS;
-        this.playedMatches = playedMatches;
-        this.avgKills = avgKills;
-        this.avgDeaths = avgDeaths;
-        this.avgAssists = avgAssists;
-        this.champUrl = "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/"+champName+".png";
-    }
-
-    public PlayersChampionStatsDto(double winRatio, String champName, double CS, int playedMatches, double avgKills, double avgDeaths, double avgAssists, double KDA, String champUrl) {
+                                   double avgAssists,
+                                   double KDA,
+                                   String champUrl) {
         this.winRatio = winRatio;
         this.champName = champName;
         this.CS = CS;

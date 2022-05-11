@@ -4,9 +4,29 @@ public class Constants {
 
     public static final String REMOVE_ALL_HTML_TAGS_REGEX = "<[^>]*>";
 
-    public static class MatchParticipantConstnts {
+    public static class MatchParticipantConstants {
         public enum IndividualPosition {
-            UTILITY, MARKSMAN, FIGHTER, ASSASSIN
+            UTILITY("UTILITY"),
+            MIDDLE("MIDDLE"),
+            JUNGLE("JUNGLE"),
+            INVALID("Invalid"),
+            TOP("TOP"),
+            BOTTOM("BOTTOM");
+
+            private String value;
+
+            IndividualPosition(final String value) {
+                this.value = value;
+            }
+
+            public String getValue() {
+                return value;
+            }
+
+            @Override
+            public String toString() {
+                return this.getValue();
+            }
         }
     }
 
@@ -23,15 +43,15 @@ public class Constants {
         public static final long HOUR_TO_MILLISECONDS = MINUTE_TO_MILLISECONDS * 60;
 
 
-        public static long secondsToMilliseconds(Integer seconds) {
+        public static long secondsToMilliseconds(long seconds) {
             return 1000 * seconds;
         }
 
-        public static long minutesToMilliseconds(Integer minutes) {
+        public static long minutesToMilliseconds(long minutes) {
             return secondsToMilliseconds(60) * minutes;
         }
 
-        public static long hoursToMilliseconds(Integer hours) {
+        public static long hoursToMilliseconds(long hours) {
             return minutesToMilliseconds(60) * hours;
         }
     }

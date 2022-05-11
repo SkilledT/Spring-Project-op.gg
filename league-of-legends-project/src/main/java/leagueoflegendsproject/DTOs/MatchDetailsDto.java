@@ -5,6 +5,7 @@ import leagueoflegendsproject.Helpers.RiotLinksProvider;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class MatchDetailsDto {
@@ -29,6 +30,7 @@ public class MatchDetailsDto {
     private String spell1Url;
     private String spell2Url;
     private Date gameCreation;
+    private Set<MatchAchievementDTO> matchAchievementDTOS;
 
 
     public static final class Builder{
@@ -300,5 +302,22 @@ public class MatchDetailsDto {
 
     public Date getGameCreation() {
         return gameCreation;
+    }
+
+    public Set<MatchAchievementDTO> getMatchAchievementDTOS() {
+        return matchAchievementDTOS;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MatchDetailsDto that = (MatchDetailsDto) o;
+        return timeDurationOfMatch == that.timeDurationOfMatch && summoner1Id == that.summoner1Id && summoner2Id == that.summoner2Id && kills == that.kills && deaths == that.deaths && assists == that.assists && champLvl == that.champLvl && killedMinions == that.killedMinions && Double.compare(that.pInKill, pInKill) == 0 && controlWardsPurchased == that.controlWardsPurchased && isWin == that.isWin && Objects.equals(championName, that.championName) && Objects.equals(championUrl, that.championUrl) && Objects.equals(championIconUrl, that.championIconUrl) && Objects.equals(items, that.items) && Objects.equals(allies, that.allies) && Objects.equals(enemies, that.enemies) && Objects.equals(position, that.position) && Objects.equals(spell1Url, that.spell1Url) && Objects.equals(spell2Url, that.spell2Url) && Objects.equals(gameCreation, that.gameCreation) && Objects.equals(matchAchievementDTOS, that.matchAchievementDTOS);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(championName, championUrl, timeDurationOfMatch, championIconUrl, summoner1Id, summoner2Id, kills, deaths, assists, champLvl, killedMinions, pInKill, controlWardsPurchased, isWin, position, spell1Url, spell2Url, gameCreation);
     }
 }

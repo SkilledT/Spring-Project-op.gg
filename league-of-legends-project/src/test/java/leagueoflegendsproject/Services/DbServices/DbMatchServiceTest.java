@@ -109,7 +109,7 @@ class DbMatchServiceTest {
     @Test
     void getChampionStatsByNickname_shouldReturnSetOfPlayersChampionStatsDto() {
         // Given
-        String position = Constants.MatchParticipantConstnts.IndividualPosition.UTILITY.toString();
+        String position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY.toString();
         int championId = 1000;
         String championName = "Akali";
         MatchParticipant matchParticipant1 = new MatchParticipantBuilder()
@@ -160,7 +160,7 @@ class DbMatchServiceTest {
     @Test
     void getPreferredRole_shouldReturnDTOList() {
         // Given
-        String position = Constants.MatchParticipantConstnts.IndividualPosition.UTILITY.toString();
+        String position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY.toString();
         MatchParticipant matchParticipant1 = new MatchParticipantBuilder()
                 .withIndividualPosition(position)
                 .isWon(false)

@@ -24,13 +24,7 @@ public class PerkDto {
     }
 
     public PerkDto(Perk perk) {
-        this.id = perk.getId();
-        this.name = perk.getName();
-        this.icon = RiotLinksProvider.PerkLinksProvider.getPerkIconUrl(perk);
-        this.shortDesc = perk.getShortDesc();
-        this.longDesc = perk.getLongDesc();
-        this.slotNumber = perk.getSlotNumber();
-        this.treeNumber = perk.getTreeNumber();
+        this(perk.getId(), perk.getName(), RiotLinksProvider.PerkLinksProvider.getPerkIconUrl(perk), perk.getShortDesc(), perk.getLongDesc(), perk.getSlotNumber(), perk.getTreeNumber());
     }
 
     public PerkDto() {

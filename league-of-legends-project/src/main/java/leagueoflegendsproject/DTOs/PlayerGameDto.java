@@ -17,9 +17,7 @@ public class PlayerGameDto {
     }
 
     public PlayerGameDto(ParticipantsItem participantsItem){
-        this.champName = participantsItem.getChampionName();
-        this.nickname = participantsItem.getSummonerName();
-        this.puuid = participantsItem.getPuuid();
+        this(participantsItem.getChampionName(), participantsItem.getSummonerName(), participantsItem.getPuuid());
         this.championUrl = RiotLinksProvider.ChampionLinkProvider.getIconImg(champName);
     }
 

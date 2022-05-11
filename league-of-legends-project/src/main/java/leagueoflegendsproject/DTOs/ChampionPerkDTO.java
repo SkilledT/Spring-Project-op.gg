@@ -18,14 +18,24 @@ public class ChampionPerkDTO {
     public ChampionPerkDTO() {
     }
 
+    public ChampionPerkDTO(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber, Integer treeNumber) {
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.slotNumber = slotNumber;
+        this.treeNumber = treeNumber;
+    }
+
     public ChampionPerkDTO(ChampionPerk championPerk) {
-        this.id = championPerk.getPerk().getId();
-        this.name = championPerk.getPerk().getName();
-        this.icon = RiotLinksProvider.PerkLinksProvider.getPerkIconUrl(championPerk.getPerk());
-        this.shortDesc = championPerk.getPerk().getShortDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, "");
-        this.longDesc = championPerk.getPerk().getLongDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, "");
-        this.slotNumber = championPerk.getPerk().getSlotNumber();
-        this.treeNumber = championPerk.getPerk().getTreeNumber();
+        this(championPerk.getPerk().getId(),
+                championPerk.getPerk().getName(),
+                RiotLinksProvider.PerkLinksProvider.getPerkIconUrl(championPerk.getPerk()),
+                championPerk.getPerk().getShortDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, ""),
+                championPerk.getPerk().getLongDesc().replaceAll(Constants.REMOVE_ALL_HTML_TAGS_REGEX, ""),
+                championPerk.getPerk().getSlotNumber(),
+                championPerk.getPerk().getTreeNumber());
     }
 
     public Integer getId() {

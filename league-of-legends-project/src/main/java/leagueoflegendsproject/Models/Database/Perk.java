@@ -67,6 +67,16 @@ public class Perk {
         this.matchParticipantPerkSet = matchParticipantPerkSet;
     }
 
+    public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber, Integer treeNumber) {
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.slotNumber = slotNumber;
+        this.treeNumber = treeNumber;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -61,7 +61,7 @@ class HttpPerkServiceTest {
         when(mockRiotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class))
                 .thenReturn(responseWrapper);
 
-        var toTest = new HttpPerkService(mockRiotHttpClient, mockDbPerkService);
+        var toTest = new HttpPerkService(mockRiotHttpClient);
         var exception = catchThrowable(toTest::getPerks);
 
         assertThat(exception)
@@ -151,7 +151,7 @@ class HttpPerkServiceTest {
         when(mockRiotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class))
                 .thenReturn(responseWrapper);
 
-        var toTest = new HttpPerkService(mockRiotHttpClient, dbPerkService);
+        var toTest = new HttpPerkService(mockRiotHttpClient);
         var resultList = toTest.getPerks();
 
         assertEquals(3, resultList.size());

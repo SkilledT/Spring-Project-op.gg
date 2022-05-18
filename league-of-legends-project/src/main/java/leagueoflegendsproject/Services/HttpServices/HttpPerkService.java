@@ -19,17 +19,13 @@ import java.util.List;
 public class HttpPerkService {
 
     private final RiotHttpClient riotHttpClient;
-    private final DbPerkService dbPerkService;
 
-    public HttpPerkService(RiotHttpClient riotHttpClient,
-                           DbPerkService dbPerkService) {
+    public HttpPerkService(RiotHttpClient riotHttpClient) {
         this.riotHttpClient = riotHttpClient;
-        this.dbPerkService = dbPerkService;
     }
 
     public List<Perk> getPerks() {
-        HttpResponseWrapper<ResponseItem[]> response =
-                null;
+        HttpResponseWrapper<ResponseItem[]> response = null;
         try {
             response = riotHttpClient.get(RiotLinksProvider.RIOT_CHAMPION_PERKS_URL, ResponseItem[].class);
             if (!response.isSuccess())
@@ -46,21 +42,9 @@ public class HttpPerkService {
             for (int i = 0; i < slots.size(); i++) {
                 var runes = slots.get(i).getRunes();
                 for (leagueoflegendsproject.Models.LoLApi.Perks.RunesItem runesItem : runes) {
-                    Perk perk = new Perk();
-                    perk.setId(runesItem.getId());
-                    perk.setIcon(runesItem.getIcon());
-                    perk.setLongDesc(runesItem.getLongDesc());
-                    perk.setShortDesc(runesItem.getShortDesc());
-                    perk.setName(runesItem.getName());
-                    perk.setSlotNumber(i);
-                    perk.setTreeNumber(treeNumber);
+                    Integer slotNumber = i;
+                    Perk perk = new Perk(runesItem.getId(), runesItem.getName(), runesItem.getIcon(), runesItem.getShortDesc(), runesItem.getLongDesc(), slotNumber, treeNumber);
                     result.add(perk);
-                    try {
-                        dbPerkService.savePerk(perk);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println(e.getMessage());
-                    }
                 }
             }
             treeNumber++;

@@ -6,6 +6,7 @@ import leagueoflegendsproject.Models.Database.ChampionPerk;
 import leagueoflegendsproject.Models.Database.Perk;
 import leagueoflegendsproject.Repositories.ChampionPerkRepository;
 import leagueoflegendsproject.Repositories.PerkRepository;
+import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,19 @@ public class DbPerkService {
 
     private final PerkRepository perkRepository;
     private final ChampionPerkRepository championPerkRepository;
+    private final HttpPerkService httpPerkService;
 
     public DbPerkService(PerkRepository perkRepository,
-                         ChampionPerkRepository championPerkRepository) {
+                         ChampionPerkRepository championPerkRepository,
+                         HttpPerkService httpPerkService) {
         this.perkRepository = perkRepository;
         this.championPerkRepository = championPerkRepository;
+        this.httpPerkService = httpPerkService;
+    }
+
+    public List<Perk> refreshPerks() {
+        List<Perk> perks = httpPerkService.getPerks();
+        return perkRepository.saveAll(perks);
     }
 
     public Perk savePerk(Perk perk) throws Exception {

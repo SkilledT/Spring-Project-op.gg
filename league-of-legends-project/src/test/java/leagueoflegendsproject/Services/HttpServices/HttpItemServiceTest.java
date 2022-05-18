@@ -5,6 +5,7 @@ import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Helpers.TestUtils.HttpItemBuilder;
+import leagueoflegendsproject.Helpers.TestUtils.ItemDtoBuilder;
 import leagueoflegendsproject.Models.LoLApi.Items.Gold;
 import leagueoflegendsproject.Models.LoLApi.Items.Image;
 import leagueoflegendsproject.Models.LoLApi.Items.Item;
@@ -89,22 +90,24 @@ class HttpItemServiceTest {
         List<Item> httpItems = List.of(item1, item2);
 
         //DTO Items
-        ItemDto itemDto1 = new ItemDto();
-        itemDto1.setName("Rabadon's Deathcap");
-        itemDto1.setLongDesc("desc1");
-        itemDto1.setBaseCost(gold.getBase());
-        itemDto1.setSell(gold.getSell());
-        itemDto1.setTotalCost(gold.getTotal());
-        itemDto1.setIconUrl(RiotLinksProvider.ItemLinkProvider.getIconUrl("full"));
-        itemDto1.setPlainText("setPlaintext1");
-        ItemDto itemDto2 = new ItemDto();
-        itemDto2.setName("Tear of Goddess");
-        itemDto2.setLongDesc("desc2");
-        itemDto2.setBaseCost(gold.getBase());
-        itemDto2.setSell(gold.getSell());
-        itemDto2.setTotalCost(gold.getTotal());
-        itemDto2.setIconUrl(RiotLinksProvider.ItemLinkProvider.getIconUrl("full"));
-        itemDto2.setPlainText("setPlaintext2");
+        ItemDto itemDto1 = new ItemDtoBuilder()
+                .withName("Rabadon's Deathcap")
+                .withLongDesc("desc1")
+                .withBasedCost(gold.getBase())
+                .withSellPrice(gold.getSell())
+                .withTotalCost(gold.getTotal())
+                .withIconUrl(RiotLinksProvider.ItemLinkProvider.getIconUrl("full"))
+                .withPlainText("setPlaintext1")
+                .build();
+        ItemDto itemDto2 = new ItemDtoBuilder()
+                .withName("Tear of Goddess")
+                .withLongDesc("desc2")
+                .withBasedCost(gold.getBase())
+                .withSellPrice(gold.getSell())
+                .withTotalCost(gold.getTotal())
+                .withIconUrl(RiotLinksProvider.ItemLinkProvider.getIconUrl("full"))
+                .withPlainText("setPlaintext2")
+                .build();;
         List<ItemDto> dtoItems = List.of(itemDto1, itemDto2);
 
         HttpResponseWrapper<List<Item>> httpResponseWrapper =

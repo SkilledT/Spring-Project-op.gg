@@ -7,7 +7,7 @@ import java.util.List;
 
 public class RiotLinksProvider {
 
-    private final static String RIOT_VERSION = "12.6.1";
+    private final static String RIOT_VERSION = "10.16.1";
     public final static String RIOT_CHAMPION_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/champion.json";
     public final static String RIOT_CHAMPION_PERKS_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/runesReforged.json";
 

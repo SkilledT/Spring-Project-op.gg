@@ -23,7 +23,6 @@ public class MatchController {
 
     private final HttpMatchService matchService;
     private final HttpChampionService httpChampionService;
-    private final HttpPerkService httpPerkService;
     private final DbMatchService dbMatchService;
     private final DbChampionService dbChampionService;
     private final HttpSummonerService httpSummonerService;
@@ -38,7 +37,6 @@ public class MatchController {
         this.dbMatchService = dbMatchService;
         this.httpChampionService = httpChampionService;
         this.dbChampionService = dbChampionService;
-        this.httpPerkService = httpPerkService;
         this.httpSummonerService = httpSummonerService;
     }
 
@@ -73,12 +71,6 @@ public class MatchController {
         Set<Champion> champions = championItems.stream()
                 .map(dbChampionService::saveChampion)
                 .collect(Collectors.toSet());
-        return ResponseEntity.ok("ok");
-    }
-
-    @GetMapping("/refresh/perk")
-    public ResponseEntity<?> refreshPerks() throws Exception {
-        var perks = httpPerkService.getPerks();
         return ResponseEntity.ok("ok");
     }
 

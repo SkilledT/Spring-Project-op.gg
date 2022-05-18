@@ -4,6 +4,7 @@ import leagueoflegendsproject.Models.Database.Perk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,7 @@ public interface PerkRepository extends JpaRepository<Perk, Integer>, leagueofle
 
     @Override
     boolean existsById(Integer integer);
+
+    @Override
+    <S extends Perk> List<S> saveAll(Iterable<S> entities);
 }

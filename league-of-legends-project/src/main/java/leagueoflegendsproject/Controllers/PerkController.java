@@ -32,4 +32,9 @@ public class PerkController {
         return ResponseEntity.ok(dbPerkService.getPerkByChampionNameAndTreeType(championName, type));
     }
 
+    @GetMapping("/refresh")
+    public ResponseEntity<?> refreshPerks() {
+        var perks = dbPerkService.refreshPerks();
+        return ResponseEntity.ok(perks);
+    }
 }

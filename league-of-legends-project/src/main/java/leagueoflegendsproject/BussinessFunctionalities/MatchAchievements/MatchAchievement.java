@@ -7,7 +7,7 @@ import leagueoflegendsproject.Models.Database.MatchParticipant;
 
 public class MatchAchievement {
 
-    public MatchDetailsDto getSummonerAchievementsInMatch(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    public static MatchDetailsDto getSummonerAchievementsInMatch(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         checkForNoDamageToTurrets(matchParticipant, matchDetailsDto);
         checkForNoWardsPlacedAchievement(matchParticipant, matchDetailsDto);
         checkForAntiKDAPlayer(matchParticipant, matchDetailsDto);
@@ -16,7 +16,7 @@ public class MatchAchievement {
         return matchDetailsDto;
     }
 
-    private void checkForNoWardsPlacedAchievement(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    private static void checkForNoWardsPlacedAchievement(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         String name = "No wards placed";
         String description = "You have NOT placed any controlling ward in this game";
         if (matchParticipant.getSightWardsBoughtInGame() == 0)
@@ -25,7 +25,7 @@ public class MatchAchievement {
             );
     }
 
-    private void checkForNoDamageToTurrets(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    private static void checkForNoDamageToTurrets(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         String name = "No damage dealt to turrets";
         String description = "You did NOT damage to turrets. Gold from turrets provides significant amount of gold. Work on it";
         if (matchParticipant.getDamageDealtsToTurrets() == 0)
@@ -34,7 +34,7 @@ public class MatchAchievement {
             );
     }
 
-    private void checkForAntiKDAPlayer(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    private static void checkForAntiKDAPlayer(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         String name = "Anti-KDA Player";
         String description = "Your KDA in this game was below 1. It means you died more times than were involved it kills. It does not looks good";
         if ((matchParticipant.getKills() + matchParticipant.getAssists()) < matchParticipant.getDeaths())
@@ -43,7 +43,7 @@ public class MatchAchievement {
             );
     }
 
-    private void checkForFogOfWarBringer(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    private static void checkForFogOfWarBringer(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         String name = "Fog of War Bringer";
         String description = "You've got to be a Fog of War Bringer. Good job with clearing " + matchParticipant.getWardsKilled();
         if (matchParticipant.getWardsKilled() > 5)
@@ -52,7 +52,7 @@ public class MatchAchievement {
             );
     }
 
-    private void checkForImmortal(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
+    private static void checkForImmortal(MatchParticipant matchParticipant, MatchDetailsDto matchDetailsDto) {
         String name = "Immortal";
         String description = "Dying throws the games. Well done with no deaths in this match. Keep doing.";
         if (matchParticipant.getDeaths() == 0)

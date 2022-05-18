@@ -6,6 +6,7 @@ import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
+import leagueoflegendsproject.Services.DbServices.DbChampionService;
 import leagueoflegendsproject.Services.DbServices.DbSummonerService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,10 +32,19 @@ class HttpSummonerServiceTest {
     private RiotHttpClient mockRiotHttpClient;
     @Autowired
     private DbSummonerService dbSummonerService;
+    @Autowired
+    private HttpChampionService championService;
+    @Autowired
+    private DbChampionService dbChampionService;
+    @Autowired
+    private HttpItemService itemService;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException, InterruptedException {
         mockRiotHttpClient = mock(RiotHttpClient.class);
+        var champions = championService.getChampionList();
+        champions.forEach(e -> dbChampionService.saveChampion(e));
+        itemService.refreshItems();
     }
 
     @AfterEach

@@ -47,6 +47,16 @@ public class SummonerLeagueResponseItem {
 	@SerializedName("summonerId")
 	private String summonerId;
 
+	public SummonerLeagueResponseItem(String summonerName, String leagueId, String queueType, String rank) {
+		this.summonerName = summonerName;
+		this.leagueId = leagueId;
+		this.queueType = queueType;
+		this.rank = rank;
+	}
+
+	public SummonerLeagueResponseItem() {
+	}
+
 	public void setWins(int wins){
 		this.wins = wins;
 	}

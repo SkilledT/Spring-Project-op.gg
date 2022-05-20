@@ -2,7 +2,9 @@ package leagueoflegendsproject.Models.LoLApi.Perks;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class ResponseItem{
 
 	@SerializedName("slots")
@@ -19,6 +21,13 @@ public class ResponseItem{
 
 	@SerializedName("key")
 	private String key;
+
+	public ResponseItem() {
+	}
+
+	public ResponseItem(List<SlotsItem> slots) {
+		this.slots = slots;
+	}
 
 	public void setSlots(List<SlotsItem> slots){
 		this.slots = slots;

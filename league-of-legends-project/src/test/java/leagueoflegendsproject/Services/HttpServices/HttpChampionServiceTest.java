@@ -38,34 +38,37 @@ class HttpChampionServiceTest {
 
     @Test
     void getChampionList_ShouldReturnEmptyList_WhenIsNotSuccess() {
+        // given
         HttpResponseWrapper<List<ChampionItem>> httpResponseWrapper =
                 new HttpResponseWrapper<>(false, null, "API is not available");
+
+        // when
         when(mockRiotHttpClient.getChampions())
                 .thenReturn(httpResponseWrapper);
-
         var toTest = new HttpChampionService(mockRiotHttpClient);
         var methodCollection = toTest.getChampionList();
 
+        // then
         assertEquals(methodCollection, Collections.emptyList());
     }
 
     @Test
     void getChampionList_ShouldReturnReceivedCollection_WhenIsSuccess() {
-        ChampionItem championItem1 = new ChampionItem();
-        championItem1.setId("Akali");
-        championItem1.setName("Akali");
-        ChampionItem championItem2 = new ChampionItem();
-        championItem2.setId("Ahri");
-        championItem2.setName("Ahri");
+        // given
+        ChampionItem championItem1 = new ChampionItem("Akali", "Akali");
+        ChampionItem championItem2 = new ChampionItem("Ahri", "Ahri");
         List<ChampionItem> championItemList = List.of(championItem1,  championItem2);
         HttpResponseWrapper<List<ChampionItem>> httpResponseWrapper =
                 new HttpResponseWrapper<>(true, championItemList, "API is not available");
+
+        // when
         when(mockRiotHttpClient.getChampions())
                 .thenReturn(httpResponseWrapper);
 
         var toTest = new HttpChampionService(mockRiotHttpClient);
         var methodCollection = toTest.getChampionList();
 
+        // then
         assertEquals(methodCollection, championItemList);
         assertEquals(methodCollection.size(), championItemList.size());
     }

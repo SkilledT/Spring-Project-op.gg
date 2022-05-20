@@ -28,6 +28,42 @@ public class Constants {
                 return this.getValue();
             }
         }
+
+        public enum RankedType {
+            RANKED_SOLO_5x5, RANKED_SOLO_3x3
+        }
+
+        public enum RankedTier {
+            IRON("Iron"),
+            BRONZE("Bronze"),
+            SILVER("Silver"),
+            GOLD("Gold"),
+            PLATINUM("Platinum"),
+            DIAMOND("Diamond"),
+            GRANDMASTER("Grandmaster"),
+            MASTER("Master"),
+            CHALLENGER("Challenger");
+
+
+            private String value;
+
+            RankedTier(final String value) {
+                this.value = value;
+            }
+
+            public String getValue() {
+                return this.value;
+            }
+
+            @Override
+            public String toString() {
+                return this.getValue();
+            }
+        }
+
+        public enum RankedRank {
+            I, II, III, IV
+        }
     }
 
     public static class EntityConstants {

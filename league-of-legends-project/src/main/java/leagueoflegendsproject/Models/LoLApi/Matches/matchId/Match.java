@@ -12,7 +12,11 @@ public class Match {
 	@SerializedName("info")
 	private Info info;
 
-	public void setMetadata(Metadata metadata){
+	public Match(Info info) {
+		this.info = info;
+	}
+
+    public void setMetadata(Metadata metadata){
 		this.metadata = metadata;
 	}
 

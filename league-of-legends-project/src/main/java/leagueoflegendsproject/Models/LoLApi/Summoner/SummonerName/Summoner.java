@@ -27,6 +27,19 @@ public class Summoner {
 	@SerializedName("summonerLevel")
 	private int summonerLevel;
 
+	public Summoner(String accountId, int profileIconId, long revisionDate, String name, String puuid, String id, int summonerLevel) {
+		this.accountId = accountId;
+		this.profileIconId = profileIconId;
+		this.revisionDate = revisionDate;
+		this.name = name;
+		this.puuid = puuid;
+		this.id = id;
+		this.summonerLevel = summonerLevel;
+	}
+
+	public Summoner() {
+	}
+
 	public void setAccountId(String accountId){
 		this.accountId = accountId;
 	}

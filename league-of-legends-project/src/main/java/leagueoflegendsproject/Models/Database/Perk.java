@@ -30,16 +30,16 @@ public class Perk {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 10000)
     private String name;
 
     @Column(name = "icon")
     private String icon;
 
-    @Column(name = "short_desc")
+    @Column(name = "short_desc", length = 10000)
     private String shortDesc;
 
-    @Column(name = "long_desc")
+    @Column(name = "long_desc", length = 10000)
     private String longDesc;
 
     @Column(name = "slot_number")

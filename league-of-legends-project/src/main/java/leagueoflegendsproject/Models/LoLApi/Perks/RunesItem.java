@@ -22,6 +22,18 @@ public class RunesItem{
 	@SerializedName("longDesc")
 	private String longDesc;
 
+	public RunesItem(String icon, String name, String shortDesc, int id, String key, String longDesc) {
+		this.icon = icon;
+		this.name = name;
+		this.shortDesc = shortDesc;
+		this.id = id;
+		this.key = key;
+		this.longDesc = longDesc;
+	}
+
+	public RunesItem() {
+	}
+
 	public void setIcon(String icon){
 		this.icon = icon;
 	}

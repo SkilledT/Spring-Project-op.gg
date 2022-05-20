@@ -52,6 +52,11 @@ public class ChampionItem {
     public ChampionItem() {
     }
 
+    public ChampionItem(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

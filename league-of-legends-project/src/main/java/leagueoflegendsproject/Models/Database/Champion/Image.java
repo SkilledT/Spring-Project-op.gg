@@ -17,11 +17,11 @@ public class Image {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "`full`")
+    @Column(name = "`full`", length = 10000)
     private String full;
-    @Column(name = "sprite")
+    @Column(name = "sprite", length = 10000)
     private String sprite;
-    @Column(name = "`group`")
+    @Column(name = "`group`", length = 10000)
     private String group;
 
     private Integer x;

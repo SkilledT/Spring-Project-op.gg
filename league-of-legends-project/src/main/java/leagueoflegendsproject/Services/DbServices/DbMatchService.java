@@ -188,19 +188,14 @@ public class DbMatchService {
         participantItemsRepository.save(participantItems);
     }
 
-    private void savePerk(MatchParticipant matchParticipant, Integer perkId) {
+    private void savePerk(MatchParticipant matchParticipant, Integer perkId) throws IllegalStateException {
         MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
-        Perk perk = perkRepository.findById(perkId)
-                .orElseThrow(() ->
-                        new IllegalStateException("There is no such a perk in DB, ID: " + perkId
-                                + ", champion: " + matchParticipant.getChampionName()
-                                + ", player: " + matchParticipant.getSummoner().getSummonerNickname()
-                        )
-                );
-
-        matchParticipantPerk.setMatchParticipant(matchParticipant);
-        matchParticipantPerk.setPerk(perk);
-        matchParticipantPerkRepository.save(matchParticipantPerk);
+        Optional<Perk> perk = perkRepository.findById(perkId);
+        perk.ifPresent(perkLambda -> {
+            matchParticipantPerk.setMatchParticipant(matchParticipant);
+            matchParticipantPerk.setPerk(perkLambda);
+            matchParticipantPerkRepository.save(matchParticipantPerk);
+        });
     }
 
     private void saveBan(MatchTeam matchTeam, Integer championId, int pickTurn) {

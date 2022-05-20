@@ -1,5 +1,9 @@
 package leagueoflegendsproject.Services.DbServices;
 
+import leagueoflegendsproject.Controllers.ChampionController;
+import leagueoflegendsproject.Controllers.ItemController;
+import leagueoflegendsproject.Controllers.MatchController;
+import leagueoflegendsproject.Controllers.PerkController;
 import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.DTOs.PreferedRoleDto;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
@@ -7,14 +11,17 @@ import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Helpers.TestUtils.MatchParticipantBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PlayersChampionStatsDtoBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PreferedRoleDtoBuilder;
+import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
 import leagueoflegendsproject.Services.HttpServices.HttpItemService;
 import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +30,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -38,6 +47,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
+@Transactional
 class DbMatchServiceTest {
 
     private SummonerRepository mockSummonerRepository;
@@ -70,15 +80,15 @@ class DbMatchServiceTest {
     @Autowired private MatchParticipantPerkRepository matchParticipantPerkRepository;
     @Autowired private PerkRepository perkRepository;
     @Autowired private HttpSummonerService httpSummonerService;
-    @Autowired private HttpChampionService championService;
-    @Autowired private DbChampionService dbChampionService;
-    @Autowired private HttpItemService itemService;
-    @Autowired private HttpPerkService httpPerkService;
-    @Autowired private DbPerkService dbPerkService;
+
+    @Autowired private ItemController itemController;
+    @Autowired private PerkController perkController;
+    @Autowired private ChampionController championController;
+    @Autowired private MatchController matchController;
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException, InterruptedException {
         this.mockSummonerRepository = mock(SummonerRepository.class);
         this.mockItemRepository = mock(ItemRepository.class);
         this.mockTeamRepository = mock(TeamRepository.class);
@@ -93,9 +103,11 @@ class DbMatchServiceTest {
         this.mockMatchParticipantPerkRepository = mock(MatchParticipantPerkRepository.class);
         this.mockPerkRepository = mock(PerkRepository.class);
         this.mockHttpSummonerService = mock(HttpSummonerService.class);
+
+        this.matchController.refreshChampions();
+        this.itemController.refreshItems();
+        this.perkController.refreshPerks();
     }
-
-
 
     @AfterEach
     void tearDown() {
@@ -103,25 +115,29 @@ class DbMatchServiceTest {
 
     @Test
     void addMatchToDb() throws IOException {
+        //given
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("matchResponse.json").getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource("matchResponse.json")).getFile());
         StringBuilder builder = new StringBuilder();
         Files.lines(Path.of(file.getPath())).forEach(e -> builder.append(e).append('\n'));
         leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = RiotHttpClient.parseResponseToClassObject(builder.toString(), Match.class);
 
+        // when
         var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository, banRepository, teamObjectiveRepository,
                 matchTeamRepository, participantItemsRepository, matchParticipantRepository, objectiveRepository, perkRepository, matchParticipantPerkRepository,
                 httpSummonerService, championRepository);
         toTest.AddMatchToDb(match);
 
+        // then
+        match.getInfo().getParticipants()
+                .forEach(participant -> {
+                    var actual = matchParticipantRepository.findById(new MatchParticipantKey(participant.getSummonerId(), match.getMetadata().getMatchId()));
+                    assertTrue(actual.isPresent(), "There is not such a match participant in DB, summoner ID: " + participant.getSummonerId() + ", match ID: " + match.getMetadata().getMatchId());
+                });
     }
 
     @Test
-    void getMatchesByNickname() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("res.csv").getFile());
-        StringBuilder builder = new StringBuilder();
-        Files.lines(Path.of(file.getPath())).forEach(e -> builder.append(e + '\n'));
+    void getMatchesByNickname() {
     }
 
     @Test

@@ -46,21 +46,24 @@ class HttpMatchServiceTest {
 
     @Test
     void getMatchCollectionByNickname_ShouldThrowIllegalStateException_WhenIsNotSuccess() throws IOException, InterruptedException {
+        // given
         String nickname = "Skilled";
         String puuid = "SkilledTeaserPuuid";
         int numberOfMatches = 20;
-        String url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?start=0&count=" + numberOfMatches;
+        String url = RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches);
         Summoner summoner = new Summoner();
         summoner.setPuuid(puuid);
         HttpResponseWrapper<String[]> responseWrapper =
                 new HttpResponseWrapper<>(false, null, "Wrong request");
 
+        // when
         when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner);
         when(mockRiotHttpClient.get(url, String[].class)).thenReturn(responseWrapper);
 
         var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbMatchService);
-
         var exception = catchThrowable(() -> toTest.getMatchCollectionByNickname(nickname, numberOfMatches));
+
+        // then
         assertThat(exception)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Riot's API cannot be retried");
@@ -68,6 +71,7 @@ class HttpMatchServiceTest {
 
     @Test
     void getMatchCollectionByNickname_ShouldReturnListOfMatches_WhenIsSuccess() throws IOException, InterruptedException {
+        // given
         String nickname = "Skilled";
         String puuid = "SkilledTeaserPuuid";
         int numberOfMatches = 20;
@@ -76,20 +80,17 @@ class HttpMatchServiceTest {
         Summoner summoner = new Summoner();
         summoner.setPuuid(puuid);
 
-        Match fakeMatch = new Match();
-        Info fakeInfo = new Info();
-        fakeInfo.setGameName("game1");
-        fakeMatch.setInfo(fakeInfo);
+        Info fakeInfo = new Info("game1");
+        Match fakeMatch = new Match(fakeInfo);
 
-        Match fakeMatch2 = new Match();
-        Info fakeInfo2 = new Info();
-        fakeInfo2.setGameName("game2");
-        fakeMatch2.setInfo(fakeInfo2);
+        Info fakeInfo2 = new Info("game2");
+        Match fakeMatch2 = new Match(fakeInfo2);
 
         String[] responses = {"id1", "id2"};
         HttpResponseWrapper<String[]> responseWrapper =
                 new HttpResponseWrapper<>(true, responses, "OK");
 
+        // when
         when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner);
         when(mockRiotHttpClient.get(url, String[].class)).thenReturn(responseWrapper);
 
@@ -98,6 +99,7 @@ class HttpMatchServiceTest {
         Mockito.doReturn(fakeMatch).when(toTest).getMatchById(responses[0]);
         Mockito.doReturn(fakeMatch2).when(toTest).getMatchById(responses[1]);
 
+        // then
         assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
                 .contains(fakeMatch);
         assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
@@ -108,23 +110,21 @@ class HttpMatchServiceTest {
 
     @Test
     void getMatchById_ShouldReturnMatchObject_WhenThereIsSuccess() throws IOException, InterruptedException {
+        // given
         String fakeId = "idNo1";
         String fakeId2 = "idNo2";
-        Match fakeMatch = new Match();
-        Info fakeInfo = new Info();
-        fakeInfo.setGameName("game1");
-        fakeMatch.setInfo(fakeInfo);
+        Info fakeInfo = new Info("game1");
+        Match fakeMatch = new Match(fakeInfo);
 
-        Match fakeMatch2 = new Match();
-        Info fakeInfo2 = new Info();
-        fakeInfo2.setGameName("game2");
-        fakeMatch.setInfo(fakeInfo2);
+        Info fakeInfo2 = new Info("game2");
+        Match fakeMatch2 = new Match(fakeInfo2);
 
         HttpResponseWrapper<Match> fakeHttpResponse = new HttpResponseWrapper<>(true, fakeMatch, "Wrong patch");
         HttpResponseWrapper<Match> fakeHttpResponse2 = new HttpResponseWrapper<>(true, fakeMatch2, "Wrong patch");
-        String url = "https://europe.api.riotgames.com/lol/match/v5/matches/" + fakeId;
-        String url2 = "https://europe.api.riotgames.com/lol/match/v5/matches/" + fakeId2;
+        String url = RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(fakeId);
+        String url2 = RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(fakeId2);
 
+        // when
         when(mockRiotHttpClient.get(url, Match.class)).thenReturn(fakeHttpResponse);
         when(mockRiotHttpClient.get(url2, Match.class)).thenReturn(fakeHttpResponse2);
 
@@ -132,6 +132,7 @@ class HttpMatchServiceTest {
         var result = toTest.getMatchById(fakeId);
         var result2 = toTest.getMatchById(fakeId2);
 
+        // then
         assertThat(result).isInstanceOf(Match.class);
         assertEquals(result, fakeMatch);
         assertNotEquals(result, fakeMatch2);
@@ -140,98 +141,4 @@ class HttpMatchServiceTest {
         assertNotEquals(result, result2);
         assertEquals(fakeMatch2, result2);
     }
-    /*
-    @Test
-    void getChampionStatsByNickname() throws IOException, InterruptedException {
-        String nickname = "SkilledT";
-        String nickname2 = "noname";
-        String puuid = "SkilledTPuuid";
-        String puuid2 = "nonamePuuid";
-
-        List<Match> fakeListOfMatches;
-
-        ParticipantsItem fakeParticipant1 = new ParticipantsItem();
-        fakeParticipant1.setAssists(3);
-        fakeParticipant1.setKills(3);
-        fakeParticipant1.setDeaths(3);
-        fakeParticipant1.setChampionName("Shen");
-        fakeParticipant1.setWin(true);
-        fakeParticipant1.setPuuid(puuid);
-
-        ParticipantsItem fakeParticipant2 = new ParticipantsItem();
-        fakeParticipant2.setAssists(4);
-        fakeParticipant2.setKills(4);
-        fakeParticipant2.setDeaths(4);
-        fakeParticipant2.setChampionName("Fizz");
-        fakeParticipant2.setWin(true);
-        fakeParticipant2.setPuuid(puuid);
-
-        ParticipantsItem fakeParticipant3 = new ParticipantsItem();
-        fakeParticipant3.setAssists(5);
-        fakeParticipant3.setKills(5);
-        fakeParticipant3.setDeaths(5);
-        fakeParticipant3.setChampionName("Shen");
-        fakeParticipant3.setWin(false);
-        fakeParticipant3.setPuuid(puuid);
-
-        ParticipantsItem fakeParticipant4 = new ParticipantsItem();
-        fakeParticipant4.setAssists(4);
-        fakeParticipant4.setKills(4);
-        fakeParticipant4.setDeaths(4);
-        fakeParticipant4.setChampionName("Fizz");
-        fakeParticipant4.setWin(true);
-        fakeParticipant4.setPuuid(puuid2);
-
-        Match fakeMatch1 = new Match();
-        Info fakeInfo1 = new Info();
-
-        Match fakeMatch2 = new Match();
-        Info fakeInfo2 = new Info();
-
-        Match fakeMatch3 = new Match();
-        Info fakeInfo3 = new Info();
-
-        fakeInfo1.setParticipants(List.of(fakeParticipant1));
-        fakeInfo1.setParticipants(List.of(fakeParticipant4));
-        fakeInfo2.setParticipants(List.of(fakeParticipant2));
-        fakeInfo3.setParticipants(List.of(fakeParticipant3));
-
-        fakeMatch1.setInfo(fakeInfo1);
-        fakeMatch2.setInfo(fakeInfo2);
-        fakeMatch3.setInfo(fakeInfo3);
-
-        fakeListOfMatches = List.of(fakeMatch1, fakeMatch2, fakeMatch3);
-
-        Summoner summoner1 = new Summoner();
-        Summoner summoner2 = new Summoner();
-        summoner1.setPuuid(puuid);
-        summoner2.setPuuid(puuid2);
-
-        PlayersChampionStatsDto playersChampionStatsDto1 = new PlayersChampionStatsDto();
-        playersChampionStatsDto1.setAvgAssists(4.0d);
-        playersChampionStatsDto1.setAvgDeaths(4.0d);
-        playersChampionStatsDto1.setAvgKills(4.0d);
-        playersChampionStatsDto1.setChampName("Shen");
-        playersChampionStatsDto1.setWinRatio(0.5d);
-
-        PlayersChampionStatsDto playersChampionStatsDto2 = new PlayersChampionStatsDto();
-        playersChampionStatsDto2.setAvgAssists(4.0d);
-        playersChampionStatsDto2.setAvgDeaths(4.0d);
-        playersChampionStatsDto2.setAvgKills(4.0d);
-        playersChampionStatsDto2.setChampName("Fizz");
-        playersChampionStatsDto2.setWinRatio(1.0d);
-
-        when(mockSummonerService.getSummonerByNameHTTP(nickname)).thenReturn(summoner1);
-        when(mockSummonerService.getSummonerByNameHTTP(nickname2)).thenReturn(summoner2);
-
-        HttpMatchService httpMatchService = new HttpMatchService(mockRiotHttpClient, mockSummonerService);
-        var toTest = Mockito.spy(httpMatchService);
-        Mockito.doReturn(fakeListOfMatches).when(toTest).getMatchCollectionByNickname(nickname);
-        var result = toTest.getChampionStatsByNickname(nickname);
-        System.out.println(result);
-
-        assertThat(result).contains(playersChampionStatsDto1);
-        assertThat(result).contains(playersChampionStatsDto2);
-    }*/
-
 }

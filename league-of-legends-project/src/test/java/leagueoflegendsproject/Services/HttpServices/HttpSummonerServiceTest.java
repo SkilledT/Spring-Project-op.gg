@@ -4,6 +4,7 @@ import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
 import leagueoflegendsproject.Services.DbServices.DbChampionService;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
+@Transactional
 class HttpSummonerServiceTest {
 
     private RiotHttpClient mockRiotHttpClient;
@@ -71,26 +74,20 @@ class HttpSummonerServiceTest {
 
     @Test
     void getSummonerLeagueByNickname_ShouldThrowIllegalArgumentException_WhenResponseIsNotSuccess() throws IOException, InterruptedException {
+        // given
         String nickname = "nickname";
-        Summoner summoner = new Summoner();
-        summoner.setSummonerLevel(100);
-        summoner.setId("10");
-        summoner.setName(nickname);
-        summoner.setAccountId("1");
-        summoner.setPuuid("1000");
-        summoner.setProfileIconId(123);
-        summoner.setRevisionDate(123);
-
+        Summoner summoner = new Summoner("1", 123, 123, "nickname", "1000", "10", 100);
         HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper =
                 new HttpResponseWrapper<>(false, null, "Unable to retrieve data from API");
-
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summoner.getId());
 
+        // when
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
         var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
         doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
 
+        // then
         var result = catchThrowable(() -> toTest.getSummonerLeagueByNicknameHTTP(nickname));
         assertThat(result)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -99,27 +96,22 @@ class HttpSummonerServiceTest {
 
     @Test
     void getSummonerLeagueByNickname_ShouldThrowIllegalArgumentException_WhenResponseIsSuccessAndResponseIsNull() throws IOException, InterruptedException {
+        // given
         String nickname = "nickname";
-        Summoner summoner = new Summoner();
-        summoner.setSummonerLevel(100);
-        summoner.setId("10");
-        summoner.setName(nickname);
-        summoner.setAccountId("1");
-        summoner.setPuuid("1000");
-        summoner.setProfileIconId(123);
-        summoner.setRevisionDate(123);
-
+        Summoner summoner = new Summoner("1", 123, 123, nickname, "1000", "10", 100);
         HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper =
                 new HttpResponseWrapper<>(true, null, "Unable to retrieve data from API");
 
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summoner.getId());
 
+        // when
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
         var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
         doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
-
         var result = catchThrowable(() -> toTest.getSummonerLeagueByNicknameHTTP(nickname));
+
+        // then
         assertThat(result)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Unable to retrieve object");
@@ -127,30 +119,15 @@ class HttpSummonerServiceTest {
 
     @Test
     void getSummonerLeagueByNickname_ShouldReturnSummonerDTO_WhenResponseIsSuccessAndResponseIsNotNull() throws IOException, InterruptedException {
+        // given
         String nickname = "nickname";
-        Summoner summoner = new Summoner();
-        summoner.setSummonerLevel(100);
-        summoner.setId("10");
-        summoner.setName(nickname);
-        summoner.setAccountId("1");
-        summoner.setPuuid("1000");
-        summoner.setProfileIconId(123);
-        summoner.setRevisionDate(123);
+        Summoner summoner = new Summoner("1", 123, 123, nickname, "1000", "10", 100);
 
-        SummonerLeagueResponseItem summonerLeagueResponseItem = new SummonerLeagueResponseItem();
-        summonerLeagueResponseItem.setLeagueId("Gold");
-        summonerLeagueResponseItem.setSummonerName(summoner.getName());
-        summonerLeagueResponseItem.setRank("II");
-        summonerLeagueResponseItem.setQueueType("RANKED_SOLO_5x5");
-
-        SummonerLeagueResponseItem summonerLeagueResponseItem2 = new SummonerLeagueResponseItem();
-        summonerLeagueResponseItem2.setLeagueId("Platinum");
-        summonerLeagueResponseItem2.setSummonerName(summoner.getName());
-        summonerLeagueResponseItem2.setRank("II");
-        summonerLeagueResponseItem2.setQueueType("RANKED_SOLO_3x3");
-
+        SummonerLeagueResponseItem summonerLeagueResponseItem =
+                new SummonerLeagueResponseItem(summoner.getName(), Constants.MatchParticipantConstants.RankedTier.GOLD.toString(), Constants.MatchParticipantConstants.RankedType.RANKED_SOLO_5x5.toString(), Constants.MatchParticipantConstants.RankedRank.II.toString());
+        SummonerLeagueResponseItem summonerLeagueResponseItem2 =
+                new SummonerLeagueResponseItem(summoner.getName(), Constants.MatchParticipantConstants.RankedTier.PLATINUM.toString(), Constants.MatchParticipantConstants.RankedType.RANKED_SOLO_3x3.toString(), Constants.MatchParticipantConstants.RankedRank.II.toString());
         SummonerLeagueResponseItem[] riotResponse = {summonerLeagueResponseItem, summonerLeagueResponseItem2};
-
         SummonersLeagueDto shouldReturn = new SummonersLeagueDto(riotResponse);
 
         HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper =
@@ -158,13 +135,14 @@ class HttpSummonerServiceTest {
 
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summoner.getId());
 
+        // when
         when(mockRiotHttpClient.get(url, SummonerLeagueResponseItem[].class))
                 .thenReturn(responseWrapper);
         var toTest = spy(new HttpSummonerService(mockRiotHttpClient, dbSummonerService));
         doReturn(summoner).when(toTest).getSummonerByNameHTTP(nickname);
-
         var serviceResponse = toTest.getSummonerLeagueByNicknameHTTP(nickname);
 
+        // then
         assertEquals(shouldReturn, serviceResponse);
     }
 

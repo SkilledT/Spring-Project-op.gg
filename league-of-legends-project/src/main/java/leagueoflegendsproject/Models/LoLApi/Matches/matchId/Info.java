@@ -49,7 +49,11 @@ public class Info{
 	@SerializedName("participants")
 	private List<ParticipantsItem> participants;
 
-	public void setGameId(long gameId){
+	public Info(String gameName) {
+		this.gameName = gameName;
+	}
+
+    public void setGameId(long gameId){
 		this.gameId = gameId;
 	}
 

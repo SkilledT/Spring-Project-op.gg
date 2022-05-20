@@ -44,13 +44,13 @@ public class Item {
     @Id
     @Column(name = "item_id")
     private Integer id;
-    @Column(name = "icon_url")
+    @Column(name = "icon_url", length = 10000)
     @Nullable
     private String iconUrl;
-    @Column(name = "description")
+    @Column(name = "description", length = 10000)
     @Nullable
     private String description;
-    @Column(name = "plain_text")
+    @Column(name = "plain_text", length = 10000)
     @Nullable
     private String plainText;
     @Column(name = "total_cost")
@@ -62,7 +62,7 @@ public class Item {
     @Column(name = "base_cost")
     @Nullable
     private Integer baseCost;
-    @Column(name = "name")
+    @Column(name = "name", length = 10000)
     @Nullable
     private String name;
 

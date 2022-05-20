@@ -23,18 +23,19 @@ public class Champion {
     private Integer id;
 
     //id or name
-    @Column(name = "name")
+    @Column(name = "name", length = 10000)
+    @Nullable
     private String name;
 
-    @Column(name = "icon_url")
+    @Column(name = "icon_url", length = 10000)
     @Nullable
     private String iconUrl;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 10000)
     @Nullable
     private String title;
 
-    @Column(name = "blurb")
+    @Column(name = "blurb", length = 10000)
     @Nullable
     private String blurb;
 

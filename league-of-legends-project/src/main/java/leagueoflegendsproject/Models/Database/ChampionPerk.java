@@ -13,7 +13,7 @@ public class ChampionPerk {
     @EmbeddedId
     private ChampionPerkKey championPerkKey = new ChampionPerkKey();
 
-    @Column(name = "type")
+    @Column(name = "type", length = 10000)
     private String type;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)

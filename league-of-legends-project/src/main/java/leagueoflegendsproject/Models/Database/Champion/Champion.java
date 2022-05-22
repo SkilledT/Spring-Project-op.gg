@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.Database.Champion;
 
 
+import com.google.gson.annotations.SerializedName;
 import leagueoflegendsproject.Models.Database.Ban;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
@@ -20,23 +21,28 @@ public class Champion {
     //key
     @Id
     @Column(name = "champion_id")
+    @SerializedName(value = "champion_id")
     private Integer id;
 
     //id or name
     @Column(name = "name", length = 10000)
     @Nullable
+    @SerializedName(value = "name")
     private String name;
 
     @Column(name = "icon_url", length = 10000)
     @Nullable
+    @SerializedName(value = "icon_url")
     private String iconUrl;
 
     @Column(name = "title", length = 10000)
     @Nullable
+    @SerializedName(value = "title")
     private String title;
 
     @Column(name = "blurb", length = 10000)
     @Nullable
+    @SerializedName(value = "blurb")
     private String blurb;
 
     @OneToMany(mappedBy = "champion")

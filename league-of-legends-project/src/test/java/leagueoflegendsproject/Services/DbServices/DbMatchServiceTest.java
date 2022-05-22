@@ -1,18 +1,25 @@
 package leagueoflegendsproject.Services.DbServices;
 
+import com.google.gson.reflect.TypeToken;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import leagueoflegendsproject.Controllers.ChampionController;
 import leagueoflegendsproject.Controllers.ItemController;
 import leagueoflegendsproject.Controllers.MatchController;
 import leagueoflegendsproject.Controllers.PerkController;
 import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.DTOs.PreferedRoleDto;
+import leagueoflegendsproject.Helpers.FileUtils;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Helpers.TestUtils.MatchParticipantBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PlayersChampionStatsDtoBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PreferedRoleDtoBuilder;
+import leagueoflegendsproject.Models.Database.Champion.Champion;
+import leagueoflegendsproject.Models.Database.Item;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
+import leagueoflegendsproject.Models.Database.Perk;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
@@ -27,17 +34,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -81,14 +90,8 @@ class DbMatchServiceTest {
     @Autowired private PerkRepository perkRepository;
     @Autowired private HttpSummonerService httpSummonerService;
 
-    @Autowired private ItemController itemController;
-    @Autowired private PerkController perkController;
-    @Autowired private ChampionController championController;
-    @Autowired private MatchController matchController;
-
-
     @BeforeEach
-    void setUp() throws IOException, InterruptedException {
+    void setUp() throws IOException {
         this.mockSummonerRepository = mock(SummonerRepository.class);
         this.mockItemRepository = mock(ItemRepository.class);
         this.mockTeamRepository = mock(TeamRepository.class);
@@ -104,9 +107,21 @@ class DbMatchServiceTest {
         this.mockPerkRepository = mock(PerkRepository.class);
         this.mockHttpSummonerService = mock(HttpSummonerService.class);
 
-        this.matchController.refreshChampions();
-        this.itemController.refreshItems();
-        this.perkController.refreshPerks();
+        List<Perk> perks = FileUtils.parseFileToObject(
+                Objects.requireNonNull(getClass().getClassLoader().getResource("perks_response.csv")).getPath(),
+                new TypeToken<List<Perk>>(){}
+        );
+        List<Item> items = FileUtils.parseFileToObject(
+                Objects.requireNonNull(getClass().getClassLoader().getResource("items_response.csv")).getPath(),
+                new TypeToken<List<Item>>(){}
+        );
+        List<Champion> champions = FileUtils.parseFileToObject(
+                Objects.requireNonNull(getClass().getClassLoader().getResource("champions_response.csv")).getPath(),
+                new TypeToken<List<Champion>>(){}
+        );
+        perkRepository.saveAll(perks);
+        itemRepository.saveAll(items);
+        championRepository.saveAll(champions);
     }
 
     @AfterEach
@@ -116,11 +131,9 @@ class DbMatchServiceTest {
     @Test
     void addMatchToDb() throws IOException {
         //given
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("matchResponse.json")).getFile());
-        StringBuilder builder = new StringBuilder();
-        Files.lines(Path.of(file.getPath())).forEach(e -> builder.append(e).append('\n'));
-        leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = RiotHttpClient.parseResponseToClassObject(builder.toString(), Match.class);
+        String matchResponsePath = Objects.requireNonNull(getClass().getClassLoader().getResource("matchResponse.json")).getPath();
+        leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match =
+                FileUtils.parseFileToObject(matchResponsePath, Match.class);
 
         // when
         var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository, banRepository, teamObjectiveRepository,

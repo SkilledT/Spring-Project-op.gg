@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import com.google.gson.annotations.SerializedName;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.Nullable;
 
@@ -43,27 +45,42 @@ public class Item {
 
     @Id
     @Column(name = "item_id")
+    @SerializedName(value = "item_id")
     private Integer id;
+
     @Column(name = "icon_url", length = 10000)
     @Nullable
+    @SerializedName(value = "icon_url")
     private String iconUrl;
+
     @Column(name = "description", length = 10000)
     @Nullable
+    @SerializedName(value = "description")
     private String description;
+
     @Column(name = "plain_text", length = 10000)
     @Nullable
+    @SerializedName(value = "plain_text")
     private String plainText;
+
     @Column(name = "total_cost")
     @Nullable
+    @SerializedName(value = "total_cost")
     private Integer totalCost;
+
     @Column(name = "sell")
     @Nullable
+    @SerializedName(value = "sell")
     private Integer sell;
+
     @Column(name = "base_cost")
     @Nullable
+    @SerializedName(value = "base_cost")
     private Integer baseCost;
+
     @Column(name = "name", length = 10000)
     @Nullable
+    @SerializedName(value = "name")
     private String name;
 
     @OneToMany(mappedBy = "item")
@@ -77,7 +94,7 @@ public class Item {
 
     public Item(Integer id){
         this.id = id;
-        this.iconUrl = "https://ddragon.leagueoflegends.com/cdn/11.22.1/img/item/" + id + ".png";
+        this.iconUrl = "https://ddragon.leagueoflegends.com/cdn/" + RiotLinksProvider.RIOT_VERSION + "/img/item/" + id + ".png";
     }
 
     public Item(Integer id, String iconUrl, Set<ParticipantItems> participantItemsSet) {

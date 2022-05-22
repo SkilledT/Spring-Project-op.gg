@@ -42,9 +42,4 @@ public class Scheduler {
         matchController.refreshChallengersData();
         System.out.println("Scheduled retrieving challengers has been completed");
     }
-
-    /*@Scheduled(fixedRate = 20000)
-    public void checkIfSchedulerWorks() {
-        System.out.println("Scheduled, fixed rate: " + 20000);
-    }*/
 }

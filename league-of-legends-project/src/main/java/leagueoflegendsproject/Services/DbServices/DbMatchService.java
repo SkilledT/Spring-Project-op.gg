@@ -71,77 +71,6 @@ public class DbMatchService {
         this.httpSummonerService = httpSummonerService;
     }
 
-    private MatchTeam proceedMatchParticipants(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match dbMatch) {
-        Champion dbChampion = championRepository
-                .findById(participant.getChampionId())
-                .orElseGet(() -> new Champion(participant));
-        dbChampion.update(participant);
-        Summoner summoner = summonerRepository
-                .findById(participant.getSummonerId())
-                .orElseGet(() -> httpSummonerService.fetchSummonerAndSaveToDbHTTP(participant.getSummonerName()));
-
-        MatchParticipant matchParticipant =
-                matchParticipantRepository.findById(new MatchParticipantKey(dbMatch.getMatchId(), summoner.getSummonerId()))
-                        .orElseGet(() -> new MatchParticipant(participant));
-        MatchParticipant dbMatchParticipant = saveMatchParticipant(summoner, dbMatch, matchParticipant, dbChampion, participant.getTeamId());
-
-        List<Integer> items =
-                List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
-
-        items.forEach(participantItem -> saveItem(dbMatchParticipant, participantItem));
-
-        participant.getPerks().getStyles()
-                .forEach(stylesItem -> {
-                    stylesItem.getSelections().forEach(selectionsItem -> {
-                        savePerk(dbMatchParticipant, selectionsItem.getPerk());
-                    });
-                });
-
-        return saveMatchTeam(dbMatch, participant.getTeamId());
-    }
-
-    private void proceedMatchTeams(Set<MatchTeam> matchTeams, Match match) {
-        matchTeams.forEach(matchTeam -> match.getInfo().getTeams().stream()
-                .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
-                .forEach(teamsItem -> {
-                    var objectives = teamsItem.getObjectives();
-                    var baron = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getBaron().getClass().getSimpleName()),
-                            objectives.getBaron().isFirst(),
-                            objectives.getBaron().getKills());
-                    var inhibitor = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getInhibitor().getClass().getSimpleName()),
-                            objectives.getInhibitor().isFirst(),
-                            objectives.getInhibitor().getKills());
-                    var dragon = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getDragon().getClass().getSimpleName()),
-                            objectives.getDragon().isFirst(),
-                            objectives.getDragon().getKills());
-                    var riftHerald = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getRiftHerald().getClass().getSimpleName()),
-                            objectives.getRiftHerald().isFirst(),
-                            objectives.getRiftHerald().getKills());
-                    var champion = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getChampion().getClass().getSimpleName()),
-                            objectives.getChampion().isFirst(),
-                            objectives.getChampion().getKills());
-                    var tower = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getTower().getClass().getSimpleName()),
-                            objectives.getTower().isFirst(),
-                            objectives.getTower().getKills());
-                }));
-
-        matchTeams.forEach(matchTeam ->
-                match.getInfo().getTeams().stream()
-                        .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
-                        .forEach(teamsItem ->
-                                teamsItem.getBans().forEach(bansItem -> {
-                                    int pickTurn = bansItem.getPickTurn();
-                                    saveBan(matchTeam, bansItem.getChampionId(), pickTurn);
-                                }))
-        );
-    }
-
     @Transactional
     public void AddMatchToDb(Match match) {
         var repoMatch = matchRepository.findById(match.getMetadata().getMatchId()).orElse(null);
@@ -156,87 +85,6 @@ public class DbMatchService {
                 .collect(Collectors.toSet());
 
         proceedMatchTeams(matchTeams, match);
-    }
-
-
-    private Objective createObjective(String objectiveName) {
-        return objectiveRepository
-                .findById(objectiveName)
-                .orElse(new Objective(objectiveName));
-    }
-
-    private MatchParticipant saveMatchParticipant(Summoner summoner,
-                                                  leagueoflegendsproject.Models.Database.Match match,
-                                                  MatchParticipant matchParticipant,
-                                                  Champion champion,
-                                                  Integer teamId) {
-        Team team = teamRepository.findById(teamId)
-                .orElseGet(() -> new Team(teamId));
-        matchParticipant.setMatch(match);
-        matchParticipant.setSummoner(summoner);
-        matchParticipant.setChampion(champion);
-        matchParticipant.setTeam(team);
-        return matchParticipantRepository.save(matchParticipant);
-    }
-
-    private void saveItem(MatchParticipant matchParticipant, Integer itemId) {
-        ParticipantItems participantItems = new ParticipantItems();
-        Item item = itemRepository.findById(itemId)
-                .orElseGet(() -> new Item(itemId));
-        participantItems.setItem(item);
-        participantItems.setMatchParticipant(matchParticipant);
-        participantItemsRepository.save(participantItems);
-    }
-
-    private void savePerk(MatchParticipant matchParticipant, Integer perkId) throws IllegalStateException {
-        MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
-        Optional<Perk> perk = perkRepository.findById(perkId);
-        perk.ifPresent(perkLambda -> {
-            matchParticipantPerk.setMatchParticipant(matchParticipant);
-            matchParticipantPerk.setPerk(perkLambda);
-            matchParticipantPerkRepository.save(matchParticipantPerk);
-        });
-    }
-
-    private void saveBan(MatchTeam matchTeam, Integer championId, int pickTurn) {
-        Ban ban = banRepository
-                .findById(new BanKey(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()), championId))
-                .orElse(new Ban());
-        Champion champion = championRepository
-                .findById(championId)
-                .orElseGet(() -> new Champion(championId, String.valueOf(championId)));
-        MatchTeam dbMatchTeam = matchTeamRepository.findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
-                .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
-        ban.setMatchTeam(dbMatchTeam);
-        ban.setChampion(champion);
-        ban.setPickTurn(pickTurn);
-        banRepository.save(ban);
-    }
-
-    private TeamObjective saveTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
-        MatchTeam dbMatchTeam = matchTeamRepository
-                .findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
-                .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
-        Objective dbObjective = objectiveRepository.findById(objective.getName())
-                .orElse(objective);
-        TeamObjective teamObjective = teamObjectiveRepository
-                .findById(new TeamObjectiveKey(objective.getName(), new MatchTeamKey(dbMatchTeam.getMatch().getMatchId(), dbMatchTeam.getTeam().getId())))
-                .orElse(new TeamObjective());
-        teamObjective.setMatchTeam(dbMatchTeam);
-        teamObjective.setObjective(dbObjective);
-        teamObjective.setKills(kills);
-        teamObjective.setFirst(first);
-        return teamObjectiveRepository.save(teamObjective);
-    }
-
-    private MatchTeam saveMatchTeam(leagueoflegendsproject.Models.Database.Match match, Integer teamId) {
-        MatchTeam matchTeam = new MatchTeam();
-        Team team = teamRepository
-                .findById(teamId)
-                .orElseGet(() -> new Team(teamId));
-        matchTeam.setTeam(team);
-        matchTeam.setMatch(match);
-        return matchTeam;
     }
 
     @Cacheable(cacheNames = "Players_Match_Collection")
@@ -331,5 +179,156 @@ public class DbMatchService {
                     return new PreferedRoleDto(pickRatio, winRatio, individualPosition);
                 }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
                 .collect(Collectors.toList());
+    }
+
+    private MatchTeam proceedMatchParticipants(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match dbMatch) {
+        Champion dbChampion = championRepository
+                .findById(participant.getChampionId())
+                .orElseGet(() -> new Champion(participant));
+        dbChampion.update(participant);
+        Summoner summoner = summonerRepository
+                .findById(participant.getSummonerId())
+                .orElseGet(() -> httpSummonerService.fetchSummonerAndSaveToDbHTTP(participant.getSummonerName()));
+
+        MatchParticipant matchParticipant =
+                matchParticipantRepository.findById(new MatchParticipantKey(dbMatch.getMatchId(), summoner.getSummonerId()))
+                        .orElseGet(() -> new MatchParticipant(participant));
+        MatchParticipant dbMatchParticipant = saveMatchParticipant(summoner, dbMatch, matchParticipant, dbChampion, participant.getTeamId());
+
+        List<Integer> items =
+                List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
+
+        items.forEach(participantItem -> saveItem(dbMatchParticipant, participantItem));
+
+        participant.getPerks().getStyles()
+                .forEach(stylesItem -> {
+                    stylesItem.getSelections().forEach(selectionsItem -> {
+                        savePerk(dbMatchParticipant, selectionsItem.getPerk());
+                    });
+                });
+
+        return saveMatchTeam(dbMatch, participant.getTeamId());
+    }
+
+    private void proceedMatchTeams(Set<MatchTeam> matchTeams, Match match) {
+        matchTeams.forEach(matchTeam -> match.getInfo().getTeams().stream()
+                .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
+                .forEach(teamsItem -> {
+                    var objectives = teamsItem.getObjectives();
+                    var baron = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getBaron().getClass().getSimpleName()),
+                            objectives.getBaron().isFirst(),
+                            objectives.getBaron().getKills());
+                    var inhibitor = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getInhibitor().getClass().getSimpleName()),
+                            objectives.getInhibitor().isFirst(),
+                            objectives.getInhibitor().getKills());
+                    var dragon = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getDragon().getClass().getSimpleName()),
+                            objectives.getDragon().isFirst(),
+                            objectives.getDragon().getKills());
+                    var riftHerald = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getRiftHerald().getClass().getSimpleName()),
+                            objectives.getRiftHerald().isFirst(),
+                            objectives.getRiftHerald().getKills());
+                    var champion = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getChampion().getClass().getSimpleName()),
+                            objectives.getChampion().isFirst(),
+                            objectives.getChampion().getKills());
+                    var tower = saveTeamObjective(matchTeam,
+                            createObjective(objectives.getTower().getClass().getSimpleName()),
+                            objectives.getTower().isFirst(),
+                            objectives.getTower().getKills());
+                }));
+
+        matchTeams.forEach(matchTeam ->
+                match.getInfo().getTeams().stream()
+                        .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
+                        .forEach(teamsItem ->
+                                teamsItem.getBans().forEach(bansItem -> {
+                                    int pickTurn = bansItem.getPickTurn();
+                                    saveBan(matchTeam, bansItem.getChampionId(), pickTurn);
+                                }))
+        );
+    }
+
+    private Objective createObjective(String objectiveName) {
+        return objectiveRepository
+                .findById(objectiveName)
+                .orElse(new Objective(objectiveName));
+    }
+
+    private MatchParticipant saveMatchParticipant(Summoner summoner,
+                                                  leagueoflegendsproject.Models.Database.Match match,
+                                                  MatchParticipant matchParticipant,
+                                                  Champion champion,
+                                                  Integer teamId) {
+        Team team = teamRepository.findById(teamId)
+                .orElseGet(() -> new Team(teamId));
+        matchParticipant.setMatch(match);
+        matchParticipant.setSummoner(summoner);
+        matchParticipant.setChampion(champion);
+        matchParticipant.setTeam(team);
+        return matchParticipantRepository.save(matchParticipant);
+    }
+
+    private void saveItem(MatchParticipant matchParticipant, Integer itemId) {
+        ParticipantItems participantItems = new ParticipantItems();
+        Item item = itemRepository.findById(itemId)
+                .orElseGet(() -> new Item(itemId));
+        participantItems.setItem(item);
+        participantItems.setMatchParticipant(matchParticipant);
+        participantItemsRepository.save(participantItems);
+    }
+
+    private void savePerk(MatchParticipant matchParticipant, Integer perkId) throws IllegalStateException {
+        MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
+        Optional<Perk> perk = perkRepository.findById(perkId);
+        perk.ifPresent(perkLambda -> {
+            matchParticipantPerk.setMatchParticipant(matchParticipant);
+            matchParticipantPerk.setPerk(perkLambda);
+            matchParticipantPerkRepository.save(matchParticipantPerk);
+        });
+    }
+
+    private void saveBan(MatchTeam matchTeam, Integer championId, int pickTurn) {
+        Ban ban = banRepository
+                .findById(new BanKey(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()), championId))
+                .orElse(new Ban());
+        Champion champion = championRepository
+                .findById(championId)
+                .orElseGet(() -> new Champion(championId, String.valueOf(championId)));
+        MatchTeam dbMatchTeam = matchTeamRepository.findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
+                .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
+        ban.setMatchTeam(dbMatchTeam);
+        ban.setChampion(champion);
+        ban.setPickTurn(pickTurn);
+        banRepository.save(ban);
+    }
+
+    private TeamObjective saveTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
+        MatchTeam dbMatchTeam = matchTeamRepository
+                .findById(new MatchTeamKey(matchTeam.getMatch().getMatchId(), matchTeam.getTeam().getId()))
+                .orElseGet(() -> new MatchTeam(matchTeam.getMatch(), matchTeam.getTeam()));
+        Objective dbObjective = objectiveRepository.findById(objective.getName())
+                .orElse(objective);
+        TeamObjective teamObjective = teamObjectiveRepository
+                .findById(new TeamObjectiveKey(objective.getName(), new MatchTeamKey(dbMatchTeam.getMatch().getMatchId(), dbMatchTeam.getTeam().getId())))
+                .orElse(new TeamObjective());
+        teamObjective.setMatchTeam(dbMatchTeam);
+        teamObjective.setObjective(dbObjective);
+        teamObjective.setKills(kills);
+        teamObjective.setFirst(first);
+        return teamObjectiveRepository.save(teamObjective);
+    }
+
+    private MatchTeam saveMatchTeam(leagueoflegendsproject.Models.Database.Match match, Integer teamId) {
+        MatchTeam matchTeam = new MatchTeam();
+        Team team = teamRepository
+                .findById(teamId)
+                .orElseGet(() -> new Team(teamId));
+        matchTeam.setTeam(team);
+        matchTeam.setMatch(match);
+        return matchTeam;
     }
 }

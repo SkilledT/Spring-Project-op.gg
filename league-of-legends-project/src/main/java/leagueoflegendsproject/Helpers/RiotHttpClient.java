@@ -26,7 +26,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-2641d4f3-4951-4d3d-a7a9-2b648d075e34";
+    private final String riotApiKey = "RGAPI-36bfbb75-b4fd-4782-bded-89ce71a3c9e0";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {
@@ -51,6 +51,11 @@ public class RiotHttpClient implements IRiotHttpClient {
     public static <T> T parseResponseToClassObject(String responseBody, Class<T> responseClass) {
         GsonBuilder gson = new GsonBuilder();
         return gson.create().fromJson(responseBody, responseClass);
+    }
+
+    public static <T> T parseResponseToClassObject(String responseBody, TypeToken<T> type) {
+        GsonBuilder gson = new GsonBuilder();
+        return gson.create().fromJson(responseBody, type.getType());
     }
 
     public HttpResponseWrapper<List<ChampionItem>> getChampions() {

@@ -175,7 +175,7 @@ public class MatchDetailsDto {
         }
 
         private String getSummonerSpellIconUrl(Integer id){
-            return "https://ddragon.leagueoflegends.com/cdn/11.22.1/img/spell/Summoner"+getRightSummonerSpellName(id)+".png";
+            return "https://ddragon.leagueoflegends.com/cdn/" + RiotLinksProvider.RIOT_VERSION + "/img/spell/Summoner"+getRightSummonerSpellName(id)+".png";
         }
 
         private String getRightSummonerSpellName(Integer id){

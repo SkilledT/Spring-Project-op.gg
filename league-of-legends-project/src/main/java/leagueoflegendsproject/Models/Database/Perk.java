@@ -1,5 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -28,24 +30,31 @@ public class Perk {
 
     @Id
     @Column(name = "id")
+    @SerializedName(value = "id")
     private Integer id;
 
     @Column(name = "name", length = 10000)
+    @SerializedName(value = "name")
     private String name;
 
     @Column(name = "icon")
+    @SerializedName(value = "icon")
     private String icon;
 
     @Column(name = "short_desc", length = 10000)
+    @SerializedName(value = "short_desc")
     private String shortDesc;
 
     @Column(name = "long_desc", length = 10000)
+    @SerializedName(value = "long_desc")
     private String longDesc;
 
     @Column(name = "slot_number")
+    @SerializedName(value = "slot_number")
     private Integer slotNumber;
 
     @Column(name = "tree_number")
+    @SerializedName(value = "tree_number")
     private Integer treeNumber;
 
     @OneToMany(mappedBy = "perk")

@@ -25,7 +25,6 @@ public class DbChampionService {
     private final InfoRepository infoRepository;
     private final StatsRepository statsRepository;
     private final TagRepository tagRepository;
-    private final ChampionRepositoryCustom championRepositoryCustom;
     private final ChampionStatsRepository championStatsRepository;
 
     public DbChampionService(ChampionRepository championRepository,
@@ -42,7 +41,6 @@ public class DbChampionService {
         this.infoRepository = infoRepository;
         this.statsRepository = statsRepository;
         this.tagRepository = tagRepository;
-        this.championRepositoryCustom = championRepositoryCustom;
         this.championStatsRepository = championStatsRepository;
     }
 
@@ -95,10 +93,6 @@ public class DbChampionService {
     private Image createAndSaveImage(ChampionItem championItem) {
         Image image = new Image(championItem);
         return imageRepository.save(image);
-    }
-
-    public List<ChampionWithWinRatioEntity> getChampionWithWinRatioEntity(String championName, Integer minimumMatches) {
-        return championRepositoryCustom.getChampionWithWinRatioEntity(championName, minimumMatches);
     }
 
     public List<ChampionStatsDTO> getChampionsStrongAgainst(String championName) {

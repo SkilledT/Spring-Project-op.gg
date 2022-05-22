@@ -22,21 +22,14 @@ import java.util.stream.Collectors;
 public class MatchController {
 
     private final HttpMatchService matchService;
-    private final HttpChampionService httpChampionService;
     private final DbMatchService dbMatchService;
-    private final DbChampionService dbChampionService;
     private final HttpSummonerService httpSummonerService;
 
     public MatchController(final HttpMatchService matchService,
                            final DbMatchService dbMatchService,
-                           final HttpChampionService httpChampionService,
-                           final HttpSummonerService httpSummonerService,
-                           final HttpPerkService httpPerkService,
-                           final DbChampionService dbChampionService) {
+                           final HttpSummonerService httpSummonerService) {
         this.matchService = matchService;
         this.dbMatchService = dbMatchService;
-        this.httpChampionService = httpChampionService;
-        this.dbChampionService = dbChampionService;
         this.httpSummonerService = httpSummonerService;
     }
 
@@ -63,15 +56,6 @@ public class MatchController {
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
         return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 3));
-    }
-
-    @GetMapping("/refresh/champion")
-    public ResponseEntity<?> refreshChampions() throws IOException, InterruptedException {
-        var championItems = httpChampionService.getChampionList();
-        Set<Champion> champions = championItems.stream()
-                .map(dbChampionService::saveChampion)
-                .collect(Collectors.toSet());
-        return ResponseEntity.ok("ok");
     }
 
     @GetMapping("/refresh/challengers")

@@ -89,7 +89,7 @@ public class DbMatchService {
 
     @Cacheable(cacheNames = "Players_Match_Collection")
     public List<MatchDetailsDto> getMatchesByNickname(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
         return matchParticipant.stream()
                 .map(mp -> {
                     Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
@@ -139,7 +139,7 @@ public class DbMatchService {
     }
 
     public Set<PlayersChampionStatsDto> getChampionStatsByNickname(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
         Map<Champion, List<MatchParticipant>> championListMap =
                 matchParticipant.stream().collect(Collectors.groupingBy(MatchParticipant::getChampion));
         return championListMap.keySet().stream().map(champion -> {
@@ -159,7 +159,7 @@ public class DbMatchService {
     }
 
     public List<PreferedRoleDto> getPreferredRole(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
         Map<String, Long> roles =
                 matchParticipant.stream()
                         .filter(e -> !e.getIndividualPosition().equals("Invalid"))

@@ -1,16 +1,9 @@
 package leagueoflegendsproject.Services.DbServices;
 
 import com.google.gson.reflect.TypeToken;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
-import leagueoflegendsproject.Controllers.ChampionController;
-import leagueoflegendsproject.Controllers.ItemController;
-import leagueoflegendsproject.Controllers.MatchController;
-import leagueoflegendsproject.Controllers.PerkController;
 import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.DTOs.PreferedRoleDto;
 import leagueoflegendsproject.Helpers.FileUtils;
-import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Helpers.TestUtils.MatchParticipantBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PlayersChampionStatsDtoBuilder;
@@ -21,31 +14,19 @@ import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Models.Database.Perk;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
-import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
-import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
-import leagueoflegendsproject.Services.HttpServices.HttpItemService;
-import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -192,7 +173,7 @@ class DbMatchServiceTest {
         Set<PlayersChampionStatsDto> expectedResult = Set.of(expectedPlayersChampionStatsDto);
 
         // When
-        when(mockMatchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
+        when(mockMatchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
                 .thenReturn(matchParticipantList);
         var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
                 mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
@@ -226,7 +207,7 @@ class DbMatchServiceTest {
         List<PreferedRoleDto> expectedResult = List.of(preferedRoleDto);
 
         // When
-        when(mockMatchParticipantRepository.findTop10BySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
+        when(mockMatchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
                 .thenReturn(matchParticipantList);
         var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
                 mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,

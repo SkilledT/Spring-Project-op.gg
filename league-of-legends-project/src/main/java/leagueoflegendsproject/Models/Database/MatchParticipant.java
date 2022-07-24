@@ -24,7 +24,7 @@ public class MatchParticipant {
     @MapsId(value = "summonerId")
     private Summoner summoner;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "Match_match_id")
     @MapsId(value = "matchId")
     private Match match;

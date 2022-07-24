@@ -1,13 +1,28 @@
 package leagueoflegendsproject.Schedulers;
 
 import leagueoflegendsproject.Controllers.MatchController;
+import leagueoflegendsproject.Helpers.NumericalHelpers;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
+import leagueoflegendsproject.Models.Database.MatchParticipant;
+import leagueoflegendsproject.Repositories.MatchParticipantRepository;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.ToDoubleFunction;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Component
 public class Scheduler {
@@ -42,4 +57,6 @@ public class Scheduler {
         matchController.refreshChallengersData();
         System.out.println("Scheduled retrieving challengers has been completed");
     }
+
+
 }

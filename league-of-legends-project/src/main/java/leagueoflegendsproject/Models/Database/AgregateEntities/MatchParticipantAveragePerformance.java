@@ -1,5 +1,6 @@
 package leagueoflegendsproject.Models.Database.AgregateEntities;
 
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,24 +17,26 @@ public class MatchParticipantAveragePerformance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String individualPosition;
+    @Enumerated(EnumType.STRING)
+    private Constants.MatchParticipantConstants.IndividualPosition individualPosition;
     private String tier;
     private BigDecimal avgKillParticipation;
-    private BigDecimal avgKillParticipationStandardDeviation;
     private BigDecimal avgVisionScore;
-    private BigDecimal avgVisionScoreStandardDeviation;
-    private BigDecimal averageStolenObj;
-    private BigDecimal standardDeviationOfStolenObj;
-    private BigDecimal averageDealtDamageToChampions;
-    private BigDecimal standardDeviationOfDealtDamageToChampions;
-    private BigDecimal averageReceivedDamage;
-    private BigDecimal standardDeviationOfReceivedDamage;
-    private BigDecimal averagePentaKills;
-    private BigDecimal standardDeviationOfPentaKills;
-    private BigDecimal averageCSPerMinute;
-    private BigDecimal standardDeviationOfCSPerMinute;
+    private BigDecimal avgStolenObj;
+    private BigDecimal avgDealtDamageToChampions;
+    private BigDecimal avgReceivedDamage;
+    private BigDecimal avgPentakill;
+    private BigDecimal avgTotalMinionsKilled;
 
-    public MatchParticipantAveragePerformance(String individualPosition, String tier, BigDecimal avgKillParticipation, BigDecimal avgKillParticipationStandardDeviation, BigDecimal avgVisionScore, BigDecimal avgVisionScoreStandardDeviation, BigDecimal averageStolenObj, BigDecimal standardDeviationOfStolenObj, BigDecimal averageDealtDamageToChampions, BigDecimal standardDeviationOfDealtDamageToChampions, BigDecimal averageReceivedDamage, BigDecimal standardDeviationOfReceivedDamage, BigDecimal averagePentaKills, BigDecimal standardDeviationOfPentaKills, BigDecimal averageCSPerMinute, BigDecimal standardDeviationOfCSPerMinute) {
-        this(null, individualPosition, tier, avgKillParticipation, avgKillParticipationStandardDeviation, avgVisionScore, avgVisionScoreStandardDeviation, averageStolenObj, standardDeviationOfStolenObj, averageDealtDamageToChampions, standardDeviationOfDealtDamageToChampions, averageReceivedDamage, standardDeviationOfReceivedDamage, averagePentaKills, standardDeviationOfPentaKills, averageCSPerMinute, standardDeviationOfCSPerMinute);
+    private BigDecimal stdevOfKillParticipation;
+    private BigDecimal stdevOfVisionScore;
+    private BigDecimal stdevOfStolenObj;
+    private BigDecimal stdevOfDealtDamageToChampions;
+    private BigDecimal stdevOfReceivedDamage;
+    private BigDecimal stdevOfPentakills;
+    private BigDecimal stdevOfTotalMinionsKilled;
+
+    public MatchParticipantAveragePerformance(Constants.MatchParticipantConstants.IndividualPosition individualPosition, String tier, BigDecimal avgKillParticipation, BigDecimal stdevOfKillParticipation, BigDecimal avgVisionScore, BigDecimal stdevOfVisionScore, BigDecimal avgStolenObj, BigDecimal stdevOfStolenObj, BigDecimal avgDealtDamageToChampions, BigDecimal stdevOfDealtDamageToChampions, BigDecimal avgReceivedDamage, BigDecimal stdevOfReceivedDamage, BigDecimal avgPentakill, BigDecimal stdevOfPentakills, BigDecimal avgTotalMinionsKilled, BigDecimal stdevOfTotalMinionsKilled) {
+        this(null, individualPosition, tier, avgKillParticipation, stdevOfKillParticipation, avgVisionScore, stdevOfVisionScore, avgStolenObj, stdevOfStolenObj, avgDealtDamageToChampions, stdevOfDealtDamageToChampions, avgReceivedDamage, stdevOfReceivedDamage, avgPentakill, stdevOfPentakills, avgTotalMinionsKilled, stdevOfTotalMinionsKilled);
     }
 }

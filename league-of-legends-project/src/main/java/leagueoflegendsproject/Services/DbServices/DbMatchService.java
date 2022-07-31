@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Services.DbServices;
 
 import leagueoflegendsproject.DTOs.*;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.*;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.BanKey;
@@ -11,6 +12,8 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
+import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
@@ -40,6 +43,7 @@ public class DbMatchService {
     private final MatchParticipantPerkRepository matchParticipantPerkRepository;
     private final PerkRepository perkRepository;
     private final HttpSummonerService httpSummonerService;
+    private final PerformanceStrategyFactory performanceStrategyFactory;
 
     public DbMatchService(final SummonerRepository summonerRepository,
                           final ItemRepository itemRepository,
@@ -54,7 +58,7 @@ public class DbMatchService {
                           final PerkRepository perkRepository,
                           final MatchParticipantPerkRepository matchParticipantPerkRepository,
                           final HttpSummonerService httpSummonerService,
-                          final ChampionRepository championRepository) {
+                          final ChampionRepository championRepository, PerformanceStrategyFactory performanceStrategyFactory) {
         this.summonerRepository = summonerRepository;
         this.itemRepository = itemRepository;
         this.teamRepository = teamRepository;
@@ -69,6 +73,7 @@ public class DbMatchService {
         this.perkRepository = perkRepository;
         this.matchParticipantPerkRepository = matchParticipantPerkRepository;
         this.httpSummonerService = httpSummonerService;
+        this.performanceStrategyFactory = performanceStrategyFactory;
     }
 
     @Transactional
@@ -89,7 +94,10 @@ public class DbMatchService {
 
     @Cacheable(cacheNames = "Players_Match_Collection")
     public List<MatchDetailsDto> getMatchesByNickname(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname)
+                .stream()
+                .filter(e -> e.getMatch().getMatchParticipantSet().stream().filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid)).findFirst().orElse(null) == null)
+                .collect(Collectors.toList());
         return matchParticipant.stream()
                 .map(mp -> {
                     Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
@@ -110,11 +118,8 @@ public class DbMatchService {
                     Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
                             .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
                             .collect(Collectors.toSet());
-                    double teamKills = alliesMatchParticipantSet.stream()
-                            .mapToDouble(MatchParticipant::getKills).count();
-                    double teamAssists = alliesMatchParticipantSet.stream()
-                            .mapToDouble(MatchParticipant::getAssists).count();
-                    double pInKill = ((mp.getKills() + mp.getAssists()) / (teamKills + (teamAssists == 0 ? 1 : (teamKills + teamAssists))));
+                    double pInKill = MatchParticipantUtils.getKillParticipation(mp);
+                    double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
                     return new MatchDetailsDto.Builder()
                             .timeDurationOfMatch(mp.getMatch().getGameDuration())
                             .assists(mp.getAssists())
@@ -133,6 +138,7 @@ public class DbMatchService {
                             .enemies(enemies)
                             .pInKill(pInKill)
                             .withGameCreation(mp.getMatch().getGameCreation())
+                            .withPerformanceScore(performanceScore)
                             .build();
                 }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
                 .collect(Collectors.toList());
@@ -160,9 +166,9 @@ public class DbMatchService {
 
     public List<PreferedRoleDto> getPreferredRole(String nickname) {
         List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
-        Map<String, Long> roles =
+        Map<Constants.MatchParticipantConstants.IndividualPosition, Long> roles =
                 matchParticipant.stream()
-                        .filter(e -> !e.getIndividualPosition().equals("Invalid"))
+                        .filter(e -> !e.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
                         .collect(Collectors.groupingBy(MatchParticipant::getIndividualPosition, Collectors.counting()));
         long playedGames = matchParticipant.size();
         return roles.keySet().stream().map(individualPosition -> {

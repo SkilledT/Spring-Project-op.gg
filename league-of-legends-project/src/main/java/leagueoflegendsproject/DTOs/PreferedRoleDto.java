@@ -1,18 +1,20 @@
 package leagueoflegendsproject.DTOs;
 
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
+
 import java.util.Objects;
 
 public class PreferedRoleDto {
     private double pickRatio;
     private double winRatio;
-    private String name;
+    private Constants.MatchParticipantConstants.IndividualPosition name;
     private String iconUrl;
 
-    public PreferedRoleDto(double pickRatio, double winRatio, String name) {
+    public PreferedRoleDto(double pickRatio, double winRatio, Constants.MatchParticipantConstants.IndividualPosition name) {
         this.pickRatio = pickRatio;
         this.winRatio = winRatio;
         this.name = name;
-        this.iconUrl = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-"+name.toLowerCase()+".png";
+        this.iconUrl = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-"+name.toString().toLowerCase()+".png";
     }
 
     public PreferedRoleDto() {
@@ -34,11 +36,11 @@ public class PreferedRoleDto {
         this.winRatio = winRatio;
     }
 
-    public String getName() {
+    public Constants.MatchParticipantConstants.IndividualPosition getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Constants.MatchParticipantConstants.IndividualPosition name) {
         this.name = name;
     }
 
@@ -47,7 +49,7 @@ public class PreferedRoleDto {
     }
 
     public void setIconUrl() {
-        this.iconUrl = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-"+name.toLowerCase()+".png";
+        this.iconUrl = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-"+name.toString().toLowerCase()+".png";
     }
 
     @Override

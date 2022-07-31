@@ -1,9 +1,12 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 
@@ -14,6 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "match_participant")
+@AllArgsConstructor
 public class MatchParticipant {
 
     @EmbeddedId
@@ -70,7 +74,8 @@ public class MatchParticipant {
     @Type(type = "numeric_boolean")
     private Boolean firstTowerKill;
     @Column(name = "individual_position")
-    private String individualPosition;
+    @Enumerated(EnumType.STRING)
+    private Constants.MatchParticipantConstants.IndividualPosition individualPosition;
     private Integer wardsPlaced;
     private Integer totalDamageDealt;
     private Integer largestKillingSpree;
@@ -159,6 +164,8 @@ public class MatchParticipant {
     private Boolean gameEndedInEarlySurrender;
     @Column(name = "spell4_casts")
     private Integer spell4Casts;
+    @Column(name = "kill_participation", columnDefinition = "double precision")
+    private Double killParticipation;
 
     public MatchParticipant(ParticipantsItem participant){
         this.win = participant.isWin();
@@ -250,7 +257,7 @@ public class MatchParticipant {
         this.spell4Casts = participant.getSpell4Casts();
     }
 
-    public MatchParticipant(MatchParticipantKey matchParticipantKey, Summoner summoner, Match match, Champion champion, Team team, Set<ParticipantItems> participantItemsSet, Boolean win, Integer bountyLevel, Integer totalUnitsHealed, Integer largestMultiKill, Integer spell2Cast, Integer champExperience, Integer turretTakedowns, Integer damageDealtToObjectives, Integer magicDamageTaken, Integer deaths, Integer objectivesStolen, Integer detectorWardsPlaced, Integer magicDamageDealtToChampions, Integer wardsKilled, Integer pentakills, Integer spell3Casts, Boolean firstTowerKill, String individualPosition, Integer wardsPlaced, Integer totalDamageDealt, Integer largestKillingSpree, Integer totalDamageDealtToChampions, Integer summoner2Id, String role, Integer totalTimeSpentDead, Integer inhibitorKills, Integer totalTimeCcDealt, Integer participantId, Boolean teamEarlySurrender, Integer goldSpent, Integer unrealKills, Integer consumablesPurchased, Integer visionScore, Boolean firstBloodKill, Integer longestTimeSpentLiving, Integer sightWardsBoughtInGame, Integer turretLost, Integer quadrakills, Integer nexusTakedowns, Integer summoner1Id, Integer totalDamageShieldedOnTeammates, Integer summoner2Casts, Integer goldEarned, Integer nexusLost, Integer physicalDamageTaken, Integer champLvl, Integer totalDamageTaken, Integer neutralMinionsKilled, Integer championTransform, Integer tripleKills, Integer damageSelfMitigated, Integer inhibitorsLost, Integer inhibitorTakedowns, Integer largestCriticalStrike, Integer totalHealsOnTeammates, Integer summoner1Casts, Integer damageDealtsToBuildings, Integer magicDamageDealt, Integer timePlayed, String championName, Integer timeCCingOthers, String teamPosition, Integer physicalDamageDealtToChampions, Integer totalMinionsKilled, Integer visionWardsBoughtInGame, Integer kills, Boolean firstTowerAssist, Integer turretKills, Boolean firstBloodAssist, Integer trueDamageTaken, Integer assists, Integer itemsPurchased, Integer objectivesStolenAssists, Integer damageDealtsToTurrets, Integer totalHeal, String lane, Boolean gameEndedInSurrender, Integer physicalDamageDealt, Integer trueDamageDealtToChampions, Integer dragonKills, Integer baronKills, Integer doubleKills, Integer nexusKills, Integer trueDamageDealt, Integer spell1Casts, Boolean gameEndedInEarlySurrender, Integer spell4Casts, Set<MatchParticipantPerk> matchParticipantPerk) {
+    public MatchParticipant(MatchParticipantKey matchParticipantKey, Summoner summoner, Match match, Champion champion, Team team, Set<ParticipantItems> participantItemsSet, Boolean win, Integer bountyLevel, Integer totalUnitsHealed, Integer largestMultiKill, Integer spell2Cast, Integer champExperience, Integer turretTakedowns, Integer damageDealtToObjectives, Integer magicDamageTaken, Integer deaths, Integer objectivesStolen, Integer detectorWardsPlaced, Integer magicDamageDealtToChampions, Integer wardsKilled, Integer pentakills, Integer spell3Casts, Boolean firstTowerKill, Constants.MatchParticipantConstants.IndividualPosition individualPosition, Integer wardsPlaced, Integer totalDamageDealt, Integer largestKillingSpree, Integer totalDamageDealtToChampions, Integer summoner2Id, String role, Integer totalTimeSpentDead, Integer inhibitorKills, Integer totalTimeCcDealt, Integer participantId, Boolean teamEarlySurrender, Integer goldSpent, Integer unrealKills, Integer consumablesPurchased, Integer visionScore, Boolean firstBloodKill, Integer longestTimeSpentLiving, Integer sightWardsBoughtInGame, Integer turretLost, Integer quadrakills, Integer nexusTakedowns, Integer summoner1Id, Integer totalDamageShieldedOnTeammates, Integer summoner2Casts, Integer goldEarned, Integer nexusLost, Integer physicalDamageTaken, Integer champLvl, Integer totalDamageTaken, Integer neutralMinionsKilled, Integer championTransform, Integer tripleKills, Integer damageSelfMitigated, Integer inhibitorsLost, Integer inhibitorTakedowns, Integer largestCriticalStrike, Integer totalHealsOnTeammates, Integer summoner1Casts, Integer damageDealtsToBuildings, Integer magicDamageDealt, Integer timePlayed, String championName, Integer timeCCingOthers, String teamPosition, Integer physicalDamageDealtToChampions, Integer totalMinionsKilled, Integer visionWardsBoughtInGame, Integer kills, Boolean firstTowerAssist, Integer turretKills, Boolean firstBloodAssist, Integer trueDamageTaken, Integer assists, Integer itemsPurchased, Integer objectivesStolenAssists, Integer damageDealtsToTurrets, Integer totalHeal, String lane, Boolean gameEndedInSurrender, Integer physicalDamageDealt, Integer trueDamageDealtToChampions, Integer dragonKills, Integer baronKills, Integer doubleKills, Integer nexusKills, Integer trueDamageDealt, Integer spell1Casts, Boolean gameEndedInEarlySurrender, Integer spell4Casts, Set<MatchParticipantPerk> matchParticipantPerk) {
         this.matchParticipantKey = matchParticipantKey;
         this.summoner = summoner;
         this.match = match;
@@ -358,7 +365,7 @@ public class MatchParticipant {
                             Integer totalMinionsKilled,
                             Integer champLvl,
                             String championName,
-                            String individualPosition,
+                            Constants.MatchParticipantConstants.IndividualPosition individualPosition,
                             Integer summoner1Id,
                             Integer summoner2Id,
                             Integer visionWardsBoughtInGame){
@@ -567,11 +574,11 @@ public class MatchParticipant {
         this.firstTowerKill = firstTowerKill;
     }
 
-    public String getIndividualPosition() {
+    public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition() {
         return individualPosition;
     }
 
-    public void setIndividualPosition(String individualPosition) {
+    public void setIndividualPosition(Constants.MatchParticipantConstants.IndividualPosition individualPosition) {
         this.individualPosition = individualPosition;
     }
 
@@ -1135,6 +1142,14 @@ public class MatchParticipant {
         this.matchParticipantPerkSet = matchParticipantPerkSet;
     }
 
+    public Double getKillParticipation() {
+        return killParticipation;
+    }
+
+    public void setKillParticipation(Double killParticipation) {
+        this.killParticipation = killParticipation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -1151,5 +1166,10 @@ public class MatchParticipant {
     @Override
     public String toString() {
         return "MatchParticipant{}";
+    }
+
+    @PostPersist
+    public void postPersist() {
+        this.killParticipation = MatchParticipantUtils.getKillParticipation(this);
     }
 }

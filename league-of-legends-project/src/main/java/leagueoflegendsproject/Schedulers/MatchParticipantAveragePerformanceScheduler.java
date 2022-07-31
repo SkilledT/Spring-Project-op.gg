@@ -29,40 +29,13 @@ public class MatchParticipantAveragePerformanceScheduler {
     }
 
 
-    @Scheduled(fixedRate = Constants.TimeConstants.MINUTE_TO_MILLISECONDS * 2)
-    @Transactional
+    //@Scheduled(fixedRate = Constants.TimeConstants.MINUTE_TO_MILLISECONDS * 2)
+    //@Transactional
     public void update() {
-        long start = System.currentTimeMillis();
 
-        matchParticipantAveragePerformanceRepository.deleteAll();
-        var matchParticipants = matchParticipantRepository.findAll();
-        var matchParticipantsMapBySummonerTier = matchParticipants
-                .stream()
-                .filter(e -> e.getSummoner().getRank() != null)
-                .collect(groupingBy(matchParticipant -> matchParticipant.getSummoner().getTier()));
-        List<MatchParticipantAveragePerformance> matchParticipantAveragePerformancesToSave = new ArrayList<>();
-
-        for (String rank : matchParticipantsMapBySummonerTier.keySet()) {
-            List<MatchParticipant> mParticipants = matchParticipantsMapBySummonerTier.get(rank);
-            var mParticipantsMapByIndividualPosition = mParticipants
-                    .stream()
-                    .collect(groupingBy(MatchParticipant::getIndividualPosition));
-            for (String individualPosition : mParticipantsMapByIndividualPosition.keySet()) {
-                List<MatchParticipant> mParticipantsByIndividualPosition = mParticipantsMapByIndividualPosition.get(individualPosition);
-                MatchParticipantAveragePerformance matchParticipantAveragePerformance = getMatchParticipantAveragePerformanceFromMatchParticipantList(mParticipantsByIndividualPosition, individualPosition, rank);
-                System.out.println(matchParticipantAveragePerformance);
-                matchParticipantAveragePerformancesToSave.add(matchParticipantAveragePerformance);
-            }
-        }
-
-        matchParticipantAveragePerformanceRepository.saveAll(matchParticipantAveragePerformancesToSave);
-
-        long elapsedTimeMillis = System.currentTimeMillis() - start;
-        float elapsedTimeSec = elapsedTimeMillis / 1000F;
-        System.out.println("Elapsed time: " + elapsedTimeSec);
     }
 
-    private MatchParticipantAveragePerformance getMatchParticipantAveragePerformanceFromMatchParticipantList(List<MatchParticipant> mParticipantsByIndividualPosition, String individualPosition, String rank) {
+    private MatchParticipantAveragePerformance getMatchParticipantAveragePerformanceFromMatchParticipantList(List<MatchParticipant> mParticipantsByIndividualPosition, Constants.MatchParticipantConstants.IndividualPosition individualPosition, String rank) {
         var averageVisionScore = MatchParticipantUtils.getAverageValueOfNaN(mParticipantsByIndividualPosition, MatchParticipant::getVisionScore);
         var averageKillParticipation = MatchParticipantUtils.getAverageValueOfNaN(mParticipantsByIndividualPosition, MatchParticipantUtils::getKillParticipation);
         var averageStolenObj = MatchParticipantUtils.getAverageValueOfNaN(mParticipantsByIndividualPosition, MatchParticipant::getObjectivesStolen);

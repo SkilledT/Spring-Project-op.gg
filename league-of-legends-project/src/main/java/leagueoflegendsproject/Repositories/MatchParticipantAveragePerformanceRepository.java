@@ -1,5 +1,6 @@
 package leagueoflegendsproject.Repositories;
 
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.AgregateEntities.MatchParticipantAveragePerformance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,5 @@ public interface MatchParticipantAveragePerformanceRepository extends JpaReposit
 
 
     @Query("select m from MatchParticipantAveragePerformance m where m.tier = ?1 and m.individualPosition = ?2")
-    Optional<MatchParticipantAveragePerformance> findByTierAndIndividualPosition(String tier, String individualPosition);
+    Optional<MatchParticipantAveragePerformance> findByTierAndIndividualPosition(String tier, Constants.MatchParticipantConstants.IndividualPosition individualPosition);
 }

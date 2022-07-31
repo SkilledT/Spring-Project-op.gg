@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 
 import java.util.Objects;
 
@@ -61,7 +62,7 @@ public class ParticipantsItem{
 	private boolean firstTowerKill;
 
 	@SerializedName("individualPosition")
-	private String individualPosition;
+	private Constants.MatchParticipantConstants.IndividualPosition individualPosition;
 
 	@SerializedName("riotIdName")
 	private String riotIdName;
@@ -465,11 +466,11 @@ public class ParticipantsItem{
 		return firstTowerKill;
 	}
 
-	public void setIndividualPosition(String individualPosition){
+	public void setIndividualPosition(Constants.MatchParticipantConstants.IndividualPosition individualPosition){
 		this.individualPosition = individualPosition;
 	}
 
-	public String getIndividualPosition(){
+	public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition(){
 		return individualPosition;
 	}
 

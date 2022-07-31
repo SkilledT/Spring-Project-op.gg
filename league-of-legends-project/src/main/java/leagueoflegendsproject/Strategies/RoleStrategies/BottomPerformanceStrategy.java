@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Strategies.RoleStrategies;
 
 import leagueoflegendsproject.Helpers.NumericalHelpers;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.AgregateEntities.MatchParticipantAveragePerformance;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Repositories.MatchParticipantAveragePerformanceRepository;
@@ -17,16 +18,16 @@ public class BottomPerformanceStrategy implements PerformanceStrategy {
 
     @Override
     public Double countPerformanceRate(MatchParticipant matchParticipant) {
-        MatchParticipantAveragePerformance matchParticipantAveragePerformance = matchParticipantAveragePerformanceRepository.findByTierAndIndividualPosition(matchParticipant.getSummoner().getTier(), matchParticipant.getIndividualPosition()).orElse(null);
+        MatchParticipantAveragePerformance matchParticipantAveragePerformance = matchParticipantAveragePerformanceRepository.findByTierAndIndividualPosition(matchParticipant.getSummoner().getTier(), getIndividualPosition()).orElse(null);
         if (matchParticipantAveragePerformance == null)
-            return null;
+            return 0.0;
         final double csKillerPerMinuteWeight = 7.0;
         final double damageDealtWeight = 2.5;
         final double pentakillWeight = 0.5;
 
-        var csKilledPerMinuteZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalMinionsKilled(), matchParticipantAveragePerformance.getAverageCSPerMinute().doubleValue(), matchParticipantAveragePerformance.getStandardDeviationOfCSPerMinute().doubleValue());
-        var damageDealtZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalDamageDealtToChampions(), matchParticipantAveragePerformance.getAverageDealtDamageToChampions().doubleValue(), matchParticipantAveragePerformance.getStandardDeviationOfDealtDamageToChampions().doubleValue());
-        var pentakillZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getPentakills(), matchParticipantAveragePerformance.getAveragePentaKills().doubleValue(), matchParticipantAveragePerformance.getAveragePentaKills().doubleValue());
+        var csKilledPerMinuteZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalMinionsKilled(), matchParticipantAveragePerformance.getAvgTotalMinionsKilled().doubleValue(), matchParticipantAveragePerformance.getStdevOfTotalMinionsKilled().doubleValue());
+        var damageDealtZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalDamageDealtToChampions(), matchParticipantAveragePerformance.getAvgDealtDamageToChampions().doubleValue(), matchParticipantAveragePerformance.getStdevOfDealtDamageToChampions().doubleValue());
+        var pentakillZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getPentakills(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue());
 
         var result = csKilledPerMinuteZScore * csKillerPerMinuteWeight + damageDealtZScore * damageDealtWeight + pentakillZScore * pentakillWeight;
         return result;
@@ -35,5 +36,10 @@ public class BottomPerformanceStrategy implements PerformanceStrategy {
     @Override
     public PerformanceStrategyName getStrategyName() {
         return PerformanceStrategyName.BottomPerformanceStrategy;
+    }
+
+    @Override
+    public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition() {
+        return Constants.MatchParticipantConstants.IndividualPosition.BOTTOM;
     }
 }

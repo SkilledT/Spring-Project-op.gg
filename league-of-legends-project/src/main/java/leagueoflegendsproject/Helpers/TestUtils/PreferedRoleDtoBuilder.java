@@ -20,7 +20,7 @@ public class PreferedRoleDtoBuilder {
         return this;
     }
 
-    public PreferedRoleDtoBuilder withName(String name) {
+    public PreferedRoleDtoBuilder withName(Constants.MatchParticipantConstants.IndividualPosition name) {
         this.preferedRoleDto.setName(name);
         return this;
     }

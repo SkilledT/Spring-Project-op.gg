@@ -58,7 +58,7 @@ public class Match {
         this.gameId = (int) match.getInfo().getGameId();
         this.gameType = match.getInfo().getGameType();
         this.queueId = match.getInfo().getQueueId();
-        this.gameDuration = match.getInfo().getGameDuration();
+        this.gameDuration = 0;
         this.platformId = match.getInfo().getPlatformId();
         this.gameCreation = match.getInfo().getGameCreation();
         this.mapId = match.getInfo().getMapId();

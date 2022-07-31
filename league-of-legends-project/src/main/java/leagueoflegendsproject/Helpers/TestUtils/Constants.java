@@ -9,7 +9,7 @@ public class Constants {
             UTILITY("UTILITY"),
             MIDDLE("MIDDLE"),
             JUNGLE("JUNGLE"),
-            INVALID("Invalid"),
+            Invalid("Invalid"),
             TOP("TOP"),
             BOTTOM("BOTTOM");
 
@@ -70,6 +70,7 @@ public class Constants {
         public static class Procedures {
             public final static String FILL_CHAMPION_STATS = "fillChampionStats";
             public final static String UPDATE_CHAMPION_PERKS = "updateChampionPerks";
+                public final static String UPDATE_MATCH_PARTICIPANT_AVERAGE_PERFORMANCE_AGGREGATES = "updateMatchParticipantAveragePerformanceAggregates";
         }
     }
 

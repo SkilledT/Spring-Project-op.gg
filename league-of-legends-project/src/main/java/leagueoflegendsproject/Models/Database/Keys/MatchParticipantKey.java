@@ -1,11 +1,14 @@
 package leagueoflegendsproject.Models.Database.Keys;
 
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@ToString
 public class MatchParticipantKey implements Serializable {
 
     private String summonerId = new String();

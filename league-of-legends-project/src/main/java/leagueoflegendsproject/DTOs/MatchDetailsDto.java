@@ -2,6 +2,7 @@ package leagueoflegendsproject.DTOs;
 
 import leagueoflegendsproject.Helpers.NumericalHelpers;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Helpers.TestUtils.Constants;
 
 import java.util.Date;
 import java.util.List;
@@ -26,11 +27,12 @@ public class MatchDetailsDto {
     private Set<PlayerGameDto> allies;
     private Set<PlayerGameDto> enemies;
     private boolean isWin;
-    private String position;
+    private Constants.MatchParticipantConstants.IndividualPosition position;
     private String spell1Url;
     private String spell2Url;
     private Date gameCreation;
     private Set<MatchAchievementDTO> matchAchievementDTOS;
+    private double performanceScore;
 
 
     public static final class Builder{
@@ -50,15 +52,17 @@ public class MatchDetailsDto {
         private Set<PlayerGameDto> allies;
         private Set<PlayerGameDto> enemies;
         private boolean isWin;
-        private String position;
+        private Constants.MatchParticipantConstants.IndividualPosition position;
         private Long gameCreation;
+        private double performanceScore;
+
 
         public Builder championName(String champName){
             this.championName = champName;
             return this;
         }
 
-        public Builder position(String position){
+        public Builder position(Constants.MatchParticipantConstants.IndividualPosition position){
             this.position = position;
             return this;
         }
@@ -114,7 +118,7 @@ public class MatchDetailsDto {
         }
 
         public Builder pInKill(double pInKill){
-            this.pInKill = NumericalHelpers.doubleWithTwoPlaces(pInKill);
+            this.pInKill = NumericalHelpers.changeDoublePrecision(2, pInKill);
             return this;
         }
 
@@ -140,6 +144,11 @@ public class MatchDetailsDto {
 
         public Builder withGameCreation(long gameCreation){
             this.gameCreation = gameCreation;
+            return this;
+        }
+
+        public Builder withPerformanceScore(double performanceScore) {
+            this.performanceScore = performanceScore;
             return this;
         }
 
@@ -171,6 +180,7 @@ public class MatchDetailsDto {
             matchDetailsDto.spell1Url = getSummonerSpellIconUrl((int)this.summoner1Id);
             matchDetailsDto.spell2Url = getSummonerSpellIconUrl((int)this.summoner2Id);
             matchDetailsDto.gameCreation = NumericalHelpers.parseUnixTimestampToDateTime(this.gameCreation);
+            matchDetailsDto.performanceScore = this.performanceScore;
             return matchDetailsDto;
         }
 
@@ -284,7 +294,7 @@ public class MatchDetailsDto {
         return isWin;
     }
 
-    public String getPosition() {
+    public Constants.MatchParticipantConstants.IndividualPosition getPosition() {
         return position;
     }
 
@@ -306,6 +316,10 @@ public class MatchDetailsDto {
 
     public Set<MatchAchievementDTO> getMatchAchievementDTOS() {
         return matchAchievementDTOS;
+    }
+
+    public double getPerformanceScore() {
+        return performanceScore;
     }
 
     @Override

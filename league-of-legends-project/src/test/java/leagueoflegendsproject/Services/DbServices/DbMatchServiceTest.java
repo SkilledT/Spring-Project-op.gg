@@ -16,6 +16,8 @@ import leagueoflegendsproject.Models.Database.Perk;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
+import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategy;
+import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,6 +72,7 @@ class DbMatchServiceTest {
     @Autowired private MatchParticipantPerkRepository matchParticipantPerkRepository;
     @Autowired private PerkRepository perkRepository;
     @Autowired private HttpSummonerService httpSummonerService;
+    @Autowired private PerformanceStrategyFactory performanceStrategyFactory;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -119,7 +122,7 @@ class DbMatchServiceTest {
         // when
         var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository, banRepository, teamObjectiveRepository,
                 matchTeamRepository, participantItemsRepository, matchParticipantRepository, objectiveRepository, perkRepository, matchParticipantPerkRepository,
-                httpSummonerService, championRepository);
+                httpSummonerService, championRepository, performanceStrategyFactory);
         toTest.AddMatchToDb(match);
 
         // then
@@ -137,7 +140,7 @@ class DbMatchServiceTest {
     @Test
     void getChampionStatsByNickname_shouldReturnSetOfPlayersChampionStatsDto() {
         // Given
-        String position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY.toString();
+        Constants.MatchParticipantConstants.IndividualPosition position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY;
         int championId = 1000;
         String championName = "Akali";
         MatchParticipant matchParticipant1 = new MatchParticipantBuilder()
@@ -177,7 +180,7 @@ class DbMatchServiceTest {
                 .thenReturn(matchParticipantList);
         var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
                 mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
-                mockHttpSummonerService, mockChampionRepository);
+                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory);
         var actualResult = toTest.getChampionStatsByNickname("Skilled Teaser");
 
         // Then
@@ -188,7 +191,7 @@ class DbMatchServiceTest {
     @Test
     void getPreferredRole_shouldReturnDTOList() {
         // Given
-        String position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY.toString();
+        Constants.MatchParticipantConstants.IndividualPosition position = Constants.MatchParticipantConstants.IndividualPosition.UTILITY;
         MatchParticipant matchParticipant1 = new MatchParticipantBuilder()
                 .withIndividualPosition(position)
                 .isWon(false)
@@ -211,7 +214,7 @@ class DbMatchServiceTest {
                 .thenReturn(matchParticipantList);
         var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
                 mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
-                mockHttpSummonerService, mockChampionRepository);
+                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory);
         var actualResult = toTest.getPreferredRole("Skilled Teaser");
 
         // Then

@@ -10,7 +10,7 @@ public class MatchParticipantBuilder {
         matchParticipant = new MatchParticipant();
     }
 
-    public MatchParticipantBuilder withIndividualPosition(String position){
+    public MatchParticipantBuilder withIndividualPosition(Constants.MatchParticipantConstants.IndividualPosition position){
         this.matchParticipant.setIndividualPosition(position);
         return this;
     }

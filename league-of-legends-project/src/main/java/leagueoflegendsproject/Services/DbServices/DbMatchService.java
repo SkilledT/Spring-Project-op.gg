@@ -118,7 +118,7 @@ public class DbMatchService {
                     Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
                             .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
                             .collect(Collectors.toSet());
-                    double pInKill = MatchParticipantUtils.getKillParticipation(mp);
+                    double pInKill = mp.getKillParticipation();
                     double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
                     return new MatchDetailsDto.Builder()
                             .timeDurationOfMatch(mp.getMatch().getGameDuration())

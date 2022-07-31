@@ -27,7 +27,7 @@ public class TopPerformanceStrategy implements PerformanceStrategy {
         final double visionScoreWeight = 1.0;
         final double receivedDamageWeight = 1.5;
 
-        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(MatchParticipantUtils.getKillParticipation(matchParticipant), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
+        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getKillParticipation(), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
         var killedMinionsZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalMinionsKilled(), matchParticipantAveragePerformance.getAvgTotalMinionsKilled().intValue(), matchParticipantAveragePerformance.getStdevOfTotalMinionsKilled().doubleValue());
         var visionScoreZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getVisionScore(), matchParticipantAveragePerformance.getAvgVisionScore().doubleValue(), matchParticipantAveragePerformance.getStdevOfVisionScore().doubleValue());
         var receivedDamageZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalDamageTaken(), matchParticipantAveragePerformance.getAvgReceivedDamage().doubleValue(), matchParticipantAveragePerformance.getStdevOfReceivedDamage().doubleValue());

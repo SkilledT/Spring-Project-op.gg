@@ -28,7 +28,7 @@ public class JunglePerformanceStrategy implements PerformanceStrategy {
         final double killedNeutralMonstersWeight = 0.5;
         final double visionScoreWeight = 1.5;
 
-        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(MatchParticipantUtils.getKillParticipation(matchParticipant), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
+        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getKillParticipation(), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
         var stolenObjectsZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getObjectivesStolen(), matchParticipantAveragePerformance.getAvgStolenObj().doubleValue(), matchParticipantAveragePerformance.getStdevOfStolenObj().doubleValue());
         var pentakillZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getPentakills(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue());
         var visionScoreZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getVisionScore(), matchParticipantAveragePerformance.getAvgVisionScore().doubleValue(), matchParticipantAveragePerformance.getStdevOfVisionScore().doubleValue());

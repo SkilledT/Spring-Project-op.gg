@@ -26,7 +26,7 @@ public class MidPerformanceStrategy implements PerformanceStrategy{
         final double killedMinionsWeight = 0.5;
         final double visionScoreWeight = 1.5;
 
-        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(MatchParticipantUtils.getKillParticipation(matchParticipant), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
+        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getKillParticipation(), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
         var killedMinionsZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalMinionsKilled(), matchParticipantAveragePerformance.getAvgTotalMinionsKilled().intValue(), matchParticipantAveragePerformance.getStdevOfTotalMinionsKilled().doubleValue());
         var pentakillZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getPentakills(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue(), matchParticipantAveragePerformance.getAvgPentakill().doubleValue());
         var visionScoreZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getVisionScore(), matchParticipantAveragePerformance.getAvgVisionScore().doubleValue(), matchParticipantAveragePerformance.getStdevOfVisionScore().doubleValue());

@@ -3,10 +3,7 @@ package leagueoflegendsproject.Models.Database;
 
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,6 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "summoner")
+@Builder(setterPrefix = "with")
 public class Summoner {
 
     @Id

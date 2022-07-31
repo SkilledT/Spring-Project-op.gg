@@ -5,7 +5,6 @@ import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.AgregateEntities.MatchParticipantAveragePerformance;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 import leagueoflegendsproject.Repositories.MatchParticipantAveragePerformanceRepository;
-import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +27,7 @@ public class SupportPerformanceStrategy implements PerformanceStrategy {
         final double visionScoreWeight = 3.5;
         final double utilityScoreWeight = 2.0;
 
-        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(MatchParticipantUtils.getKillParticipation(matchParticipant), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
+        var killParticipationZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getKillParticipation(), matchParticipantAveragePerformance.getAvgKillParticipation().doubleValue(), matchParticipantAveragePerformance.getStdevOfKillParticipation().doubleValue());
         var killedMinionsZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getTotalMinionsKilled(), matchParticipantAveragePerformance.getAvgTotalMinionsKilled().intValue(), matchParticipantAveragePerformance.getStdevOfTotalMinionsKilled().doubleValue());
         var visionScoreZScore = NumericalHelpers.Standardization.getZValue(matchParticipant.getVisionScore(), matchParticipantAveragePerformance.getAvgVisionScore().doubleValue(), matchParticipantAveragePerformance.getStdevOfVisionScore().doubleValue());
 

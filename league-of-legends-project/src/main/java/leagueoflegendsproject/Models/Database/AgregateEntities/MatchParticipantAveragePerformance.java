@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @ToString
 @Entity
 @Table
+@Builder(setterPrefix = "with")
 public class MatchParticipantAveragePerformance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

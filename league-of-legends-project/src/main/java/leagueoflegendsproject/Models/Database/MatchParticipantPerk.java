@@ -1,12 +1,20 @@
 package leagueoflegendsproject.Models.Database;
 
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantPerkKey;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Match_Participant_Perk")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MatchParticipantPerk {
 
     @EmbeddedId
@@ -24,39 +32,6 @@ public class MatchParticipantPerk {
     @JoinColumn(name = "perk_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Perk perk;
-
-    public MatchParticipantPerk() {
-    }
-
-    public MatchParticipantPerk(MatchParticipantPerkKey matchParticipantPerkKey, MatchParticipant matchParticipant, Perk perk) {
-        this.matchParticipantPerkKey = matchParticipantPerkKey;
-        this.matchParticipant = matchParticipant;
-        this.perk = perk;
-    }
-
-    public MatchParticipantPerkKey getMatchParticipantPerkKey() {
-        return matchParticipantPerkKey;
-    }
-
-    public void setMatchParticipantPerkKey(MatchParticipantPerkKey matchParticipantPerkKey) {
-        this.matchParticipantPerkKey = matchParticipantPerkKey;
-    }
-
-    public MatchParticipant getMatchParticipant() {
-        return matchParticipant;
-    }
-
-    public void setMatchParticipant(MatchParticipant matchParticipant) {
-        this.matchParticipant = matchParticipant;
-    }
-
-    public Perk getPerk() {
-        return perk;
-    }
-
-    public void setPerk(Perk perk) {
-        this.perk = perk;
-    }
 
     @Override
     public boolean equals(Object o) {

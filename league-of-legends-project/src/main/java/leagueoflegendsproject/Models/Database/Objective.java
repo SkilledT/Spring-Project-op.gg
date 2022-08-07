@@ -1,6 +1,11 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,6 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Objective")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Objective {
 
     @Id
@@ -19,28 +28,6 @@ public class Objective {
 
     public Objective(String name){
         this.name = name;
-    }
-    public Objective(){}
-
-    public Objective(String name, Set<TeamObjective> teamObjective) {
-        this.name = name;
-        this.teamObjective = teamObjective;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String id) {
-        this.name = id;
-    }
-
-    public Set<TeamObjective> getTeamObjective() {
-        return teamObjective;
-    }
-
-    public void setTeamObjective(Set<TeamObjective> teamObjective) {
-        this.teamObjective = teamObjective;
     }
 
     @Override

@@ -4,6 +4,9 @@ package leagueoflegendsproject.Models.Database;
 import com.google.gson.annotations.SerializedName;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -13,6 +16,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Item")
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @SqlResultSetMappings({
         @SqlResultSetMapping(
@@ -133,97 +139,6 @@ public class Item {
         this.sell = sell;
         this.baseCost = baseCost;
         this.name = name;
-    }
-
-    public Item() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
-
-    public Set<ParticipantItems> getParticipantItemsSet() {
-        return participantItemsSet;
-    }
-
-    public void setParticipantItemsSet(Set<ParticipantItems> participantItemsSet) {
-        this.participantItemsSet = participantItemsSet;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPlainText() {
-        return plainText;
-    }
-
-    public void setPlainText(String plainText) {
-        this.plainText = plainText;
-    }
-
-    public Integer getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(Integer totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public Integer getSell() {
-        return sell;
-    }
-
-    public void setSell(Integer sell) {
-        this.sell = sell;
-    }
-
-    public Integer getBaseCost() {
-        return baseCost;
-    }
-
-    public void setBaseCost(Integer baseCost) {
-        this.baseCost = baseCost;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<ItemCookBook> getItemComponentSet() {
-        return itemComponentSet;
-    }
-
-    public void setItemComponentSet(Set<ItemCookBook> itemComponentSet) {
-        this.itemComponentSet = itemComponentSet;
-    }
-
-    public Set<ItemCookBook> getItemMasterSet() {
-        return itemMasterSet;
-    }
-
-    public void setItemMasterSet(Set<ItemCookBook> itemMasterSet) {
-        this.itemMasterSet = itemMasterSet;
     }
 
     public Item toUpdate(leagueoflegendsproject.Models.LoLApi.Items.Item item){

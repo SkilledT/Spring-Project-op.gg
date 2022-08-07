@@ -12,6 +12,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "participant_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ParticipantItems {
 
     @Id
@@ -30,40 +34,6 @@ public class ParticipantItems {
             @JoinColumn(name = "match_id", referencedColumnName = "Match_match_Id")
     })
     private MatchParticipant matchParticipant;
-
-
-    public ParticipantItems(Integer id, Item item, MatchParticipant matchParticipant) {
-        this.id = id;
-        this.item = item;
-        this.matchParticipant = matchParticipant;
-    }
-
-    public ParticipantItems() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public MatchParticipant getMatchParticipant() {
-        return matchParticipant;
-    }
-
-    public void setMatchParticipant(MatchParticipant matchParticipant) {
-        this.matchParticipant = matchParticipant;
-    }
 
     @Override
     public boolean equals(Object o) {

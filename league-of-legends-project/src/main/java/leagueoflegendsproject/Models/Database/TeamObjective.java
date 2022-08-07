@@ -2,6 +2,10 @@ package leagueoflegendsproject.Models.Database;
 
 
 import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -9,6 +13,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Team_objective")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TeamObjective {
 
     @EmbeddedId
@@ -31,57 +39,6 @@ public class TeamObjective {
 
     @Type(type = "numeric_boolean")
     private Boolean first;
-
-    public TeamObjective(TeamObjectiveKey key, MatchTeam matchTeam, Objective objective, Integer kills, Boolean first) {
-        this.key = key;
-        this.matchTeam = matchTeam;
-        this.objective = objective;
-        this.kills = kills;
-        this.first = first;
-    }
-
-    public TeamObjective() {
-    }
-
-    public TeamObjectiveKey getKey() {
-        return key;
-    }
-
-    public void setKey(TeamObjectiveKey key) {
-        this.key = key;
-    }
-
-    public MatchTeam getMatchTeam() {
-        return matchTeam;
-    }
-
-    public void setMatchTeam(MatchTeam matchTeam) {
-        this.matchTeam = matchTeam;
-    }
-
-    public Objective getObjective() {
-        return objective;
-    }
-
-    public void setObjective(Objective objective) {
-        this.objective = objective;
-    }
-
-    public Integer getKills() {
-        return kills;
-    }
-
-    public void setKills(Integer kills) {
-        this.kills = kills;
-    }
-
-    public Boolean getFirst() {
-        return first;
-    }
-
-    public void setFirst(Boolean first) {
-        this.first = first;
-    }
 
     @Override
     public boolean equals(Object o) {

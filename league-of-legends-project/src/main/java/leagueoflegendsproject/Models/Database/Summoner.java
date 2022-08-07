@@ -10,9 +10,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "summoner")
 @Builder(setterPrefix = "with")
@@ -73,88 +74,6 @@ public class Summoner {
         this.rank = responseSummoner.getRank();
         this.wins = responseSummoner.getWins();
         this.losses = responseSummoner.getLoses();
-    }
-
-    public Summoner(){}
-
-    public String getSummonerId() {
-        return summonerId;
-    }
-
-    public void setSummonerId(String summonerId) {
-        this.summonerId = summonerId;
-    }
-
-    public Integer getLvl() {
-        return lvl;
-    }
-
-    public void setLvl(Integer lvl) {
-        this.lvl = lvl;
-    }
-
-    public Integer getProfileIconId() {
-        return profileIconId;
-    }
-
-    public void setProfileIconId(Integer profileIconId) {
-        this.profileIconId = profileIconId;
-    }
-
-    public String getSummonerNickname() {
-        return summonerNickname;
-    }
-
-    public void setSummonerNickname(String summonerNickname) {
-        this.summonerNickname = summonerNickname;
-    }
-
-    public String getTier() {
-        return tier;
-    }
-
-    public void setTier(String tier) {
-        this.tier = tier;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public Integer getLeaguePoints() {
-        return leaguePoints;
-    }
-
-    public void setLeaguePoints(Integer leaguePoints) {
-        this.leaguePoints = leaguePoints;
-    }
-
-    public Integer getWins() {
-        return wins;
-    }
-
-    public void setWins(Integer wins) {
-        this.wins = wins;
-    }
-
-    public Integer getLosses() {
-        return losses;
-    }
-
-    public void setLosses(Integer losses) {
-        this.losses = losses;
-    }
-
-    public Set<MatchParticipant> getMatchParticipantSet() {
-        return matchParticipantSet;
-    }
-
-    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
-        this.matchParticipantSet = matchParticipantSet;
     }
 
     public static Summoner getInvalidSummoner() {

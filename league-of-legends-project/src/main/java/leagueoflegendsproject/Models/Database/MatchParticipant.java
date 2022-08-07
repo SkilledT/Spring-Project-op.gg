@@ -391,15 +391,6 @@ public class MatchParticipant {
         this.visionWardsBoughtInGame = visionWardsBoughtInGame;
     }
 
-
-    public MatchParticipantKey getMatchParticipantKey() {
-        return matchParticipantKey;
-    }
-
-    public void setMatchParticipantKey(MatchParticipantKey matchParticipantKey) {
-        this.matchParticipantKey = matchParticipantKey;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

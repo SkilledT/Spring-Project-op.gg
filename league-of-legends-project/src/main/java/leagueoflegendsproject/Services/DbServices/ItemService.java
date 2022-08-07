@@ -56,9 +56,11 @@ public class ItemService {
         }
     }
 
-    public List<Item> getMostPopularItemsForChampion(String championName) {
-        var res = itemRepositoryCustom.getMostPopularItemsForChampion(championName);
-        return res;
+    public List<ItemDto> getMostPopularItemsForChampion(String championName) {
+        return itemRepositoryCustom.getMostPopularItemsForChampion(championName)
+                .stream()
+                .map(ItemDto::new)
+                .collect(Collectors.toList());
     }
 
     public void deleteAllItemCookBook() {

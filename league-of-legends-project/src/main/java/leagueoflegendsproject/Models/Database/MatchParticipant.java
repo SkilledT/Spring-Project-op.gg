@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Helpers.NumericalHelpers;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
@@ -417,8 +418,8 @@ public class MatchParticipant {
         return "MatchParticipant{}";
     }
 
-    @PostPersist
-    public void postPersist() {
-        this.killParticipation = MatchParticipantUtils.getKillParticipation(this);
-    }
+    //@PostPersist
+    //public void postPersist() {
+    //    this.killParticipation = NumericalHelpers.changeDoublePrecision(2, MatchParticipantUtils.getKillParticipation(this));
+    //}
 }

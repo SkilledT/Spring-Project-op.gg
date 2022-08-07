@@ -23,14 +23,11 @@ public class MatchController {
 
     private final HttpMatchService matchService;
     private final DbMatchService dbMatchService;
-    private final HttpSummonerService httpSummonerService;
 
     public MatchController(final HttpMatchService matchService,
-                           final DbMatchService dbMatchService,
-                           final HttpSummonerService httpSummonerService) {
+                           final DbMatchService dbMatchService) {
         this.matchService = matchService;
         this.dbMatchService = dbMatchService;
-        this.httpSummonerService = httpSummonerService;
     }
 
     @GetMapping("/{nickname}")
@@ -56,31 +53,5 @@ public class MatchController {
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
         return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 3));
-    }
-
-    @GetMapping("/refresh/challengers")
-    public ResponseEntity<?> refreshChallengersData() {
-        new Thread(() -> {
-            try {
-                getMatchData();
-                System.out.println("Retrieving challengers data has been completed");
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-        return ResponseEntity.ok("ok");
-    }
-
-    private synchronized void getMatchData() throws IOException, InterruptedException {
-        var nicknames = httpSummonerService.getSummonerChallengersNicknamesHTTP();
-        nicknames.forEach(nickname -> {
-            try {
-                matchService.getMatchCollectionByNickname(nickname, 5);
-                wait(1000 * 60);
-            } catch (IOException | InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
     }
 }

@@ -20,8 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/perk")
 public class PerkController {
 
-    DbPerkService dbPerkService;
-
+    private final DbPerkService dbPerkService;
 
     public PerkController(DbPerkService dbPerkService) {
         this.dbPerkService = dbPerkService;

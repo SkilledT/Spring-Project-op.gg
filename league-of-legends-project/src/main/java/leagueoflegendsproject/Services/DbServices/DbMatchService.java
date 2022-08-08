@@ -10,6 +10,7 @@ import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
 import leagueoflegendsproject.Models.Database.Keys.TeamObjectiveKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.TeamsItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
@@ -216,35 +217,38 @@ public class DbMatchService {
         return saveMatchTeam(dbMatch, participant.getTeamId());
     }
 
+    private void saveMatchTeamObjective(MatchTeam matchTeam, TeamsItem teamsItem) {
+        var objectives = teamsItem.getObjectives();
+        var baron = saveTeamObjective(matchTeam,
+                createObjective(objectives.getBaron().getClass().getSimpleName()),
+                objectives.getBaron().isFirst(),
+                objectives.getBaron().getKills());
+        var inhibitor = saveTeamObjective(matchTeam,
+                createObjective(objectives.getInhibitor().getClass().getSimpleName()),
+                objectives.getInhibitor().isFirst(),
+                objectives.getInhibitor().getKills());
+        var dragon = saveTeamObjective(matchTeam,
+                createObjective(objectives.getDragon().getClass().getSimpleName()),
+                objectives.getDragon().isFirst(),
+                objectives.getDragon().getKills());
+        var riftHerald = saveTeamObjective(matchTeam,
+                createObjective(objectives.getRiftHerald().getClass().getSimpleName()),
+                objectives.getRiftHerald().isFirst(),
+                objectives.getRiftHerald().getKills());
+        var champion = saveTeamObjective(matchTeam,
+                createObjective(objectives.getChampion().getClass().getSimpleName()),
+                objectives.getChampion().isFirst(),
+                objectives.getChampion().getKills());
+        var tower = saveTeamObjective(matchTeam,
+                createObjective(objectives.getTower().getClass().getSimpleName()),
+                objectives.getTower().isFirst(),
+                objectives.getTower().getKills());
+    }
+
     private void proceedMatchTeams(Set<MatchTeam> matchTeams, Match match) {
         matchTeams.forEach(matchTeam -> match.getInfo().getTeams().stream()
-                .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
                 .forEach(teamsItem -> {
-                    var objectives = teamsItem.getObjectives();
-                    var baron = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getBaron().getClass().getSimpleName()),
-                            objectives.getBaron().isFirst(),
-                            objectives.getBaron().getKills());
-                    var inhibitor = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getInhibitor().getClass().getSimpleName()),
-                            objectives.getInhibitor().isFirst(),
-                            objectives.getInhibitor().getKills());
-                    var dragon = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getDragon().getClass().getSimpleName()),
-                            objectives.getDragon().isFirst(),
-                            objectives.getDragon().getKills());
-                    var riftHerald = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getRiftHerald().getClass().getSimpleName()),
-                            objectives.getRiftHerald().isFirst(),
-                            objectives.getRiftHerald().getKills());
-                    var champion = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getChampion().getClass().getSimpleName()),
-                            objectives.getChampion().isFirst(),
-                            objectives.getChampion().getKills());
-                    var tower = saveTeamObjective(matchTeam,
-                            createObjective(objectives.getTower().getClass().getSimpleName()),
-                            objectives.getTower().isFirst(),
-                            objectives.getTower().getKills());
+                    saveMatchTeamObjective(matchTeam, teamsItem);
                 }));
 
         matchTeams.forEach(matchTeam ->

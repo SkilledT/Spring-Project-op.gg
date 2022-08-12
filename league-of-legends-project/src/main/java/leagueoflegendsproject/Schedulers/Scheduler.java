@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.groupingBy;
 @Component
 public class Scheduler {
 
-    @PersistenceContext
+    /*@PersistenceContext
     EntityManager entityManager;
 
     private final HttpMatchService httpMatchService;
@@ -61,5 +61,5 @@ public class Scheduler {
         float elapsedTimeSec = elapsedTimeMillis / 1000F;
         System.out.println("updateMatchParticipantAveragePerformance, Elapsed time: " + elapsedTimeSec);
     }
-
+*/
 }

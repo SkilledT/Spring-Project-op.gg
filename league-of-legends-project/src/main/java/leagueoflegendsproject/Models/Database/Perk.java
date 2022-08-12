@@ -65,8 +65,13 @@ public class Perk {
     @SerializedName(value = "tree_number")
     private Integer treeNumber;
 
-    @OneToMany(mappedBy = "perk")
+    @OneToMany(mappedBy = "perk", cascade = CascadeType.ALL)
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
+
+    public void addMatchParticipantPerkChild(MatchParticipantPerk matchParticipantPerk) {
+        this.matchParticipantPerkSet.add(matchParticipantPerk);
+        matchParticipantPerk.setPerk(this);
+    }
 
     public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber,
                 Set<MatchParticipantPerk> matchParticipantPerkSet,

@@ -23,8 +23,13 @@ public class Objective {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "objective")
-    private Set<TeamObjective> teamObjective = new HashSet<>();
+    @OneToMany(mappedBy = "objective", cascade = CascadeType.ALL)
+    private Set<TeamObjective> teamObjectiveSet = new HashSet<>();
+
+    public void addTeamObjectiveChild(TeamObjective teamObjective) {
+        this.teamObjectiveSet.add(teamObjective);
+        teamObjective.setObjective(this);
+    }
 
     public Objective(String name){
         this.name = name;

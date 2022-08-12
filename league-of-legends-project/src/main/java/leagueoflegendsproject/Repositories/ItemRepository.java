@@ -16,4 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     @Override
     boolean existsById(Integer integer);
+
+    @Override
+    List<Item> findAllById(Iterable<Integer> integers);
 }

@@ -39,11 +39,21 @@ public class Match {
     @Column(name = "game_mode")
     private String gameMode;
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<MatchTeam> matchTeamSet = new HashSet<>();
+
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setMatch(this);
+    }
+
+    public void addMatchTeamChild(MatchTeam matchTeam) {
+        this.matchTeamSet.add(matchTeam);
+        matchTeam.setMatch(this);
+    }
 
     public Match(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match){
         this.matchId = match.getMetadata().getMatchId();

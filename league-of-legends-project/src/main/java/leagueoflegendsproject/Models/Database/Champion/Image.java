@@ -29,7 +29,7 @@ public class Image {
     private Integer w;
     private Integer h;
 
-    @OneToMany(mappedBy = "image")
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
     private Set<Champion> championSet = new HashSet<>();
 
     public Image(ChampionItem championItem){

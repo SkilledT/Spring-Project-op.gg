@@ -45,13 +45,13 @@ public class Champion {
     @SerializedName(value = "blurb")
     private String blurb;
 
-    @OneToMany(mappedBy = "champion")
+    @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "champion")
+    @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
     private Set<Ban> ban = new HashSet<>();
 
-    @OneToMany(mappedBy = "champion")
+    @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
     private Set<ChampionTag> championTags = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)

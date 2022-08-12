@@ -33,11 +33,22 @@ public class MatchTeam {
     @MapsId(value = "teamId")
     private Team team;
 
-    @OneToMany(mappedBy = "matchTeam")
+    @OneToMany(mappedBy = "matchTeam", cascade = CascadeType.ALL)
     private Set<TeamObjective> teamObjectiveSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "matchTeam")
+    @OneToMany(mappedBy = "matchTeam", cascade = CascadeType.ALL)
     private Set<Ban> banSet = new HashSet<>();
+
+    public void addTeamObjectChild(TeamObjective teamObjective) {
+        this.teamObjectiveSet.add(teamObjective);
+        teamObjective.setMatchTeam(this);
+    }
+
+    public void addBanChild(Ban ban) {
+        this.banSet.add(ban);
+        ban.setMatchTeam(this);
+    }
+
 
     public MatchTeam(Match match, Team team) {
         this.match = match;
@@ -49,11 +60,22 @@ public class MatchTeam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MatchTeam matchTeam = (MatchTeam) o;
-        return Objects.equals(key, matchTeam.key) && Objects.equals(match, matchTeam.match) && Objects.equals(team, matchTeam.team) && Objects.equals(teamObjectiveSet, matchTeam.teamObjectiveSet) && Objects.equals(banSet, matchTeam.banSet);
+        return Objects.equals(key, matchTeam.key) && Objects.equals(match, matchTeam.match) && Objects.equals(team, matchTeam.team);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, match, team, teamObjectiveSet, banSet);
+        return Objects.hash(key, match, team);
+    }
+
+    @Override
+    public String toString() {
+        return "MatchTeam{" +
+                "key=" + key +
+                ", match=" + match +
+                ", team=" + team +
+                ", teamObjectiveSet=" + teamObjectiveSet +
+                ", banSet=" + banSet +
+                '}';
     }
 }

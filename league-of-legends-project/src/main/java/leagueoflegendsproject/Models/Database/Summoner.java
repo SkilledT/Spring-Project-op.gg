@@ -47,8 +47,13 @@ public class Summoner {
     @Column(name = "losses")
     private Integer losses;
 
-    @OneToMany(mappedBy = "summoner")
+    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
+
+    public void addMatchParticipantSetChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setSummoner(this);
+    }
 
     public Summoner(ParticipantsItem participantsItem){
         this.summonerId = participantsItem.getSummonerId();
@@ -101,5 +106,13 @@ public class Summoner {
     @Override
     public int hashCode() {
         return Objects.hash(summonerId, lvl, profileIconId, summonerNickname, tier, rank, leaguePoints, wins, losses);
+    }
+
+    @Override
+    public String toString() {
+        return "Summoner{" +
+                "summonerId='" + summonerId + '\'' +
+                ", summonerNickname='" + summonerNickname + '\'' +
+                '}';
     }
 }

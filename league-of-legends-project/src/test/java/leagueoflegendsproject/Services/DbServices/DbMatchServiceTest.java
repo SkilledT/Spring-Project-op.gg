@@ -8,13 +8,10 @@ import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Helpers.TestUtils.MatchParticipantBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PlayersChampionStatsDtoBuilder;
 import leagueoflegendsproject.Helpers.TestUtils.PreferedRoleDtoBuilder;
+import leagueoflegendsproject.Models.Database.*;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
-import leagueoflegendsproject.Models.Database.Item;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
-import leagueoflegendsproject.Models.Database.MatchParticipant;
-import leagueoflegendsproject.Models.Database.Perk;
-import leagueoflegendsproject.Models.Database.Summoner;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
@@ -35,6 +32,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -117,7 +115,7 @@ class DbMatchServiceTest {
     }
 
     @Test
-    void addMatchToDb() throws IOException {
+    void addMatchToDb_shouldAddMatchObjectAndAllRelated() throws IOException {
         //given
         String matchResponsePath = Objects.requireNonNull(getClass().getClassLoader().getResource("matchResponse.json")).getPath();
         leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = FileUtils.parseFileToObject(matchResponsePath, Match.class);
@@ -146,17 +144,34 @@ class DbMatchServiceTest {
         teamIds.forEach(teamId -> {
             var result = matchTeamRepository.findById(new MatchTeamKey(match.getMetadata().getMatchId(), teamId));
             assertTrue(result.isPresent(), "Match team record should be created with, matchId: " + match.getMetadata().getMatchId() + ", and teamId: " + teamId);
+            assertEquals(result.get().getMatch().getMatchId(), match.getMetadata().getMatchId(), "Match Id should be " + match.getMetadata().getMatchId());
         });
         // 6 perks per person so 6x10 = 60
         assertEquals(60, matchParticipantPerkRepository.findAll().size(), "There should be 60 new-created records of participant perks (6 per person)");
-        assertEquals(60, participantItemsRepository.findAll().size(), "There should be 60 new-created records of participant items (6 per person)");
         assertEquals(10, banRepository.findAll().size(), "There should be 10 new-created records of ban items (1 per person)");
         assertEquals(12, teamObjectiveRepository.findAll().size(), "There should be 12 new-created records of objectives items (6 per team)");
+        var matchTeamMap = teamObjectiveRepository.findAll().stream().collect(groupingBy(e -> e.getMatchTeam().getTeam().getId(), Collectors.toSet()));
+        for (Integer key : matchTeamMap.keySet()) {
+            assertEquals(6, matchTeamMap.get(key).size(), "There should be 6 team objectives per team");
+        }
         teamIds.forEach(teamId -> {
             var expectedNumberOfRecords = 6;
             var actualNumberOfRecords = (int) teamObjectiveRepository.findAll().stream().filter(obj -> obj.getMatchTeam().getTeam().getId().equals(teamId) && obj.getMatchTeam().getMatch().getMatchId().equals(match.getMetadata().getMatchId())).count();
             assertEquals(expectedNumberOfRecords, actualNumberOfRecords, "Every team should have 6 objective records per match");
         });
+        matchParticipantRepository.findAll().forEach(mp -> {
+            assertNotEquals(null, mp.getChampion(), "There should be one champion related to Match Participant");
+        });
+        var itemsByMatchParticipantSummonerNickname = participantItemsRepository.findAll().stream().collect(groupingBy(e -> e.getMatchParticipant().getSummoner().getSummonerNickname(), Collectors.toSet()));
+        assertEquals(10, itemsByMatchParticipantSummonerNickname.keySet().size(), "There should be 10 players created from response");
+        itemsByMatchParticipantSummonerNickname.keySet().forEach(key -> {
+            var items = itemsByMatchParticipantSummonerNickname.get(key);
+            assertEquals(6, items.size(), "There always should be 6 items per match participant");
+        });
+        System.out.println(itemsByMatchParticipantSummonerNickname);
+        System.out.println(participantItemsRepository.findAll().size());
+        participantItemsRepository.findAll().forEach(System.out::println);
+        assertEquals(60, participantItemsRepository.findAll().size(), "There should be 60 new-created records of participant items (6 per person)");
     }
 
     @Test

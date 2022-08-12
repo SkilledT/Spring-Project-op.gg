@@ -22,11 +22,21 @@ public class Team {
     @Column(name = "team_id")
     private Integer id;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<MatchTeam> teamObjectiveSet = new HashSet<>();
+
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setTeam(this);
+    }
+
+    public void addMatchTeamChild(MatchTeam matchTeam) {
+        this.teamObjectiveSet.add(matchTeam);
+        matchTeam.setTeam(this);
+    }
 
     public Team(Integer id) {
         this.id = id;

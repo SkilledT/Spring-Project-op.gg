@@ -1,20 +1,16 @@
 package leagueoflegendsproject.Models.Database;
 
 
-import leagueoflegendsproject.Helpers.NumericalHelpers;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
-import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "match_participant")
@@ -40,20 +36,27 @@ public class MatchParticipant {
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "champion_id")
-    @Nullable
     private Champion champion;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "Team_team_id")
-    @Nullable
     private Team team;
 
-    @OneToMany(mappedBy = "matchParticipant")
+    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL)
     private Set<ParticipantItems> participantItemsSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "matchParticipant")
+    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL)
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
 
+    public void addParticipantItemChild(ParticipantItems participantsItems) {
+        this.participantItemsSet.add(participantsItems);
+        participantsItems.setMatchParticipant(this);
+    }
+
+    public void addMatchParticipantPerkChild(MatchParticipantPerk matchParticipantPerk) {
+        this.matchParticipantPerkSet.add(matchParticipantPerk);
+        matchParticipantPerk.setMatchParticipant(this);
+    }
 
     @Type(type = "numeric_boolean")
     @Column(name = "win")
@@ -391,22 +394,25 @@ public class MatchParticipant {
         this.visionWardsBoughtInGame = visionWardsBoughtInGame;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MatchParticipant that = (MatchParticipant) o;
-        return Objects.equals(matchParticipantKey, that.matchParticipantKey);
+        return Objects.equals(matchParticipantKey, that.matchParticipantKey) && Objects.equals(summoner, that.summoner) && Objects.equals(match, that.match) && Objects.equals(champion, that.champion) && Objects.equals(team, that.team);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(matchParticipantKey);
+        return Objects.hash(matchParticipantKey, summoner, match, champion, team);
     }
 
     @Override
     public String toString() {
-        return "MatchParticipant{}";
+        return "MatchParticipant{" +
+                "summoner=" + summoner +
+                '}';
     }
 
     //@PostPersist

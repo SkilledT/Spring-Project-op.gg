@@ -25,7 +25,7 @@ public class Info {
     @Column(name = "difficulty")
     private Integer difficulty;
 
-    @OneToMany(mappedBy = "info")
+    @OneToMany(mappedBy = "info", cascade = CascadeType.ALL)
     private Set<Champion> championSet = new HashSet<>();
 
     public Info() {

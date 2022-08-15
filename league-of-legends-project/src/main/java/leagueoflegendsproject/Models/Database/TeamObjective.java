@@ -45,15 +45,11 @@ public class TeamObjective {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeamObjective that = (TeamObjective) o;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(matchTeam, that.matchTeam) &&
-                Objects.equals(objective, that.objective) &&
-                Objects.equals(kills, that.kills) &&
-                Objects.equals(first, that.first);
+        return Objects.equals(matchTeam, that.matchTeam) && Objects.equals(objective, that.objective);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, matchTeam, objective, kills, first);
+        return Objects.hash(matchTeam, objective);
     }
 }

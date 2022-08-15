@@ -16,8 +16,8 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
-import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategy;
 import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +58,7 @@ class DbMatchServiceTest {
     private MatchParticipantPerkRepository mockMatchParticipantPerkRepository;
     private PerkRepository mockPerkRepository;
     private HttpSummonerService mockHttpSummonerService;
+    private MatchParticipantUtils mockMatchParticipantUtils;
 
 
     @Autowired private SummonerRepository summonerRepository;
@@ -75,6 +76,7 @@ class DbMatchServiceTest {
     @Autowired private PerkRepository perkRepository;
     @Autowired private HttpSummonerService httpSummonerService;
     @Autowired private PerformanceStrategyFactory performanceStrategyFactory;
+    @Autowired private MatchParticipantUtils matchParticipantUtils;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -92,6 +94,7 @@ class DbMatchServiceTest {
         this.mockMatchParticipantPerkRepository = mock(MatchParticipantPerkRepository.class);
         this.mockPerkRepository = mock(PerkRepository.class);
         this.mockHttpSummonerService = mock(HttpSummonerService.class);
+        this.mockMatchParticipantUtils = mock(MatchParticipantUtils.class);
 
         List<Perk> perks = FileUtils.parseFileToObject(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("perks_response.csv")).getPath(),
@@ -99,11 +102,13 @@ class DbMatchServiceTest {
         );
         List<Item> items = FileUtils.parseFileToObject(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("items_response.csv")).getPath(),
-                new TypeToken<List<Item>>(){}
+                new TypeToken<>() {
+                }
         );
         List<Champion> champions = FileUtils.parseFileToObject(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("champions_response.csv")).getPath(),
-                new TypeToken<List<Champion>>(){}
+                new TypeToken<>() {
+                }
         );
         perkRepository.saveAll(perks);
         itemRepository.saveAll(items);
@@ -127,9 +132,9 @@ class DbMatchServiceTest {
                     summonerRepository.save(new Summoner(participantsItem))
             );
         });
-        var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository, banRepository, teamObjectiveRepository,
-                matchTeamRepository, participantItemsRepository, matchParticipantRepository, objectiveRepository, perkRepository, matchParticipantPerkRepository,
-                httpSummonerService, championRepository, performanceStrategyFactory);
+        var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository,
+                matchTeamRepository, matchParticipantRepository, objectiveRepository, perkRepository,
+                httpSummonerService, championRepository, performanceStrategyFactory, matchParticipantUtils);
         toTest.AddMatchToDb(match);
 
         // then
@@ -215,9 +220,9 @@ class DbMatchServiceTest {
         // When
         when(mockMatchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
                 .thenReturn(matchParticipantList);
-        var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
-                mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
-                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory);
+        var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository,
+                mockMatchTeamRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository,
+                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory, matchParticipantUtils);
         var actualResult = toTest.getChampionStatsByNickname("Skilled Teaser");
 
         // Then
@@ -249,9 +254,9 @@ class DbMatchServiceTest {
         // When
         when(mockMatchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(anyString()))
                 .thenReturn(matchParticipantList);
-        var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository, mockBanRepository, mockTeamObjectiveRepository,
-                mockMatchTeamRepository, mockParticipantItemsRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository, mockMatchParticipantPerkRepository,
-                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory);
+        var toTest = new DbMatchService(mockSummonerRepository, mockItemRepository, mockTeamRepository, mockMatchRepository,
+                mockMatchTeamRepository, mockMatchParticipantRepository, mockObjectiveRepository, mockPerkRepository,
+                mockHttpSummonerService, mockChampionRepository, performanceStrategyFactory, matchParticipantUtils);
         var actualResult = toTest.getPreferredRole("Skilled Teaser");
 
         // Then

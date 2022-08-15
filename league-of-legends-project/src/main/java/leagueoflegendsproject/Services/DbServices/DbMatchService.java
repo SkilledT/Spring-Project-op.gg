@@ -9,6 +9,7 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.*;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
@@ -28,47 +29,39 @@ public class DbMatchService {
     private final ItemRepository itemRepository;
     private final TeamRepository teamRepository;
     private final MatchRepository matchRepository;
-    private final ParticipantItemsRepository participantItemsRepository;
     private final MatchParticipantRepository matchParticipantRepository;
-    private final BanRepository banRepository;
     private final MatchTeamRepository matchTeamRepository;
     private final ChampionRepository championRepository;
-    private final TeamObjectiveRepository teamObjectiveRepository;
     private final ObjectiveRepository objectiveRepository;
-    private final MatchParticipantPerkRepository matchParticipantPerkRepository;
     private final PerkRepository perkRepository;
     private final HttpSummonerService httpSummonerService;
     private final PerformanceStrategyFactory performanceStrategyFactory;
+    private final MatchParticipantUtils matchParticipantUtils;
 
     public DbMatchService(final SummonerRepository summonerRepository,
                           final ItemRepository itemRepository,
                           final TeamRepository teamRepository,
                           final MatchRepository matchRepository,
-                          final BanRepository banRepository,
-                          final TeamObjectiveRepository teamObjectiveRepository,
                           final MatchTeamRepository matchTeamRepository,
-                          final ParticipantItemsRepository participantItemsRepository,
                           final MatchParticipantRepository matchParticipantRepository,
                           final ObjectiveRepository objectiveRepository,
                           final PerkRepository perkRepository,
-                          final MatchParticipantPerkRepository matchParticipantPerkRepository,
                           final HttpSummonerService httpSummonerService,
-                          final ChampionRepository championRepository, PerformanceStrategyFactory performanceStrategyFactory) {
+                          final ChampionRepository championRepository,
+                          PerformanceStrategyFactory performanceStrategyFactory,
+                          MatchParticipantUtils matchParticipantUtils) {
         this.summonerRepository = summonerRepository;
         this.itemRepository = itemRepository;
         this.teamRepository = teamRepository;
-        this.participantItemsRepository = participantItemsRepository;
         this.matchParticipantRepository = matchParticipantRepository;
         this.championRepository = championRepository;
         this.objectiveRepository = objectiveRepository;
         this.matchRepository = matchRepository;
-        this.teamObjectiveRepository = teamObjectiveRepository;
         this.matchTeamRepository = matchTeamRepository;
-        this.banRepository = banRepository;
         this.perkRepository = perkRepository;
-        this.matchParticipantPerkRepository = matchParticipantPerkRepository;
         this.httpSummonerService = httpSummonerService;
         this.performanceStrategyFactory = performanceStrategyFactory;
+        this.matchParticipantUtils = matchParticipantUtils;
     }
 
     @Cacheable(cacheNames = "Players_Match_Collection")
@@ -210,6 +203,29 @@ public class DbMatchService {
         return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));
     }
 
+    private Map<String, Objective> getAvailableObjective(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+        var objectives = new HashSet<>(apiMatch.getInfo().getTeams());
+        var tObjectivesSet = objectives.stream().map(TeamsItem::getObjectives).collect(Collectors.toSet());
+        Set<String> objectivesIDs = new HashSet<>();
+        tObjectivesSet.forEach(e -> {
+            objectivesIDs.add(e.getBaron().getClass().getSimpleName());
+            objectivesIDs.add(e.getChampion().getClass().getSimpleName());
+            objectivesIDs.add(e.getDragon().getClass().getSimpleName());
+            objectivesIDs.add(e.getInhibitor().getClass().getSimpleName());
+            objectivesIDs.add(e.getTower().getClass().getSimpleName());
+            objectivesIDs.add(e.getRiftHerald().getClass().getSimpleName());
+
+        });
+        List<Objective> availableObjectives = objectiveRepository.findAllById(objectivesIDs);
+        Set<String> foundIds = availableObjectives.stream().map(Objective::getName).collect(Collectors.toSet());
+        for (var objectiveId : objectivesIDs) {
+            if (!foundIds.contains(objectiveId)) {
+                availableObjectives.add(new Objective(objectiveId));
+            }
+        }
+        return availableObjectives.stream().collect(Collectors.toMap(Objective::getName, x -> x));
+    }
+
     @Transactional()
     public void AddMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
@@ -220,6 +236,7 @@ public class DbMatchService {
         Map<Integer, Item> availableItems = getAvailableItems(apiMatch);
         Map<Integer, Perk> availablePerks = getAvailablePerks(apiMatch);
         Map<Integer, Champion> availableChampions = getAvailableChampions(apiMatch);
+        Map<String, Objective> availableObjectives = getAvailableObjective(apiMatch);
 
         apiMatch.getInfo().getParticipants().stream()
                 .collect(Collectors.toUnmodifiableList())
@@ -227,9 +244,9 @@ public class DbMatchService {
 
         Set<MatchTeam> matchTeamSet = availableTeams.keySet().stream()
                 .map(availableTeams::get)
-                .map(team -> createMatchTeam(team, match))
+                .map(team -> matchParticipantUtils.setMatchTeam(team, match))
                 .collect(Collectors.toSet());
-        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions, match);
+        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions, match, availableObjectives);
         matchTeamRepository.saveAll(matchTeamSet);
     }
 
@@ -238,14 +255,14 @@ public class DbMatchService {
         setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions);
     }
 
-    private void handleMatchTeamPersist(Set<MatchTeam> matchTeamSet, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch, Map<Integer, Champion> availableChampions, Match match) {
-        setBan(matchTeamSet, apiMatch, availableChampions);
+    private void handleMatchTeamPersist(Set<MatchTeam> matchTeamSet, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch, Map<Integer, Champion> availableChampions, Match match, Map<String, Objective> availableObjectives) {
+        matchParticipantUtils.setBan(matchTeamSet, apiMatch, availableChampions);
         for (MatchTeam matchTeam : matchTeamSet) {
             var teamItems = apiMatch.getInfo().getTeams().stream()
                     .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
                     .collect(Collectors.toSet());
             for (TeamsItem tItem : teamItems) {
-                setMatchTeamObjective(matchTeam, tItem);
+                setMatchTeamObjective(matchTeam, tItem, availableObjectives);
             }
             match.addMatchTeamChild(matchTeam);
         }
@@ -262,37 +279,8 @@ public class DbMatchService {
         matchParticipant.setSummoner(summoner);
         matchParticipant.setChampion(champion);
 
-        setMatchParticipantItems(participant, matchParticipant, availableItems);
-        setMatchParticipantPerks(participant, matchParticipant, availablePerks);
-    }
-
-    private void setMatchParticipantItems(ParticipantsItem participant, MatchParticipant matchParticipant, Map<Integer, Item> availableItems) {
-        List<Integer> itemIds = List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
-        for (int i = 0; i < itemIds.size(); i++) {
-            var itemId = itemIds.get(i);
-            if (availableItems.containsKey(itemId)) {
-                Item item = availableItems.get(itemId);
-                ParticipantItems participantItems = new ParticipantItems();
-                participantItems.setItem(item);
-                participantItems.setMatchParticipant(matchParticipant);
-                participantItems.setPosition(i);
-                matchParticipant.addParticipantItemChild(participantItems);
-            }
-        }
-    }
-
-    private void setMatchParticipantPerks(ParticipantsItem participant, MatchParticipant matchParticipant, Map<Integer, Perk> availablePerks) {
-        for (StylesItem styleItem : participant.getPerks().getStyles()) {
-            for (SelectionsItem selectionsItem : styleItem.getSelections()) {
-                MatchParticipantPerk matchParticipantPerk = new MatchParticipantPerk();
-                if (availablePerks.containsKey(selectionsItem.getPerk())) {
-                    Perk perk = availablePerks.get(selectionsItem.getPerk());
-                    matchParticipantPerk.setMatchParticipant(matchParticipant);
-                    matchParticipantPerk.setPerk(perk);
-                    matchParticipant.addMatchParticipantPerkChild(matchParticipantPerk);
-                }
-            }
-        }
+        matchParticipantUtils.setMatchParticipantItems(participant, matchParticipant, availableItems);
+        matchParticipantUtils.setMatchParticipantPerks(participant, matchParticipant, availablePerks);
     }
 
     private Set<SelectionsItem> extractSelectionItem(ParticipantsItem participant) {
@@ -303,56 +291,30 @@ public class DbMatchService {
         return selectionsItemSet;
     }
 
-    private MatchTeam createMatchTeam(Team team, leagueoflegendsproject.Models.Database.Match match) {
-        MatchTeam matchTeam = new MatchTeam();
-        matchTeam.setTeam(team);
-        matchTeam.setMatch(match);
-        return matchTeam;
-    }
-
-    private void setBan(Set<MatchTeam> matchTeamList, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match, Map<Integer, Champion> availableChampions) {
-        for (MatchTeam matchTeam : matchTeamList) {
-            match.getInfo().getTeams().stream().filter(e -> e.getTeamId() == matchTeam.getTeam().getId()).forEach(teamsItem -> {
-                teamsItem.getBans().stream().forEach(banItem -> {
-                    int pickTurn = banItem.getPickTurn();
-                    int championId = banItem.getChampionId();
-                    if (availableChampions.containsKey(championId)) {
-                        Champion champion = availableChampions.get(championId);
-                        Ban ban = new Ban();
-                        ban.setMatchTeam(matchTeam);
-                        ban.setChampion(champion);
-                        ban.setPickTurn(pickTurn);
-                        matchTeam.addBanChild(ban);
-                    }
-                });
-            });
-        }
-    }
-
-    private void setMatchTeamObjective(MatchTeam matchTeam, TeamsItem teamsItem) {
+    private void setMatchTeamObjective(MatchTeam matchTeam, TeamsItem teamsItem, Map<String, Objective> availableObjectives) {
         var objectives = teamsItem.getObjectives();
-        var baron = saveTeamObjective(matchTeam,
-                createObjective(objectives.getBaron().getClass().getSimpleName()),
+        var baron = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getBaron().getClass().getSimpleName()),
                 objectives.getBaron().isFirst(),
                 objectives.getBaron().getKills());
-        var inhibitor = saveTeamObjective(matchTeam,
-                createObjective(objectives.getInhibitor().getClass().getSimpleName()),
+        var inhibitor = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getInhibitor().getClass().getSimpleName()),
                 objectives.getInhibitor().isFirst(),
                 objectives.getInhibitor().getKills());
-        var dragon = saveTeamObjective(matchTeam,
-                createObjective(objectives.getDragon().getClass().getSimpleName()),
+        var dragon = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getDragon().getClass().getSimpleName()),
                 objectives.getDragon().isFirst(),
                 objectives.getDragon().getKills());
-        var riftHerald = saveTeamObjective(matchTeam,
-                createObjective(objectives.getRiftHerald().getClass().getSimpleName()),
+        var riftHerald = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getRiftHerald().getClass().getSimpleName()),
                 objectives.getRiftHerald().isFirst(),
                 objectives.getRiftHerald().getKills());
-        var champion = saveTeamObjective(matchTeam,
-                createObjective(objectives.getChampion().getClass().getSimpleName()),
+        var champion = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getChampion().getClass().getSimpleName()),
                 objectives.getChampion().isFirst(),
                 objectives.getChampion().getKills());
-        var tower = saveTeamObjective(matchTeam,
-                createObjective(objectives.getTower().getClass().getSimpleName()),
+        var tower = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getTower().getClass().getSimpleName()),
                 objectives.getTower().isFirst(),
                 objectives.getTower().getKills());
         matchTeam.addTeamObjectChild(baron);
@@ -363,21 +325,14 @@ public class DbMatchService {
         matchTeam.addTeamObjectChild(tower);
     }
 
-    private TeamObjective saveTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
-        Objective dbObjective = objectiveRepository.findById(objective.getName()).orElse(objective);
+    private TeamObjective setTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
         TeamObjective teamObjective = new TeamObjective();
-        teamObjective.setObjective(dbObjective);
+        teamObjective.setObjective(objective);
         teamObjective.setMatchTeam(matchTeam);
         teamObjective.setKills(kills);
         teamObjective.setFirst(first);
 
         matchTeam.addTeamObjectChild(teamObjective);
         return teamObjective;
-    }
-
-    private Objective createObjective(String objectiveName) {
-        return objectiveRepository
-                .findById(objectiveName)
-                .orElse(new Objective(objectiveName));
     }
 }

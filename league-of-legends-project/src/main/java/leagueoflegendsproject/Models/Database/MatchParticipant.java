@@ -25,12 +25,12 @@ public class MatchParticipant {
     @EmbeddedId
     private MatchParticipantKey matchParticipantKey = new MatchParticipantKey();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "summoner_summoner_id")
     @MapsId(value = "summonerId")
     private Summoner summoner;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "Match_match_id")
     @MapsId(value = "matchId")
     private Match match;

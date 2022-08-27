@@ -136,36 +136,6 @@ class HttpMatchServiceTest {
     }
 
     @Test
-    void getMatchCollectionByNickname_ShouldAddMatchToDb() throws IOException, InterruptedException {
-        // Given
-        String matchResponsePath = Objects.requireNonNull(getClass().getClassLoader().getResource("matchResponse.json")).getPath();
-        leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = FileUtils.parseFileToObject(matchResponsePath, Match.class);
-        var participantsItem = match.getInfo().getParticipants().get(0);
-
-        // When
-        when(mockSummonerService.getSummonerByNameHTTP(any()))
-                .thenReturn(new Summoner(participantsItem.getSummonerId(), 1, 2, participantsItem.getSummonerName(), participantsItem.getPuuid(), participantsItem.getSummonerId(), 100));
-        when(mockRiotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(any(), any()), String[].class))
-                .thenReturn(new HttpResponseWrapper<>(true, new String[] {match.getMetadata().getMatchId()}, "OK"));
-        when(mockRiotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(match.getMetadata().getMatchId()), Match.class))
-                .thenReturn(new HttpResponseWrapper<>(true, match, "OK"));
-        match.getInfo().getParticipants().forEach(pItem -> {
-            when(mockHttpSummonerService.fetchSummonerHTTP(pItem.getSummonerName())).thenReturn(
-                    new leagueoflegendsproject.Models.Database.Summoner(pItem)
-            );
-        });
-        var dbService = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository,
-                matchTeamRepository, matchParticipantRepository, objectiveRepository, perkRepository,
-                mockHttpSummonerService, championRepository, performanceStrategyFactory, matchParticipantUtils);
-        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbService, mockHttpSummonerService);
-        toTest.getMatchCollectionByNickname("ST", 1);
-
-        // Then
-        assertEquals(1, matchRepository.findAll().size());
-
-    }
-
-    @Test
     void getMatchById_ShouldReturnMatchObject_WhenThereIsSuccess() throws IOException, InterruptedException {
         // given
         String fakeId = "idNo1";

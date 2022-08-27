@@ -45,7 +45,7 @@ public class Champion {
     @SerializedName(value = "blurb")
     private String blurb;
 
-    @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
     @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
@@ -53,6 +53,16 @@ public class Champion {
 
     @OneToMany(mappedBy = "champion", cascade = CascadeType.ALL)
     private Set<ChampionTag> championTags = new HashSet<>();
+
+    public void addBanChild(Ban ban) {
+        this.ban.add(ban);
+        ban.setChampion(this);
+    }
+
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.getMatchParticipantSet().add(matchParticipant);
+        matchParticipant.setChampion(this);
+    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stats_id")

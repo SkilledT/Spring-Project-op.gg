@@ -49,8 +49,13 @@ public class Summoner {
     @Column(name = "losses")
     private Integer losses;
 
-    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
+
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setSummoner(this);
+    }
 
     public Summoner(SummonerLeagueResponseItem item) {
         this.summonerId = item.getSummonerId();
@@ -62,11 +67,6 @@ public class Summoner {
         this.leaguePoints = item.getLeaguePoints();
         this.wins = item.getWins();
         this.losses = item.getLosses();
-    }
-
-    public void addMatchParticipantSetChild(MatchParticipant matchParticipant) {
-        this.matchParticipantSet.add(matchParticipant);
-        matchParticipant.setSummoner(this);
     }
 
     public Summoner(ParticipantsItem participantsItem){

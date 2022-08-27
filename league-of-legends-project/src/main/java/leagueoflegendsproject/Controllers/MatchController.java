@@ -1,12 +1,7 @@
 package leagueoflegendsproject.Controllers;
 
-import leagueoflegendsproject.Models.Database.Champion.Champion;
-import leagueoflegendsproject.Services.DbServices.DbChampionService;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
-import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
 import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
-import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
-import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/match")

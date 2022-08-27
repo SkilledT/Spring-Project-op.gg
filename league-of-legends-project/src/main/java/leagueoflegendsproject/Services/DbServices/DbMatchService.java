@@ -259,9 +259,7 @@ public class DbMatchService {
     public void addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
         if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
-            System.out.println("already in DB");
-            apiMatch.getMetadata().setMatchId(String.valueOf((int)(Math.random()*1000 + 500)));
-            //return;
+            return;
         }
         leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
         CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
@@ -285,7 +283,6 @@ public class DbMatchService {
                 .collect(Collectors.toSet());
         handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
         matchTeamRepository.saveAll(matchTeamSet);
-        System.out.println("Match has been added");
     }
 
     private MatchParticipant handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {

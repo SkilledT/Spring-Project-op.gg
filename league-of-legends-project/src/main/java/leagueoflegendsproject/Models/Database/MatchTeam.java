@@ -23,12 +23,12 @@ public class MatchTeam {
     @EmbeddedId
     private MatchTeamKey key = new MatchTeamKey();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "match_id")
     @MapsId(value = "matchId")
     private Match match;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
     @MapsId(value = "teamId")
     private Team team;

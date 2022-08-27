@@ -39,10 +39,10 @@ public class Match {
     @Column(name = "game_mode")
     private String gameMode;
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchTeam> matchTeamSet = new HashSet<>();
 
     public void addMatchParticipantChild(MatchParticipant matchParticipant) {

@@ -47,7 +47,7 @@ public class HttpMatchService {
         List<Match> matches = new ArrayList<>();
         for (String id : matchesIds) {
             Match match = getMatchById(id);
-            dbMatchService.AddMatchToDb(match);
+            dbMatchService.addMatchToDb(match);
             matches.add(match);
         }
         return matches;

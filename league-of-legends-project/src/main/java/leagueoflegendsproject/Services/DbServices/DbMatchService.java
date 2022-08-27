@@ -13,10 +13,13 @@ import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static leagueoflegendsproject.Helpers.MatchUtils.isMatchSoloQ;
@@ -159,15 +162,15 @@ public class DbMatchService {
                 .collect(Collectors.toList());
     }
 
-    private Map<Integer, Team> getAvailableTeams(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+    private CompletableFuture<Map<Integer, Team>> getAvailableTeams(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         Set<Integer> teamIds = apiMatch.getInfo().getTeams().stream().map(TeamsItem::getTeamId).collect(Collectors.toSet());
         List<Team> availableTeams = teamRepository.findAllById(teamIds);
         Set<Integer> foundIds = availableTeams.stream().map(Team::getId).collect(Collectors.toSet());
         teamIds.stream().filter(teamId -> !foundIds.contains(teamId)).forEach(id -> availableTeams.add(new Team(id)));
-        return availableTeams.stream().collect(Collectors.toMap(Team::getId, x -> x));
+        return CompletableFuture.completedFuture(availableTeams.stream().collect(Collectors.toMap(Team::getId, x -> x)));
     }
 
-    private Map<Integer, Champion> getAvailableChampions(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+    private CompletableFuture<Map<Integer, Champion>> getAvailableChampions(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         Set<Integer> championIds = apiMatch.getInfo().getParticipants().stream().map(ParticipantsItem::getChampionId).collect(Collectors.toSet());
         for(var banItem : apiMatch.getInfo().getTeams().stream().map(TeamsItem::getBans).collect(Collectors.toSet())) {
             banItem.stream().map(BansItem::getChampionId).forEach(championIds::add);
@@ -176,34 +179,53 @@ public class DbMatchService {
         List<Champion> availableChampions = championRepository.findAllById(championIds);
         Set<Integer> foundIds = availableChampions.stream().map(Champion::getId).collect(Collectors.toSet());
         participantsItems.stream().filter(pItem -> !foundIds.contains(pItem.getChampionId())).forEach(pItem -> availableChampions.add(new Champion(pItem.getChampionId(), pItem.getChampionName())));
-        return availableChampions.stream().collect(Collectors.toUnmodifiableMap(Champion::getId, x -> x));
+        return CompletableFuture.completedFuture(availableChampions.stream().collect(Collectors.toUnmodifiableMap(Champion::getId, x -> x)));
     }
 
-    private Map<Integer, Item> getAvailableItems(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
-        Set<Integer> itemIds = new HashSet<>();
-        apiMatch.getInfo().getParticipants().forEach(participant -> {
-            List<Integer> ids = List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
-            itemIds.addAll(ids);
+    private CompletableFuture<Map<Integer, Item>> getAvailableItems(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+        return CompletableFuture.supplyAsync(() -> {
+            Set<Integer> itemIds = new HashSet<>();
+            apiMatch.getInfo().getParticipants().forEach(participant -> {
+                List<Integer> ids = List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
+                itemIds.addAll(ids);
+            });
+            List<Item> availableItems = itemRepository.findAllById(itemIds);
+            Set<Integer> foundIds = availableItems.stream().map(Item::getId).collect(Collectors.toSet());
+            itemIds.stream().filter(itemId -> !foundIds.contains(itemId)).forEach(itemId -> availableItems.add(new Item(itemId)));
+            return availableItems.stream().collect(Collectors.toMap(Item::getId, x -> x));
         });
-        List<Item> availableItems = itemRepository.findAllById(itemIds);
-        Set<Integer> foundIds = availableItems.stream().map(Item::getId).collect(Collectors.toSet());
-        itemIds.stream().filter(itemId -> !foundIds.contains(itemId)).forEach(itemId -> availableItems.add(new Item(itemId)));
-
-        return availableItems.stream().collect(Collectors.toMap(Item::getId, x -> x));
     }
 
-    private Map<Integer, Perk> getAvailablePerks(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
-        Set<Integer> perkIds = new HashSet<>();
-        var participants = apiMatch.getInfo().getParticipants();
-        for (var p : participants) {
-            var sItemPerkIds = extractSelectionItem(p).stream().map(SelectionsItem::getPerk).collect(Collectors.toSet());
-            perkIds.addAll(sItemPerkIds);
-        }
-        List<Perk> availablePerks = perkRepository.findAllById(perkIds);
-        return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));
+    private CompletableFuture<Map<String, Summoner>> getAvailableSummoners(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+        return CompletableFuture.supplyAsync(() -> {
+            var participants = apiMatch.getInfo().getParticipants();
+            var participantsMap = participants.stream().collect(Collectors.toMap(ParticipantsItem::getSummonerId, ParticipantsItem::getSummonerName));
+            Set<String> apiIds = participants.stream().map(ParticipantsItem::getSummonerId).collect(Collectors.toSet());
+            List<Summoner> foundSummoners = summonerRepository.findAllById(apiIds);
+            Set<String> foundIds = foundSummoners.stream().map(Summoner::getSummonerId).collect(Collectors.toSet());
+            for (var apiId : apiIds) {
+                if (!foundIds.contains(apiId))
+                    foundSummoners.add(httpSummonerService.fetchSummonerHTTP(participantsMap.get(apiId)));
+            }
+            return foundSummoners.stream().collect(Collectors.toMap(Summoner::getSummonerId, x -> x));
+        });
     }
 
-    private Map<String, Objective> getAvailableObjective(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+    private CompletableFuture<Map<Integer, Perk>> getAvailablePerks(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+        return CompletableFuture.supplyAsync(() -> {
+            Set<Integer> perkIds = new HashSet<>();
+            var participants = apiMatch.getInfo().getParticipants();
+            for (var p : participants) {
+                var sItemPerkIds = extractSelectionItem(p).stream().map(SelectionsItem::getPerk).collect(Collectors.toSet());
+                perkIds.addAll(sItemPerkIds);
+                String threadDetails=Thread.currentThread().getName();
+            }
+            List<Perk> availablePerks = perkRepository.findAllById(perkIds);
+            return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));
+        });
+    }
+
+    private CompletableFuture<Map<String, Objective>> getAvailableObjective(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         var objectives = new HashSet<>(apiMatch.getInfo().getTeams());
         var tObjectivesSet = objectives.stream().map(TeamsItem::getObjectives).collect(Collectors.toSet());
         Set<String> objectivesIDs = new HashSet<>();
@@ -223,36 +245,44 @@ public class DbMatchService {
                 availableObjectives.add(new Objective(objectiveId));
             }
         }
-        return availableObjectives.stream().collect(Collectors.toMap(Objective::getName, x -> x));
+        return CompletableFuture.completedFuture(availableObjectives.stream().collect(Collectors.toMap(Objective::getName, x -> x)));
     }
 
-    @Transactional()
-    public void AddMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+
+    @Async("taskExecutor")
+    @Transactional
+    public void addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
-        if (repoMatch != null || !isMatchSoloQ(apiMatch))
+        if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
+            System.out.println("already in DB");
             return;
+        }
         leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
-        Map<Integer, Team> availableTeams = getAvailableTeams(apiMatch);
-        Map<Integer, Item> availableItems = getAvailableItems(apiMatch);
-        Map<Integer, Perk> availablePerks = getAvailablePerks(apiMatch);
-        Map<Integer, Champion> availableChampions = getAvailableChampions(apiMatch);
-        Map<String, Objective> availableObjectives = getAvailableObjective(apiMatch);
+        CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
+        CompletableFuture<Map<Integer, Item>> availableItems = getAvailableItems(apiMatch);
+        CompletableFuture<Map<Integer, Perk>> availablePerks = getAvailablePerks(apiMatch);
+        CompletableFuture<Map<Integer, Champion>> availableChampions = getAvailableChampions(apiMatch);
+        CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
+        CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
+
+        CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
 
         apiMatch.getInfo().getParticipants().stream()
                 .collect(Collectors.toUnmodifiableList())
-                .forEach(participant -> handleMatchParticipantPersist(availableTeams, match, participant, availableItems, availablePerks, availableChampions));
+                .forEach(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()));
 
-        Set<MatchTeam> matchTeamSet = availableTeams.keySet().stream()
-                .map(availableTeams::get)
+        Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
+                .map(key -> availableTeams.join().get(key))
                 .map(team -> matchParticipantUtils.setMatchTeam(team, match))
                 .collect(Collectors.toSet());
-        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions, match, availableObjectives);
+        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
         matchTeamRepository.saveAll(matchTeamSet);
+        System.out.println("Match has been added");
     }
 
-    private void handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions) {
+    private void handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
         MatchParticipant matchParticipant = new MatchParticipant(participant);
-        setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions);
+        setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions, availableSummoners);
     }
 
     private void handleMatchTeamPersist(Set<MatchTeam> matchTeamSet, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch, Map<Integer, Champion> availableChampions, Match match, Map<String, Objective> availableObjectives) {
@@ -268,14 +298,12 @@ public class DbMatchService {
         }
     }
 
-    private void setMatchParticipant(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match match, Map<Integer, Team> availableTeams, MatchParticipant matchParticipant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions) {
+    private void setMatchParticipant(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match match, Map<Integer, Team> availableTeams, MatchParticipant matchParticipant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
         Team team = availableTeams.get(participant.getTeamId());
         match.addMatchParticipantChild(matchParticipant);
         team.addMatchParticipantChild(matchParticipant);
         Champion champion = availableChampions.get(participant.getChampionId());
-        Summoner summoner = summonerRepository
-                .findById(participant.getSummonerId())
-                .orElseGet(() -> httpSummonerService.fetchSummonerAndSaveToDbHTTP(participant.getSummonerName()));
+        Summoner summoner = availableSummoners.get(participant.getSummonerId());
         matchParticipant.setSummoner(summoner);
         matchParticipant.setChampion(champion);
 

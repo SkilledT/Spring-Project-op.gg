@@ -1,35 +1,63 @@
 package leagueoflegendsproject.Services.HttpServices;
 
+import leagueoflegendsproject.Helpers.FileUtils;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Info;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
+import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
+import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
+import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
+import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 class HttpMatchServiceTest {
-
 
     private RiotHttpClient mockRiotHttpClient;
     private HttpSummonerService mockSummonerService;
     private DbMatchService mockDbMatchService;
     private HttpSummonerService mockHttpSummonerService;
-    @Autowired
-    private DbMatchService dbMatchService;
+
+    @Autowired private DbMatchService dbMatchService;
+    @Autowired private MatchRepository matchRepository;
+    @Autowired private SummonerRepository summonerRepository;
+    @Autowired private ItemRepository itemRepository;
+    @Autowired private TeamRepository teamRepository;
+    @Autowired private MatchParticipantRepository matchParticipantRepository;
+    @Autowired private MatchTeamRepository matchTeamRepository;
+    @Autowired private ChampionRepository championRepository;
+    @Autowired private ObjectiveRepository objectiveRepository;
+    @Autowired private PerkRepository perkRepository;
+    @Autowired private PerformanceStrategyFactory performanceStrategyFactory;
+    @Autowired private MatchParticipantUtils matchParticipantUtils;
 
     @BeforeEach
     void setUp() {
@@ -105,6 +133,36 @@ class HttpMatchServiceTest {
                 .contains(fakeMatch2);
         assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
                 .contains(fakeMatch, fakeMatch2);
+    }
+
+    @Test
+    void getMatchCollectionByNickname_ShouldAddMatchToDb() throws IOException, InterruptedException {
+        // Given
+        String matchResponsePath = Objects.requireNonNull(getClass().getClassLoader().getResource("matchResponse.json")).getPath();
+        leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = FileUtils.parseFileToObject(matchResponsePath, Match.class);
+        var participantsItem = match.getInfo().getParticipants().get(0);
+
+        // When
+        when(mockSummonerService.getSummonerByNameHTTP(any()))
+                .thenReturn(new Summoner(participantsItem.getSummonerId(), 1, 2, participantsItem.getSummonerName(), participantsItem.getPuuid(), participantsItem.getSummonerId(), 100));
+        when(mockRiotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(any(), any()), String[].class))
+                .thenReturn(new HttpResponseWrapper<>(true, new String[] {match.getMetadata().getMatchId()}, "OK"));
+        when(mockRiotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(match.getMetadata().getMatchId()), Match.class))
+                .thenReturn(new HttpResponseWrapper<>(true, match, "OK"));
+        match.getInfo().getParticipants().forEach(pItem -> {
+            when(mockHttpSummonerService.fetchSummonerHTTP(pItem.getSummonerName())).thenReturn(
+                    new leagueoflegendsproject.Models.Database.Summoner(pItem)
+            );
+        });
+        var dbService = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository,
+                matchTeamRepository, matchParticipantRepository, objectiveRepository, perkRepository,
+                mockHttpSummonerService, championRepository, performanceStrategyFactory, matchParticipantUtils);
+        var toTest = new HttpMatchService(mockRiotHttpClient, mockSummonerService, dbService, mockHttpSummonerService);
+        toTest.getMatchCollectionByNickname("ST", 1);
+
+        // Then
+        assertEquals(1, matchRepository.findAll().size());
+
     }
 
     @Test

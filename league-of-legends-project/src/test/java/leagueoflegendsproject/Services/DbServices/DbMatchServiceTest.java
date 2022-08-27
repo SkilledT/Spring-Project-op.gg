@@ -12,6 +12,9 @@ import leagueoflegendsproject.Models.Database.*;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeague;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueWrapper;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
@@ -24,10 +27,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,26 +42,21 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-@Transactional
 class DbMatchServiceTest {
 
     private SummonerRepository mockSummonerRepository;
     private ItemRepository mockItemRepository;
     private TeamRepository mockTeamRepository;
     private MatchRepository mockMatchRepository;
-    private ParticipantItemsRepository mockParticipantItemsRepository;
     private MatchParticipantRepository mockMatchParticipantRepository;
-    private BanRepository mockBanRepository;
     private MatchTeamRepository mockMatchTeamRepository;
     private ChampionRepository mockChampionRepository;
-    private TeamObjectiveRepository mockTeamObjectiveRepository;
     private ObjectiveRepository mockObjectiveRepository;
-    private MatchParticipantPerkRepository mockMatchParticipantPerkRepository;
     private PerkRepository mockPerkRepository;
     private HttpSummonerService mockHttpSummonerService;
-    private MatchParticipantUtils mockMatchParticipantUtils;
 
 
     @Autowired private SummonerRepository summonerRepository;
@@ -80,25 +78,10 @@ class DbMatchServiceTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        this.mockSummonerRepository = mock(SummonerRepository.class);
-        this.mockItemRepository = mock(ItemRepository.class);
-        this.mockTeamRepository = mock(TeamRepository.class);
-        this.mockMatchRepository = mock(MatchRepository.class);
-        this.mockParticipantItemsRepository = mock(ParticipantItemsRepository.class);
-        this.mockMatchParticipantRepository = mock(MatchParticipantRepository.class);
-        this.mockBanRepository = mock(BanRepository.class);
-        this.mockMatchTeamRepository = mock(MatchTeamRepository.class);
-        this.mockChampionRepository = mock(ChampionRepository.class);
-        this.mockTeamObjectiveRepository = mock(TeamObjectiveRepository.class);
-        this.mockObjectiveRepository = mock(ObjectiveRepository.class);
-        this.mockMatchParticipantPerkRepository = mock(MatchParticipantPerkRepository.class);
-        this.mockPerkRepository = mock(PerkRepository.class);
-        this.mockHttpSummonerService = mock(HttpSummonerService.class);
-        this.mockMatchParticipantUtils = mock(MatchParticipantUtils.class);
-
         List<Perk> perks = FileUtils.parseFileToObject(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("perks_response.csv")).getPath(),
-                new TypeToken<List<Perk>>(){}
+                new TypeToken<>() {
+                }
         );
         List<Item> items = FileUtils.parseFileToObject(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("items_response.csv")).getPath(),
@@ -110,13 +93,26 @@ class DbMatchServiceTest {
                 new TypeToken<>() {
                 }
         );
-        perkRepository.saveAll(perks);
-        itemRepository.saveAll(items);
-        championRepository.saveAll(champions);
+        perkRepository.saveAllAndFlush(perks);
+        itemRepository.saveAllAndFlush(items);
+        championRepository.saveAllAndFlush(champions);
+
+        this.mockSummonerRepository = mock(SummonerRepository.class);
+        this.mockItemRepository = mock(ItemRepository.class);
+        this.mockTeamRepository = mock(TeamRepository.class);
+        this.mockMatchRepository = mock(MatchRepository.class);
+        this.mockMatchParticipantRepository = mock(MatchParticipantRepository.class);
+        this.mockMatchTeamRepository = mock(MatchTeamRepository.class);
+        this.mockChampionRepository = mock(ChampionRepository.class);
+        this.mockObjectiveRepository = mock(ObjectiveRepository.class);
+        this.mockPerkRepository = mock(PerkRepository.class);
+        this.mockHttpSummonerService = mock(HttpSummonerService.class);
+
     }
 
     @AfterEach
     void tearDown() {
+
     }
 
     @Test
@@ -126,16 +122,31 @@ class DbMatchServiceTest {
         leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = FileUtils.parseFileToObject(matchResponsePath, Match.class);
         Set<Integer> teamIds = match.getInfo().getParticipants().stream().map(ParticipantsItem::getTeamId).collect(Collectors.toSet());
 
+        String summonerResponsesPath = Objects.requireNonNull(getClass().getClassLoader().getResource("ApiSummoners/SummonerList.json")).getPath();;
+        SummonerLeagueResponseItem[][] summonerLeague = FileUtils.parseFileToObject(summonerResponsesPath, SummonerLeagueResponseItem[][].class);
+        List<SummonerLeagueResponseItem> summonerLeagueResponseItems = new ArrayList<>();
+
+        for (SummonerLeagueResponseItem[] items : summonerLeague) {
+            for (SummonerLeagueResponseItem item : items) {
+                if(item.getQueueType().equals("RANKED_SOLO_5x5")) {
+                    summonerLeagueResponseItems.add(item);
+                }
+            }
+        }
+
+        List<Summoner> summoners = summonerLeagueResponseItems.stream().map(Summoner::new).collect(Collectors.toList());
+        Map<String, Summoner> summonerMapByName = summoners.stream().collect(Collectors.toMap(Summoner::getSummonerNickname, x -> x));
+
         // when
         match.getInfo().getParticipants().forEach(participantsItem -> {
-            when(mockHttpSummonerService.fetchSummonerAndSaveToDbHTTP(participantsItem.getSummonerName())).thenReturn(
-                    summonerRepository.save(new Summoner(participantsItem))
+            when(mockHttpSummonerService.fetchSummonerHTTP(participantsItem.getSummonerName())).thenReturn(
+                    summonerMapByName.get(participantsItem.getSummonerName())
             );
         });
         var toTest = new DbMatchService(summonerRepository, itemRepository, teamRepository, matchRepository,
                 matchTeamRepository, matchParticipantRepository, objectiveRepository, perkRepository,
-                httpSummonerService, championRepository, performanceStrategyFactory, matchParticipantUtils);
-        toTest.AddMatchToDb(match);
+                mockHttpSummonerService, championRepository, performanceStrategyFactory, matchParticipantUtils);
+        toTest.addMatchToDb(match);
 
         // then
         assertNotEquals(matchRepository.findById(match.getMetadata().getMatchId()), null, "Related match record should be created");
@@ -151,10 +162,10 @@ class DbMatchServiceTest {
             assertTrue(result.isPresent(), "Match team record should be created with, matchId: " + match.getMetadata().getMatchId() + ", and teamId: " + teamId);
             assertEquals(result.get().getMatch().getMatchId(), match.getMetadata().getMatchId(), "Match Id should be " + match.getMetadata().getMatchId());
         });
+        //assertEquals(10, banRepository.findAll().size(), "There should be 10 new-created records of ban items (1 per person)");
+        assertEquals(12, teamObjectiveRepository.findAll().size(), "There should be 12 new-created records of objectives items (6 per team)");
         // 6 perks per person so 6x10 = 60
         assertEquals(60, matchParticipantPerkRepository.findAll().size(), "There should be 60 new-created records of participant perks (6 per person)");
-        assertEquals(10, banRepository.findAll().size(), "There should be 10 new-created records of ban items (1 per person)");
-        assertEquals(12, teamObjectiveRepository.findAll().size(), "There should be 12 new-created records of objectives items (6 per team)");
         var matchTeamMap = teamObjectiveRepository.findAll().stream().collect(groupingBy(e -> e.getMatchTeam().getTeam().getId(), Collectors.toSet()));
         for (Integer key : matchTeamMap.keySet()) {
             assertEquals(6, matchTeamMap.get(key).size(), "There should be 6 team objectives per team");
@@ -173,9 +184,6 @@ class DbMatchServiceTest {
             var items = itemsByMatchParticipantSummonerNickname.get(key);
             assertEquals(6, items.size(), "There always should be 6 items per match participant");
         });
-        System.out.println(itemsByMatchParticipantSummonerNickname);
-        System.out.println(participantItemsRepository.findAll().size());
-        participantItemsRepository.findAll().forEach(System.out::println);
         assertEquals(60, participantItemsRepository.findAll().size(), "There should be 60 new-created records of participant items (6 per person)");
     }
 

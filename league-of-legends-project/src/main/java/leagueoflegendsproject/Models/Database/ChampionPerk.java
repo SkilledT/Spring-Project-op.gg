@@ -24,12 +24,12 @@ public class ChampionPerk {
     @Column(name = "type", length = 10000)
     private String type;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "championId")
     @JoinColumn(name = "champion_id")
     private Champion champion;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "perkId")
     @JoinColumn(name = "perk_id")
     private Perk perk;

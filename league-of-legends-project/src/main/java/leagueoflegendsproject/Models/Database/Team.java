@@ -22,7 +22,7 @@ public class Team {
     @Column(name = "team_id")
     private Integer id;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)

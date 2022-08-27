@@ -52,6 +52,6 @@ public class MatchController {
 
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
-        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 10));
+        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 1));
     }
 }

@@ -7,10 +7,11 @@ import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.*;
 import org.hibernate.annotations.Type;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "match_participant")
@@ -24,21 +25,21 @@ public class MatchParticipant {
     @EmbeddedId
     private MatchParticipantKey matchParticipantKey = new MatchParticipantKey();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "summoner_summoner_id")
     @MapsId(value = "summonerId")
     private Summoner summoner;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Match_match_id")
     @MapsId(value = "matchId")
     private Match match;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "champion_id")
     private Champion champion;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "Team_team_id")
     private Team team;
 
@@ -407,16 +408,4 @@ public class MatchParticipant {
     public int hashCode() {
         return Objects.hash(matchParticipantKey, summoner, match, champion, team);
     }
-
-    @Override
-    public String toString() {
-        return "MatchParticipant{" +
-                "summoner=" + summoner +
-                '}';
-    }
-
-    //@PostPersist
-    //public void postPersist() {
-    //    this.killParticipation = NumericalHelpers.changeDoublePrecision(2, MatchParticipantUtils.getKillParticipation(this));
-    //}
 }

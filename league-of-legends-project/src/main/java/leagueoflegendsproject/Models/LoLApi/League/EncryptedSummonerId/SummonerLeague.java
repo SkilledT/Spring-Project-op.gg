@@ -39,3 +39,4 @@ public class SummonerLeague {
 		return Objects.hash(response);
 	}
 }
+

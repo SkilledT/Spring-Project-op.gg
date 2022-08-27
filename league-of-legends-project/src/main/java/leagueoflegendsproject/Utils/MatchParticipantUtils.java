@@ -16,12 +16,6 @@ import java.util.stream.Collectors;
 @Component
 public class MatchParticipantUtils {
 
-    private final ItemRepository itemRepository;
-
-    public MatchParticipantUtils(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
-
     public static List<MatchParticipant> getRelatedMatchParticipants(MatchParticipant mp, boolean isAlly) {
         Integer teamId = mp.getTeam().getId();
         if (isAlly)

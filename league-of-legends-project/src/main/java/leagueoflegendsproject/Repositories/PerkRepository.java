@@ -2,6 +2,7 @@ package leagueoflegendsproject.Repositories;
 
 import leagueoflegendsproject.Models.Database.Perk;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

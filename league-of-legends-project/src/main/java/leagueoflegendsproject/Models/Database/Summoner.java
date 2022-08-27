@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.Database;
 
 
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.*;
 
@@ -49,6 +51,18 @@ public class Summoner {
 
     @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
+
+    public Summoner(SummonerLeagueResponseItem item) {
+        this.summonerId = item.getSummonerId();
+        this.lvl = 100;
+        this.profileIconId = 123;
+        this.summonerNickname = item.getSummonerName();
+        this.tier = item.getTier();
+        this.rank = item.getRank();
+        this.leaguePoints = item.getLeaguePoints();
+        this.wins = item.getWins();
+        this.losses = item.getLosses();
+    }
 
     public void addMatchParticipantSetChild(MatchParticipant matchParticipant) {
         this.matchParticipantSet.add(matchParticipant);

@@ -22,7 +22,7 @@ public class Ban {
     @EmbeddedId
     private BanKey banKey = new BanKey();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "matchTeamKey")
     @JoinColumns({
             @JoinColumn(name = "match_id", referencedColumnName = "match_id"),
@@ -30,7 +30,7 @@ public class Ban {
     })
     private MatchTeam matchTeam;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "championId")
     @JoinColumn(name = "champion_id")
     private Champion champion;

@@ -161,6 +161,126 @@ public class DbMatchService {
                 .collect(Collectors.toList());
     }
 
+    @Async("taskExecutor")
+    @Transactional
+    public CompletableFuture<Void> addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
+        return CompletableFuture.runAsync(() -> {
+        var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
+        if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
+            return;
+        }
+        leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
+        CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
+        CompletableFuture<Map<Integer, Item>> availableItems = getAvailableItems(apiMatch);
+        CompletableFuture<Map<Integer, Perk>> availablePerks = getAvailablePerks(apiMatch);
+        CompletableFuture<Map<Integer, Champion>> availableChampions = getAvailableChampions(apiMatch);
+        CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
+        CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
+
+        CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
+
+        var matchParticipantList = apiMatch.getInfo().getParticipants().stream()
+                .collect(Collectors.toUnmodifiableList())
+                .stream().map(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()))
+                .collect(Collectors.toList());
+        matchParticipantRepository.saveAllAndFlush(matchParticipantList);
+
+        Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
+                .map(key -> availableTeams.join().get(key))
+                .map(team -> matchParticipantUtils.setMatchTeam(team, match))
+                .collect(Collectors.toSet());
+        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
+        matchTeamRepository.saveAll(matchTeamSet);
+        });
+    }
+
+    private MatchParticipant handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
+        MatchParticipant matchParticipant = new MatchParticipant(participant);
+        setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions, availableSummoners);
+        return matchParticipant;
+    }
+
+    private void handleMatchTeamPersist(Set<MatchTeam> matchTeamSet, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch, Map<Integer, Champion> availableChampions, Match match, Map<String, Objective> availableObjectives) {
+        matchParticipantUtils.setBan(matchTeamSet, apiMatch, availableChampions);
+        for (MatchTeam matchTeam : matchTeamSet) {
+            var teamItems = apiMatch.getInfo().getTeams().stream()
+                    .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
+                    .collect(Collectors.toSet());
+            for (TeamsItem tItem : teamItems) {
+                setMatchTeamObjective(matchTeam, tItem, availableObjectives);
+            }
+            match.addMatchTeamChild(matchTeam);
+        }
+    }
+
+    private void setMatchParticipant(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match match, Map<Integer, Team> availableTeams, MatchParticipant matchParticipant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
+        Team team = availableTeams.get(participant.getTeamId());
+        match.addMatchParticipantChild(matchParticipant);
+        team.addMatchParticipantChild(matchParticipant);
+        Champion champion = availableChampions.get(participant.getChampionId());
+        champion.addMatchParticipantChild(matchParticipant);
+        Summoner summoner = availableSummoners.get(participant.getSummonerId());
+        summoner.addMatchParticipantChild(matchParticipant);
+        matchParticipant.setSummoner(summoner);
+        matchParticipant.setChampion(champion);
+
+        matchParticipantUtils.setMatchParticipantItems(participant, matchParticipant, availableItems);
+        matchParticipantUtils.setMatchParticipantPerks(participant, matchParticipant, availablePerks);
+    }
+
+    private Set<SelectionsItem> extractSelectionItem(ParticipantsItem participant) {
+        Set<SelectionsItem> selectionsItemSet = new HashSet<>();
+        for (StylesItem styleItem : participant.getPerks().getStyles()) {
+            selectionsItemSet.addAll(styleItem.getSelections());
+        }
+        return selectionsItemSet;
+    }
+
+    private void setMatchTeamObjective(MatchTeam matchTeam, TeamsItem teamsItem, Map<String, Objective> availableObjectives) {
+        var objectives = teamsItem.getObjectives();
+        var baron = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getBaron().getClass().getSimpleName()),
+                objectives.getBaron().isFirst(),
+                objectives.getBaron().getKills());
+        var inhibitor = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getInhibitor().getClass().getSimpleName()),
+                objectives.getInhibitor().isFirst(),
+                objectives.getInhibitor().getKills());
+        var dragon = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getDragon().getClass().getSimpleName()),
+                objectives.getDragon().isFirst(),
+                objectives.getDragon().getKills());
+        var riftHerald = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getRiftHerald().getClass().getSimpleName()),
+                objectives.getRiftHerald().isFirst(),
+                objectives.getRiftHerald().getKills());
+        var champion = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getChampion().getClass().getSimpleName()),
+                objectives.getChampion().isFirst(),
+                objectives.getChampion().getKills());
+        var tower = setTeamObjective(matchTeam,
+                availableObjectives.get(objectives.getTower().getClass().getSimpleName()),
+                objectives.getTower().isFirst(),
+                objectives.getTower().getKills());
+        matchTeam.addTeamObjectChild(baron);
+        matchTeam.addTeamObjectChild(inhibitor);
+        matchTeam.addTeamObjectChild(dragon);
+        matchTeam.addTeamObjectChild(riftHerald);
+        matchTeam.addTeamObjectChild(champion);
+        matchTeam.addTeamObjectChild(tower);
+    }
+
+    private TeamObjective setTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
+        TeamObjective teamObjective = new TeamObjective();
+        teamObjective.setObjective(objective);
+        teamObjective.setMatchTeam(matchTeam);
+        teamObjective.setKills(kills);
+        teamObjective.setFirst(first);
+
+        matchTeam.addTeamObjectChild(teamObjective);
+        return teamObjective;
+    }
+
     private CompletableFuture<Map<Integer, Team>> getAvailableTeams(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
             Set<Integer> teamIds = apiMatch.getInfo().getTeams().stream().map(TeamsItem::getTeamId).collect(Collectors.toSet());
@@ -251,124 +371,5 @@ public class DbMatchService {
             }
             return availableObjectives.stream().collect(Collectors.toMap(Objective::getName, x -> x));
         });
-    }
-
-
-    @Async("taskExecutor")
-    @Transactional
-    public void addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
-        var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
-        if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
-            return;
-        }
-        leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
-        CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
-        CompletableFuture<Map<Integer, Item>> availableItems = getAvailableItems(apiMatch);
-        CompletableFuture<Map<Integer, Perk>> availablePerks = getAvailablePerks(apiMatch);
-        CompletableFuture<Map<Integer, Champion>> availableChampions = getAvailableChampions(apiMatch);
-        CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
-        CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
-
-        CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
-
-        var matchParticipantList = apiMatch.getInfo().getParticipants().stream()
-                .collect(Collectors.toUnmodifiableList())
-                .stream().map(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()))
-                .collect(Collectors.toList());
-        matchParticipantRepository.saveAllAndFlush(matchParticipantList);
-
-        Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
-                .map(key -> availableTeams.join().get(key))
-                .map(team -> matchParticipantUtils.setMatchTeam(team, match))
-                .collect(Collectors.toSet());
-        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
-        matchTeamRepository.saveAll(matchTeamSet);
-    }
-
-    private MatchParticipant handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
-        MatchParticipant matchParticipant = new MatchParticipant(participant);
-        setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions, availableSummoners);
-        return matchParticipant;
-    }
-
-    private void handleMatchTeamPersist(Set<MatchTeam> matchTeamSet, leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch, Map<Integer, Champion> availableChampions, Match match, Map<String, Objective> availableObjectives) {
-        matchParticipantUtils.setBan(matchTeamSet, apiMatch, availableChampions);
-        for (MatchTeam matchTeam : matchTeamSet) {
-            var teamItems = apiMatch.getInfo().getTeams().stream()
-                    .filter(e -> e.getTeamId() == matchTeam.getTeam().getId())
-                    .collect(Collectors.toSet());
-            for (TeamsItem tItem : teamItems) {
-                setMatchTeamObjective(matchTeam, tItem, availableObjectives);
-            }
-            match.addMatchTeamChild(matchTeam);
-        }
-    }
-
-    private void setMatchParticipant(ParticipantsItem participant, leagueoflegendsproject.Models.Database.Match match, Map<Integer, Team> availableTeams, MatchParticipant matchParticipant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
-        Team team = availableTeams.get(participant.getTeamId());
-        match.addMatchParticipantChild(matchParticipant);
-        team.addMatchParticipantChild(matchParticipant);
-        Champion champion = availableChampions.get(participant.getChampionId());
-        champion.addMatchParticipantChild(matchParticipant);
-        Summoner summoner = availableSummoners.get(participant.getSummonerId());
-        summoner.addMatchParticipantChild(matchParticipant);
-        matchParticipant.setSummoner(summoner);
-        matchParticipant.setChampion(champion);
-
-        matchParticipantUtils.setMatchParticipantItems(participant, matchParticipant, availableItems);
-        matchParticipantUtils.setMatchParticipantPerks(participant, matchParticipant, availablePerks);
-    }
-
-    private Set<SelectionsItem> extractSelectionItem(ParticipantsItem participant) {
-        Set<SelectionsItem> selectionsItemSet = new HashSet<>();
-        for (StylesItem styleItem : participant.getPerks().getStyles()) {
-            selectionsItemSet.addAll(styleItem.getSelections());
-        }
-        return selectionsItemSet;
-    }
-
-    private void setMatchTeamObjective(MatchTeam matchTeam, TeamsItem teamsItem, Map<String, Objective> availableObjectives) {
-        var objectives = teamsItem.getObjectives();
-        var baron = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getBaron().getClass().getSimpleName()),
-                objectives.getBaron().isFirst(),
-                objectives.getBaron().getKills());
-        var inhibitor = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getInhibitor().getClass().getSimpleName()),
-                objectives.getInhibitor().isFirst(),
-                objectives.getInhibitor().getKills());
-        var dragon = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getDragon().getClass().getSimpleName()),
-                objectives.getDragon().isFirst(),
-                objectives.getDragon().getKills());
-        var riftHerald = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getRiftHerald().getClass().getSimpleName()),
-                objectives.getRiftHerald().isFirst(),
-                objectives.getRiftHerald().getKills());
-        var champion = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getChampion().getClass().getSimpleName()),
-                objectives.getChampion().isFirst(),
-                objectives.getChampion().getKills());
-        var tower = setTeamObjective(matchTeam,
-                availableObjectives.get(objectives.getTower().getClass().getSimpleName()),
-                objectives.getTower().isFirst(),
-                objectives.getTower().getKills());
-        matchTeam.addTeamObjectChild(baron);
-        matchTeam.addTeamObjectChild(inhibitor);
-        matchTeam.addTeamObjectChild(dragon);
-        matchTeam.addTeamObjectChild(riftHerald);
-        matchTeam.addTeamObjectChild(champion);
-        matchTeam.addTeamObjectChild(tower);
-    }
-
-    private TeamObjective setTeamObjective(MatchTeam matchTeam, Objective objective, boolean first, int kills) {
-        TeamObjective teamObjective = new TeamObjective();
-        teamObjective.setObjective(objective);
-        teamObjective.setMatchTeam(matchTeam);
-        teamObjective.setKills(kills);
-        teamObjective.setFirst(first);
-
-        matchTeam.addTeamObjectChild(teamObjective);
-        return teamObjective;
     }
 }

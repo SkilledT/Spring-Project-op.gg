@@ -233,7 +233,7 @@ class DbMatchServiceTest {
         var actualResult = toTest.getChampionStatsByNickname("Skilled Teaser");
 
         // Then
-        assertEquals(expectedResult.size(), actualResult.size(), "size is not equals");
+        assertEquals(expectedResult.size(), actualResult.join().size(), "size is not equals");
         assertEquals(expectedResult, actualResult);
     }
 
@@ -267,7 +267,7 @@ class DbMatchServiceTest {
         var actualResult = toTest.getPreferredRole("Skilled Teaser");
 
         // Then
-        assertEquals(expectedResult.size(), actualResult.size(), "Size is not the same");
+        assertEquals(expectedResult.size(), actualResult.join().size(), "Size is not the same");
         assertEquals(expectedResult, actualResult, "Results are not the same");
     }
 }

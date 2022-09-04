@@ -25,22 +25,22 @@ public class MatchController {
 
     @GetMapping("/{nickname}")
     public ResponseEntity<?> getAllMatchesByNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
     }
 
     @GetMapping("/championStats/{nickname}")
     public ResponseEntity<?> getChampionStatsByNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getChampionStatsByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getChampionStatsByNickname(nickname).join());
     }
 
     @GetMapping("/details/{nickname}")
     public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
     }
 
     @GetMapping("/rolePreferences/{nickname}")
     public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname));
+        return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname).join());
     }
 
     @GetMapping("/refresh/{nickname}")

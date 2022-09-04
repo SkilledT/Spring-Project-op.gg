@@ -127,11 +127,11 @@ class HttpMatchServiceTest {
         Mockito.doReturn(fakeMatch2).when(toTest).getMatchById(responses[1]);
 
         // then
-        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches).join())
                 .contains(fakeMatch);
-        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches).join())
                 .contains(fakeMatch2);
-        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches))
+        assertThat(toTest.getMatchCollectionByNickname(nickname, numberOfMatches).join())
                 .contains(fakeMatch, fakeMatch2);
     }
 

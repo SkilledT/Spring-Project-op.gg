@@ -67,130 +67,139 @@ public class DbMatchService {
     }
 
     @Cacheable(cacheNames = "Players_Match_Collection")
-    public List<MatchDetailsDto> getMatchesByNickname(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname)
-                .stream()
-                .filter(e -> e.getMatch().getMatchParticipantSet().stream().filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid)).findFirst().orElse(null) == null)
-                .collect(Collectors.toList());
-        return matchParticipant.stream()
-                .map(mp -> {
-                    Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
-                    Set<MatchParticipant> enemiesMatchParticipantSet = new HashSet<>();
-                    Integer teamId = mp.getTeam().getId();
-                    for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()) {
-                        if (innerMp.getTeam().getId().equals(teamId))
-                            alliesMatchParticipantSet.add(innerMp);
-                        else
-                            enemiesMatchParticipantSet.add(innerMp);
-                    }
-                    Set<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
-                            .map(item -> new ItemMatchDto(String.valueOf(item.getItem().getId())))
-                            .collect(Collectors.toSet());
-                    Set<PlayerGameDto> allies = alliesMatchParticipantSet.stream()
-                            .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
-                            .collect(Collectors.toSet());
-                    Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
-                            .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
-                            .collect(Collectors.toSet());
-                    double pInKill = 0;
-                    double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
-                    return new MatchDetailsDto.Builder()
-                            .timeDurationOfMatch(mp.getMatch().getGameDuration())
-                            .assists(mp.getAssists())
-                            .kills(mp.getKills())
-                            .deaths(mp.getDeaths())
-                            .isWin(mp.getWin())
-                            .killedMinions(mp.getTotalMinionsKilled())
-                            .champLvl(mp.getChampLvl())
-                            .championName(mp.getChampionName())
-                            .position(mp.getIndividualPosition())
-                            .summoner1Id(mp.getSummoner1Id())
-                            .summoner2Id(mp.getSummoner2Id())
-                            .controlWardsPurchased(mp.getVisionWardsBoughtInGame())
-                            .list(itemMatchDtos)
-                            .allies(allies)
-                            .enemies(enemies)
-                            .pInKill(pInKill)
-                            .withGameCreation(mp.getMatch().getGameCreation())
-                            .withPerformanceScore(performanceScore)
-                            .build();
-                }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
-                .collect(Collectors.toList());
+    @Async
+    public CompletableFuture<List<MatchDetailsDto>> getMatchesByNickname(String nickname) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname)
+                    .stream()
+                    .filter(e -> e.getMatch().getMatchParticipantSet().stream().filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid)).findFirst().orElse(null) == null)
+                    .collect(Collectors.toList());
+            return matchParticipant.stream()
+                    .map(mp -> {
+                        Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
+                        Set<MatchParticipant> enemiesMatchParticipantSet = new HashSet<>();
+                        Integer teamId = mp.getTeam().getId();
+                        for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()) {
+                            if (innerMp.getTeam().getId().equals(teamId))
+                                alliesMatchParticipantSet.add(innerMp);
+                            else
+                                enemiesMatchParticipantSet.add(innerMp);
+                        }
+                        Set<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
+                                .map(item -> new ItemMatchDto(String.valueOf(item.getItem().getId())))
+                                .collect(Collectors.toSet());
+                        Set<PlayerGameDto> allies = alliesMatchParticipantSet.stream()
+                                .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
+                                .collect(Collectors.toSet());
+                        Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
+                                .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
+                                .collect(Collectors.toSet());
+                        double pInKill = 0;
+                        double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
+                        return new MatchDetailsDto.Builder()
+                                .timeDurationOfMatch(mp.getMatch().getGameDuration())
+                                .assists(mp.getAssists())
+                                .kills(mp.getKills())
+                                .deaths(mp.getDeaths())
+                                .isWin(mp.getWin())
+                                .killedMinions(mp.getTotalMinionsKilled())
+                                .champLvl(mp.getChampLvl())
+                                .championName(mp.getChampionName())
+                                .position(mp.getIndividualPosition())
+                                .summoner1Id(mp.getSummoner1Id())
+                                .summoner2Id(mp.getSummoner2Id())
+                                .controlWardsPurchased(mp.getVisionWardsBoughtInGame())
+                                .list(itemMatchDtos)
+                                .allies(allies)
+                                .enemies(enemies)
+                                .pInKill(pInKill)
+                                .withGameCreation(mp.getMatch().getGameCreation())
+                                .withPerformanceScore(performanceScore)
+                                .build();
+                    }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
+                    .collect(Collectors.toList());
+        });
     }
 
-    public Set<PlayersChampionStatsDto> getChampionStatsByNickname(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
-        Map<Champion, List<MatchParticipant>> championListMap =
-                matchParticipant.stream().collect(Collectors.groupingBy(MatchParticipant::getChampion));
-        return championListMap.keySet().stream().map(champion -> {
-            List<MatchParticipant> matchParticipants = championListMap.get(champion);
-            long victories = matchParticipants.stream().filter(MatchParticipant::getWin).count();
-            double winRatio = (double) victories / (double) matchParticipants.size();
-            String champName = champion.getName();
-            double avgCS = matchParticipants.stream().mapToDouble(MatchParticipant::getTotalMinionsKilled).average().orElse(Double.NaN);
-            int playedMatches = matchParticipants.size();
-            double avgKills = matchParticipants.stream().mapToDouble(MatchParticipant::getKills).average().orElse(Double.NaN);
-            double avgDeaths = matchParticipants.stream().mapToDouble(MatchParticipant::getDeaths).average().orElse(Double.NaN);
-            double avgAssists = matchParticipants.stream().mapToDouble(MatchParticipant::getAssists).average().orElse(Double.NaN);
-            double KDA = (avgKills + avgAssists) / avgDeaths;
-            String champUrl = champion.getIconUrl();
-            return new PlayersChampionStatsDto(winRatio, champName, avgCS, playedMatches, avgKills, avgDeaths, avgAssists, KDA, champUrl);
-        }).collect(Collectors.toSet());
+    @Async
+    public CompletableFuture<Set<PlayersChampionStatsDto>> getChampionStatsByNickname(String nickname) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+            Map<Champion, List<MatchParticipant>> championListMap =
+                    matchParticipant.stream().collect(Collectors.groupingBy(MatchParticipant::getChampion));
+            return championListMap.keySet().stream().map(champion -> {
+                List<MatchParticipant> matchParticipants = championListMap.get(champion);
+                long victories = matchParticipants.stream().filter(MatchParticipant::getWin).count();
+                double winRatio = (double) victories / (double) matchParticipants.size();
+                String champName = champion.getName();
+                double avgCS = matchParticipants.stream().mapToDouble(MatchParticipant::getTotalMinionsKilled).average().orElse(Double.NaN);
+                int playedMatches = matchParticipants.size();
+                double avgKills = matchParticipants.stream().mapToDouble(MatchParticipant::getKills).average().orElse(Double.NaN);
+                double avgDeaths = matchParticipants.stream().mapToDouble(MatchParticipant::getDeaths).average().orElse(Double.NaN);
+                double avgAssists = matchParticipants.stream().mapToDouble(MatchParticipant::getAssists).average().orElse(Double.NaN);
+                double KDA = (avgKills + avgAssists) / avgDeaths;
+                String champUrl = champion.getIconUrl();
+                return new PlayersChampionStatsDto(winRatio, champName, avgCS, playedMatches, avgKills, avgDeaths, avgAssists, KDA, champUrl);
+            }).collect(Collectors.toSet());
+        });
     }
 
-    public List<PreferedRoleDto> getPreferredRole(String nickname) {
-        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
-        Map<Constants.MatchParticipantConstants.IndividualPosition, Long> roles =
-                matchParticipant.stream()
-                        .filter(e -> !e.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
-                        .collect(Collectors.groupingBy(MatchParticipant::getIndividualPosition, Collectors.counting()));
-        long playedGames = matchParticipant.size();
-        return roles.keySet().stream().map(individualPosition -> {
-                    long picks = roles.get(individualPosition);
-                    double pickRatio = (double) picks / (double) playedGames;
-                    long wins = matchParticipant.stream()
-                            .filter(MatchParticipant::getWin)
-                            .filter(e -> e.getIndividualPosition().equals(individualPosition))
-                            .count();
-                    long playedOnLane = matchParticipant.stream()
-                            .filter(e -> e.getIndividualPosition().equals(individualPosition))
-                            .count();
-                    double winRatio = (double) wins / (playedOnLane == 0 ? 1 : (double) playedOnLane);
-                    return new PreferedRoleDto(pickRatio, winRatio, individualPosition);
-                }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
-                .collect(Collectors.toList());
+    @Async
+    public CompletableFuture<List<PreferedRoleDto>> getPreferredRole(String nickname) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+            Map<Constants.MatchParticipantConstants.IndividualPosition, Long> roles =
+                    matchParticipant.stream()
+                            .filter(e -> !e.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
+                            .collect(Collectors.groupingBy(MatchParticipant::getIndividualPosition, Collectors.counting()));
+            long playedGames = matchParticipant.size();
+            return roles.keySet().stream().map(individualPosition -> {
+                        long picks = roles.get(individualPosition);
+                        double pickRatio = (double) picks / (double) playedGames;
+                        long wins = matchParticipant.stream()
+                                .filter(MatchParticipant::getWin)
+                                .filter(e -> e.getIndividualPosition().equals(individualPosition))
+                                .count();
+                        long playedOnLane = matchParticipant.stream()
+                                .filter(e -> e.getIndividualPosition().equals(individualPosition))
+                                .count();
+                        double winRatio = (double) wins / (playedOnLane == 0 ? 1 : (double) playedOnLane);
+                        return new PreferedRoleDto(pickRatio, winRatio, individualPosition);
+                    }).sorted(Comparator.comparingDouble(PreferedRoleDto::getPickRatio).reversed())
+                    .collect(Collectors.toList());
+        });
     }
 
     @Async("taskExecutor")
     @Transactional
     public CompletableFuture<Void> addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.runAsync(() -> {
-        var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
-        if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
-            return;
-        }
-        leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
-        CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
-        CompletableFuture<Map<Integer, Item>> availableItems = getAvailableItems(apiMatch);
-        CompletableFuture<Map<Integer, Perk>> availablePerks = getAvailablePerks(apiMatch);
-        CompletableFuture<Map<Integer, Champion>> availableChampions = getAvailableChampions(apiMatch);
-        CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
-        CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
+            var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
+            if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
+                return;
+            }
+            leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
+            CompletableFuture<Map<Integer, Team>> availableTeams = getAvailableTeams(apiMatch);
+            CompletableFuture<Map<Integer, Item>> availableItems = getAvailableItems(apiMatch);
+            CompletableFuture<Map<Integer, Perk>> availablePerks = getAvailablePerks(apiMatch);
+            CompletableFuture<Map<Integer, Champion>> availableChampions = getAvailableChampions(apiMatch);
+            CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
+            CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
 
-        CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
+            CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
 
-        var matchParticipantList = apiMatch.getInfo().getParticipants().stream()
-                .collect(Collectors.toUnmodifiableList())
-                .stream().map(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()))
-                .collect(Collectors.toList());
-        matchParticipantRepository.saveAllAndFlush(matchParticipantList);
+            var matchParticipantList = apiMatch.getInfo().getParticipants().stream()
+                    .collect(Collectors.toUnmodifiableList())
+                    .stream().map(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()))
+                    .collect(Collectors.toList());
+            //matchParticipantRepository.saveAllAndFlush(matchParticipantList);
 
-        Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
-                .map(key -> availableTeams.join().get(key))
-                .map(team -> matchParticipantUtils.setMatchTeam(team, match))
-                .collect(Collectors.toSet());
-        handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
-        matchTeamRepository.saveAll(matchTeamSet);
+            Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
+                    .map(key -> availableTeams.join().get(key))
+                    .map(team -> matchParticipantUtils.setMatchTeam(team, match))
+                    .collect(Collectors.toSet());
+            handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
+            matchTeamRepository.saveAll(matchTeamSet);
         });
     }
 
@@ -294,7 +303,7 @@ public class DbMatchService {
     private CompletableFuture<Map<Integer, Champion>> getAvailableChampions(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
             Set<Integer> championIds = apiMatch.getInfo().getParticipants().stream().map(ParticipantsItem::getChampionId).collect(Collectors.toSet());
-            for(var banItem : apiMatch.getInfo().getTeams().stream().map(TeamsItem::getBans).collect(Collectors.toSet())) {
+            for (var banItem : apiMatch.getInfo().getTeams().stream().map(TeamsItem::getBans).collect(Collectors.toSet())) {
                 banItem.stream().map(BansItem::getChampionId).forEach(championIds::add);
             }
             List<ParticipantsItem> participantsItems = apiMatch.getInfo().getParticipants();
@@ -341,7 +350,7 @@ public class DbMatchService {
             for (var p : participants) {
                 var sItemPerkIds = extractSelectionItem(p).stream().map(SelectionsItem::getPerk).collect(Collectors.toSet());
                 perkIds.addAll(sItemPerkIds);
-                String threadDetails=Thread.currentThread().getName();
+                String threadDetails = Thread.currentThread().getName();
             }
             List<Perk> availablePerks = perkRepository.findAllById(perkIds);
             return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));

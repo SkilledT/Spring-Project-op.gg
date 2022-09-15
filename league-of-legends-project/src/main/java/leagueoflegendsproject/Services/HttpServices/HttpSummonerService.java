@@ -66,7 +66,7 @@ public class HttpSummonerService {
         return summonersLeagueDto;
     }
 
-    public leagueoflegendsproject.Models.Database.Summoner fetchSummonerAndSaveToDbHTTP(String nickname) {
+    public leagueoflegendsproject.Models.Database.Summoner fetchSummonerHTTP(String nickname) {
         Summoner summoner = getSummonerByNameHTTP(nickname);
         if (summoner == null)
             return leagueoflegendsproject.Models.Database.Summoner.getInvalidSummoner();
@@ -83,7 +83,7 @@ public class HttpSummonerService {
             throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         SummonerLeagueResponseItem[] response = responseWrapper.getResponse();
         var summonersLeagueDto = new SummonersLeagueDto(response);
-        return dbSummonerService.addSummoner(new leagueoflegendsproject.Models.Database.Summoner(summonersLeagueDto, summoner));
+        return new leagueoflegendsproject.Models.Database.Summoner(summonersLeagueDto, summoner);
     }
 
     public List<String> getSummonerChallengersNicknamesHTTP() throws IOException, InterruptedException {
@@ -97,7 +97,7 @@ public class HttpSummonerService {
 
     public List<leagueoflegendsproject.Models.Database.Summoner> updateChallengers() throws IOException, InterruptedException {
         return getSummonerChallengersNicknamesHTTP().stream()
-                .map(this::fetchSummonerAndSaveToDbHTTP)
+                .map(this::fetchSummonerHTTP)
                 .collect(Collectors.toList());
     }
 

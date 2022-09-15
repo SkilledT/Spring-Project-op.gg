@@ -1,4 +1,9 @@
 package leagueoflegendsproject.Models.Database;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -6,6 +11,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Match")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Match {
 
     @Id
@@ -30,27 +39,20 @@ public class Match {
     @Column(name = "game_mode")
     private String gameMode;
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private Set<MatchTeam> matchTeamSet = new HashSet<>();
 
-    public Match(){}
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setMatch(this);
+    }
 
-    public Match(String matchId, Integer gameId, String gameType, Integer queueId, Integer gameDuration, Integer gameStartTimestamp, String platformId, Long gameCreation, Integer mapId, String gameMode, Set<MatchParticipant> matchParticipantSet, Set<MatchTeam> matchTeamSet) {
-        this.matchId = matchId;
-        this.gameId = gameId;
-        this.gameType = gameType;
-        this.queueId = queueId;
-        this.gameDuration = gameDuration;
-        this.gameStartTimestamp = gameStartTimestamp;
-        this.platformId = platformId;
-        this.gameCreation = gameCreation;
-        this.mapId = mapId;
-        this.gameMode = gameMode;
-        this.matchParticipantSet = matchParticipantSet;
-        this.matchTeamSet = matchTeamSet;
+    public void addMatchTeamChild(MatchTeam matchTeam) {
+        this.matchTeamSet.add(matchTeam);
+        matchTeam.setMatch(this);
     }
 
     public Match(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match){
@@ -64,102 +66,6 @@ public class Match {
         this.mapId = match.getInfo().getMapId();
         this.gameMode = match.getInfo().getGameMode();
         this.gameStartTimestamp = (int) match.getInfo().getGameStartTimestamp();
-    }
-
-    public String getMatchId() {
-        return matchId;
-    }
-
-    public void setMatchId(String id) {
-        this.matchId = id;
-    }
-
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
-    public String getGameType() {
-        return gameType;
-    }
-
-    public void setGameType(String gameType) {
-        this.gameType = gameType;
-    }
-
-    public Integer getQueueId() {
-        return queueId;
-    }
-
-    public void setQueueId(Integer queueId) {
-        this.queueId = queueId;
-    }
-
-    public Integer getGameDuration() {
-        return gameDuration;
-    }
-
-    public void setGameDuration(Integer gameDuration) {
-        this.gameDuration = gameDuration;
-    }
-
-    public Integer getGameStartTimestamp() {
-        return gameStartTimestamp;
-    }
-
-    public void setGameStartTimestamp(Integer gameStartTimestamp) {
-        this.gameStartTimestamp = gameStartTimestamp;
-    }
-
-    public String getPlatformId() {
-        return platformId;
-    }
-
-    public void setPlatformId(String platformId) {
-        this.platformId = platformId;
-    }
-
-    public Long getGameCreation() {
-        return gameCreation;
-    }
-
-    public void setGameCreation(Long gameCreation) {
-        this.gameCreation = gameCreation;
-    }
-
-    public Integer getMapId() {
-        return mapId;
-    }
-
-    public void setMapId(Integer mapId) {
-        this.mapId = mapId;
-    }
-
-    public String getGameMode() {
-        return gameMode;
-    }
-
-    public void setGameMode(String gameMode) {
-        this.gameMode = gameMode;
-    }
-
-    public Set<MatchParticipant> getMatchParticipantSet() {
-        return matchParticipantSet;
-    }
-
-    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
-        this.matchParticipantSet = matchParticipantSet;
-    }
-
-    public Set<MatchTeam> getMatchTeamSet() {
-        return matchTeamSet;
-    }
-
-    public void setMatchTeamSet(Set<MatchTeam> matchTeamSet) {
-        this.matchTeamSet = matchTeamSet;
     }
 
     @Override

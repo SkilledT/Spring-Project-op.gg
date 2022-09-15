@@ -3,22 +3,26 @@ package leagueoflegendsproject.Models.Database;
 
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.BanKey;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@Table(name = "Ban")
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "Ban")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ban {
 
     @EmbeddedId
     private BanKey banKey = new BanKey();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "matchTeamKey")
     @JoinColumns({
             @JoinColumn(name = "match_id", referencedColumnName = "match_id"),
@@ -26,54 +30,12 @@ public class Ban {
     })
     private MatchTeam matchTeam;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId(value = "championId")
     @JoinColumn(name = "champion_id")
     private Champion champion;
 
     private Integer pickTurn;
-
-    public Ban(BanKey banKey, MatchTeam matchTeam, Champion champion, Integer pickTurn) {
-        this.banKey = banKey;
-        this.matchTeam = matchTeam;
-        this.champion = champion;
-        this.pickTurn = pickTurn;
-    }
-
-    public Ban() {
-    }
-
-    public BanKey getBanKey() {
-        return banKey;
-    }
-
-    public void setBanKey(BanKey banKey) {
-        this.banKey = banKey;
-    }
-
-    public MatchTeam getMatchTeam() {
-        return matchTeam;
-    }
-
-    public void setMatchTeam(MatchTeam matchTeam) {
-        this.matchTeam = matchTeam;
-    }
-
-    public Champion getChampion() {
-        return champion;
-    }
-
-    public void setChampion(Champion champion) {
-        this.champion = champion;
-    }
-
-    public Integer getPickTurn() {
-        return pickTurn;
-    }
-
-    public void setPickTurn(Integer pickTurn) {
-        this.pickTurn = pickTurn;
-    }
 
     @Override
     public boolean equals(Object o) {

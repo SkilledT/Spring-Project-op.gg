@@ -2,6 +2,8 @@ package leagueoflegendsproject.Models.Database;
 
 
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
+import leagueoflegendsproject.Helpers.RiotLinksProvider;
+import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import lombok.*;
 
@@ -10,9 +12,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "summoner")
 @Builder(setterPrefix = "with")
@@ -46,8 +49,25 @@ public class Summoner {
     @Column(name = "losses")
     private Integer losses;
 
-    @OneToMany(mappedBy = "summoner")
+    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
+
+    public void addMatchParticipantChild(MatchParticipant matchParticipant) {
+        this.matchParticipantSet.add(matchParticipant);
+        matchParticipant.setSummoner(this);
+    }
+
+    public Summoner(SummonerLeagueResponseItem item) {
+        this.summonerId = item.getSummonerId();
+        this.lvl = 100;
+        this.profileIconId = 123;
+        this.summonerNickname = item.getSummonerName();
+        this.tier = item.getTier();
+        this.rank = item.getRank();
+        this.leaguePoints = item.getLeaguePoints();
+        this.wins = item.getWins();
+        this.losses = item.getLosses();
+    }
 
     public Summoner(ParticipantsItem participantsItem){
         this.summonerId = participantsItem.getSummonerId();
@@ -75,88 +95,6 @@ public class Summoner {
         this.losses = responseSummoner.getLoses();
     }
 
-    public Summoner(){}
-
-    public String getSummonerId() {
-        return summonerId;
-    }
-
-    public void setSummonerId(String summonerId) {
-        this.summonerId = summonerId;
-    }
-
-    public Integer getLvl() {
-        return lvl;
-    }
-
-    public void setLvl(Integer lvl) {
-        this.lvl = lvl;
-    }
-
-    public Integer getProfileIconId() {
-        return profileIconId;
-    }
-
-    public void setProfileIconId(Integer profileIconId) {
-        this.profileIconId = profileIconId;
-    }
-
-    public String getSummonerNickname() {
-        return summonerNickname;
-    }
-
-    public void setSummonerNickname(String summonerNickname) {
-        this.summonerNickname = summonerNickname;
-    }
-
-    public String getTier() {
-        return tier;
-    }
-
-    public void setTier(String tier) {
-        this.tier = tier;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public Integer getLeaguePoints() {
-        return leaguePoints;
-    }
-
-    public void setLeaguePoints(Integer leaguePoints) {
-        this.leaguePoints = leaguePoints;
-    }
-
-    public Integer getWins() {
-        return wins;
-    }
-
-    public void setWins(Integer wins) {
-        this.wins = wins;
-    }
-
-    public Integer getLosses() {
-        return losses;
-    }
-
-    public void setLosses(Integer losses) {
-        this.losses = losses;
-    }
-
-    public Set<MatchParticipant> getMatchParticipantSet() {
-        return matchParticipantSet;
-    }
-
-    public void setMatchParticipantSet(Set<MatchParticipant> matchParticipantSet) {
-        this.matchParticipantSet = matchParticipantSet;
-    }
-
     public static Summoner getInvalidSummoner() {
         var summoner = new Summoner();
         summoner.summonerId = "fakeId";
@@ -182,5 +120,13 @@ public class Summoner {
     @Override
     public int hashCode() {
         return Objects.hash(summonerId, lvl, profileIconId, summonerNickname, tier, rank, leaguePoints, wins, losses);
+    }
+
+    @Override
+    public String toString() {
+        return "Summoner{" +
+                "summonerId='" + summonerId + '\'' +
+                ", summonerNickname='" + summonerNickname + '\'' +
+                '}';
     }
 }

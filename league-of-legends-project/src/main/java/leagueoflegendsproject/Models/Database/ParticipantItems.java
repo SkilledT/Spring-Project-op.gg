@@ -1,68 +1,41 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
 import leagueoflegendsproject.Models.Database.Keys.ParticipantItemsKey;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "participant_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ParticipantItems {
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private ParticipantItemsId id = new ParticipantItemsId();
 
     @JoinColumn(name = "item_id")
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId(value = "itemId")
     private Item item;
 
-
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = "summoner_id", referencedColumnName = "Summoner_summoner_id"),
             @JoinColumn(name = "match_id", referencedColumnName = "Match_match_Id")
     })
+    @MapsId(value = "matchParticipantKey")
     private MatchParticipant matchParticipant;
 
 
-    public ParticipantItems(Integer id, Item item, MatchParticipant matchParticipant) {
-        this.id = id;
-        this.item = item;
-        this.matchParticipant = matchParticipant;
-    }
-
-    public ParticipantItems() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public MatchParticipant getMatchParticipant() {
-        return matchParticipant;
-    }
-
-    public void setMatchParticipant(MatchParticipant matchParticipant) {
-        this.matchParticipant = matchParticipant;
+    public void setPosition(Integer position) {
+        this.id.setPosition(position);
     }
 
     @Override
@@ -70,18 +43,37 @@ public class ParticipantItems {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ParticipantItems that = (ParticipantItems) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(item, that.item) &&
-                Objects.equals(matchParticipant, that.matchParticipant);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, matchParticipant);
+        return Objects.hash(id);
+    }
+}
+
+@Embeddable
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+class ParticipantItemsId implements Serializable {
+
+    @Embedded
+    private MatchParticipantKey matchParticipantKey = new MatchParticipantKey();
+    private Integer itemId;
+    private Integer position;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParticipantItemsId that = (ParticipantItemsId) o;
+        return Objects.equals(matchParticipantKey, that.matchParticipantKey) && Objects.equals(itemId, that.itemId) && Objects.equals(position, that.position);
     }
 
     @Override
-    public String toString() {
-        return "ParticipantItems{}";
+    public int hashCode() {
+        return Objects.hash(matchParticipantKey, itemId, position);
     }
 }

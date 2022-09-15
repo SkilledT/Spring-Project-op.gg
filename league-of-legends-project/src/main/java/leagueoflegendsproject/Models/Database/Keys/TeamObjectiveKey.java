@@ -51,4 +51,12 @@ public class TeamObjectiveKey implements Serializable {
     public int hashCode() {
         return Objects.hash(objectiveId, matchTeamKey);
     }
+
+    @Override
+    public String toString() {
+        return "TeamObjectiveKey{" +
+                "objectiveId='" + objectiveId + '\'' +
+                ", matchTeamKey=" + matchTeamKey +
+                '}';
+    }
 }

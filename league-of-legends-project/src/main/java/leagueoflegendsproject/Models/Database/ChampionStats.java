@@ -1,6 +1,10 @@
 package leagueoflegendsproject.Models.Database;
 
 import leagueoflegendsproject.Models.Database.Keys.ChampionStatsKey;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,6 +12,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "Champion_Stats")
 @IdClass(ChampionStatsKey.class)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChampionStats {
 
     @Id
@@ -21,48 +29,6 @@ public class ChampionStats {
     private Integer games;
     @Column(name = "win_ratio")
     private Double winRatio;
-
-    public ChampionStats(String championName, String enemyChampion, Integer games, Double winRatio) {
-        this.championName = championName;
-        this.enemyChampion = enemyChampion;
-        this.games = games;
-        this.winRatio = winRatio;
-    }
-
-    public ChampionStats() {
-    }
-
-    public String getChampionName() {
-        return championName;
-    }
-
-    public void setChampionName(String championName) {
-        this.championName = championName;
-    }
-
-    public String getEnemyChampion() {
-        return enemyChampion;
-    }
-
-    public void setEnemyChampion(String enemyChampion) {
-        this.enemyChampion = enemyChampion;
-    }
-
-    public Integer getGames() {
-        return games;
-    }
-
-    public void setGames(Integer games) {
-        this.games = games;
-    }
-
-    public Double getWinRatio() {
-        return winRatio;
-    }
-
-    public void setWinRatio(Double winRatio) {
-        this.winRatio = winRatio;
-    }
 
     @Override
     public boolean equals(Object o) {

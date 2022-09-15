@@ -1,6 +1,10 @@
 package leagueoflegendsproject.Models.Database;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -26,6 +30,10 @@ import java.util.Set;
                 )
         )
 })
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Perk {
 
     @Id
@@ -57,10 +65,12 @@ public class Perk {
     @SerializedName(value = "tree_number")
     private Integer treeNumber;
 
-    @OneToMany(mappedBy = "perk")
+    @OneToMany(mappedBy = "perk", cascade = CascadeType.ALL)
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
 
-    public Perk() {
+    public void addMatchParticipantPerkChild(MatchParticipantPerk matchParticipantPerk) {
+        this.matchParticipantPerkSet.add(matchParticipantPerk);
+        matchParticipantPerk.setPerk(this);
     }
 
     public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber,
@@ -83,70 +93,6 @@ public class Perk {
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.slotNumber = slotNumber;
-        this.treeNumber = treeNumber;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getShortDesc() {
-        return shortDesc;
-    }
-
-    public void setShortDesc(String shortDesc) {
-        this.shortDesc = shortDesc;
-    }
-
-    public String getLongDesc() {
-        return longDesc;
-    }
-
-    public void setLongDesc(String longDesc) {
-        this.longDesc = longDesc;
-    }
-
-    public Set<MatchParticipantPerk> getMatchParticipantPerkSet() {
-        return matchParticipantPerkSet;
-    }
-
-    public void setMatchParticipantPerkSet(Set<MatchParticipantPerk> matchParticipantPerkSet) {
-        this.matchParticipantPerkSet = matchParticipantPerkSet;
-    }
-
-    public Integer getSlotNumber() {
-        return slotNumber;
-    }
-
-    public void setSlotNumber(Integer slotNumber) {
-        this.slotNumber = slotNumber;
-    }
-
-    public Integer getTreeNumber() {
-        return treeNumber;
-    }
-
-    public void setTreeNumber(Integer treeNumber) {
         this.treeNumber = treeNumber;
     }
 

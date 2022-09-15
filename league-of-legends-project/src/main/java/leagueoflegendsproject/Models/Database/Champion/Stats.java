@@ -57,7 +57,7 @@ public class Stats {
     @Column(name = "attackspeed")
     private Double attackspeed;
 
-    @OneToMany(mappedBy = "stats")
+    @OneToMany(mappedBy = "stats", cascade = CascadeType.ALL)
     private Set<Champion> champion = new HashSet<>();
 
     public Stats() {

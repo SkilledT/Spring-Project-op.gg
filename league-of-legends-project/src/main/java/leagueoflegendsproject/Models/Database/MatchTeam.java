@@ -2,87 +2,80 @@ package leagueoflegendsproject.Models.Database;
 
 
 import leagueoflegendsproject.Models.Database.Keys.MatchTeamKey;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "match_team")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MatchTeam {
 
     @EmbeddedId
     private MatchTeamKey key = new MatchTeamKey();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "match_id")
     @MapsId(value = "matchId")
     private Match match;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
     @MapsId(value = "teamId")
     private Team team;
 
-    @OneToMany(mappedBy = "matchTeam")
+    @OneToMany(mappedBy = "matchTeam", cascade = CascadeType.ALL)
     private Set<TeamObjective> teamObjectiveSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "matchTeam")
+    @OneToMany(mappedBy = "matchTeam", cascade = CascadeType.ALL)
     private Set<Ban> banSet = new HashSet<>();
 
-    public MatchTeam() {
+    public void addTeamObjectChild(TeamObjective teamObjective) {
+        this.teamObjectiveSet.add(teamObjective);
+        teamObjective.setMatchTeam(this);
     }
 
-    public MatchTeam(MatchTeamKey key, Match match, Team team, Set<TeamObjective> teamObjectiveSet, Set<Ban> banSet) {
-        this.key = key;
-        this.match = match;
-        this.team = team;
-        this.teamObjectiveSet = teamObjectiveSet;
-        this.banSet = banSet;
+    public void addBanChild(Ban ban) {
+        this.banSet.add(ban);
+        ban.setMatchTeam(this);
     }
+
 
     public MatchTeam(Match match, Team team) {
         this.match = match;
         this.team = team;
     }
 
-    public MatchTeamKey getKey() {
-        return key;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MatchTeam matchTeam = (MatchTeam) o;
+        return Objects.equals(key, matchTeam.key) && Objects.equals(match, matchTeam.match) && Objects.equals(team, matchTeam.team);
     }
 
-    public void setKey(MatchTeamKey key) {
-        this.key = key;
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, match, team);
     }
 
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Set<TeamObjective> getTeamObjectiveSet() {
-        return teamObjectiveSet;
-    }
-
-    public void setTeamObjectiveSet(Set<TeamObjective> teamObjectiveSet) {
-        this.teamObjectiveSet = teamObjectiveSet;
-    }
-
-    public Set<Ban> getBanSet() {
-        return banSet;
-    }
-
-    public void setBanSet(Set<Ban> banSet) {
-        this.banSet = banSet;
+    @Override
+    public String toString() {
+        return "MatchTeam{" +
+                "key=" + key +
+                ", match=" + match +
+                ", team=" + team +
+                ", teamObjectiveSet=" + teamObjectiveSet +
+                ", banSet=" + banSet +
+                '}';
     }
 }

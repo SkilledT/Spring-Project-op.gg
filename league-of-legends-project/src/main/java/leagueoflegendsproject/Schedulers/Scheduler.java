@@ -1,17 +1,7 @@
 package leagueoflegendsproject.Schedulers;
 
-import leagueoflegendsproject.Controllers.MatchController;
-import leagueoflegendsproject.Helpers.NumericalHelpers;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
-import leagueoflegendsproject.Models.Database.AgregateEntities.MatchParticipantAveragePerformance;
-import leagueoflegendsproject.Models.Database.MatchParticipant;
-import leagueoflegendsproject.Repositories.MatchParticipantRepository;
-import leagueoflegendsproject.Utils.MatchParticipantUtils;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
+import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,24 +9,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.ToDoubleFunction;
 
 import static java.util.stream.Collectors.groupingBy;
 
 @Component
 public class Scheduler {
 
-    @PersistenceContext
+    /*@PersistenceContext
     EntityManager entityManager;
 
-    public final MatchController matchController;
+    private final HttpMatchService httpMatchService;
 
-    public Scheduler(MatchController matchController) {
-        this.matchController = matchController;
+    public Scheduler(HttpMatchService httpMatchService) {
+        this.httpMatchService = httpMatchService;
     }
+
 
     @Scheduled(cron = "@daily")
     public void updateChampionStats() {
@@ -57,7 +44,7 @@ public class Scheduler {
     @Scheduled(fixedRate = Constants.TimeConstants.HOUR_TO_MILLISECONDS * 2)
     public void updateChallengers() {
         System.out.println("Scheduled retrieving challengers has been started");
-        matchController.refreshChallengersData();
+        httpMatchService.refreshChallengersData();
         System.out.println("Scheduled retrieving challengers has been completed");
     }
 
@@ -74,5 +61,5 @@ public class Scheduler {
         float elapsedTimeSec = elapsedTimeMillis / 1000F;
         System.out.println("updateMatchParticipantAveragePerformance, Elapsed time: " + elapsedTimeSec);
     }
-
+*/
 }

@@ -1,5 +1,9 @@
 package leagueoflegendsproject.Models.Database;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -7,6 +11,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Item_cook_book")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemCookBook {
 
     @Id
@@ -23,39 +31,6 @@ public class ItemCookBook {
     @JoinColumn(name = "component_id")
     @Nullable
     private Item itemComponent;
-
-    public ItemCookBook(Integer id, Item itemMaster, Item itemComponent) {
-        this.id = id;
-        this.itemMaster = itemMaster;
-        this.itemComponent = itemComponent;
-    }
-
-    public ItemCookBook() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer key) {
-        this.id = key;
-    }
-
-    public Item getItemMaster() {
-        return itemMaster;
-    }
-
-    public void setItemMaster(Item itemMaster) {
-        this.itemMaster = itemMaster;
-    }
-
-    public Item getItemComponent() {
-        return itemComponent;
-    }
-
-    public void setItemComponent(Item itemComponent) {
-        this.itemComponent = itemComponent;
-    }
 
     @Override
     public boolean equals(Object o) {

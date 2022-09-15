@@ -4,15 +4,19 @@ package leagueoflegendsproject.Models.Database;
 import com.google.gson.annotations.SerializedName;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "Item")
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @SqlResultSetMappings({
         @SqlResultSetMapping(
@@ -83,13 +87,18 @@ public class Item {
     @SerializedName(value = "name")
     private String name;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     Set<ParticipantItems> participantItemsSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "itemComponent")
+    public void addParticipantItem(ParticipantItems participantItems) {
+        this.participantItemsSet.add(participantItems);
+        participantItems.setItem(this);
+    }
+
+    @OneToMany(mappedBy = "itemComponent", cascade = CascadeType.ALL)
     Set<ItemCookBook> itemComponentSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "itemMaster")
+    @OneToMany(mappedBy = "itemMaster", cascade = CascadeType.ALL)
     Set<ItemCookBook> itemMasterSet = new HashSet<>();
 
     public Item(Integer id){
@@ -135,97 +144,6 @@ public class Item {
         this.name = name;
     }
 
-    public Item() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
-
-    public Set<ParticipantItems> getParticipantItemsSet() {
-        return participantItemsSet;
-    }
-
-    public void setParticipantItemsSet(Set<ParticipantItems> participantItemsSet) {
-        this.participantItemsSet = participantItemsSet;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPlainText() {
-        return plainText;
-    }
-
-    public void setPlainText(String plainText) {
-        this.plainText = plainText;
-    }
-
-    public Integer getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(Integer totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public Integer getSell() {
-        return sell;
-    }
-
-    public void setSell(Integer sell) {
-        this.sell = sell;
-    }
-
-    public Integer getBaseCost() {
-        return baseCost;
-    }
-
-    public void setBaseCost(Integer baseCost) {
-        this.baseCost = baseCost;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<ItemCookBook> getItemComponentSet() {
-        return itemComponentSet;
-    }
-
-    public void setItemComponentSet(Set<ItemCookBook> itemComponentSet) {
-        this.itemComponentSet = itemComponentSet;
-    }
-
-    public Set<ItemCookBook> getItemMasterSet() {
-        return itemMasterSet;
-    }
-
-    public void setItemMasterSet(Set<ItemCookBook> itemMasterSet) {
-        this.itemMasterSet = itemMasterSet;
-    }
-
     public Item toUpdate(leagueoflegendsproject.Models.LoLApi.Items.Item item){
         this.baseCost = item.getGold().getBase();
         this.sell = item.getGold().getSell();
@@ -242,16 +160,19 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) && Objects.equals(iconUrl, item.iconUrl) && Objects.equals(description, item.description) && Objects.equals(plainText, item.plainText) && Objects.equals(totalCost, item.totalCost) && Objects.equals(sell, item.sell) && Objects.equals(baseCost, item.baseCost) && Objects.equals(name, item.name);
+        return Objects.equals(id, item.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, iconUrl, description, plainText, totalCost, sell, baseCost, name);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Item{}";
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

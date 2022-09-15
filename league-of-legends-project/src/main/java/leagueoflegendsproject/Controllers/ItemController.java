@@ -35,11 +35,6 @@ public class ItemController {
 
     @GetMapping("/mostPopular/{championName}")
     public ResponseEntity<?> getMostPopularItemsForChampion(@PathVariable String championName) {
-        return ResponseEntity.ok(
-                itemService.getMostPopularItemsForChampion(championName)
-                        .stream()
-                        .map(ItemDto::new)
-                        .collect(Collectors.toList())
-        );
+        return ResponseEntity.ok(itemService.getMostPopularItemsForChampion(championName));
     }
 }

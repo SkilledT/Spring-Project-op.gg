@@ -17,7 +17,7 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private Set<ChampionTag> championTagSet = new HashSet<>();
 
     public Tag() {

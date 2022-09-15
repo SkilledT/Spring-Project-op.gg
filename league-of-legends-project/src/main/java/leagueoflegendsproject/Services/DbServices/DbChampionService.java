@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,6 +45,7 @@ public class DbChampionService {
         this.championStatsRepository = championStatsRepository;
     }
 
+    @Transactional
     public Champion saveChampion(ChampionItem championItem) {
         Stats stats = createAndSaveStats(championItem);
         Info info = createAndSaveInfo(championItem);

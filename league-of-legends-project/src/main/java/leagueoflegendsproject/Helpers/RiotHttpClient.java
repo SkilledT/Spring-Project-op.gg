@@ -26,7 +26,7 @@ import java.util.*;
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-8152bd5d-7f59-4a01-b3aa-c1ed3503b9de";
+    private final String riotApiKey = "RGAPI-524690ec-a839-428f-82df-abdbb4fddf46";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public RiotHttpClient() {
@@ -40,6 +40,7 @@ public class RiotHttpClient implements IRiotHttpClient {
                 .build();
         HttpResponse<String> response =
                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
         if (response.statusCode() < 300) {
             GsonBuilder gson = new GsonBuilder();
             T jsonResponse = gson.create().fromJson(response.body(), responseClass);

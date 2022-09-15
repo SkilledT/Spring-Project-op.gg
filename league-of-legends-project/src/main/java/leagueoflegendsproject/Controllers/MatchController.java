@@ -1,12 +1,7 @@
 package leagueoflegendsproject.Controllers;
 
-import leagueoflegendsproject.Models.Database.Champion.Champion;
-import leagueoflegendsproject.Services.DbServices.DbChampionService;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
-import leagueoflegendsproject.Services.HttpServices.HttpChampionService;
 import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
-import leagueoflegendsproject.Services.HttpServices.HttpPerkService;
-import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/match")
@@ -23,64 +16,35 @@ public class MatchController {
 
     private final HttpMatchService matchService;
     private final DbMatchService dbMatchService;
-    private final HttpSummonerService httpSummonerService;
 
     public MatchController(final HttpMatchService matchService,
-                           final DbMatchService dbMatchService,
-                           final HttpSummonerService httpSummonerService) {
+                           final DbMatchService dbMatchService) {
         this.matchService = matchService;
         this.dbMatchService = dbMatchService;
-        this.httpSummonerService = httpSummonerService;
     }
 
     @GetMapping("/{nickname}")
     public ResponseEntity<?> getAllMatchesByNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
     }
 
     @GetMapping("/championStats/{nickname}")
     public ResponseEntity<?> getChampionStatsByNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getChampionStatsByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getChampionStatsByNickname(nickname).join());
     }
 
     @GetMapping("/details/{nickname}")
     public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
     }
 
     @GetMapping("/rolePreferences/{nickname}")
     public ResponseEntity<?> getSummonersPreferredRole(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname));
+        return ResponseEntity.ok(dbMatchService.getPreferredRole(nickname).join());
     }
 
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
-        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 3));
-    }
-
-    @GetMapping("/refresh/challengers")
-    public ResponseEntity<?> refreshChallengersData() {
-        new Thread(() -> {
-            try {
-                getMatchData();
-                System.out.println("Retrieving challengers data has been completed");
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-        return ResponseEntity.ok("ok");
-    }
-
-    private synchronized void getMatchData() throws IOException, InterruptedException {
-        var nicknames = httpSummonerService.getSummonerChallengersNicknamesHTTP();
-        nicknames.forEach(nickname -> {
-            try {
-                matchService.getMatchCollectionByNickname(nickname, 5);
-                wait(1000 * 60);
-            } catch (IOException | InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
+        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 1));
     }
 }

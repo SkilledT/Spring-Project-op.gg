@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import static leagueoflegendsproject.Helpers.MatchUtils.isMatchSoloQ;
 
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DbMatchService {
 
     private final SummonerRepository summonerRepository;
@@ -67,12 +66,17 @@ public class DbMatchService {
     }
 
     @Cacheable(cacheNames = "Players_Match_Collection")
-    @Async
+    @Transactional
     public CompletableFuture<List<MatchDetailsDto>> getMatchesByNickname(String nickname) {
         return CompletableFuture.supplyAsync(() -> {
-            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname)
-                    .stream()
-                    .filter(e -> e.getMatch().getMatchParticipantSet().stream().filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid)).findFirst().orElse(null) == null)
+            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
+            matchParticipant = matchParticipant.stream()
+                    .filter(e ->
+                            e.getMatch().getMatchParticipantSet()
+                                    .stream()
+                                    .filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
+                                    .findFirst()
+                                    .orElse(null) == null)
                     .collect(Collectors.toList());
             return matchParticipant.stream()
                     .map(mp -> {
@@ -95,7 +99,7 @@ public class DbMatchService {
                                 .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
                                 .collect(Collectors.toSet());
                         double pInKill = 0;
-                        double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
+                        //double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
                         return new MatchDetailsDto.Builder()
                                 .timeDurationOfMatch(mp.getMatch().getGameDuration())
                                 .assists(mp.getAssists())
@@ -114,7 +118,7 @@ public class DbMatchService {
                                 .enemies(enemies)
                                 .pInKill(pInKill)
                                 .withGameCreation(mp.getMatch().getGameCreation())
-                                .withPerformanceScore(performanceScore)
+                                //.withPerformanceScore(performanceScore)
                                 .build();
                     }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
                     .collect(Collectors.toList());
@@ -350,7 +354,6 @@ public class DbMatchService {
             for (var p : participants) {
                 var sItemPerkIds = extractSelectionItem(p).stream().map(SelectionsItem::getPerk).collect(Collectors.toSet());
                 perkIds.addAll(sItemPerkIds);
-                String threadDetails = Thread.currentThread().getName();
             }
             List<Perk> availablePerks = perkRepository.findAllById(perkIds);
             return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));

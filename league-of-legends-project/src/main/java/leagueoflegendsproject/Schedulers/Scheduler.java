@@ -10,12 +10,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
 
+import java.io.IOException;
+
 import static java.util.stream.Collectors.groupingBy;
 
 @Component
 public class Scheduler {
 
-    /*@PersistenceContext
+    @PersistenceContext
     EntityManager entityManager;
 
     private final HttpMatchService httpMatchService;
@@ -25,7 +27,7 @@ public class Scheduler {
     }
 
 
-    @Scheduled(cron = "@daily")
+    @Scheduled(fixedRate = Constants.TimeConstants.HOUR_TO_MILLISECONDS * 2)
     public void updateChampionStats() {
         StoredProcedureQuery storedProcedureQuery =
                 entityManager.createStoredProcedureQuery(Constants.EntityConstants.Procedures.FILL_CHAMPION_STATS);
@@ -33,7 +35,7 @@ public class Scheduler {
         System.out.println("triggered procedure: " + Constants.EntityConstants.Procedures.FILL_CHAMPION_STATS);
     }
 
-    @Scheduled(cron = "@daily")
+    @Scheduled(fixedRate = Constants.TimeConstants.HOUR_TO_MILLISECONDS * 2)
     public void updateChampionPerks() {
         System.out.println("triggered procedure: " + Constants.EntityConstants.Procedures.UPDATE_CHAMPION_PERKS);
         StoredProcedureQuery storedProcedureQuery =
@@ -42,9 +44,9 @@ public class Scheduler {
     }
 
     @Scheduled(fixedRate = Constants.TimeConstants.HOUR_TO_MILLISECONDS * 2)
-    public void updateChallengers() {
+    public void updateChallengers() throws IOException, InterruptedException {
         System.out.println("Scheduled retrieving challengers has been started");
-        httpMatchService.refreshChallengersData();
+        httpMatchService.getChallengerMatches();
         System.out.println("Scheduled retrieving challengers has been completed");
     }
 
@@ -61,5 +63,4 @@ public class Scheduler {
         float elapsedTimeSec = elapsedTimeMillis / 1000F;
         System.out.println("updateMatchParticipantAveragePerformance, Elapsed time: " + elapsedTimeSec);
     }
-*/
 }

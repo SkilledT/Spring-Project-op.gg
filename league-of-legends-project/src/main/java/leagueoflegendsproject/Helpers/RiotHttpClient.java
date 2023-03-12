@@ -1,5 +1,6 @@
 package leagueoflegendsproject.Helpers;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
@@ -8,8 +9,6 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import leagueoflegendsproject.Models.LoLApi.Items.Item;
 import net.minidev.json.JSONObject;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,17 +21,17 @@ import java.time.Duration;
 import java.util.*;
 
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class RiotHttpClient implements IRiotHttpClient {
 
     private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-524690ec-a839-428f-82df-abdbb4fddf46";
+    private final String riotApiKey = "RGAPI-99612442-a4e4-4e83-a823-0d5b8c31eb83";
     private final HttpClient httpClient = HttpClient.newHttpClient();
+    private RateLimiter rateLimiter = RateLimiter.create(1.0);
 
-    public RiotHttpClient() {
-    }
+    public RiotHttpClient() {}
 
     public <T> HttpResponseWrapper<T> get(String url, Class<T> responseClass) throws IOException, InterruptedException {
+        rateLimiter.acquire();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
@@ -68,8 +67,7 @@ public class RiotHttpClient implements IRiotHttpClient {
                 .build();
         HttpResponse<String> response;
         try {
-            response =
-                    httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new InvalidRequestStateException("Unable to send request to RIOT's API");

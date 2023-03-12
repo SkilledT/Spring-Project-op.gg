@@ -4,7 +4,6 @@ import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
-import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -58,7 +58,7 @@ public class HttpMatchService {
     }
 
 
-    CompletableFuture<Match> getMatchById(String id) {
+    public CompletableFuture<Match> getMatchById(String id) {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponseWrapper<Match> matchHttpResponseWrapper;
             try {
@@ -73,27 +73,18 @@ public class HttpMatchService {
         });
     }
 
-    public void refreshChallengersData() {
-        new Thread(() -> {
-            try {
-                getMatchData();
-                System.out.println("Retrieving challengers data has been completed");
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-    private synchronized void getMatchData() throws IOException, InterruptedException {
+    public void getChallengerMatches() throws IOException, InterruptedException {
         var nicknames = httpSummonerService.getSummonerChallengersNicknamesHTTP();
-        nicknames.forEach(nickname -> {
-            try {
-                getMatchCollectionByNickname(nickname, 5);
-                wait(1000 * 60);
-            } catch (IOException | InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        List<CompletableFuture<Void>> futures = nicknames.stream()
+                .map(nickname -> CompletableFuture.runAsync(() -> {
+                    try {
+                        getMatchCollectionByNickname(nickname, 5);
+                    } catch (IOException | InterruptedException e) {
+                        System.out.println(Arrays.toString(e.getStackTrace()));
+                    }
+                }))
+                .collect(Collectors.toList());
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
     }
 
 

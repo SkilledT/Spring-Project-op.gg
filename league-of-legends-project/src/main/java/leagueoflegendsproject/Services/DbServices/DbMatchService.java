@@ -10,13 +10,12 @@ import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
 import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
 import leagueoflegendsproject.Utils.MatchParticipantUtils;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -24,6 +23,8 @@ import java.util.stream.Collectors;
 import static leagueoflegendsproject.Helpers.MatchUtils.isMatchSoloQ;
 
 @Service
+@Slf4j
+@Transactional
 public class DbMatchService {
 
     private final SummonerRepository summonerRepository;
@@ -65,67 +66,66 @@ public class DbMatchService {
         this.matchParticipantUtils = matchParticipantUtils;
     }
 
-    @Cacheable(cacheNames = "Players_Match_Collection")
     @Transactional
-    public CompletableFuture<List<MatchDetailsDto>> getMatchesByNickname(String nickname) {
-        return CompletableFuture.supplyAsync(() -> {
-            List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
-            matchParticipant = matchParticipant.stream()
-                    .filter(e ->
-                            e.getMatch().getMatchParticipantSet()
-                                    .stream()
-                                    .filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
-                                    .findFirst()
-                                    .orElse(null) == null)
-                    .collect(Collectors.toList());
-            return matchParticipant.stream()
-                    .map(mp -> {
-                        Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
-                        Set<MatchParticipant> enemiesMatchParticipantSet = new HashSet<>();
-                        Integer teamId = mp.getTeam().getId();
-                        for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()) {
-                            if (innerMp.getTeam().getId().equals(teamId))
-                                alliesMatchParticipantSet.add(innerMp);
-                            else
-                                enemiesMatchParticipantSet.add(innerMp);
-                        }
-                        Set<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
-                                .map(item -> new ItemMatchDto(String.valueOf(item.getItem().getId())))
-                                .collect(Collectors.toSet());
-                        Set<PlayerGameDto> allies = alliesMatchParticipantSet.stream()
-                                .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
-                                .collect(Collectors.toSet());
-                        Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
-                                .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
-                                .collect(Collectors.toSet());
-                        double pInKill = 0;
-                        //double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
-                        return new MatchDetailsDto.Builder()
-                                .timeDurationOfMatch(mp.getMatch().getGameDuration())
-                                .assists(mp.getAssists())
-                                .kills(mp.getKills())
-                                .deaths(mp.getDeaths())
-                                .isWin(mp.getWin())
-                                .killedMinions(mp.getTotalMinionsKilled())
-                                .champLvl(mp.getChampLvl())
-                                .championName(mp.getChampionName())
-                                .position(mp.getIndividualPosition())
-                                .summoner1Id(mp.getSummoner1Id())
-                                .summoner2Id(mp.getSummoner2Id())
-                                .controlWardsPurchased(mp.getVisionWardsBoughtInGame())
-                                .list(itemMatchDtos)
-                                .allies(allies)
-                                .enemies(enemies)
-                                .pInKill(pInKill)
-                                .withGameCreation(mp.getMatch().getGameCreation())
-                                //.withPerformanceScore(performanceScore)
-                                .build();
-                    }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
-                    .collect(Collectors.toList());
-        });
+    public List<MatchDetailsDto> getMatchesByNickname(String nickname) {
+        List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname)
+                .stream()
+                .filter(e ->
+                        e.getMatch().getMatchParticipantSet()
+                                .stream()
+                                .filter(x -> x.getIndividualPosition().equals(Constants.MatchParticipantConstants.IndividualPosition.Invalid))
+                                .findFirst()
+                                .orElse(null) == null)
+                .collect(Collectors.toList());
+
+
+        var result = matchParticipant.stream()
+                .map(mp -> {
+                    Set<MatchParticipant> alliesMatchParticipantSet = new HashSet<>();
+                    Set<MatchParticipant> enemiesMatchParticipantSet = new HashSet<>();
+                    Integer teamId = mp.getTeam().getId();
+                    for (MatchParticipant innerMp : mp.getMatch().getMatchParticipantSet()) {
+                        if (innerMp.getTeam().getId().equals(teamId))
+                            alliesMatchParticipantSet.add(innerMp);
+                        else
+                            enemiesMatchParticipantSet.add(innerMp);
+                    }
+                    Set<ItemMatchDto> itemMatchDtos = mp.getParticipantItemsSet().stream()
+                            .map(item -> new ItemMatchDto(String.valueOf(item.getItem().getId())))
+                            .collect(Collectors.toSet());
+                    Set<PlayerGameDto> allies = alliesMatchParticipantSet.stream()
+                            .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
+                            .collect(Collectors.toSet());
+                    Set<PlayerGameDto> enemies = enemiesMatchParticipantSet.stream()
+                            .map(e -> new PlayerGameDto(e.getChampionName(), e.getSummoner().getSummonerNickname(), e.getSummoner().getSummonerId()))
+                            .collect(Collectors.toSet());
+                    double pInKill = 0;
+                    //double performanceScore = performanceStrategyFactory.findStrategyByIndividualPosition(mp.getIndividualPosition()).countPerformanceRate(mp);
+                    return new MatchDetailsDto.Builder()
+                            .timeDurationOfMatch(mp.getMatch().getGameDuration())
+                            .assists(mp.getAssists())
+                            .kills(mp.getKills())
+                            .deaths(mp.getDeaths())
+                            .isWin(mp.getWin())
+                            .killedMinions(mp.getTotalMinionsKilled())
+                            .champLvl(mp.getChampLvl())
+                            .championName(mp.getChampionName())
+                            .position(mp.getIndividualPosition())
+                            .summoner1Id(mp.getSummoner1Id())
+                            .summoner2Id(mp.getSummoner2Id())
+                            .controlWardsPurchased(mp.getVisionWardsBoughtInGame())
+                            .list(itemMatchDtos)
+                            .allies(allies)
+                            .enemies(enemies)
+                            .pInKill(pInKill)
+                            .withGameCreation(mp.getMatch().getGameCreation())
+                            //.withPerformanceScore(performanceScore)
+                            .build();
+                }).sorted((match1, match2) -> match2.getGameCreation().compareTo(match1.getGameCreation()))
+                .collect(Collectors.toList());
+        return result;
     }
 
-    @Async
     public CompletableFuture<Set<PlayersChampionStatsDto>> getChampionStatsByNickname(String nickname) {
         return CompletableFuture.supplyAsync(() -> {
             List<MatchParticipant> matchParticipant = matchParticipantRepository.findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(nickname);
@@ -174,12 +174,14 @@ public class DbMatchService {
         });
     }
 
-    @Async("taskExecutor")
     @Transactional
     public CompletableFuture<Void> addMatchToDb(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.runAsync(() -> {
+            log.info("Try to find a match");
             var repoMatch = matchRepository.findById(apiMatch.getMetadata().getMatchId()).orElse(null);
+            log.info("Match queried");
             if (repoMatch != null || !isMatchSoloQ(apiMatch)) {
+                log.info("Match already exists or is not a SoloQ");
                 return;
             }
             leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match(apiMatch);
@@ -190,26 +192,47 @@ public class DbMatchService {
             CompletableFuture<Map<String, Objective>> availableObjectives = getAvailableObjective(apiMatch);
             CompletableFuture<Map<String, Summoner>> availableSummoners = getAvailableSummoners(apiMatch);
 
+            log.info("Waiting for all object to be fetched");
             CompletableFuture.allOf(availableTeams, availableItems, availablePerks, availableChampions, availableObjectives, availableSummoners).join();
+            log.info("All objects have been fetched");
 
-            var matchParticipantList = apiMatch.getInfo().getParticipants().stream()
-                    .collect(Collectors.toUnmodifiableList())
-                    .stream().map(participant -> handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(), availablePerks.join(), availableChampions.join(), availableSummoners.join()))
+            var matchParticipantList = apiMatch.getInfo().getParticipants()
+                    .stream()
+                    .map(participant ->
+                            handleMatchParticipantPersist(availableTeams.join(), match, participant, availableItems.join(),
+                                    availablePerks.join(), availableChampions.join(), availableSummoners.join()))
                     .collect(Collectors.toList());
-            //matchParticipantRepository.saveAllAndFlush(matchParticipantList);
+            var matchParticipantListSaved = matchParticipantRepository.saveAll(matchParticipantList);
+            log.info("match participants saved: " + matchParticipantListSaved.size());
 
             Set<MatchTeam> matchTeamSet = availableTeams.join().keySet().stream()
                     .map(key -> availableTeams.join().get(key))
                     .map(team -> matchParticipantUtils.setMatchTeam(team, match))
                     .collect(Collectors.toSet());
             handleMatchTeamPersist(matchTeamSet, apiMatch, availableChampions.join(), match, availableObjectives.join());
+            System.out.println("Save all matches, " + matchTeamSet.size());
             matchTeamRepository.saveAll(matchTeamSet);
         });
     }
 
-    private MatchParticipant handleMatchParticipantPersist(Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant, Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions, Map<String, Summoner> availableSummoners) {
+    private MatchParticipant handleMatchParticipantPersist(
+            Map<Integer, Team> availableTeams, leagueoflegendsproject.Models.Database.Match match, ParticipantsItem participant,
+            Map<Integer, Item> availableItems, Map<Integer, Perk> availablePerks, Map<Integer, Champion> availableChampions,
+            Map<String, Summoner> availableSummoners) {
         MatchParticipant matchParticipant = new MatchParticipant(participant);
-        setMatchParticipant(participant, match, availableTeams, matchParticipant, availableItems, availablePerks, availableChampions, availableSummoners);
+
+        Team team = availableTeams.get(participant.getTeamId());
+        match.addMatchParticipantChild(matchParticipant);
+        team.addMatchParticipantChild(matchParticipant);
+        Champion champion = availableChampions.get(participant.getChampionId());
+        matchParticipant.setChampion(champion);
+        Summoner summoner = availableSummoners.get(participant.getSummonerId());
+        matchParticipant.setSummoner(summoner);
+        matchParticipant.setSummoner(summoner);
+        matchParticipant.setChampion(champion);
+
+        matchParticipantUtils.setMatchParticipantItems(participant, matchParticipant, availableItems);
+        matchParticipantUtils.setMatchParticipantPerks(participant, matchParticipant, availablePerks);
         return matchParticipant;
     }
 
@@ -296,16 +319,18 @@ public class DbMatchService {
 
     private CompletableFuture<Map<Integer, Team>> getAvailableTeams(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Create object: Team");
             Set<Integer> teamIds = apiMatch.getInfo().getTeams().stream().map(TeamsItem::getTeamId).collect(Collectors.toSet());
-            List<Team> availableTeams = teamRepository.findAllById(teamIds);
-            Set<Integer> foundIds = availableTeams.stream().map(Team::getId).collect(Collectors.toSet());
-            teamIds.stream().filter(teamId -> !foundIds.contains(teamId)).forEach(id -> availableTeams.add(new Team(id)));
-            return availableTeams.stream().collect(Collectors.toMap(Team::getId, x -> x));
+            List<Team> availableTeams = teamIds.stream().map(Team::new).collect(Collectors.toList());
+            teamRepository.saveAll(availableTeams);
+            log.info("Created object: Team");
+            return availableTeams.stream().collect(Collectors.toMap(Team::getTeamId, x -> x));
         });
     }
 
     private CompletableFuture<Map<Integer, Champion>> getAvailableChampions(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Query champions");
             Set<Integer> championIds = apiMatch.getInfo().getParticipants().stream().map(ParticipantsItem::getChampionId).collect(Collectors.toSet());
             for (var banItem : apiMatch.getInfo().getTeams().stream().map(TeamsItem::getBans).collect(Collectors.toSet())) {
                 banItem.stream().map(BansItem::getChampionId).forEach(championIds::add);
@@ -313,13 +338,16 @@ public class DbMatchService {
             List<ParticipantsItem> participantsItems = apiMatch.getInfo().getParticipants();
             List<Champion> availableChampions = championRepository.findAllById(championIds);
             Set<Integer> foundIds = availableChampions.stream().map(Champion::getId).collect(Collectors.toSet());
-            participantsItems.stream().filter(pItem -> !foundIds.contains(pItem.getChampionId())).forEach(pItem -> availableChampions.add(new Champion(pItem.getChampionId(), pItem.getChampionName())));
+            participantsItems.stream().filter(pItem -> !foundIds.contains(pItem.getChampionId()))
+                    .forEach(pItem -> availableChampions.add(new Champion(pItem.getChampionId(), pItem.getChampionName())));
+            log.info("Champions queried");
             return availableChampions.stream().collect(Collectors.toUnmodifiableMap(Champion::getId, x -> x));
         });
     }
 
     private CompletableFuture<Map<Integer, Item>> getAvailableItems(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Query Items");
             Set<Integer> itemIds = new HashSet<>();
             apiMatch.getInfo().getParticipants().forEach(participant -> {
                 List<Integer> ids = List.of(participant.getItem0(), participant.getItem1(), participant.getItem2(), participant.getItem3(), participant.getItem4(), participant.getItem5());
@@ -328,12 +356,14 @@ public class DbMatchService {
             List<Item> availableItems = itemRepository.findAllById(itemIds);
             Set<Integer> foundIds = availableItems.stream().map(Item::getId).collect(Collectors.toSet());
             itemIds.stream().filter(itemId -> !foundIds.contains(itemId)).forEach(itemId -> availableItems.add(new Item(itemId)));
+            log.info("Items Queried");
             return availableItems.stream().collect(Collectors.toMap(Item::getId, x -> x));
         });
     }
 
     private CompletableFuture<Map<String, Summoner>> getAvailableSummoners(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Query Summoners");
             var participants = apiMatch.getInfo().getParticipants();
             var participantsMap = participants.stream().collect(Collectors.toMap(ParticipantsItem::getSummonerId, ParticipantsItem::getSummonerName));
             Set<String> apiIds = participants.stream().map(ParticipantsItem::getSummonerId).collect(Collectors.toSet());
@@ -343,12 +373,14 @@ public class DbMatchService {
                 if (!foundIds.contains(apiId))
                     foundSummoners.add(httpSummonerService.fetchSummonerHTTP(participantsMap.get(apiId)));
             }
+            log.info("Summoners queried");
             return foundSummoners.stream().collect(Collectors.toMap(Summoner::getSummonerId, x -> x));
         });
     }
 
     private CompletableFuture<Map<Integer, Perk>> getAvailablePerks(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Query perks");
             Set<Integer> perkIds = new HashSet<>();
             var participants = apiMatch.getInfo().getParticipants();
             for (var p : participants) {
@@ -356,12 +388,14 @@ public class DbMatchService {
                 perkIds.addAll(sItemPerkIds);
             }
             List<Perk> availablePerks = perkRepository.findAllById(perkIds);
+            log.info("Perks Queried");
             return availablePerks.stream().collect(Collectors.toMap(Perk::getId, x -> x));
         });
     }
 
     private CompletableFuture<Map<String, Objective>> getAvailableObjective(leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match apiMatch) {
         return CompletableFuture.supplyAsync(() -> {
+            log.info("Query Objective");
             var objectives = new HashSet<>(apiMatch.getInfo().getTeams());
             var tObjectivesSet = objectives.stream().map(TeamsItem::getObjectives).collect(Collectors.toSet());
             Set<String> objectivesIDs = new HashSet<>();
@@ -381,6 +415,7 @@ public class DbMatchService {
                     availableObjectives.add(new Objective(objectiveId));
                 }
             }
+            log.info("Objective queried");
             return availableObjectives.stream().collect(Collectors.toMap(Objective::getName, x -> x));
         });
     }

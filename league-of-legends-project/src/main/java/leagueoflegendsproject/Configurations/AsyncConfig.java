@@ -1,4 +1,4 @@
-package leagueoflegendsproject.Config;
+package leagueoflegendsproject.Configurations;
 
 
 import org.springframework.context.annotation.Bean;
@@ -23,5 +23,4 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
-
 }

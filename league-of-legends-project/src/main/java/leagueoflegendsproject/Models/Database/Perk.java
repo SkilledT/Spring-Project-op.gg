@@ -41,7 +41,14 @@ public class Perk {
     @SerializedName(value = "id")
     private Integer id;
 
-    @Column(name = "name", length = 10000)
+    @Column(
+            name = "name",
+            length = 10000,
+            unique = true,
+            insertable = true,
+            updatable = true,
+            nullable = false
+    )
     @SerializedName(value = "name")
     private String name;
 
@@ -67,11 +74,6 @@ public class Perk {
 
     @OneToMany(mappedBy = "perk", cascade = CascadeType.ALL)
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
-
-    public void addMatchParticipantPerkChild(MatchParticipantPerk matchParticipantPerk) {
-        this.matchParticipantPerkSet.add(matchParticipantPerk);
-        matchParticipantPerk.setPerk(this);
-    }
 
     public Perk(Integer id, String name, String icon, String shortDesc, String longDesc, Integer slotNumber,
                 Set<MatchParticipantPerk> matchParticipantPerkSet,

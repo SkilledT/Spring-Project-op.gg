@@ -43,7 +43,15 @@ public class HttpPerkService {
                 var runes = slots.get(i).getRunes();
                 for (leagueoflegendsproject.Models.LoLApi.Perks.RunesItem runesItem : runes) {
                     Integer slotNumber = i;
-                    Perk perk = new Perk(runesItem.getId(), runesItem.getName(), runesItem.getIcon(), runesItem.getShortDesc(), runesItem.getLongDesc(), slotNumber, treeNumber);
+                    Perk perk = new Perk(
+                            runesItem.getId(),
+                            runesItem.getName(),
+                            runesItem.getIcon(),
+                            runesItem.getShortDesc(),
+                            runesItem.getLongDesc(),
+                            slotNumber,
+                            treeNumber
+                    );
                     result.add(perk);
                 }
             }

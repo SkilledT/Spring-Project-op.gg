@@ -39,17 +39,4 @@ public class TeamObjective {
 
     @Type(type = "numeric_boolean")
     private Boolean first;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TeamObjective that = (TeamObjective) o;
-        return Objects.equals(matchTeam, that.matchTeam) && Objects.equals(objective, that.objective);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(matchTeam, objective);
-    }
 }

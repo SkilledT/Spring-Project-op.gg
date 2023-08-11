@@ -1,6 +1,5 @@
 package leagueoflegendsproject.Security;
 
-import leagueoflegendsproject.Filters.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,11 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MyUserDetailService myUserDetailService;
-    private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(MyUserDetailService myUserDetailService, JwtRequestFilter jwtRequestFilter) {
+    public SecurityConfig(MyUserDetailService myUserDetailService) {
         this.myUserDetailService = myUserDetailService;
-        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
@@ -49,7 +50,8 @@ public class Summoner {
     @Column(name = "losses")
     private Integer losses;
 
-    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "summoner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
     public void addMatchParticipantChild(MatchParticipant matchParticipant) {

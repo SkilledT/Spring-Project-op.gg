@@ -9,6 +9,7 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
 import leagueoflegendsproject.Models.LoLApi.Items.Item;
 import net.minidev.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,8 +24,10 @@ import java.util.*;
 @Service
 public class RiotHttpClient implements IRiotHttpClient {
 
-    private final String headerApiKey = "X-Riot-Token";
-    private final String riotApiKey = "RGAPI-99612442-a4e4-4e83-a823-0d5b8c31eb83";
+    @Value("${riot.api.headerApiKey}")
+    private String headerApiKey;
+    @Value("${riot.api.key}")
+    private String riotApiKey;
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private RateLimiter rateLimiter = RateLimiter.create(1.0);
 
@@ -39,13 +42,70 @@ public class RiotHttpClient implements IRiotHttpClient {
                 .build();
         HttpResponse<String> response =
                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
         if (response.statusCode() < 300) {
             GsonBuilder gson = new GsonBuilder();
             T jsonResponse = gson.create().fromJson(response.body(), responseClass);
             return new HttpResponseWrapper<>(true, jsonResponse, response.body());
         }
         return new HttpResponseWrapper<T>(false, null, response.body());
+    }
+
+    public <T> HttpResponseWrapper put(String url, T data) throws IOException, InterruptedException {
+        rateLimiter.acquire();
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofMillis(3000))
+                .header(headerApiKey, riotApiKey)
+                .PUT(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() < 300)
+            return new HttpResponseWrapper(true, null, response.body());
+        return new HttpResponseWrapper(false, null, response.body());
+    }
+
+    public <T> HttpResponseWrapper post(String url, T data) throws IOException, InterruptedException {
+        rateLimiter.acquire();
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofMillis(3000))
+                .header(headerApiKey, riotApiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() < 300)
+            return new HttpResponseWrapper(true, null, response.body());
+        return new HttpResponseWrapper(false, null, response.body());
+    }
+
+    public <T, TResponse> HttpResponseWrapper<TResponse> postWithResponse(String url, T data) throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofMillis(3000))
+                .header(headerApiKey, riotApiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() < 300) {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Type collectionType = new TypeToken<T>() {
+            }.getType();
+            TResponse jsonResponse = gsonBuilder.create().fromJson(response.body(), collectionType);
+            return new HttpResponseWrapper<>(true, jsonResponse, response.body());
+        }
+        return new HttpResponseWrapper<>(false, null, response.body());
     }
 
     public static <T> T parseResponseToClassObject(String responseBody, Class<T> responseClass) {
@@ -142,61 +202,5 @@ public class RiotHttpClient implements IRiotHttpClient {
             i++;
         }
         return new HttpResponseWrapper(false, null, response.body());
-    }
-
-    public <T> HttpResponseWrapper put(String url, T data) throws IOException, InterruptedException {
-        Gson gson = new Gson();
-        String json = gson.toJson(data);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofMillis(3000))
-                .header(headerApiKey, riotApiKey)
-                .PUT(HttpRequest.BodyPublishers.ofString(json))
-                .build();
-        HttpResponse<String> response =
-                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() < 300)
-            return new HttpResponseWrapper(true, null, response.body());
-        return new HttpResponseWrapper(false, null, response.body());
-    }
-
-    public <T> HttpResponseWrapper post(String url, T data) throws IOException, InterruptedException {
-        Gson gson = new Gson();
-        String json = gson.toJson(data);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofMillis(3000))
-                .header(headerApiKey, riotApiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(json))
-                .build();
-        HttpResponse<String> response =
-                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() < 300)
-            return new HttpResponseWrapper(true, null, response.body());
-        return new HttpResponseWrapper(false, null, response.body());
-    }
-
-    public <T, TResponse> HttpResponseWrapper<TResponse> postWithResponse(String url, T data) throws IOException, InterruptedException {
-        Gson gson = new Gson();
-        String json = gson.toJson(data);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofMillis(3000))
-                .header(headerApiKey, riotApiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(json))
-                .build();
-        HttpResponse<String> response =
-                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() < 300) {
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            Type collectionType = new TypeToken<T>() {
-            }.getType();
-            TResponse jsonResponse = gsonBuilder.create().fromJson(response.body(), collectionType);
-            return new HttpResponseWrapper<>(true, jsonResponse, response.body());
-        }
-        return new HttpResponseWrapper<>(false, null, response.body());
     }
 }

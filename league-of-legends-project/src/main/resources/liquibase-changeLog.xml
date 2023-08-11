@@ -6,5 +6,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
-    <includeAll path="database" />
+    <include file="database/2022-07-30/06-Data-Info.xml" />
+    <include file="database/2022-07-30/04-Create-Function.xml" />
+    <include file="database/2022-07-30/05-Stored-Procedures.xml" />
+    <include file="database/2022-07-30/07-seed.xml" />
 </databaseChangeLog>

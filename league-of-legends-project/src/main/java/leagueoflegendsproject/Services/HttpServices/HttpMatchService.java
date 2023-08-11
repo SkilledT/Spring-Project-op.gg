@@ -43,14 +43,16 @@ public class HttpMatchService {
                                 RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
                                 String[].class).getResponse();
                     } catch (IOException | InterruptedException e) {
-                        throw new IllegalArgumentException("Unable to find suitable records for link: " + RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches));
+                        throw new IllegalArgumentException(
+                                "Unable to find suitable records for link: " +
+                                        RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches));
                     }
                     return matchesIds;
                 }).thenApply(matchesIds -> {
                     List<Match> matches = new ArrayList<>();
                     Arrays.stream(matchesIds).forEach(matchId -> {
                         Match match = getMatchById(matchId).join();
-                        dbMatchService.addMatchToDb(match);
+                        dbMatchService.addMatchToDb(match).join();
                         matches.add(match);
                     });
                     return matches;
@@ -65,7 +67,8 @@ public class HttpMatchService {
                 matchHttpResponseWrapper = riotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id),
                         Match.class);
             } catch (IOException | InterruptedException e) {
-                throw new IllegalArgumentException("Unable to find suitable records for link: " + RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id));
+                throw new IllegalArgumentException("Unable to find suitable records for link: " +
+                        RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id));
             }
             if (!matchHttpResponseWrapper.isSuccess())
                 throw new IllegalStateException("Data from Riot's API cannot be retried");

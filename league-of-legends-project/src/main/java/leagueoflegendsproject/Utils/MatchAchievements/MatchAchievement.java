@@ -1,4 +1,4 @@
-package leagueoflegendsproject.BussinessFunctionalities.MatchAchievements;
+package leagueoflegendsproject.Utils.MatchAchievements;
 
 import leagueoflegendsproject.DTOs.AchievementType;
 import leagueoflegendsproject.DTOs.MatchAchievementDTO;

@@ -38,11 +38,6 @@ public class SupportPerformanceStrategy implements PerformanceStrategy {
     }
 
     @Override
-    public PerformanceStrategyName getStrategyName() {
-        return PerformanceStrategyName.SupportPerformanceStrategy;
-    }
-
-    @Override
     public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition() {
         return Constants.MatchParticipantConstants.IndividualPosition.UTILITY;
     }

@@ -3,6 +3,7 @@ package leagueoflegendsproject.Controllers;
 import leagueoflegendsproject.Services.DbServices.DbMatchService;
 import leagueoflegendsproject.Services.HttpServices.HttpMatchService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/match")
+@Transactional
 public class MatchController {
 
     private final HttpMatchService matchService;
@@ -25,7 +27,7 @@ public class MatchController {
 
     @GetMapping("/{nickname}")
     public ResponseEntity<?> getAllMatchesByNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
     }
 
     @GetMapping("/championStats/{nickname}")
@@ -35,7 +37,7 @@ public class MatchController {
 
     @GetMapping("/details/{nickname}")
     public ResponseEntity<?> getPlayerMatchDetailsList(@PathVariable String nickname) {
-        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname).join());
+        return ResponseEntity.ok(dbMatchService.getMatchesByNickname(nickname));
     }
 
     @GetMapping("/rolePreferences/{nickname}")
@@ -45,6 +47,6 @@ public class MatchController {
 
     @GetMapping("/refresh/{nickname}")
     public ResponseEntity<?> refreshData(@PathVariable String nickname) throws IOException, InterruptedException {
-        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 1));
+        return ResponseEntity.ok(matchService.getMatchCollectionByNickname(nickname, 5));
     }
 }

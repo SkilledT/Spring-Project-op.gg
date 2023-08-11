@@ -1,8 +1,5 @@
 package leagueoflegendsproject.Models.Database;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Match {
 
     @Id
@@ -39,10 +37,10 @@ public class Match {
     @Column(name = "game_mode")
     private String gameMode;
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<MatchTeam> matchTeamSet = new HashSet<>();
 
     public void addMatchParticipantChild(MatchParticipant matchParticipant) {

@@ -16,7 +16,7 @@ public interface MatchParticipantRepository extends JpaRepository<MatchParticipa
     @Override
     <S extends MatchParticipant> S save(S s);
 
-    @Query("select m from MatchParticipant m where m.summoner.summonerNickname = ?1 order by m.match.gameCreation DESC")
+    @Query("SELECT mp FROM MatchParticipant mp join fetch mp.champion c WHERE mp.summoner.summonerNickname = ?1 ORDER BY mp.match.gameCreation DESC")
     List<MatchParticipant> findBySummoner_SummonerNicknameOrderByMatch_GameCreationDesc(String nickname);
 
 }

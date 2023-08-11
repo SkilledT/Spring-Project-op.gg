@@ -19,10 +19,14 @@ import java.util.Set;
 public class Team {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "team_id")
     private Integer id;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "riot_team_id")
+    private Integer teamId;
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<MatchParticipant> matchParticipantSet = new HashSet<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
@@ -38,8 +42,8 @@ public class Team {
         matchTeam.setTeam(this);
     }
 
-    public Team(Integer id) {
-        this.id = id;
+    public Team(Integer teamId) {
+        this.teamId = teamId;
     }
 
     @Override
@@ -60,5 +64,9 @@ public class Team {
         return "Team{" +
                 "id=" + id +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

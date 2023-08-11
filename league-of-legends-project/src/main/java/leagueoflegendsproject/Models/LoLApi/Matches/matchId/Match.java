@@ -1,9 +1,11 @@
 package leagueoflegendsproject.Models.LoLApi.Matches.matchId;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+@NoArgsConstructor
 public class Match {
 
 	@SerializedName("metadata")

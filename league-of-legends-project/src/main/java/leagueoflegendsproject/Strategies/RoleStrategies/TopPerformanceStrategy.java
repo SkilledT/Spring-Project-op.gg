@@ -39,11 +39,6 @@ public class TopPerformanceStrategy implements PerformanceStrategy {
     }
 
     @Override
-    public PerformanceStrategyName getStrategyName() {
-        return PerformanceStrategyName.TopPerformanceStrategy;
-    }
-
-    @Override
     public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition() {
         return Constants.MatchParticipantConstants.IndividualPosition.TOP;
     }

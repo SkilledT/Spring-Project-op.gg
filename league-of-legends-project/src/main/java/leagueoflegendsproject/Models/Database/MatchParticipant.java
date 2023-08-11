@@ -1,6 +1,8 @@
 package leagueoflegendsproject.Models.Database;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import leagueoflegendsproject.Helpers.TestUtils.Constants;
 import leagueoflegendsproject.Models.Database.Champion.Champion;
 import leagueoflegendsproject.Models.Database.Keys.MatchParticipantKey;
@@ -23,30 +25,37 @@ import java.util.Set;
 public class MatchParticipant {
 
     @EmbeddedId
+    @JsonIgnore
     private MatchParticipantKey matchParticipantKey = new MatchParticipantKey();
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     @JoinColumn(name = "summoner_summoner_id")
     @MapsId(value = "summonerId")
+    @JsonBackReference
     private Summoner summoner;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     @JoinColumn(name = "Match_match_id")
     @MapsId(value = "matchId")
+    @JsonIgnore
     private Match match;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "champion_id")
+    @JsonIgnore
     private Champion champion;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Team_team_id")
+    @JsonIgnore
     private Team team;
 
-    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<ParticipantItems> participantItemsSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "matchParticipant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<MatchParticipantPerk> matchParticipantPerkSet = new HashSet<>();
 
     public void addParticipantItemChild(ParticipantItems participantsItems) {

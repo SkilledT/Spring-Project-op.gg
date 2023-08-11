@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Services.DbServices;
 
 import com.google.gson.reflect.TypeToken;
+import leagueoflegendsproject.DTOs.MatchDetailsDto;
 import leagueoflegendsproject.DTOs.PlayersChampionStatsDto;
 import leagueoflegendsproject.DTOs.PreferedRoleDto;
 import leagueoflegendsproject.Helpers.FileUtils;
@@ -18,12 +19,16 @@ import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
 import leagueoflegendsproject.Models.LoLApi.Matches.matchId.ParticipantsItem;
 import leagueoflegendsproject.Repositories.*;
 import leagueoflegendsproject.Services.HttpServices.HttpSummonerService;
+import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategy;
 import leagueoflegendsproject.Strategies.RoleStrategies.PerformanceStrategyFactory;
+import leagueoflegendsproject.Strategies.RoleStrategies.TopPerformanceStrategy;
 import leagueoflegendsproject.Utils.MatchParticipantUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -35,10 +40,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -58,22 +63,47 @@ class DbMatchServiceTest {
     private HttpSummonerService mockHttpSummonerService;
 
 
-    @Autowired private SummonerRepository summonerRepository;
-    @Autowired private ItemRepository itemRepository;
-    @Autowired private TeamRepository teamRepository;
-    @Autowired private MatchRepository matchRepository;
-    @Autowired private ParticipantItemsRepository participantItemsRepository;
-    @Autowired private MatchParticipantRepository matchParticipantRepository;
-    @Autowired private BanRepository banRepository;
-    @Autowired private MatchTeamRepository matchTeamRepository;
-    @Autowired private ChampionRepository championRepository;
-    @Autowired private TeamObjectiveRepository teamObjectiveRepository;
-    @Autowired private ObjectiveRepository objectiveRepository;
-    @Autowired private MatchParticipantPerkRepository matchParticipantPerkRepository;
-    @Autowired private PerkRepository perkRepository;
-    @Autowired private HttpSummonerService httpSummonerService;
-    @Autowired private PerformanceStrategyFactory performanceStrategyFactory;
-    @Autowired private MatchParticipantUtils matchParticipantUtils;
+    @Autowired
+    private SummonerRepository summonerRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private TeamRepository teamRepository;
+    @Autowired
+    private MatchRepository matchRepository;
+    @Autowired
+    private ParticipantItemsRepository participantItemsRepository;
+    @Autowired
+    private MatchParticipantRepository matchParticipantRepository;
+    @Autowired
+    private BanRepository banRepository;
+    @Autowired
+    private MatchTeamRepository matchTeamRepository;
+    @Autowired
+    private ChampionRepository championRepository;
+    @Autowired
+    private TeamObjectiveRepository teamObjectiveRepository;
+    @Autowired
+    private ObjectiveRepository objectiveRepository;
+    @Autowired
+    private MatchParticipantPerkRepository matchParticipantPerkRepository;
+    @Autowired
+    private PerkRepository perkRepository;
+    @Autowired
+    private HttpSummonerService httpSummonerService;
+    @Autowired
+    private PerformanceStrategyFactory performanceStrategyFactory;
+    @Autowired
+    private MatchParticipantUtils matchParticipantUtils;
+
+    @Mock
+    private MatchRepository matchRepositoryMock;
+    @Mock
+    private MatchParticipantRepository matchParticipantRepositoryMock;
+    @Mock
+    private PerformanceStrategyFactory performanceStrategyFactoryMock;
+    @InjectMocks
+    private DbMatchService matchServiceMock;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -121,13 +151,14 @@ class DbMatchServiceTest {
         leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match match = FileUtils.parseFileToObject(matchResponsePath, Match.class);
         Set<Integer> teamIds = match.getInfo().getParticipants().stream().map(ParticipantsItem::getTeamId).collect(Collectors.toSet());
 
-        String summonerResponsesPath = Objects.requireNonNull(getClass().getClassLoader().getResource("ApiSummoners/SummonerList.json")).getPath();;
+        String summonerResponsesPath = Objects.requireNonNull(getClass().getClassLoader().getResource("ApiSummoners/SummonerList.json")).getPath();
+        ;
         SummonerLeagueResponseItem[][] summonerLeague = FileUtils.parseFileToObject(summonerResponsesPath, SummonerLeagueResponseItem[][].class);
         List<SummonerLeagueResponseItem> summonerLeagueResponseItems = new ArrayList<>();
 
         for (SummonerLeagueResponseItem[] items : summonerLeague) {
             for (SummonerLeagueResponseItem item : items) {
-                if(item.getQueueType().equals("RANKED_SOLO_5x5")) {
+                if (item.getQueueType().equals("RANKED_SOLO_5x5")) {
                     summonerLeagueResponseItems.add(item);
                 }
             }
@@ -270,4 +301,106 @@ class DbMatchServiceTest {
         assertEquals(expectedResult.size(), actualResult.join().size(), "Size is not the same");
         assertEquals(expectedResult, actualResult, "Results are not the same");
     }
+
+    @Test
+    void shouldReturnEmptyListIfNoMatchesFound() {
+        // given
+        String nickname = "test";
+        when(matchRepository.findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname))
+                .thenReturn(Collections.emptyList());
+
+        // when
+        List<MatchDetailsDto> result = matchServiceMock.getMatchesByNickname(nickname);
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void shouldReturnMatchDetailsDtoList() {
+        // given
+        String nickname = "test";
+        leagueoflegendsproject.Models.Database.Match match = new leagueoflegendsproject.Models.Database.Match();
+        match.setGameCreation(123456789L);
+        MatchParticipant matchParticipant = new MatchParticipant();
+        matchParticipant.setMatch(match);
+        matchParticipant.setChampionName("champion");
+        matchParticipant.setAssists(5);
+        matchParticipant.setKills(10);
+        matchParticipant.setDeaths(2);
+        matchParticipant.setWin(true);
+        matchParticipant.setTotalMinionsKilled(150);
+        matchParticipant.setChampLvl(18);
+        matchParticipant.setIndividualPosition(Constants.MatchParticipantConstants.IndividualPosition.TOP);
+        matchParticipant.setSummoner1Id(1);
+        matchParticipant.setSummoner2Id(2);
+        matchParticipant.setVisionWardsBoughtInGame(3);
+        matchParticipant.setParticipantItemsSet(Collections.singleton(new ParticipantItems()));
+        matchParticipant.setSummoner(new Summoner());
+        when(matchRepository.findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname))
+                .thenReturn(Collections.singletonList(match));
+        when(matchParticipantRepository.findAllById(Collections.singletonList(matchParticipant.getMatchParticipantKey())))
+                .thenReturn(Collections.singletonList(matchParticipant));
+
+        // when
+        List<MatchDetailsDto> result = matchServiceMock.getMatchesByNickname(nickname);
+
+        // then
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getChampionName()).isEqualTo(matchParticipant.getChampionName());
+        assertThat(result.get(0).getAssists()).isEqualTo(matchParticipant.getAssists());
+        assertThat(result.get(0).getKills()).isEqualTo(matchParticipant.getKills());
+        assertThat(result.get(0).getDeaths()).isEqualTo(matchParticipant.getDeaths());
+        assertThat(result.get(0).isWin()).isEqualTo(matchParticipant.getWin());
+        assertThat(result.get(0).getKilledMinions()).isEqualTo(matchParticipant.getTotalMinionsKilled());
+        assertThat(result.get(0).getChampLvl()).isEqualTo(matchParticipant.getChampLvl());
+        assertThat(result.get(0).getPosition()).isEqualTo(matchParticipant.getIndividualPosition());
+        assertThat(result.get(0).getSummoner1Id()).isEqualTo(matchParticipant.getSummoner1Id());
+        assertThat(result.get(0).getSummoner2Id()).isEqualTo(matchParticipant.getSummoner2Id());
+    }
+
+    @Test
+    public void getMatchesByNickname_shouldReturnEmptyList_whenNoMatchesFound() {
+        // given
+        String nickname = "nonExistingNickname";
+        when(matchRepository.findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname)).thenReturn(Collections.emptyList());
+
+        // when
+        List<MatchDetailsDto> result = matchServiceMock.getMatchesByNickname(nickname);
+
+        // then
+        assertTrue(result.isEmpty());
+        verify(matchRepository, times(1)).findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname);
+        verifyNoMoreInteractions(matchRepository, matchParticipantRepository, performanceStrategyFactory);
+    }
+
+    @Test
+    public void getMatchesByNickname_shouldReturnMatchDetailsDtoList() {
+        // given
+        String nickname = "testNickname";
+        leagueoflegendsproject.Models.Database.Match match1 = new leagueoflegendsproject.Models.Database.Match();
+        match1.setGameCreation(1L);
+        MatchParticipant matchParticipant1 = new MatchParticipantBuilder().withMatch(match1).build();
+        MatchParticipantKey matchParticipantKey1 = new MatchParticipantKey();
+        matchParticipant1.setMatchParticipantKey(matchParticipantKey1);
+        match1.setMatchParticipantSet(Collections.singleton(matchParticipant1));
+        List<leagueoflegendsproject.Models.Database.Match> matches = List.of(match1);
+        when(matchRepository.findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname)).thenReturn(matches);
+        List<MatchParticipant> matchParticipants = Collections.singletonList(matchParticipant1);
+        when(matchParticipantRepository.findAllById(Collections.singletonList(matchParticipantKey1))).thenReturn(matchParticipants);
+        PerformanceStrategy performanceStrategy = mock(PerformanceStrategy.class);
+        when(performanceStrategyFactory.findStrategyByIndividualPosition(any())).thenReturn(performanceStrategy);
+
+        // when
+        List<MatchDetailsDto> result = matchServiceMock.getMatchesByNickname(nickname);
+
+        // then
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
+        verify(matchRepository, times(1)).findBySummoner_SummonerNicknameAndFilteredOrderByMatch_GameCreationDesc(nickname);
+        verify(matchParticipantRepository, times(1)).findAllById(Collections.singletonList(matchParticipantKey1));
+        verify(performanceStrategyFactory, times(1)).findStrategyByIndividualPosition(any());
+        verifyNoMoreInteractions(matchRepository, matchParticipantRepository, performanceStrategyFactory);
+    }
+
 }

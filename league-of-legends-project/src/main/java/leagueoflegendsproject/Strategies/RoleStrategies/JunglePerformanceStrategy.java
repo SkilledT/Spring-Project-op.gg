@@ -37,11 +37,6 @@ public class JunglePerformanceStrategy implements PerformanceStrategy {
     }
 
     @Override
-    public PerformanceStrategyName getStrategyName() {
-        return PerformanceStrategyName.JunglePerformanceStrategy;
-    }
-
-    @Override
     public Constants.MatchParticipantConstants.IndividualPosition getIndividualPosition() {
         return Constants.MatchParticipantConstants.IndividualPosition.JUNGLE;
     }

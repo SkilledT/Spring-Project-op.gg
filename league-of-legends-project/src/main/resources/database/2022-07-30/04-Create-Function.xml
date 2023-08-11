@@ -1,0 +1,139 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<changeSet id="add_functions" author="your_name">
+<sql>
+    <![CDATA[
+      CREATE FUNCTION dbo.championStats(
+        @champName varchar(100)
+      )
+      RETURNS @temptable2 TABLE (
+        champion  varchar(50),
+        win_ratio double precision,
+        games     int
+      )
+      AS
+      BEGIN
+        declare @match_id varchar(30), @team_id int
+     declare @temptable table
+                        (
+                            champion varchar(50),
+                            icon_url varchar(255),
+                            match_id varchar(255),
+                            isWin    bit
+                        )
+     declare cur cursor for
+         select m.match_id, Team_team_id
+         from Match_participant
+                  inner join Match M on Match_participant.Match_match_id = M.match_id
+         where champion_name = @champName
+     open cur
+     fetch next from cur into @match_id, @team_id
+     while @@FETCH_STATUS = 0
+         begin
+             insert into @temptable
+             select champion_name, icon_url, match_id, Match_participant.win
+             from Match_participant
+                      inner join Champion C
+                                 on Match_participant.champion_id = C.champion_id
+                      inner join Match M2
+                                 on Match_participant.Match_match_id = M2.match_id
+             where M2.match_id = @match_id
+               and Team_team_id <> @team_id
+             fetch next from cur into @match_id, @team_id
+         end
+     close cur
+     deallocate cur
+
+     DECLARE @Table1 TABLE
+                     (
+                         champion  varchar(50),
+                         victories double precision
+                     )
+     insert into @Table1
+     select champion, count(*) 'victories'
+     from @temptable
+     where isWin = 1
+     group by champion
+
+     DECLARE @Table2 TABLE
+                     (
+                         champion varchar(50),
+                         defeats  double precision
+                     )
+     insert into @Table2
+     select champion, count(*) 'defeats'
+     from @temptable
+     where isWin = 0
+     group by champion
+
+     DECLARE @ResultTable TABLE
+                          (
+                              champion  varchar(50),
+                              victories double precision,
+                              defeats   double precision
+                          )
+     insert into @ResultTable
+     SELECT ISNULL(T1.champion, T2.champion) AS champion,
+            ISNULL(T1.victories, 0)          AS Value1,
+            ISNULL(T2.defeats, 0)            AS Value2
+     FROM @Table1 T1
+              FULL OUTER JOIN @Table2 T2 ON T2.champion = T1.champion
+
+     insert into @temptable2
+     select champion, (victories / (victories + defeats)) 'win_ratio', (victories + defeats) 'games'
+     from @ResultTable
+     where (victories + defeats > 3)
+     return
+      END;
+
+      CREATE FUNCTION dbo.championWinRatio(
+        @champName varchar(100)
+      )
+      RETURNS double precision
+      AS
+      BEGIN
+        declare @wins double precision, @games double precision
+     select @wins = count(*)
+     from Match_participant
+     where champion_name = @champName
+       and win = 1
+     select @games = count(*)
+     from Match_participant
+     where champion_name = @champName
+     return (@wins / @games) * 100
+      END;
+
+      CREATE FUNCTION dbo.mostPopularPerTreeForChampion(
+        @champName varchar(30)
+      )
+      RETURNS int
+      AS
+      BEGIN
+        return (
+         select top 1 p.tree_number
+         from Match_participant
+                  inner join Match_Participant_Perk MPP
+                             on Match_participant.Summoner_summoner_id = MPP.participant_match_summoner_id
+                                 and Match_participant.Match_match_id = MPP.participant_match_match_id
+                  inner join Perk P
+                             on MPP.perk_id = P.id
+         where champion_name = @champName
+         group by p.tree_number
+         having count(*) >= ALL (
+             select count(*)
+             from Match_participant
+                      inner join Match_Participant_Perk M
+                                 on Match_participant.Summoner_summoner_id = M.participant_match_summoner_id
+                                     and Match_participant.Match_match_id = M.participant_match_match_id
+                      inner join Perk P2
+                                 on M.perk_id = P2.id
+             where champion_name = @champName
+             group by P2.tree_number
+         )
+     )
+      END;
+    ]]>
+</sql>
+</changeSet>
+</databaseChangeLog>

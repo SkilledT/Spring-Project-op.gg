@@ -9,6 +9,7 @@ import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.Response;
 import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
 import leagueoflegendsproject.Services.DbServices.DbSummonerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Slf4j
 public class HttpSummonerService {
     private final RiotHttpClient riotHttpClient;
     private final DbSummonerService dbSummonerService;
@@ -37,12 +39,10 @@ public class HttpSummonerService {
         try {
             responseWrapper = riotHttpClient.get(url, Summoner.class);
         } catch (IOException | InterruptedException e) {
-            //throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
-            System.out.println("Unable to retrieve object, message: " + e.getMessage());
+            log.error("Unable to retrieve object, message: " + e.getMessage());
         }
         if (responseWrapper == null || !responseWrapper.isSuccess())
-            //throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
-            System.out.println("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
+            log.error("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         return responseWrapper.getResponse();
     }
 

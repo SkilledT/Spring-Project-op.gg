@@ -1,0 +1,486 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="48536 (generated)" id="1685817984608-1">
+        <createTable tableName="champion">
+            <column computed="false" name="champion_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__C9CA7B2FBAEA04B7"/>
+            </column>
+            <column computed="false" name="blurb" type="varchar(MAX)"/>
+            <column computed="false" name="icon_url" type="varchar(MAX)"/>
+            <column computed="false" name="name" type="varchar(MAX)"/>
+            <column computed="false" name="title" type="varchar(MAX)"/>
+            <column computed="false" name="image_id" type="int"/>
+            <column computed="false" name="info_id" type="int"/>
+            <column computed="false" name="stats_id" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-2">
+        <createTable tableName="champion_with_win_ratio_entity">
+            <column computed="false" name="name" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__72E12F1AA9DFBDC5"/>
+            </column>
+            <column computed="false" name="games" type="int"/>
+            <column computed="false" name="icon_url" type="varchar(255)"/>
+            <column computed="false" name="win_ratio" type="float(53)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-3">
+        <createTable tableName="match">
+            <column computed="false" name="match_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__match__9D7FCBA3F28EF477"/>
+            </column>
+            <column computed="false" name="game_creation" type="bigint"/>
+            <column computed="false" name="game_duration" type="int"/>
+            <column computed="false" name="game_id" type="int"/>
+            <column computed="false" name="game_mode" type="varchar(255)"/>
+            <column computed="false" name="game_start_timestamp" type="int"/>
+            <column computed="false" name="game_type" type="varchar(255)"/>
+            <column computed="false" name="map_id" type="int"/>
+            <column computed="false" name="platform_id" type="varchar(255)"/>
+            <column computed="false" name="queue_id" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-4">
+        <createTable tableName="match_participant">
+            <column computed="false" name="match_match_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__match_pa__E6FF119A9E5BE08E"/>
+            </column>
+            <column computed="false" name="summoner_summoner_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__match_pa__E6FF119A9E5BE08E"/>
+            </column>
+            <column computed="false" name="inhibitor_kills" type="int"/>
+            <column computed="false" name="kills" type="int"/>
+            <column computed="false" name="assists" type="int"/>
+            <column computed="false" name="baron_kills" type="int"/>
+            <column computed="false" name="bounty_level" type="int"/>
+            <column computed="false" name="champ_experience" type="int"/>
+            <column computed="false" name="champ_lvl" type="int"/>
+            <column computed="false" name="champion_name" type="varchar(255)"/>
+            <column computed="false" name="champion_transform" type="int"/>
+            <column computed="false" name="consumables_purchased" type="int"/>
+            <column computed="false" name="damage_dealt_to_objectives" type="int"/>
+            <column computed="false" name="damage_dealts_to_buildings" type="int"/>
+            <column computed="false" name="damage_dealts_to_turrets" type="int"/>
+            <column computed="false" name="damage_self_mitigated" type="int"/>
+            <column computed="false" name="deaths" type="int"/>
+            <column computed="false" name="detector_wards_placed" type="int"/>
+            <column computed="false" name="double_kills" type="int"/>
+            <column computed="false" name="dragon_kills" type="int"/>
+            <column computed="false" name="first_blood_assist" type="int"/>
+            <column computed="false" name="first_blood_kill" type="int"/>
+            <column computed="false" name="first_tower_assist" type="int"/>
+            <column computed="false" name="first_tower_kill" type="int"/>
+            <column computed="false" name="game_ended_in_early_surrender" type="int"/>
+            <column computed="false" name="game_ended_in_surrender" type="int"/>
+            <column computed="false" name="gold_earned" type="int"/>
+            <column computed="false" name="gold_spent" type="int"/>
+            <column computed="false" name="individual_position" type="varchar(255)"/>
+            <column computed="false" name="inhibitor_takedowns" type="int"/>
+            <column computed="false" name="inhibitors_lost" type="int"/>
+            <column computed="false" name="items_purchased" type="int"/>
+            <column computed="false" name="lane" type="varchar(255)"/>
+            <column computed="false" name="largest_critical_strike" type="int"/>
+            <column computed="false" name="largest_killing_spree" type="int"/>
+            <column computed="false" name="largest_multi_kill" type="int"/>
+            <column computed="false" name="longest_time_spent_living" type="int"/>
+            <column computed="false" name="magic_damage_dealt" type="int"/>
+            <column computed="false" name="magic_damage_dealt_to_champions" type="int"/>
+            <column computed="false" name="magic_damage_taken" type="int"/>
+            <column computed="false" name="neutral_minions_killed" type="int"/>
+            <column computed="false" name="nexus_kills" type="int"/>
+            <column computed="false" name="nexus_lost" type="int"/>
+            <column computed="false" name="nexus_takedowns" type="int"/>
+            <column computed="false" name="objectives_stolen" type="int"/>
+            <column computed="false" name="objectives_stolen_assists" type="int"/>
+            <column computed="false" name="participant_id" type="int"/>
+            <column computed="false" name="pentakills" type="int"/>
+            <column computed="false" name="physical_damage_dealt" type="int"/>
+            <column computed="false" name="physical_damage_dealt_to_champions" type="int"/>
+            <column computed="false" name="physical_damage_taken" type="int"/>
+            <column computed="false" name="quadrakills" type="int"/>
+            <column computed="false" name="role" type="varchar(255)"/>
+            <column computed="false" name="sight_wards_bought_in_game" type="int"/>
+            <column computed="false" name="spell1_casts" type="int"/>
+            <column computed="false" name="spell2_cast" type="int"/>
+            <column computed="false" name="spell3_casts" type="int"/>
+            <column computed="false" name="spell4_casts" type="int"/>
+            <column computed="false" name="summoner1_casts" type="int"/>
+            <column computed="false" name="summoner1_id" type="int"/>
+            <column computed="false" name="summoner2_casts" type="int"/>
+            <column computed="false" name="summoner2_id" type="int"/>
+            <column computed="false" name="team_early_surrender" type="int"/>
+            <column computed="false" name="team_position" type="varchar(255)"/>
+            <column computed="false" name="time_ccing_others" type="int"/>
+            <column computed="false" name="time_played" type="int"/>
+            <column computed="false" name="total_damage_dealt" type="int"/>
+            <column computed="false" name="total_damage_dealt_to_champions" type="int"/>
+            <column computed="false" name="total_damage_shielded_on_teammates" type="int"/>
+            <column computed="false" name="total_damage_taken" type="int"/>
+            <column computed="false" name="total_heal" type="int"/>
+            <column computed="false" name="total_heals_on_teammates" type="int"/>
+            <column computed="false" name="total_minions_killed" type="int"/>
+            <column computed="false" name="total_time_cc_dealt" type="int"/>
+            <column computed="false" name="total_time_spent_dead" type="int"/>
+            <column computed="false" name="total_units_healed" type="int"/>
+            <column computed="false" name="triple_kills" type="int"/>
+            <column computed="false" name="true_damage_dealt" type="int"/>
+            <column computed="false" name="true_damage_dealt_to_champions" type="int"/>
+            <column computed="false" name="true_damage_taken" type="int"/>
+            <column computed="false" name="turret_kills" type="int"/>
+            <column computed="false" name="turret_lost" type="int"/>
+            <column computed="false" name="turret_takedowns" type="int"/>
+            <column computed="false" name="unreal_kills" type="int"/>
+            <column computed="false" name="vision_score" type="int"/>
+            <column computed="false" name="vision_wards_bought_in_game" type="int"/>
+            <column computed="false" name="wards_killed" type="int"/>
+            <column computed="false" name="wards_placed" type="int"/>
+            <column computed="false" name="win" type="int"/>
+            <column computed="false" name="champion_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="team_team_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="kill_participation" type="float(53)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-5">
+        <createTable tableName="summoner">
+            <column computed="false" name="summoner_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__summoner__495DA3B6F7376645"/>
+            </column>
+            <column computed="false" name="league_points" type="int"/>
+            <column computed="false" name="losses" type="int"/>
+            <column computed="false" name="lvl" type="int"/>
+            <column computed="false" name="profile_icon_id" type="int"/>
+            <column computed="false" name="rank" type="varchar(255)"/>
+            <column computed="false" name="summoner_nickname" type="varchar(255)"/>
+            <column computed="false" name="tier" type="varchar(255)"/>
+            <column computed="false" name="wins" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-6">
+        <createTable tableName="participant_items">
+            <column computed="false" name="item_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ParticipantItem"/>
+            </column>
+            <column computed="false" name="match_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ParticipantItem"/>
+            </column>
+            <column computed="false" name="summoner_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ParticipantItem"/>
+            </column>
+            <column computed="false" defaultValueConstraintName="DF__participa__posit__5070F446" defaultValueNumeric="0" name="position" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ParticipantItem"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-7">
+        <createTable tableName="team_objective">
+            <column computed="false" name="objective_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="first" type="int"/>
+            <column computed="false" name="kills" type="int"/>
+            <column computed="false" name="match_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="team_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-8">
+        <createTable tableName="match_team">
+            <column computed="false" name="match_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__match_te__42FD15783FCC08D2"/>
+            </column>
+            <column computed="false" name="team_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__match_te__42FD15783FCC08D2"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-9">
+        <createTable tableName="ban">
+            <column computed="false" name="champion_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ban__5DE5AA780DB07B9C"/>
+            </column>
+            <column computed="false" name="pick_turn" type="int"/>
+            <column computed="false" name="match_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ban__5DE5AA780DB07B9C"/>
+            </column>
+            <column computed="false" name="team_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__ban__5DE5AA780DB07B9C"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-10">
+        <createTable tableName="item_cook_book">
+            <column autoIncrement="true" computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__item_coo__3213E83F46322031"/>
+            </column>
+            <column computed="false" name="component_id" type="int"/>
+            <column computed="false" name="item_id" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-11">
+        <createTable tableName="champion_perk">
+            <column computed="false" name="champion_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__E33EFE303CB83D54"/>
+            </column>
+            <column computed="false" name="perk_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__E33EFE303CB83D54"/>
+            </column>
+            <column computed="false" name="type" type="varchar(MAX)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-12">
+        <createTable tableName="match_participant_perk">
+            <column computed="false" name="perk_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="participant_match_match_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column computed="false" name="participant_match_summoner_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-13">
+        <createTable tableName="champion_tag">
+            <column computed="false" name="champion_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__BDE3110416BF3CAD"/>
+            </column>
+            <column computed="false" name="tag_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__BDE3110416BF3CAD"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-14">
+        <createTable tableName="item">
+            <column computed="false" name="item_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__item__52020FDD4E1DDCC6"/>
+            </column>
+            <column computed="false" name="base_cost" type="int"/>
+            <column computed="false" name="description" type="varchar(MAX)"/>
+            <column computed="false" name="icon_url" type="varchar(MAX)"/>
+            <column computed="false" name="name" type="varchar(MAX)"/>
+            <column computed="false" name="plain_text" type="varchar(MAX)"/>
+            <column computed="false" name="sell" type="int"/>
+            <column computed="false" name="total_cost" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-15">
+        <createTable tableName="perk">
+            <column computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__perk__3213E83FD09E61A4"/>
+            </column>
+            <column computed="false" name="icon" type="varchar(255)"/>
+            <column computed="false" name="long_desc" type="varchar(MAX)"/>
+            <column computed="false" name="name" type="varchar(MAX)"/>
+            <column computed="false" name="short_desc" type="varchar(MAX)"/>
+            <column computed="false" name="slot_number" type="int"/>
+            <column computed="false" name="tree_number" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-16">
+        <createTable tableName="application_user">
+            <column computed="false" name="username" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__applicat__F3DBC573C9430CBA"/>
+            </column>
+            <column computed="false" name="isaccountnonexpired" type="int"/>
+            <column computed="false" name="isaccountnonlocked" type="int"/>
+            <column computed="false" name="iscredentialsnonexpired" type="int"/>
+            <column computed="false" name="isenabled" type="int"/>
+            <column computed="false" name="password" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-17">
+        <createTable tableName="champion_stats">
+            <column computed="false" name="champion_name" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__D3056D859BE5D6D0"/>
+            </column>
+            <column computed="false" name="enemy_champion" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__champion__D3056D859BE5D6D0"/>
+            </column>
+            <column computed="false" name="games" type="int"/>
+            <column computed="false" name="win_ratio" type="float(53)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-18">
+        <createTable tableName="image">
+            <column autoIncrement="true" computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__image__3213E83F9A76461A"/>
+            </column>
+            <column computed="false" name="full" type="varchar(MAX)"/>
+            <column computed="false" name="group" type="varchar(MAX)"/>
+            <column computed="false" name="h" type="int"/>
+            <column computed="false" name="sprite" type="varchar(MAX)"/>
+            <column computed="false" name="w" type="int"/>
+            <column computed="false" name="x" type="int"/>
+            <column computed="false" name="y" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-19">
+        <createTable tableName="info">
+            <column autoIncrement="true" computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__info__3213E83FF63829AD"/>
+            </column>
+            <column computed="false" name="attack" type="int"/>
+            <column computed="false" name="defense" type="int"/>
+            <column computed="false" name="difficulty" type="int"/>
+            <column computed="false" name="magic" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-20">
+        <createTable tableName="objective">
+            <column computed="false" name="name" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__objectiv__72E12F1ADA4AB03D"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-21">
+        <createTable tableName="stats">
+            <column autoIncrement="true" computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__stats__3213E83FE8059B4A"/>
+            </column>
+            <column computed="false" name="armor" type="float(53)"/>
+            <column computed="false" name="armorperlevel" type="float(53)"/>
+            <column computed="false" name="attackdamage" type="float(53)"/>
+            <column computed="false" name="attackdamageperlevel" type="float(53)"/>
+            <column computed="false" name="attackrange" type="float(53)"/>
+            <column computed="false" name="attackspeed" type="float(53)"/>
+            <column computed="false" name="attackspeedperlevel" type="float(53)"/>
+            <column computed="false" name="crit" type="float(53)"/>
+            <column computed="false" name="critperlevel" type="float(53)"/>
+            <column computed="false" name="hp" type="float(53)"/>
+            <column computed="false" name="hpperlevel" type="float(53)"/>
+            <column computed="false" name="hpregen" type="float(53)"/>
+            <column computed="false" name="hpregenperlevel" type="float(53)"/>
+            <column computed="false" name="movespeed" type="float(53)"/>
+            <column computed="false" name="mp" type="float(53)"/>
+            <column computed="false" name="mpperlevel" type="float(53)"/>
+            <column computed="false" name="mpregen" type="float(53)"/>
+            <column computed="false" name="mpregenperlevel" type="float(53)"/>
+            <column computed="false" name="spellblock" type="float(53)"/>
+            <column computed="false" name="spellblockperlevel" type="float(53)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-22">
+        <createTable tableName="tag">
+            <column autoIncrement="true" computed="false" name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__tag__3213E83F29F5C4A3"/>
+            </column>
+            <column computed="false" name="name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-23">
+        <createTable tableName="team">
+            <column autoIncrement="true" computed="false" name="team_id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK__team__F82DEDBC5585E540"/>
+            </column>
+            <column computed="false" name="riot_team_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-24">
+        <createTable tableName="match_participant_average_performance">
+            <column autoIncrement="true" computed="false" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_matchparticipantaverageperformance"/>
+            </column>
+            <column computed="false" name="individual_position" type="varchar(255)"/>
+            <column computed="false" name="tier" type="varchar(255)"/>
+            <column computed="false" name="avg_kill_participation" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_vision_score" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_stolen_obj" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_dealt_damage_to_champions" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_received_damage" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_pentakill" type="decimal(18, 2)"/>
+            <column computed="false" name="avg_total_minions_killed" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_kill_participation" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_vision_score" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_stolen_obj" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_dealt_damage_to_champions" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_received_damage" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_pentakills" type="decimal(18, 2)"/>
+            <column computed="false" name="stdev_of_total_minions_killed" type="decimal(18, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-25">
+        <addForeignKeyConstraint baseColumnNames="match_match_id" baseTableName="match_participant" constraintName="FKgupw0mja9f4cyedvjoodopfn1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_id" referencedTableName="match" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-26">
+        <addForeignKeyConstraint baseColumnNames="champion_id" baseTableName="match_participant" constraintName="FKmi08deu6kp3o0lutovlnqiyn9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="champion_id" referencedTableName="champion" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-27">
+        <addForeignKeyConstraint baseColumnNames="match_id,summoner_id" baseTableName="participant_items" constraintName="FKodojas1kix997w8cywc97s6ga" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_match_id,summoner_summoner_id" referencedTableName="match_participant" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-28">
+        <addPrimaryKey columnNames="match_id, team_id, objective_name" constraintName="PK__team_obj__9071688C0043C86F" tableName="team_objective"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-29">
+        <addForeignKeyConstraint baseColumnNames="match_id" baseTableName="match_team" constraintName="FK48uy7lsuj12rwhg2c6wo353s0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_id" referencedTableName="match" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-30">
+        <addForeignKeyConstraint baseColumnNames="champion_id" baseTableName="ban" constraintName="FK6xshxc1cu1yvxoc9ko2hlom4l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="champion_id" referencedTableName="champion" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-31">
+        <addForeignKeyConstraint baseColumnNames="match_id,team_id" baseTableName="ban" constraintName="FKdms8ohv2cei6huq6275j8c8ct" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_id,team_id" referencedTableName="match_team" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-32">
+        <addForeignKeyConstraint baseColumnNames="champion_id" baseTableName="champion_perk" constraintName="FK8n2yl9j6amps9lvwsogp208s2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="champion_id" referencedTableName="champion" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-33">
+        <addForeignKeyConstraint baseColumnNames="participant_match_match_id,participant_match_summoner_id" baseTableName="match_participant_perk" constraintName="FKep8aukqvl535pic08vdu0fso4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_match_id,summoner_summoner_id" referencedTableName="match_participant" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-34">
+        <addPrimaryKey columnNames="participant_match_match_id, participant_match_summoner_id, perk_id" constraintName="PK__match_pa__A07180A1DF05E3E8" tableName="match_participant_perk"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-35">
+        <addForeignKeyConstraint baseColumnNames="champion_id" baseTableName="champion_tag" constraintName="FKhrs43b7bsohemxab22ws3aff5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="champion_id" referencedTableName="champion" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-36">
+        <addForeignKeyConstraint baseColumnNames="stats_id" baseTableName="champion" constraintName="FKc6n6t38rjulhqcmo41hv5o5g8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="stats" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-37">
+        <addForeignKeyConstraint baseColumnNames="info_id" baseTableName="champion" constraintName="FKe96ieyt47v7gxxurhoi5rh57v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="info" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-38">
+        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="champion" constraintName="FKq8d4nmcsnmtclrq7ka23xd4h2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-39">
+        <addForeignKeyConstraint baseColumnNames="team_team_id" baseTableName="match_participant" constraintName="FKfxwsems2skk43wgophjrwboaf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="team_id" referencedTableName="team" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-40">
+        <addForeignKeyConstraint baseColumnNames="summoner_summoner_id" baseTableName="match_participant" constraintName="FKhcvbrphsvbs4mlcprmduexg2t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="summoner_id" referencedTableName="summoner" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-41">
+        <addForeignKeyConstraint baseColumnNames="item_id" baseTableName="participant_items" constraintName="FKasdul5ertcly9urxoxri2ro0m" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="item_id" referencedTableName="item" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-42">
+        <addForeignKeyConstraint baseColumnNames="match_id,team_id" baseTableName="team_objective" constraintName="FK19emi74fv8f5o1thl9a1jyocs" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="match_id,team_id" referencedTableName="match_team" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-43">
+        <addForeignKeyConstraint baseColumnNames="objective_name" baseTableName="team_objective" constraintName="FK7g5shlg3so99vdn9re99w1kvd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="objective" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-44">
+        <addForeignKeyConstraint baseColumnNames="team_id" baseTableName="match_team" constraintName="FKxo5n3gccka8uuahnuh0xo9w7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="team_id" referencedTableName="team" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-45">
+        <addForeignKeyConstraint baseColumnNames="component_id" baseTableName="item_cook_book" constraintName="FK7rxktnn02xhevp7py1q852ld0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="item_id" referencedTableName="item" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-46">
+        <addForeignKeyConstraint baseColumnNames="item_id" baseTableName="item_cook_book" constraintName="FKbdejvnsi2ptscefl04m3eeat5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="item_id" referencedTableName="item" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-47">
+        <addForeignKeyConstraint baseColumnNames="perk_id" baseTableName="champion_perk" constraintName="FKib262qv4u6tyviwljspc984vd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="perk" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-48">
+        <addForeignKeyConstraint baseColumnNames="perk_id" baseTableName="match_participant_perk" constraintName="FKdf1mr4b1dq2lbm02qiut8qwhm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="perk" validate="true"/>
+    </changeSet>
+    <changeSet author="48536 (generated)" id="1685817984608-49">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="champion_tag" constraintName="FKr3hu6bg7br0xdy71au4br8ocj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tag" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,6 +1,7 @@
 package leagueoflegendsproject.Helpers.TestUtils;
 
 import leagueoflegendsproject.Models.Database.Champion.Champion;
+import leagueoflegendsproject.Models.Database.Match;
 import leagueoflegendsproject.Models.Database.MatchParticipant;
 
 public class MatchParticipantBuilder {
@@ -42,6 +43,11 @@ public class MatchParticipantBuilder {
 
     public MatchParticipantBuilder withTotalMinionsKilled(int totalMinionsKilled) {
         this.matchParticipant.setTotalMinionsKilled(totalMinionsKilled);
+        return this;
+    }
+
+    public MatchParticipantBuilder withMatch(Match match) {
+        this.matchParticipant.setMatch(match);
         return this;
     }
 

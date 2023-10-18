@@ -1,52 +1,56 @@
 package leagueoflegendsproject.v2.Processors;
 
-import leagueoflegendsproject.Models.LoLApi.Champions.ChampionItem;
-import leagueoflegendsproject.v2.Models.Champion;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Champions.ChampionItem;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.IntegrationChampionService;
+import leagueoflegendsproject.v2.Models.ChampionSnapshot;
 import leagueoflegendsproject.v2.Models.ChampionImage;
 import leagueoflegendsproject.v2.Models.ChampionInfo;
 import leagueoflegendsproject.v2.Models.ChampionStats;
 import leagueoflegendsproject.v2.Services.ChampionImageService;
 import leagueoflegendsproject.v2.Services.ChampionInfoService;
-import leagueoflegendsproject.v2.Services.ChampionService;
+import leagueoflegendsproject.v2.Services.ChampionSnapshotService;
 import leagueoflegendsproject.v2.Services.ChampionStatsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Component
+@Service
 @AllArgsConstructor
 @Transactional
 @Slf4j
 public class ChampionProcessor {
 
-    private final ChampionService championService;
+    private final ChampionSnapshotService championService;
     private final ChampionInfoService championInfoService;
     private final ChampionStatsService championStatsService;
     private final ChampionImageService championImageService;
-    private final leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.ChampionService
+    private final IntegrationChampionService
             integrationChampionService;
 
     public void fetchAndSaveChampions() {
         log.info("=============== START FETCHING CHAMPIONS ===============");
         List<ChampionItem> championItems = integrationChampionService.getChampions().getResponse();
         for (var championItem : championItems) {
-            if (championService.findByExternalId(championItem.getId()).isEmpty()) {
+            if (championService.findByNameAndVersion(championItem.getName(), championItem.getVersion()).isEmpty()) {
                 var champion = createChampion(championItem);
                 createChampionInfo(championItem, champion);
                 createChampionImage(championItem, champion);
                 createChampionStats(championItem, champion);
             } else {
                 // TODO: ADD AUDIT AND UPDATE ENTITY INSTEAD OF SKIPPING
-                log.error("Champion with external ID {} already exist and will not be proceed", championItem.getId());
+                log.error("Champion with name {} and version {} already exist and will not be proceed",
+                        championItem.getName(),
+                        championItem.getVersion());
             }
         }
         log.info("=============== END FETCHING CHAMPIONS ===============");
     }
 
-    private Champion createChampion(ChampionItem championItem) {
+    private ChampionSnapshot createChampion(ChampionItem championItem) {
         return championService.createAndSaveChampion(
                 championItem.getId(),
                 championItem.getKey(),
@@ -58,18 +62,18 @@ public class ChampionProcessor {
         );
     }
 
-    private ChampionInfo createChampionInfo(ChampionItem championItem, Champion champion) {
+    private ChampionInfo createChampionInfo(ChampionItem championItem, ChampionSnapshot championSnapshot) {
         var infoItem = championItem.getInfo();
         return championInfoService.createAndSave(
                 infoItem.getAttack(),
                 infoItem.getDefense(),
                 infoItem.getMagic(),
                 infoItem.getDifficulty(),
-                champion
+                championSnapshot
         );
     }
 
-    private ChampionImage createChampionImage(ChampionItem championItem, Champion champion) {
+    private ChampionImage createChampionImage(ChampionItem championItem, ChampionSnapshot championSnapshot) {
         var imageItem = championItem.getImage();
         return championImageService.createAndSave(
                 imageItem.getFull(),
@@ -79,11 +83,11 @@ public class ChampionProcessor {
                 imageItem.getY(),
                 imageItem.getW(),
                 imageItem.getH(),
-                champion
+                championSnapshot
         );
     }
 
-    private ChampionStats createChampionStats(ChampionItem championItem, Champion champion) {
+    private ChampionStats createChampionStats(ChampionItem championItem, ChampionSnapshot championSnapshot) {
         var statsItem = championItem.getStats();
         return championStatsService.createAndSave(
                 statsItem.getHp(),
@@ -106,7 +110,7 @@ public class ChampionProcessor {
                 statsItem.getAttackdamageperlevel(),
                 statsItem.getAttackspeedperlevel(),
                 statsItem.getAttackspeed(),
-                champion
+                championSnapshot
         );
     }
 }

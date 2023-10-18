@@ -1,13 +1,14 @@
 package leagueoflegendsproject.v2.Services;
 
-import leagueoflegendsproject.v2.Models.Champion;
+import leagueoflegendsproject.v2.Models.ChampionSnapshot;
 import leagueoflegendsproject.v2.Models.ChampionStats;
 import leagueoflegendsproject.v2.Repositories.ChampionStatsRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class ChampionStatsService {
 
     private final ChampionStatsRepository championStatsRepository;
@@ -32,9 +33,9 @@ public class ChampionStatsService {
                                 Double attackdamageperlevel,
                                 Double attackspeedperlevel,
                                 Double attackspeed,
-                                Champion champion) {
+                                ChampionSnapshot championSnapshot) {
         var stats = ChampionStats.builder()
-                .champion(champion)
+                .championSnapshot(championSnapshot)
                 .hp(hp)
                 .hpperlevel(hpperlevel)
                 .mp(mp)
@@ -56,7 +57,7 @@ public class ChampionStatsService {
                 .attackspeedperlevel(attackspeedperlevel)
                 .attackspeed(attackspeed)
                 .build();
-        champion.setStats(stats);
+        championSnapshot.setStats(stats);
         return stats;
     }
 
@@ -80,7 +81,7 @@ public class ChampionStatsService {
                                        Double attackdamageperlevel,
                                        Double attackspeedperlevel,
                                        Double attackspeed,
-                                       Champion champion) {
+                                       ChampionSnapshot championSnapshot) {
         return championStatsRepository.save(create(hp,
                 hpperlevel,
                 mp,
@@ -101,7 +102,7 @@ public class ChampionStatsService {
                 attackdamageperlevel,
                 attackspeedperlevel,
                 attackspeed,
-                champion));
+                championSnapshot));
     }
 }
 

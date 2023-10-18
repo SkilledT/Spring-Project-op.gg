@@ -3,10 +3,11 @@ package leagueoflegendsproject.v2.Services;
 import leagueoflegendsproject.v2.Models.Dragon;
 import leagueoflegendsproject.v2.Repositories.DragonRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class DragonService {
 
     private final DragonRepository dragonRepository;

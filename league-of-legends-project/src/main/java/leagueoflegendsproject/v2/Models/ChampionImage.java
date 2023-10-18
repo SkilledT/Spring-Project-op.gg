@@ -1,28 +1,24 @@
 package leagueoflegendsproject.v2.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class ChampionImage {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String full;
+    private String fullName;
     private String sprite;
-    private String group;
+    private String groupName;
 
     private Integer x;
     private Integer y;
@@ -31,5 +27,5 @@ public class ChampionImage {
 
     @OneToOne(mappedBy = "image")
     @JoinColumn
-    private Champion champion;
+    private ChampionSnapshot championSnapshot;
 }

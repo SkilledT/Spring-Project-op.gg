@@ -2,7 +2,7 @@
  {
    "champion_id": -1,
    "name": "-1",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/-1.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/-1.png",
    "title": null,
    "blurb": null,
    "info_id": null,
@@ -12,7 +12,7 @@
  {
    "champion_id": 1,
    "name": "Annie",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Annie.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Annie.png",
    "title": "the Dark Child",
    "blurb": "D",
    "info_id": "898",
@@ -22,7 +22,7 @@
  {
    "champion_id": 2,
    "name": "Olaf",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Olaf.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Olaf.png",
    "title": "the Berserker",
    "blurb": "A",
    "info_id": "966",
@@ -32,7 +32,7 @@
  {
    "champion_id": 3,
    "name": "Galio",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Galio.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Galio.png",
    "title": "the Colossus",
    "blurb": "O",
    "info_id": "890",
@@ -42,7 +42,7 @@
  {
    "champion_id": 4,
    "name": "TwistedFate",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/TwistedFate.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/TwistedFate.png",
    "title": "the Card Master",
    "blurb": "T",
    "info_id": "967",
@@ -52,7 +52,7 @@
  {
    "champion_id": 5,
    "name": "XinZhao",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/XinZhao.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/XinZhao.png",
    "title": "the Seneschal of Demacia",
    "blurb": "X",
    "info_id": "911",
@@ -62,7 +62,7 @@
  {
    "champion_id": 6,
    "name": "Urgot",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Urgot.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Urgot.png",
    "title": "the Dreadnought",
    "blurb": "O",
    "info_id": "888",
@@ -72,7 +72,7 @@
  {
    "champion_id": 7,
    "name": "Leblanc",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Leblanc.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Leblanc.png",
    "title": "the Deceiver",
    "blurb": "M",
    "info_id": "859",
@@ -82,7 +82,7 @@
  {
    "champion_id": 8,
    "name": "Vladimir",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Vladimir.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Vladimir.png",
    "title": "the Crimson Reaper",
    "blurb": "A",
    "info_id": "958",
@@ -92,7 +92,7 @@
  {
    "champion_id": 9,
    "name": "FiddleSticks",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/FiddleSticks.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/FiddleSticks.png",
    "title": "the Ancient Fear",
    "blurb": "S",
    "info_id": "889",
@@ -102,7 +102,7 @@
  {
    "champion_id": 10,
    "name": "Kayle",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kayle.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kayle.png",
    "title": "the Righteous",
    "blurb": "B",
    "info_id": "877",
@@ -112,7 +112,7 @@
  {
    "champion_id": 11,
    "name": "MasterYi",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/MasterYi.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/MasterYi.png",
    "title": "the Wuju Bladesman",
    "blurb": "M",
    "info_id": "998",
@@ -122,7 +122,7 @@
  {
    "champion_id": 12,
    "name": "Alistar",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Alistar.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Alistar.png",
    "title": "the Minotaur",
    "blurb": "A",
    "info_id": "910",
@@ -132,7 +132,7 @@
  {
    "champion_id": 13,
    "name": "Ryze",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ryze.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ryze.png",
    "title": "the Rune Mage",
    "blurb": "W",
    "info_id": "999",
@@ -142,7 +142,7 @@
  {
    "champion_id": 14,
    "name": "Sion",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sion.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sion.png",
    "title": "The Undead Juggernaut",
    "blurb": "A",
    "info_id": "996",
@@ -152,7 +152,7 @@
  {
    "champion_id": 15,
    "name": "Sivir",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sivir.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sivir.png",
    "title": "the Battle Mistress",
    "blurb": "S",
    "info_id": "872",
@@ -162,7 +162,7 @@
  {
    "champion_id": 16,
    "name": "Soraka",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Soraka.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Soraka.png",
    "title": "the Starchild",
    "blurb": "A",
    "info_id": "954",
@@ -172,7 +172,7 @@
  {
    "champion_id": 17,
    "name": "Teemo",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Teemo.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Teemo.png",
    "title": "the Swift Scout",
    "blurb": "U",
    "info_id": "897",
@@ -182,7 +182,7 @@
  {
    "champion_id": 18,
    "name": "Tristana",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Tristana.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Tristana.png",
    "title": "the Yordle Gunner",
    "blurb": "W",
    "info_id": "850",
@@ -192,7 +192,7 @@
  {
    "champion_id": 19,
    "name": "Warwick",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Warwick.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Warwick.png",
    "title": "the Uncaged Wrath of Zaun",
    "blurb": "W",
    "info_id": "962",
@@ -202,7 +202,7 @@
  {
    "champion_id": 20,
    "name": "Nunu",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nunu.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nunu.png",
    "title": "the Boy and His Yeti",
    "blurb": "O",
    "info_id": "968",
@@ -212,7 +212,7 @@
  {
    "champion_id": 21,
    "name": "MissFortune",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/MissFortune.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/MissFortune.png",
    "title": "the Bounty Hunter",
    "blurb": "A",
    "info_id": "873",
@@ -222,7 +222,7 @@
  {
    "champion_id": 22,
    "name": "Ashe",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ashe.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ashe.png",
    "title": "the Frost Archer",
    "blurb": "I",
    "info_id": "975",
@@ -232,7 +232,7 @@
  {
    "champion_id": 23,
    "name": "Tryndamere",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Tryndamere.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Tryndamere.png",
    "title": "the Barbarian King",
    "blurb": "F",
    "info_id": "947",
@@ -242,7 +242,7 @@
  {
    "champion_id": 24,
    "name": "Jax",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Jax.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Jax.png",
    "title": "Grandmaster at Arms",
    "blurb": "U",
    "info_id": "848",
@@ -252,7 +252,7 @@
  {
    "champion_id": 25,
    "name": "Morgana",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Morgana.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Morgana.png",
    "title": "the Fallen",
    "blurb": "C",
    "info_id": "981",
@@ -262,7 +262,7 @@
  {
    "champion_id": 26,
    "name": "Zilean",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zilean.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zilean.png",
    "title": "the Chronokeeper",
    "blurb": "O",
    "info_id": "959",
@@ -272,7 +272,7 @@
  {
    "champion_id": 27,
    "name": "Singed",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Singed.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Singed.png",
    "title": "the Mad Chemist",
    "blurb": "S",
    "info_id": "856",
@@ -282,7 +282,7 @@
  {
    "champion_id": 28,
    "name": "Evelynn",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Evelynn.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Evelynn.png",
    "title": "Agony's Embrace",
    "blurb": "W",
    "info_id": "993",
@@ -292,7 +292,7 @@
  {
    "champion_id": 29,
    "name": "Twitch",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Twitch.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Twitch.png",
    "title": "the Plague Rat",
    "blurb": "A",
    "info_id": "989",
@@ -302,7 +302,7 @@
  {
    "champion_id": 30,
    "name": "Karthus",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Karthus.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Karthus.png",
    "title": "the Deathsinger",
    "blurb": "T",
    "info_id": "957",
@@ -312,7 +312,7 @@
  {
    "champion_id": 31,
    "name": "Chogath",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Chogath.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Chogath.png",
    "title": "the Terror of the Void",
    "blurb": "F",
    "info_id": "903",
@@ -322,7 +322,7 @@
  {
    "champion_id": 32,
    "name": "Amumu",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Amumu.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Amumu.png",
    "title": "the Sad Mummy",
    "blurb": "L",
    "info_id": "979",
@@ -332,7 +332,7 @@
  {
    "champion_id": 33,
    "name": "Rammus",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Rammus.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Rammus.png",
    "title": "the Armordillo",
    "blurb": "I",
    "info_id": "920",
@@ -342,7 +342,7 @@
  {
    "champion_id": 34,
    "name": "Anivia",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Anivia.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Anivia.png",
    "title": "the Cryophoenix",
    "blurb": "A",
    "info_id": "1001",
@@ -352,7 +352,7 @@
  {
    "champion_id": 35,
    "name": "Shaco",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Shaco.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Shaco.png",
    "title": "the Demon Jester",
    "blurb": "C",
    "info_id": "879",
@@ -362,7 +362,7 @@
  {
    "champion_id": 36,
    "name": "DrMundo",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/DrMundo.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/DrMundo.png",
    "title": "the Madman of Zaun",
    "blurb": "U",
    "info_id": "990",
@@ -372,7 +372,7 @@
  {
    "champion_id": 37,
    "name": "Sona",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sona.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sona.png",
    "title": "Maven of the Strings",
    "blurb": "S",
    "info_id": "849",
@@ -382,7 +382,7 @@
  {
    "champion_id": 38,
    "name": "Kassadin",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kassadin.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kassadin.png",
    "title": "the Void Walker",
    "blurb": "C",
    "info_id": "871",
@@ -392,7 +392,7 @@
  {
    "champion_id": 39,
    "name": "Irelia",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Irelia.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Irelia.png",
    "title": "the Blade Dancer",
    "blurb": "T",
    "info_id": "972",
@@ -402,7 +402,7 @@
  {
    "champion_id": 40,
    "name": "Janna",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Janna.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Janna.png",
    "title": "the Storm's Fury",
    "blurb": "A",
    "info_id": "948",
@@ -412,7 +412,7 @@
  {
    "champion_id": 41,
    "name": "Gangplank",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Gangplank.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Gangplank.png",
    "title": "the Saltwater Scourge",
    "blurb": "A",
    "info_id": "893",
@@ -422,7 +422,7 @@
  {
    "champion_id": 42,
    "name": "Corki",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Corki.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Corki.png",
    "title": "the Daring Bombardier",
    "blurb": "T",
    "info_id": "942",
@@ -432,7 +432,7 @@
  {
    "champion_id": 43,
    "name": "Karma",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Karma.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Karma.png",
    "title": "the Enlightened One",
    "blurb": "N",
    "info_id": "861",
@@ -442,7 +442,7 @@
  {
    "champion_id": 44,
    "name": "Taric",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Taric.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Taric.png",
    "title": "the Shield of Valoran",
    "blurb": "T",
    "info_id": "934",
@@ -452,7 +452,7 @@
  {
    "champion_id": 45,
    "name": "Veigar",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Veigar.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Veigar.png",
    "title": "the Tiny Master of Evil",
    "blurb": "A",
    "info_id": "940",
@@ -462,7 +462,7 @@
  {
    "champion_id": 48,
    "name": "Trundle",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Trundle.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Trundle.png",
    "title": "the Troll King",
    "blurb": "T",
    "info_id": "923",
@@ -472,7 +472,7 @@
  {
    "champion_id": 50,
    "name": "Swain",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Swain.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Swain.png",
    "title": "the Noxian Grand General",
    "blurb": "J",
    "info_id": "931",
@@ -482,7 +482,7 @@
  {
    "champion_id": 51,
    "name": "Caitlyn",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Caitlyn.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Caitlyn.png",
    "title": "the Sheriff of Piltover",
    "blurb": "R",
    "info_id": "922",
@@ -492,7 +492,7 @@
  {
    "champion_id": 53,
    "name": "Blitzcrank",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Blitzcrank.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Blitzcrank.png",
    "title": "the Great Steam Golem",
    "blurb": "B",
    "info_id": "919",
@@ -502,7 +502,7 @@
  {
    "champion_id": 54,
    "name": "Malphite",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Malphite.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Malphite.png",
    "title": "Shard of the Monolith",
    "blurb": "A",
    "info_id": "1000",
@@ -512,7 +512,7 @@
  {
    "champion_id": 55,
    "name": "Katarina",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Katarina.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Katarina.png",
    "title": "the Sinister Blade",
    "blurb": "D",
    "info_id": "960",
@@ -522,7 +522,7 @@
  {
    "champion_id": 56,
    "name": "Nocturne",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nocturne.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nocturne.png",
    "title": "the Eternal Nightmare",
    "blurb": "A",
    "info_id": "982",
@@ -532,7 +532,7 @@
  {
    "champion_id": 57,
    "name": "Maokai",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Maokai.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Maokai.png",
    "title": "the Twisted Treant",
    "blurb": "M",
    "info_id": "885",
@@ -542,7 +542,7 @@
  {
    "champion_id": 58,
    "name": "Renekton",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Renekton.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Renekton.png",
    "title": "the Butcher of the Sands",
    "blurb": "R",
    "info_id": "880",
@@ -552,7 +552,7 @@
  {
    "champion_id": 59,
    "name": "JarvanIV",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/JarvanIV.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/JarvanIV.png",
    "title": "the Exemplar of Demacia",
    "blurb": "P",
    "info_id": "1003",
@@ -562,7 +562,7 @@
  {
    "champion_id": 60,
    "name": "Elise",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Elise.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Elise.png",
    "title": "the Spider Queen",
    "blurb": "E",
    "info_id": "949",
@@ -572,7 +572,7 @@
  {
    "champion_id": 61,
    "name": "Orianna",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Orianna.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Orianna.png",
    "title": "the Lady of Clockwork",
    "blurb": "O",
    "info_id": "992",
@@ -582,7 +582,7 @@
  {
    "champion_id": 62,
    "name": "MonkeyKing",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/MonkeyKing.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/MonkeyKing.png",
    "title": "the Monkey King",
    "blurb": "W",
    "info_id": "974",
@@ -592,7 +592,7 @@
  {
    "champion_id": 63,
    "name": "Brand",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Brand.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Brand.png",
    "title": "the Burning Vengeance",
    "blurb": "O",
    "info_id": "951",
@@ -602,7 +602,7 @@
  {
    "champion_id": 64,
    "name": "LeeSin",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/LeeSin.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/LeeSin.png",
    "title": "the Blind Monk",
    "blurb": "A",
    "info_id": "866",
@@ -612,7 +612,7 @@
  {
    "champion_id": 67,
    "name": "Vayne",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Vayne.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Vayne.png",
    "title": "the Night Hunter",
    "blurb": "S",
    "info_id": "950",
@@ -622,7 +622,7 @@
  {
    "champion_id": 68,
    "name": "Rumble",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Rumble.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Rumble.png",
    "title": "the Mechanized Menace",
    "blurb": "R",
    "info_id": "864",
@@ -632,7 +632,7 @@
  {
    "champion_id": 69,
    "name": "Cassiopeia",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Cassiopeia.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Cassiopeia.png",
    "title": "the Serpent's Embrace",
    "blurb": "C",
    "info_id": "987",
@@ -642,7 +642,7 @@
  {
    "champion_id": 72,
    "name": "Skarner",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Skarner.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Skarner.png",
    "title": "the Crystal Vanguard",
    "blurb": "S",
    "info_id": "937",
@@ -652,7 +652,7 @@
  {
    "champion_id": 74,
    "name": "Heimerdinger",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Heimerdinger.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Heimerdinger.png",
    "title": "the Revered Inventor",
    "blurb": "A",
    "info_id": "909",
@@ -662,7 +662,7 @@
  {
    "champion_id": 75,
    "name": "Nasus",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nasus.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nasus.png",
    "title": "the Curator of the Sands",
    "blurb": "N",
    "info_id": "988",
@@ -672,7 +672,7 @@
  {
    "champion_id": 76,
    "name": "Nidalee",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nidalee.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nidalee.png",
    "title": "the Bestial Huntress",
    "blurb": "R",
    "info_id": "915",
@@ -682,7 +682,7 @@
  {
    "champion_id": 77,
    "name": "Udyr",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Udyr.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Udyr.png",
    "title": "the Spirit Walker",
    "blurb": "U",
    "info_id": "865",
@@ -692,7 +692,7 @@
  {
    "champion_id": 78,
    "name": "Poppy",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Poppy.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Poppy.png",
    "title": "Keeper of the Hammer",
    "blurb": "R",
    "info_id": "905",
@@ -702,7 +702,7 @@
  {
    "champion_id": 79,
    "name": "Gragas",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Gragas.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Gragas.png",
    "title": "the Rabble Rouser",
    "blurb": "E",
    "info_id": "1006",
@@ -712,7 +712,7 @@
  {
    "champion_id": 80,
    "name": "Pantheon",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Pantheon.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Pantheon.png",
    "title": "the Unbreakable Spear",
    "blurb": "O",
    "info_id": "891",
@@ -722,7 +722,7 @@
  {
    "champion_id": 81,
    "name": "Ezreal",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ezreal.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ezreal.png",
    "title": "the Prodigal Explorer",
    "blurb": "A",
    "info_id": "895",
@@ -732,7 +732,7 @@
  {
    "champion_id": 82,
    "name": "Mordekaiser",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Mordekaiser.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Mordekaiser.png",
    "title": "the Iron Revenant",
    "blurb": "T",
    "info_id": "899",
@@ -742,7 +742,7 @@
  {
    "champion_id": 83,
    "name": "Yorick",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Yorick.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Yorick.png",
    "title": "Shepherd of Souls",
    "blurb": "T",
    "info_id": "867",
@@ -752,7 +752,7 @@
  {
    "champion_id": 84,
    "name": "Akali",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Akali.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Akali.png",
    "title": "the Rogue Assassin",
    "blurb": "A",
    "info_id": "977",
@@ -762,7 +762,7 @@
  {
    "champion_id": 85,
    "name": "Kennen",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kennen.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kennen.png",
    "title": "the Heart of the Tempest",
    "blurb": "M",
    "info_id": "901",
@@ -772,7 +772,7 @@
  {
    "champion_id": 86,
    "name": "Garen",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Garen.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Garen.png",
    "title": "The Might of Demacia",
    "blurb": "A",
    "info_id": "916",
@@ -782,7 +782,7 @@
  {
    "champion_id": 89,
    "name": "Leona",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Leona.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Leona.png",
    "title": "the Radiant Dawn",
    "blurb": "I",
    "info_id": "917",
@@ -792,7 +792,7 @@
  {
    "champion_id": 90,
    "name": "Malzahar",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Malzahar.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Malzahar.png",
    "title": "the Prophet of the Void",
    "blurb": "A",
    "info_id": "1004",
@@ -802,7 +802,7 @@
  {
    "champion_id": 91,
    "name": "Talon",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Talon.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Talon.png",
    "title": "the Blade's Shadow",
    "blurb": "T",
    "info_id": "892",
@@ -812,7 +812,7 @@
  {
    "champion_id": 92,
    "name": "Riven",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Riven.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Riven.png",
    "title": "the Exile",
    "blurb": "O",
    "info_id": "902",
@@ -822,7 +822,7 @@
  {
    "champion_id": 96,
    "name": "KogMaw",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/KogMaw.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/KogMaw.png",
    "title": "the Mouth of the Abyss",
    "blurb": "B",
    "info_id": "883",
@@ -832,7 +832,7 @@
  {
    "champion_id": 98,
    "name": "Shen",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Shen.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Shen.png",
    "title": "the Eye of Twilight",
    "blurb": "A",
    "info_id": "1002",
@@ -842,7 +842,7 @@
  {
    "champion_id": 99,
    "name": "Lux",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Lux.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Lux.png",
    "title": "the Lady of Luminosity",
    "blurb": "L",
    "info_id": "995",
@@ -852,7 +852,7 @@
  {
    "champion_id": 101,
    "name": "Xerath",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Xerath.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Xerath.png",
    "title": "the Magus Ascendant",
    "blurb": "X",
    "info_id": "941",
@@ -862,7 +862,7 @@
  {
    "champion_id": 102,
    "name": "Shyvana",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Shyvana.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Shyvana.png",
    "title": "the Half-Dragon",
    "blurb": "S",
    "info_id": "961",
@@ -872,7 +872,7 @@
  {
    "champion_id": 103,
    "name": "Ahri",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ahri.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ahri.png",
    "title": "the Nine-Tailed Fox",
    "blurb": "I",
    "info_id": "944",
@@ -882,7 +882,7 @@
  {
    "champion_id": 104,
    "name": "Graves",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Graves.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Graves.png",
    "title": "the Outlaw",
    "blurb": "M",
    "info_id": "953",
@@ -892,7 +892,7 @@
  {
    "champion_id": 105,
    "name": "Fizz",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Fizz.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Fizz.png",
    "title": "the Tidal Trickster",
    "blurb": "F",
    "info_id": "882",
@@ -902,7 +902,7 @@
  {
    "champion_id": 106,
    "name": "Volibear",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Volibear.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Volibear.png",
    "title": "the Relentless Storm",
    "blurb": "T",
    "info_id": "913",
@@ -912,7 +912,7 @@
  {
    "champion_id": 107,
    "name": "Rengar",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Rengar.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Rengar.png",
    "title": "the Pridestalker",
    "blurb": "R",
    "info_id": "970",
@@ -922,7 +922,7 @@
  {
    "champion_id": 110,
    "name": "Varus",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Varus.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Varus.png",
    "title": "the Arrow of Retribution",
    "blurb": "O",
    "info_id": "853",
@@ -932,7 +932,7 @@
  {
    "champion_id": 111,
    "name": "Nautilus",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nautilus.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nautilus.png",
    "title": "the Titan of the Depths",
    "blurb": "A",
    "info_id": "943",
@@ -942,7 +942,7 @@
  {
    "champion_id": 112,
    "name": "Viktor",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Viktor.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Viktor.png",
    "title": "the Machine Herald",
    "blurb": "T",
    "info_id": "986",
@@ -952,7 +952,7 @@
  {
    "champion_id": 113,
    "name": "Sejuani",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sejuani.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sejuani.png",
    "title": "Fury of the North",
    "blurb": "S",
    "info_id": "914",
@@ -962,7 +962,7 @@
  {
    "champion_id": 114,
    "name": "Fiora",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Fiora.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Fiora.png",
    "title": "the Grand Duelist",
    "blurb": "T",
    "info_id": "855",
@@ -972,7 +972,7 @@
  {
    "champion_id": 115,
    "name": "Ziggs",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ziggs.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ziggs.png",
    "title": "the Hexplosives Expert",
    "blurb": "W",
    "info_id": "963",
@@ -982,7 +982,7 @@
  {
    "champion_id": 117,
    "name": "Lulu",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Lulu.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Lulu.png",
    "title": "the Fae Sorceress",
    "blurb": "T",
    "info_id": "980",
@@ -992,7 +992,7 @@
  {
    "champion_id": 119,
    "name": "Draven",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Draven.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Draven.png",
    "title": "the Glorious Executioner",
    "blurb": "I",
    "info_id": "875",
@@ -1002,7 +1002,7 @@
  {
    "champion_id": 120,
    "name": "Hecarim",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Hecarim.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Hecarim.png",
    "title": "the Shadow of War",
    "blurb": "H",
    "info_id": "881",
@@ -1012,7 +1012,7 @@
  {
    "champion_id": 121,
    "name": "Khazix",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Khazix.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Khazix.png",
    "title": "the Voidreaver",
    "blurb": "T",
    "info_id": "965",
@@ -1022,7 +1022,7 @@
  {
    "champion_id": 122,
    "name": "Darius",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Darius.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Darius.png",
    "title": "the Hand of Noxus",
    "blurb": "T",
    "info_id": "946",
@@ -1032,7 +1032,7 @@
  {
    "champion_id": 126,
    "name": "Jayce",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Jayce.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Jayce.png",
    "title": "the Defender of Tomorrow",
    "blurb": "J",
    "info_id": "945",
@@ -1042,7 +1042,7 @@
  {
    "champion_id": 127,
    "name": "Lissandra",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Lissandra.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Lissandra.png",
    "title": "the Ice Witch",
    "blurb": "L",
    "info_id": "886",
@@ -1052,7 +1052,7 @@
  {
    "champion_id": 131,
    "name": "Diana",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Diana.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Diana.png",
    "title": "Scorn of the Moon",
    "blurb": "B",
    "info_id": "983",
@@ -1062,7 +1062,7 @@
  {
    "champion_id": 133,
    "name": "Quinn",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Quinn.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Quinn.png",
    "title": "Demacia's Wings",
    "blurb": "Q",
    "info_id": "928",
@@ -1072,7 +1072,7 @@
  {
    "champion_id": 134,
    "name": "Syndra",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Syndra.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Syndra.png",
    "title": "the Dark Sovereign",
    "blurb": "S",
    "info_id": "935",
@@ -1082,7 +1082,7 @@
  {
    "champion_id": 136,
    "name": "AurelionSol",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/AurelionSol.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/AurelionSol.png",
    "title": "The Star Forger",
    "blurb": "A",
    "info_id": "984",
@@ -1092,7 +1092,7 @@
  {
    "champion_id": 141,
    "name": "Kayn",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kayn.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kayn.png",
    "title": "the Shadow Reaper",
    "blurb": "A",
    "info_id": "869",
@@ -1102,7 +1102,7 @@
  {
    "champion_id": 142,
    "name": "Zoe",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zoe.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zoe.png",
    "title": "the Aspect of Twilight",
    "blurb": "A",
    "info_id": "952",
@@ -1112,7 +1112,7 @@
  {
    "champion_id": 143,
    "name": "Zyra",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zyra.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zyra.png",
    "title": "Rise of the Thorns",
    "blurb": "B",
    "info_id": "985",
@@ -1122,7 +1122,7 @@
  {
    "champion_id": 145,
    "name": "Kaisa",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kaisa.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kaisa.png",
    "title": "Daughter of the Void",
    "blurb": "C",
    "info_id": "854",
@@ -1132,7 +1132,7 @@
  {
    "champion_id": 147,
    "name": "Seraphine",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Seraphine.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Seraphine.png",
    "title": "the Starry-Eyed Songstress",
    "blurb": "B",
    "info_id": "852",
@@ -1142,7 +1142,7 @@
  {
    "champion_id": 150,
    "name": "Gnar",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Gnar.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Gnar.png",
    "title": "the Missing Link",
    "blurb": "G",
    "info_id": "896",
@@ -1152,7 +1152,7 @@
  {
    "champion_id": 154,
    "name": "Zac",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zac.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zac.png",
    "title": "the Secret Weapon",
    "blurb": "Z",
    "info_id": "1005",
@@ -1162,7 +1162,7 @@
  {
    "champion_id": 157,
    "name": "Yasuo",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Yasuo.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Yasuo.png",
    "title": "the Unforgiven",
    "blurb": "A",
    "info_id": "876",
@@ -1172,7 +1172,7 @@
  {
    "champion_id": 161,
    "name": "Velkoz",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Velkoz.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Velkoz.png",
    "title": "the Eye of the Void",
    "blurb": "I",
    "info_id": "921",
@@ -1182,7 +1182,7 @@
  {
    "champion_id": 163,
    "name": "Taliyah",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Taliyah.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Taliyah.png",
    "title": "the Stoneweaver",
    "blurb": "T",
    "info_id": "906",
@@ -1192,7 +1192,7 @@
  {
    "champion_id": 164,
    "name": "Camille",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Camille.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Camille.png",
    "title": "the Steel Shadow",
    "blurb": "W",
    "info_id": "997",
@@ -1202,7 +1202,7 @@
  {
    "champion_id": 166,
    "name": "Akshan",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Akshan.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Akshan.png",
    "title": "the Rogue Sentinel",
    "blurb": "R",
    "info_id": "926",
@@ -1212,7 +1212,7 @@
  {
    "champion_id": 201,
    "name": "Braum",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Braum.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Braum.png",
    "title": "the Heart of the Freljord",
    "blurb": "B",
    "info_id": "939",
@@ -1222,7 +1222,7 @@
  {
    "champion_id": 202,
    "name": "Jhin",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Jhin.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Jhin.png",
    "title": "the Virtuoso",
    "blurb": "J",
    "info_id": "863",
@@ -1232,7 +1232,7 @@
  {
    "champion_id": 203,
    "name": "Kindred",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kindred.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kindred.png",
    "title": "The Eternal Hunters",
    "blurb": "S",
    "info_id": "924",
@@ -1242,7 +1242,7 @@
  {
    "champion_id": 221,
    "name": "Zeri",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zeri.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zeri.png",
    "title": null,
    "blurb": null,
    "info_id": "991",
@@ -1252,7 +1252,7 @@
  {
    "champion_id": 222,
    "name": "Jinx",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Jinx.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Jinx.png",
    "title": "the Loose Cannon",
    "blurb": "A",
    "info_id": "887",
@@ -1262,7 +1262,7 @@
  {
    "champion_id": 223,
    "name": "TahmKench",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/TahmKench.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/TahmKench.png",
    "title": "The River King",
    "blurb": "K",
    "info_id": "858",
@@ -1272,7 +1272,7 @@
  {
    "champion_id": 234,
    "name": "Viego",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Viego.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Viego.png",
    "title": "The Ruined King",
    "blurb": "O",
    "info_id": "956",
@@ -1282,7 +1282,7 @@
  {
    "champion_id": 235,
    "name": "Senna",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Senna.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Senna.png",
    "title": "the Redeemer",
    "blurb": "C",
    "info_id": "874",
@@ -1292,7 +1292,7 @@
  {
    "champion_id": 236,
    "name": "Lucian",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Lucian.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Lucian.png",
    "title": "the Purifier",
    "blurb": "L",
    "info_id": "912",
@@ -1302,7 +1302,7 @@
  {
    "champion_id": 238,
    "name": "Zed",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Zed.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Zed.png",
    "title": "the Master of Shadows",
    "blurb": "U",
    "info_id": "918",
@@ -1312,7 +1312,7 @@
  {
    "champion_id": 240,
    "name": "Kled",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kled.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kled.png",
    "title": "the Cantankerous Cavalier",
    "blurb": "A",
    "info_id": "964",
@@ -1322,7 +1322,7 @@
  {
    "champion_id": 245,
    "name": "Ekko",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ekko.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ekko.png",
    "title": "the Boy Who Shattered Time",
    "blurb": "A",
    "info_id": "929",
@@ -1332,7 +1332,7 @@
  {
    "champion_id": 246,
    "name": "Qiyana",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Qiyana.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Qiyana.png",
    "title": "Empress of the Elements",
    "blurb": "I",
    "info_id": "969",
@@ -1342,7 +1342,7 @@
  {
    "champion_id": 254,
    "name": "Vi",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Vi.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Vi.png",
    "title": "the Piltover Enforcer",
    "blurb": "O",
    "info_id": "978",
@@ -1352,7 +1352,7 @@
  {
    "champion_id": 266,
    "name": "Aatrox",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Aatrox.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Aatrox.png",
    "title": "the Darkin Blade",
    "blurb": "O",
    "info_id": "904",
@@ -1362,7 +1362,7 @@
  {
    "champion_id": 267,
    "name": "Nami",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Nami.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Nami.png",
    "title": "the Tidecaller",
    "blurb": "A",
    "info_id": "930",
@@ -1372,7 +1372,7 @@
  {
    "champion_id": 268,
    "name": "Azir",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Azir.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Azir.png",
    "title": "the Emperor of the Sands",
    "blurb": "A",
    "info_id": "900",
@@ -1382,7 +1382,7 @@
  {
    "champion_id": 350,
    "name": "Yuumi",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Yuumi.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Yuumi.png",
    "title": "the Magical Cat",
    "blurb": "A",
    "info_id": "851",
@@ -1392,7 +1392,7 @@
  {
    "champion_id": 360,
    "name": "Samira",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Samira.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Samira.png",
    "title": "the Desert Rose",
    "blurb": "S",
    "info_id": "857",
@@ -1402,7 +1402,7 @@
  {
    "champion_id": 412,
    "name": "Thresh",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Thresh.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Thresh.png",
    "title": "the Chain Warden",
    "blurb": "S",
    "info_id": "860",
@@ -1412,7 +1412,7 @@
  {
    "champion_id": 420,
    "name": "Illaoi",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Illaoi.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Illaoi.png",
    "title": "the Kraken Priestess",
    "blurb": "I",
    "info_id": "907",
@@ -1422,7 +1422,7 @@
  {
    "champion_id": 421,
    "name": "RekSai",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/RekSai.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/RekSai.png",
    "title": "the Void Burrower",
    "blurb": "A",
    "info_id": "994",
@@ -1432,7 +1432,7 @@
  {
    "champion_id": 427,
    "name": "Ivern",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ivern.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ivern.png",
    "title": "the Green Father",
    "blurb": "I",
    "info_id": "973",
@@ -1442,7 +1442,7 @@
  {
    "champion_id": 429,
    "name": "Kalista",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Kalista.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Kalista.png",
    "title": "the Spear of Vengeance",
    "blurb": "A",
    "info_id": "976",
@@ -1452,7 +1452,7 @@
  {
    "champion_id": 432,
    "name": "Bard",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Bard.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Bard.png",
    "title": "the Wandering Caretaker",
    "blurb": "A",
    "info_id": "971",
@@ -1462,7 +1462,7 @@
  {
    "champion_id": 497,
    "name": "Rakan",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Rakan.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Rakan.png",
    "title": "The Charmer",
    "blurb": "A",
    "info_id": "936",
@@ -1472,7 +1472,7 @@
  {
    "champion_id": 498,
    "name": "Xayah",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Xayah.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Xayah.png",
    "title": "the Rebel",
    "blurb": "D",
    "info_id": "955",
@@ -1482,7 +1482,7 @@
  {
    "champion_id": 516,
    "name": "Ornn",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Ornn.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Ornn.png",
    "title": "The Fire below the Mountain",
    "blurb": "O",
    "info_id": "868",
@@ -1492,7 +1492,7 @@
  {
    "champion_id": 517,
    "name": "Sylas",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sylas.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sylas.png",
    "title": "the Unshackled",
    "blurb": "R",
    "info_id": "933",
@@ -1502,7 +1502,7 @@
  {
    "champion_id": 518,
    "name": "Neeko",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Neeko.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Neeko.png",
    "title": "the Curious Chameleon",
    "blurb": "H",
    "info_id": "870",
@@ -1512,7 +1512,7 @@
  {
    "champion_id": 523,
    "name": "Aphelios",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Aphelios.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Aphelios.png",
    "title": "the Weapon of the Faithful",
    "blurb": "E",
    "info_id": "932",
@@ -1522,7 +1522,7 @@
  {
    "champion_id": 526,
    "name": "Rell",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Rell.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Rell.png",
    "title": "the Iron Maiden",
    "blurb": "T",
    "info_id": "878",
@@ -1532,7 +1532,7 @@
  {
    "champion_id": 555,
    "name": "Pyke",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Pyke.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Pyke.png",
    "title": "the Bloodharbor Ripper",
    "blurb": "A",
    "info_id": "908",
@@ -1542,7 +1542,7 @@
  {
    "champion_id": 711,
    "name": "Vex",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Vex.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Vex.png",
    "title": "the Gloomist",
    "blurb": "I",
    "info_id": "927",
@@ -1552,7 +1552,7 @@
  {
    "champion_id": 777,
    "name": "Yone",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Yone.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Yone.png",
    "title": "the Unforgotten",
    "blurb": "I",
    "info_id": "884",
@@ -1562,7 +1562,7 @@
  {
    "champion_id": 875,
    "name": "Sett",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Sett.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Sett.png",
    "title": "the Boss",
    "blurb": "A",
    "info_id": "894",
@@ -1572,7 +1572,7 @@
  {
    "champion_id": 876,
    "name": "Lillia",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Lillia.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Lillia.png",
    "title": "the Bashful Bloom",
    "blurb": "I",
    "info_id": "862",
@@ -1582,7 +1582,7 @@
  {
    "champion_id": 887,
    "name": "Gwen",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Gwen.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Gwen.png",
    "title": "The Hallowed Seamstress",
    "blurb": "A",
    "info_id": "938",
@@ -1592,7 +1592,7 @@
  {
    "champion_id": 888,
    "name": "Renata",
-   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/champion/Renata.png",
+   "icon_url": "http://ddragon.leagueoflegends.com/cdn/11.19.1/img/championSnapshot/Renata.png",
    "title": null,
    "blurb": null,
    "info_id": "925",

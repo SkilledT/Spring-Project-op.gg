@@ -3,7 +3,7 @@ package leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
-import leagueoflegendsproject.Models.LoLApi.Items.Item;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Items.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 class ItemServiceTest {
 
-    private ItemService itemService;
+    private IntegrationItemService itemService;
 
     @Mock
     private RiotHttpClient httpClientMock;
@@ -29,7 +29,7 @@ class ItemServiceTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        itemService = new ItemService(httpClientMock);
+        itemService = new IntegrationItemService(httpClientMock);
     }
 
     @Test

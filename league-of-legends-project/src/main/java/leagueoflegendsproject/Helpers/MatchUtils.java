@@ -1,6 +1,6 @@
 package leagueoflegendsproject.Helpers;
 
-import leagueoflegendsproject.Models.LoLApi.Matches.matchId.Match;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Matches.matchId.Match;
 
 public class MatchUtils {
 

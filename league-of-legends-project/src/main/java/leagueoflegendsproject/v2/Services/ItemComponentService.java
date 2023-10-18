@@ -4,10 +4,11 @@ import leagueoflegendsproject.v2.Models.Item;
 import leagueoflegendsproject.v2.Models.ItemComponent;
 import leagueoflegendsproject.v2.Repositories.ItemComponentRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ItemComponentService {
 
     private final ItemComponentRepository itemComponentRepository;

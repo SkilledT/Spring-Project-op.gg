@@ -1,17 +1,14 @@
 package leagueoflegendsproject.Services.HttpServices;
 
-import leagueoflegendsproject.DTOs.SummonersLeagueDto;
 import leagueoflegendsproject.Helpers.HttpResponseWrapper;
 import leagueoflegendsproject.Helpers.RiotHttpClient;
 import leagueoflegendsproject.Helpers.RiotLinksProvider;
-import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.EntriesItem;
-import leagueoflegendsproject.Models.LoLApi.League.ChallengersByQueue.Response;
-import leagueoflegendsproject.Models.LoLApi.League.EncryptedSummonerId.SummonerLeagueResponseItem;
-import leagueoflegendsproject.Models.LoLApi.Summoner.SummonerName.Summoner;
-import leagueoflegendsproject.Services.DbServices.DbSummonerService;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.League.ChallengersByQueue.EntriesItem;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.League.ChallengersByQueue.Response;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.League.EncryptedSummonerId.SummonerLeagueResponseItem;
+import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Summoner.SummonerName.Summoner;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,17 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Slf4j
+@RequiredArgsConstructor
 public class HttpSummonerService {
     private final RiotHttpClient riotHttpClient;
-    private final DbSummonerService dbSummonerService;
-
-    public HttpSummonerService(final RiotHttpClient riotHttpClient,
-                               final DbSummonerService dbSummonerService) {
-        this.riotHttpClient = riotHttpClient;
-        this.dbSummonerService = dbSummonerService;
-    }
 
     // Returns simple summoner object without LP, Tier, Rank and so on
     public Summoner getSummonerByNameHTTP(String nickname) {
@@ -46,46 +36,6 @@ public class HttpSummonerService {
         return responseWrapper.getResponse();
     }
 
-    // returns all data with LP, Tier, Rank and so on
-    public SummonersLeagueDto getSummonerLeagueByNicknameHTTP(String nickname) {
-        Summoner summoner = getSummonerByNameHTTP(nickname);
-        String summonerEncryptedId = summoner.getId();
-        String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
-        HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper;
-        try {
-            responseWrapper = riotHttpClient.get(url, SummonerLeagueResponseItem[].class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
-        }
-        if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
-        SummonerLeagueResponseItem[] response = responseWrapper.getResponse();
-        var summonersLeagueDto = new SummonersLeagueDto(response);
-        dbSummonerService.addSummoner(new leagueoflegendsproject.Models.Database.Summoner(summonersLeagueDto, summoner));
-        return summonersLeagueDto;
-    }
-
-    public leagueoflegendsproject.Models.Database.Summoner fetchSummonerHTTP(String nickname) {
-        Summoner summoner = getSummonerByNameHTTP(nickname);
-        if (summoner == null)
-            return leagueoflegendsproject.Models.Database.Summoner.getInvalidSummoner();
-        String summonerEncryptedId = summoner.getId();
-        String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
-        HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper;
-        try {
-            responseWrapper = riotHttpClient.get(url, SummonerLeagueResponseItem[].class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
-        }
-        if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
-        SummonerLeagueResponseItem[] response = responseWrapper.getResponse();
-        var summonersLeagueDto = new SummonersLeagueDto(response);
-        return new leagueoflegendsproject.Models.Database.Summoner(summonersLeagueDto, summoner);
-    }
-
     public List<String> getSummonerChallengersNicknamesHTTP() throws IOException, InterruptedException {
         String url = RiotLinksProvider.SummonerLinksProvider.RIOT_CHALLENGERS_URL;
         return riotHttpClient.get(url, Response.class).getResponse()
@@ -94,11 +44,4 @@ public class HttpSummonerService {
                 .map(EntriesItem::getSummonerName)
                 .collect(Collectors.toList());
     }
-
-    public List<leagueoflegendsproject.Models.Database.Summoner> updateChallengers() throws IOException, InterruptedException {
-        return getSummonerChallengersNicknamesHTTP().stream()
-                .map(this::fetchSummonerHTTP)
-                .collect(Collectors.toList());
-    }
-
 }

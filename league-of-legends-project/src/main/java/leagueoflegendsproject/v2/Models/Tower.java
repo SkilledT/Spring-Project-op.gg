@@ -1,17 +1,17 @@
 package leagueoflegendsproject.v2.Models;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
 public class Tower {
 
     @Id
@@ -21,4 +21,6 @@ public class Tower {
     private int kills;
     private boolean first;
 
+    @OneToOne
+    private TeamObjective teamObjective;
 }

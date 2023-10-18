@@ -1,7 +1,5 @@
 package leagueoflegendsproject.Helpers;
 
-import leagueoflegendsproject.Models.Database.Item;
-import leagueoflegendsproject.Models.Database.Perk;
 
 public class RiotLinksProvider {
 
@@ -39,18 +37,11 @@ public class RiotLinksProvider {
     public static class PerkLinksProvider {
         private static final String basicUrl = "https://ddragon.canisback.com/img/";
 
-        public static String getPerkIconUrl(Perk perk) {
-            return basicUrl + perk.getIcon();
-        }
     }
 
     public static class ItemLinkProvider {
         private static final String basicUrl = "https://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/img/item/";
         public final static String RIOT_ITEMS_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/item.json";
-
-        public static String getIconUrl(Item item) {
-            return basicUrl + item.getIconUrl();
-        }
 
         public static String getIconUrl(String iconId) {
             return basicUrl + iconId + ".png";

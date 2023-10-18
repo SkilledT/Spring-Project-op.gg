@@ -1,6 +1,6 @@
 package leagueoflegendsproject.v2.Services;
 
-import leagueoflegendsproject.v2.Models.Champion;
+import leagueoflegendsproject.v2.Models.ChampionSnapshot;
 import leagueoflegendsproject.v2.Models.ChampionImage;
 import leagueoflegendsproject.v2.Repositories.ChampionImageRepository;
 import lombok.AllArgsConstructor;
@@ -12,22 +12,22 @@ public class ChampionImageService {
 
     private final ChampionImageRepository championImageRepository;
 
-    public ChampionImage create(String full, String sprite, String group, Integer x, Integer y, Integer w, Integer h, Champion champion) {
+    public ChampionImage create(String full, String sprite, String group, Integer x, Integer y, Integer w, Integer h, ChampionSnapshot championSnapshot) {
         var image = ChampionImage.builder()
-                .full(full)
+                .fullName(full)
                 .sprite(sprite)
-                .group(group)
+                .groupName(group)
                 .x(x)
                 .y(y)
                 .w(w)
                 .h(h)
-                .champion(champion)
+                .championSnapshot(championSnapshot)
                 .build();
-        champion.setImage(image);
+        championSnapshot.setImage(image);
         return image;
     }
 
-    public ChampionImage createAndSave(String full, String sprite, String group, Integer x, Integer y, Integer w, Integer h, Champion champion) {
-        return championImageRepository.save(create(full, sprite, group, x, y, w, h, champion));
+    public ChampionImage createAndSave(String full, String sprite, String group, Integer x, Integer y, Integer w, Integer h, ChampionSnapshot championSnapshot) {
+        return championImageRepository.save(create(full, sprite, group, x, y, w, h, championSnapshot));
     }
 }

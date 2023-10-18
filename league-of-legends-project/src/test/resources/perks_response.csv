@@ -3,8 +3,8 @@
    "id": 8005,
    "name": "Press the Attack",
    "icon": "perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png",
-   "short_desc": "Hitting an enemy champion 3 consecutive times makes them vulnerable, dealing bonus damage and causing them to take more damage from all sources for 6s.",
-   "long_desc": "Hitting an enemy champion with 3 consecutive basic attacks deals 40 - 180 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and makes them vulnerable, increasing the damage they take by 8 - 12% from all sources for 6s.",
+   "short_desc": "Hitting an enemy championSnapshot 3 consecutive times makes them vulnerable, dealing bonus damage and causing them to take more damage from all sources for 6s.",
+   "long_desc": "Hitting an enemy championSnapshot with 3 consecutive basic attacks deals 40 - 180 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and makes them vulnerable, increasing the damage they take by 8 - 12% from all sources for 6s.",
    "slot_number": 0,
    "tree_number": 2
  },
@@ -12,8 +12,8 @@
    "id": 8008,
    "name": "Lethal Tempo",
    "icon": "perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png",
-   "short_desc": "Gain attack speed when attacking an enemy champion, stacking up to 6 times. At max stacks, gain Attack Range and remove your Attack Speed limit.",
-   "long_desc": "Gain [60% - 90%] (Melee) or [30% - 54%] (Ranged) Attack Speed for 6 seconds when you attack an enemy champion. This effect stacks up to 6 times.<br><br>While this effect fully stacked, your Attack Speed can exceed 2.5 and you gain 50 (Melee) or 75 (Ranged) Attack Range.",
+   "short_desc": "Gain attack speed when attacking an enemy championSnapshot, stacking up to 6 times. At max stacks, gain Attack Range and remove your Attack Speed limit.",
+   "long_desc": "Gain [60% - 90%] (Melee) or [30% - 54%] (Ranged) Attack Speed for 6 seconds when you attack an enemy championSnapshot. This effect stacks up to 6 times.<br><br>While this effect fully stacked, your Attack Speed can exceed 2.5 and you gain 50 (Melee) or 75 (Ranged) Attack Range.",
    "slot_number": 0,
    "tree_number": 2
  },
@@ -21,8 +21,8 @@
    "id": 8009,
    "name": "Presence of Mind",
    "icon": "perk-images/Styles/Precision/PresenceOfMind/PresenceOfMind.png",
-   "short_desc": "Increase your mana or energy regeneration when damaging an enemy champion. Takedowns restore mana or energy.",
-   "long_desc": "Damaging an enemy champion increases your mana regeneration by @RegenAmount@ (80% for ranged) mana per second for 4 seconds. All energy users gain 1.5 energy per second, instead.<br><br>Takedowns restore 15% of your maximum mana or energy. ",
+   "short_desc": "Increase your mana or energy regeneration when damaging an enemy championSnapshot. Takedowns restore mana or energy.",
+   "long_desc": "Damaging an enemy championSnapshot increases your mana regeneration by @RegenAmount@ (80% for ranged) mana per second for 4 seconds. All energy users gain 1.5 energy per second, instead.<br><br>Takedowns restore 15% of your maximum mana or energy. ",
    "slot_number": 1,
    "tree_number": 2
  },
@@ -31,7 +31,7 @@
    "name": "Conqueror",
    "icon": "perk-images/Styles/Precision/Conqueror/Conqueror.png",
    "short_desc": "Gain stacks of adaptive force when attacking enemy champions. After reaching 12 stacks, heal for a portion of damage you deal to champions.",
-   "long_desc": "Basic attacks or spells that deal damage to an enemy champion grant 2 stacks of Conqueror for 5s, gaining 2-4.5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword> per stack. Stacks up to 12 times. Ranged champions gain only 1 stack per basic attack.<br><br>When fully stacked, heal for 9% of the damage you deal to champions (6% for ranged champions).",
+   "long_desc": "Basic attacks or spells that deal damage to an enemy championSnapshot grant 2 stacks of Conqueror for 5s, gaining 2-4.5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword> per stack. Stacks up to 12 times. Ranged champions gain only 1 stack per basic attack.<br><br>When fully stacked, heal for 9% of the damage you deal to champions (6% for ranged champions).",
    "slot_number": 0,
    "tree_number": 2
  },
@@ -67,7 +67,7 @@
    "name": "Relentless Hunter",
    "icon": "perk-images/Styles/Domination/RelentlessHunter/RelentlessHunter.png",
    "short_desc": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant permanent <b>out of combat <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword></b>. ",
-   "long_desc": "Gain <speed>5 Move Speed</speed> out of combat plus <speed>8</speed> per <i>Bounty Hunter</i> stack.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+   "long_desc": "Gain <speed>5 Move Speed</speed> out of combat plus <speed>8</speed> per <i>Bounty Hunter</i> stack.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy championSnapshot.",
    "slot_number": 3,
    "tree_number": 0
  },
@@ -76,7 +76,7 @@
    "name": "Ultimate Hunter",
    "icon": "perk-images/Styles/Domination/UltimateHunter/UltimateHunter.png",
    "short_desc": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant permanent cooldown reduction on your Ultimate. ",
-   "long_desc": "Your ultimate gains <attention>6</attention> Ability Haste, plus an additional <attention>5</attention> Ability Haste per <i>Bounty Hunter</i> stack.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+   "long_desc": "Your ultimate gains <attention>6</attention> Ability Haste, plus an additional <attention>5</attention> Ability Haste per <i>Bounty Hunter</i> stack.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy championSnapshot.",
    "slot_number": 3,
    "tree_number": 0
  },
@@ -84,8 +84,8 @@
    "id": 8112,
    "name": "Electrocute",
    "icon": "perk-images/Styles/Domination/Electrocute/Electrocute.png",
-   "short_desc": "Hitting a champion with 3 <b>separate</b> attacks or abilities in 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword>.",
-   "long_desc": "Hitting a champion with 3 <b>separate</b> attacks or abilities within 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword>.<br><br>Damage: 30 - 180 (+0.4 bonus AD, +0.25 AP) damage.<br><br>Cooldown: 25 - 20s<br><br><hr><i>'We called them the Thunderlords, for to speak of their lightning was to invite disaster.'</i>",
+   "short_desc": "Hitting a championSnapshot with 3 <b>separate</b> attacks or abilities in 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword>.",
+   "long_desc": "Hitting a championSnapshot with 3 <b>separate</b> attacks or abilities within 3s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword>.<br><br>Damage: 30 - 180 (+0.4 bonus AD, +0.25 AP) damage.<br><br>Cooldown: 25 - 20s<br><br><hr><i>'We called them the Thunderlords, for to speak of their lightning was to invite disaster.'</i>",
    "slot_number": 0,
    "tree_number": 0
  },
@@ -93,8 +93,8 @@
    "id": 8120,
    "name": "Ghost Poro",
    "icon": "perk-images/Styles/Domination/GhostPoro/GhostPoro.png",
-   "short_desc": "When your wards expire, they leave behind a Ghost Poro. The Ghost Poro grants vision until discovered. Gain permanent AD or AP, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> for each Ghost Poro and when your Ghost Poro spots an enemy champion, plus bonus upon completion.",
-   "long_desc": "When your wards expire, they leave behind a Ghost Poro, which grants vision for 90s. Nearby enemy champions scare the Ghost Poro away.<br><br>Gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 1.2 Attack Damage or 2 Ability Power for every Ghost Poro spawned and when your Ghost Poro spots an enemy champion up to 10 stacks. <br><br>After gaining 10 stacks, additionally gain 10 adaptive force.",
+   "short_desc": "When your wards expire, they leave behind a Ghost Poro. The Ghost Poro grants vision until discovered. Gain permanent AD or AP, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> for each Ghost Poro and when your Ghost Poro spots an enemy championSnapshot, plus bonus upon completion.",
+   "long_desc": "When your wards expire, they leave behind a Ghost Poro, which grants vision for 90s. Nearby enemy champions scare the Ghost Poro away.<br><br>Gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 1.2 Attack Damage or 2 Ability Power for every Ghost Poro spawned and when your Ghost Poro spots an enemy championSnapshot up to 10 stacks. <br><br>After gaining 10 stacks, additionally gain 10 adaptive force.",
    "slot_number": 2,
    "tree_number": 0
  },
@@ -120,7 +120,7 @@
    "id": 8128,
    "name": "Dark Harvest",
    "icon": "perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png",
-   "short_desc": "Damaging a low health champion inflicts <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests a soul from the victim.",
+   "short_desc": "Damaging a low health championSnapshot inflicts <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests a soul from the victim.",
    "long_desc": "Damaging a Champion below 50% health deals <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>adaptive damage</lol-uikit-tooltipped-keyword> and harvests their soul, permanently increasing Dark Harvest's damage by 5.<br><br>Dark Harvest damage: 20-60 (based on level) (+5 damage per soul) (+0.25 bonus AD) (+0.15 AP)<br>Cooldown: 45s (resets to 1.5s on takedown)",
    "slot_number": 0,
    "tree_number": 0
@@ -130,7 +130,7 @@
    "name": "Ingenious Hunter",
    "icon": "perk-images/Styles/Domination/IngeniousHunter/IngeniousHunter.png",
    "short_desc": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant permanent Item <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Haste</lol-uikit-tooltipped-keyword> (includes Trinkets).",
-   "long_desc": "Gain <attention>20</attention> <b>Item Haste</b> plus an additional <attention>6</attention> <b>Item Haste</b> per <i>Bounty Hunter</i> stack (includes Trinkets).<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.<br><br><rules>Item Haste affects all items with cooldowns. </rules>",
+   "long_desc": "Gain <attention>20</attention> <b>Item Haste</b> plus an additional <attention>6</attention> <b>Item Haste</b> per <i>Bounty Hunter</i> stack (includes Trinkets).<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy championSnapshot.<br><br><rules>Item Haste affects all items with cooldowns. </rules>",
    "slot_number": 3,
    "tree_number": 0
  },
@@ -139,7 +139,7 @@
    "name": "Treasure Hunter",
    "icon": "perk-images/Styles/Domination/TreasureHunter/TreasureHunter.png",
    "short_desc": "<b>Unique</b> <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword> grant additional gold the first time they are collected. ",
-   "long_desc": "Gain an additional <gold>70 gold</gold> the next time you collect a <i>Bounty Hunter</i> stack. Increase the gold gained by <gold>20 gold</gold> for each <i>Bounty Hunter</i> stack, up to <gold>150 gold</gold>.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion.",
+   "long_desc": "Gain an additional <gold>70 gold</gold> the next time you collect a <i>Bounty Hunter</i> stack. Increase the gold gained by <gold>20 gold</gold> for each <i>Bounty Hunter</i> stack, up to <gold>150 gold</gold>.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy championSnapshot.",
    "slot_number": 3,
    "tree_number": 0
  },
@@ -156,8 +156,8 @@
    "id": 8138,
    "name": "Eyeball Collection",
    "icon": "perk-images/Styles/Domination/EyeballCollection/EyeballCollection.png",
-   "short_desc": "Collect eyeballs for champion <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword>. Gain permanent AD or AP, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> for each eyeball plus bonus upon collection completion.",
-   "long_desc": "Collect eyeballs for champion takedowns. Gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 1.2 Attack Damage or 2 Ability Power, per eyeball collected. <br><br>Upon completing your collection at 10 eyeballs, additionally gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 6 Attack Damage, or 10 Ability Power.<br><br>Collect 1 eyeball per champion takedown.",
+   "short_desc": "Collect eyeballs for championSnapshot <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>takedowns</lol-uikit-tooltipped-keyword>. Gain permanent AD or AP, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'>adaptive</lol-uikit-tooltipped-keyword> for each eyeball plus bonus upon collection completion.",
+   "long_desc": "Collect eyeballs for championSnapshot takedowns. Gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 1.2 Attack Damage or 2 Ability Power, per eyeball collected. <br><br>Upon completing your collection at 10 eyeballs, additionally gain an <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> bonus of 6 Attack Damage, or 10 Ability Power.<br><br>Collect 1 eyeball per championSnapshot takedown.",
    "slot_number": 2,
    "tree_number": 0
  },
@@ -165,8 +165,8 @@
    "id": 8139,
    "name": "Taste of Blood",
    "icon": "perk-images/Styles/Domination/TasteOfBlood/GreenTerror_TasteOfBlood.png",
-   "short_desc": "Heal when you damage an enemy champion.",
-   "long_desc": "Heal when you damage an enemy champion.<br><br>Healing: 18-35 (+0.2 bonus AD, +0.1 AP) health (based on level)<br><br>Cooldown: 20s",
+   "short_desc": "Heal when you damage an enemy championSnapshot.",
+   "long_desc": "Heal when you damage an enemy championSnapshot.<br><br>Healing: 18-35 (+0.2 bonus AD, +0.1 AP) health (based on level)<br><br>Cooldown: 20s",
    "slot_number": 1,
    "tree_number": 0
  },
@@ -175,7 +175,7 @@
    "name": "Sudden Impact",
    "icon": "perk-images/Styles/Domination/SuddenImpact/SuddenImpact.png",
    "short_desc": "Gain a burst of Lethality and Magic Penetration after using a dash, leap, blink, teleport, or when leaving stealth.",
-   "long_desc": "After exiting stealth or using a dash, leap, blink, or teleport, dealing any damage to a champion grants you 7 Lethality and 6 Magic Penetration for 5s.<br><br>Cooldown: 4s",
+   "long_desc": "After exiting stealth or using a dash, leap, blink, or teleport, dealing any damage to a championSnapshot grants you 7 Lethality and 6 Magic Penetration for 5s.<br><br>Cooldown: 4s",
    "slot_number": 1,
    "tree_number": 0
  },
@@ -210,8 +210,8 @@
    "id": 8226,
    "name": "Manaflow Band",
    "icon": "perk-images/Styles/Sorcery/ManaflowBand/ManaflowBand.png",
-   "short_desc": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.",
-   "long_desc": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds",
+   "short_desc": "Hitting an enemy championSnapshot with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.",
+   "long_desc": "Hitting an enemy championSnapshot with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds",
    "slot_number": 1,
    "tree_number": 4
  },
@@ -219,8 +219,8 @@
    "id": 8229,
    "name": "Arcane Comet",
    "icon": "perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
-   "short_desc": "Damaging a champion with an ability hurls a damaging comet at their location.",
-   "long_desc": "Damaging a champion with an ability hurls a comet at their location, or, if Arcane Comet is on cooldown, reduces its remaining cooldown.<br><br><lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>Adaptive Damage</font></lol-uikit-tooltipped-keyword>: 30 - 100 based on level (<scaleAP>+0.2 AP</scaleAP> and <scaleAD>+0.35 bonus AD</scaleAD>)<br>Cooldown: 20 - 8s<br><rules><br>Cooldown Reduction:<br>Single Target: 20%.<br>Area of Effect: 10%.<br>Damage over Time: 5%.<br></rules>",
+   "short_desc": "Damaging a championSnapshot with an ability hurls a damaging comet at their location.",
+   "long_desc": "Damaging a championSnapshot with an ability hurls a comet at their location, or, if Arcane Comet is on cooldown, reduces its remaining cooldown.<br><br><lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>Adaptive Damage</font></lol-uikit-tooltipped-keyword>: 30 - 100 based on level (<scaleAP>+0.2 AP</scaleAP> and <scaleAD>+0.35 bonus AD</scaleAD>)<br>Cooldown: 20 - 8s<br><rules><br>Cooldown Reduction:<br>Single Target: 20%.<br>Area of Effect: 10%.<br>Damage over Time: 5%.<br></rules>",
    "slot_number": 0,
    "tree_number": 4
  },
@@ -228,8 +228,8 @@
    "id": 8230,
    "name": "Phase Rush",
    "icon": "perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png",
-   "short_desc": "Hitting an enemy champion with 3 <b>separate</b> attacks or abilities grants a burst of <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword>. ",
-   "long_desc": "Hitting an enemy champion with 3 attacks or <b>separate</b> abilities within 4s grants <speed>15 - 40% Move Speed</speed> based on level and 75% Slow Resistance. <hr>This is increased to <speed>30 - 60% Move Speed</speed> for Melee champions.<hr>Duration: 3s<br>Cooldown: 10s - 30s",
+   "short_desc": "Hitting an enemy championSnapshot with 3 <b>separate</b> attacks or abilities grants a burst of <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword>. ",
+   "long_desc": "Hitting an enemy championSnapshot with 3 attacks or <b>separate</b> abilities within 4s grants <speed>15 - 40% Move Speed</speed> based on level and 75% Slow Resistance. <hr>This is increased to <speed>30 - 60% Move Speed</speed> for Melee champions.<hr>Duration: 3s<br>Cooldown: 10s - 30s",
    "slot_number": 0,
    "tree_number": 4
  },
@@ -319,7 +319,7 @@
    "name": "Hextech Flashtraption",
    "icon": "perk-images/Styles/Inspiration/HextechFlashtraption/HextechFlashtraption.png",
    "short_desc": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel, then blink to a new location.",
-   "long_desc": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel for 2s to blink to a new location.<br><br>Cooldown: 20s. Goes on a 10s cooldown when you enter champion combat.",
+   "long_desc": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel for 2s to blink to a new location.<br><br>Cooldown: 20s. Goes on a 10s cooldown when you enter championSnapshot combat.",
    "slot_number": 1,
    "tree_number": 1
  },
@@ -372,8 +372,8 @@
    "id": 8351,
    "name": "Glacial Augment",
    "icon": "perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
-   "short_desc": "Immobilizing an enemy champion will cause 3 glacial rays that slow nearby enemies and reduce their damage to your allies. Cooldown: 25s",
-   "long_desc": "Immobilizing an enemy champion will cause 3 glacial rays to emanate from them towards you and other nearby champions, creating frozen zones for 3 (+ 100% of the immobilizing effect's duration) seconds that slow enemies for 30% (+9% per 10% Heal and Shield Power) (+3% per 100 Ability Power) (+4% per 100 bonus Attack Damage) and reduce their damage by 15% against your allies (not including yourself). <br><br>Cooldown: 25s",
+   "short_desc": "Immobilizing an enemy championSnapshot will cause 3 glacial rays that slow nearby enemies and reduce their damage to your allies. Cooldown: 25s",
+   "long_desc": "Immobilizing an enemy championSnapshot will cause 3 glacial rays to emanate from them towards you and other nearby champions, creating frozen zones for 3 (+ 100% of the immobilizing effect's duration) seconds that slow enemies for 30% (+9% per 10% Heal and Shield Power) (+3% per 100 Ability Power) (+4% per 100 bonus Attack Damage) and reduce their damage by 15% against your allies (not including yourself). <br><br>Cooldown: 25s",
    "slot_number": 0,
    "tree_number": 1
  },
@@ -391,7 +391,7 @@
    "name": "Prototype: Omnistone",
    "icon": "perk-images/Styles/Inspiration/MasterKey/MasterKey.png",
    "short_desc": "Periodically grants a single use of another random keystone.",
-   "long_desc": "Periodically grants a single use of another random keystone.<br><br>5-3  second cooldown between using a keystone and gaining the next. (9-7 seconds for ranged users)<br><br><rules><br>After 40 seconds of not using a given keystone, Omnistone will re-roll when you exit champion combat.<br>Aftershock is only available to champions who have learned a basic spell that can trigger it.<br>Predator is only available to champions who have already purchased boots.<br></rules>",
+   "long_desc": "Periodically grants a single use of another random keystone.<br><br>5-3  second cooldown between using a keystone and gaining the next. (9-7 seconds for ranged users)<br><br><rules><br>After 40 seconds of not using a given keystone, Omnistone will re-roll when you exit championSnapshot combat.<br>Aftershock is only available to champions who have learned a basic spell that can trigger it.<br>Predator is only available to champions who have already purchased boots.<br></rules>",
    "slot_number": 0,
    "tree_number": 1
  },
@@ -408,8 +408,8 @@
    "id": 8369,
    "name": "First Strike",
    "icon": "perk-images/Styles/Inspiration/FirstStrike/FirstStrike.png",
-   "short_desc": "When you initiate champion combat, deal 10% extra damage for 3 seconds and gain gold based on damage dealt.",
-   "long_desc": "Attacks or abilities against an enemy champion within 0.25s of entering champion combat grants 5 gold and <b>First Strike</b> for 3 seconds, causing you to deal <truedamage>10%</truedamage> extra <truedamage> damage</truedamage> against champions, and granting <gold>100% (70% for ranged champions)</gold> of bonus damage dealt as <gold>gold</gold>.<br><br>Cooldown: <scaleLevel>25-15</scaleLevel>",
+   "short_desc": "When you initiate championSnapshot combat, deal 10% extra damage for 3 seconds and gain gold based on damage dealt.",
+   "long_desc": "Attacks or abilities against an enemy championSnapshot within 0.25s of entering championSnapshot combat grants 5 gold and <b>First Strike</b> for 3 seconds, causing you to deal <truedamage>10%</truedamage> extra <truedamage> damage</truedamage> against champions, and granting <gold>100% (70% for ranged champions)</gold> of bonus damage dealt as <gold>gold</gold>.<br><br>Cooldown: <scaleLevel>25-15</scaleLevel>",
    "slot_number": 0,
    "tree_number": 1
  },
@@ -417,8 +417,8 @@
    "id": 8401,
    "name": "Shield Bash",
    "icon": "perk-images/Styles/Resolve/MirrorShell/MirrorShell.png",
-   "short_desc": "Whenever you gain a shield, your next basic attack against a champion deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.",
-   "long_desc": "While shielded, gain <scaleLevel>1 - 10</scaleLevel> Armor and Magic Resist based on Level.<br><br>Whenever you gain a new shield,  your next basic attack against a champion deals <scaleLevel>5 - 30</scaleLevel> <scaleHealth>(+1.5% Bonus Health)</scaleHealth> <scaleMana>(+8.5% New Shield Amount)</scaleMana> bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.<br><br>You have up to 2s after the shield expires to use this effect.",
+   "short_desc": "Whenever you gain a shield, your next basic attack against a championSnapshot deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.",
+   "long_desc": "While shielded, gain <scaleLevel>1 - 10</scaleLevel> Armor and Magic Resist based on Level.<br><br>Whenever you gain a new shield,  your next basic attack against a championSnapshot deals <scaleLevel>5 - 30</scaleLevel> <scaleHealth>(+1.5% Bonus Health)</scaleHealth> <scaleMana>(+8.5% New Shield Amount)</scaleMana> bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.<br><br>You have up to 2s after the shield expires to use this effect.",
    "slot_number": 1,
    "tree_number": 3
  },
@@ -427,7 +427,7 @@
    "name": "Approach Velocity",
    "icon": "perk-images/Styles/Resolve/ApproachVelocity/ApproachVelocity.png",
    "short_desc": "Bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>MS</lol-uikit-tooltipped-keyword> towards nearby enemy champions that are <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairMov'>movement impaired</lol-uikit-tooltipped-keyword>, increased for enemy champions that you impair.",
-   "long_desc": "Gain <speed>7.5% Move Speed</speed> towards nearby enemy champions that are movement impaired. This bonus is increased to <speed>15% Move Speed</speed> for any enemy champion that you impair. <br><br>Activation Range for CC from allies: 1000",
+   "long_desc": "Gain <speed>7.5% Move Speed</speed> towards nearby enemy champions that are movement impaired. This bonus is increased to <speed>15% Move Speed</speed> for any enemy championSnapshot that you impair. <br><br>Activation Range for CC from allies: 1000",
    "slot_number": 3,
    "tree_number": 1
  },
@@ -444,8 +444,8 @@
    "id": 8437,
    "name": "Grasp of the Undying",
    "icon": "perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png",
-   "short_desc": "Every 4s your next attack on a champion deals bonus magic damage, heals you, and permanently increases your health.",
-   "long_desc": "Every 4s in combat, your next basic attack on a champion will:<li>Deal bonus magic damage equal to 4% of your max health</li><li>Heals you for 2% of your max health</li><li>Permanently increase your health by 5</li><br><rules><i>Ranged Champions:</i> Damage, healing, and permanent health gained reduced by 40%.</rules><br>",
+   "short_desc": "Every 4s your next attack on a championSnapshot deals bonus magic damage, heals you, and permanently increases your health.",
+   "long_desc": "Every 4s in combat, your next basic attack on a championSnapshot will:<li>Deal bonus magic damage equal to 4% of your max health</li><li>Heals you for 2% of your max health</li><li>Permanently increase your health by 5</li><br><rules><i>Ranged Champions:</i> Damage, healing, and permanent health gained reduced by 40%.</rules><br>",
    "slot_number": 0,
    "tree_number": 3
  },
@@ -453,8 +453,8 @@
    "id": 8439,
    "name": "Aftershock",
    "icon": "perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png",
-   "short_desc": "After <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Immobilize'>immobilizing</lol-uikit-tooltipped-keyword> an enemy champion gain defenses and later deal a burst of magic damage around you.",
-   "long_desc": "After immobilizing an enemy champion, increase your Armor and Magic Resist by 35 + 80% of your Bonus Resists for 2.5s. Then explode, dealing magic damage to nearby enemies.<br><br>Damage: 25 - 120 (+8% of your bonus health)<br>Cooldown: 20s<br><br>Resistance bonus from Aftershock capped at: 80-150 (based on level)<br>",
+   "short_desc": "After <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Immobilize'>immobilizing</lol-uikit-tooltipped-keyword> an enemy championSnapshot gain defenses and later deal a burst of magic damage around you.",
+   "long_desc": "After immobilizing an enemy championSnapshot, increase your Armor and Magic Resist by 35 + 80% of your Bonus Resists for 2.5s. Then explode, dealing magic damage to nearby enemies.<br><br>Damage: 25 - 120 (+8% of your bonus health)<br>Cooldown: 20s<br><br>Resistance bonus from Aftershock capped at: 80-150 (based on level)<br>",
    "slot_number": 0,
    "tree_number": 3
  },
@@ -462,8 +462,8 @@
    "id": 8444,
    "name": "Second Wind",
    "icon": "perk-images/Styles/Resolve/SecondWind/SecondWind.png",
-   "short_desc": "After taking damage from an enemy champion heal back some missing health over time. ",
-   "long_desc": "After taking damage from an enemy champion, heal for 4% of your missing health +6 over 10s.",
+   "short_desc": "After taking damage from an enemy championSnapshot heal back some missing health over time. ",
+   "long_desc": "After taking damage from an enemy championSnapshot, heal for 4% of your missing health +6 over 10s.",
    "slot_number": 2,
    "tree_number": 3
  },
@@ -498,8 +498,8 @@
    "id": 8463,
    "name": "Font of Life",
    "icon": "perk-images/Styles/Resolve/FontOfLife/FontOfLife.png",
-   "short_desc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairMov'>Impairing</lol-uikit-tooltipped-keyword> the movement of an enemy champion marks them. Your allies heal when attacking champions you've marked. ",
-   "long_desc": "Impairing the movement of an enemy champion marks them for 4s.<br><br>Ally champions who attack marked enemies heal for 5 + 1% of your max health over 2s. ",
+   "short_desc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_ImpairMov'>Impairing</lol-uikit-tooltipped-keyword> the movement of an enemy championSnapshot marks them. Your allies heal when attacking champions you've marked. ",
+   "long_desc": "Impairing the movement of an enemy championSnapshot marks them for 4s.<br><br>Ally champions who attack marked enemies heal for 5 + 1% of your max health over 2s. ",
    "slot_number": 1,
    "tree_number": 3
  },
@@ -516,8 +516,8 @@
    "id": 8473,
    "name": "Bone Plating",
    "icon": "perk-images/Styles/Resolve/BonePlating/BonePlating.png",
-   "short_desc": "After taking damage from an enemy champion, the next 3 spells or attacks you receive from them deal 30-60 less damage.<br><br><br>Duration: 1.5s<br>Cooldown: 45s",
-   "long_desc": "After taking damage from an enemy champion, the next 3 spells or attacks you receive from them deal 30-60 less damage.<br><br><br>Duration: 1.5s<br>Cooldown: 45s",
+   "short_desc": "After taking damage from an enemy championSnapshot, the next 3 spells or attacks you receive from them deal 30-60 less damage.<br><br><br>Duration: 1.5s<br>Cooldown: 45s",
+   "long_desc": "After taking damage from an enemy championSnapshot, the next 3 spells or attacks you receive from them deal 30-60 less damage.<br><br><br>Duration: 1.5s<br>Cooldown: 45s",
    "slot_number": 2,
    "tree_number": 3
  },
@@ -535,7 +535,7 @@
    "name": "Legend: Bloodline",
    "icon": "perk-images/Styles/Precision/LegendBloodline/LegendBloodline.png",
    "short_desc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent<b> Lifesteal</b>, up to a cap. Once the cap is reached, increase your max health. Weaker earlier but stronger later game than other Legend Runes.",
-   "long_desc": "Gain 0.4% lifesteal for every <i>Legend</i> stack (<statGood>max 15 stacks</statGood>). At maximum <i>Legend</i> stacks, gain 100 max health.<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+   "long_desc": "Gain 0.4% lifesteal for every <i>Legend</i> stack (<statGood>max 15 stacks</statGood>). At maximum <i>Legend</i> stacks, gain 100 max health.<br><br>Earn progress toward <i>Legend</i> stacks for every championSnapshot takedown, epic monster takedown, large monster kill, and minion kill.",
    "slot_number": 2,
    "tree_number": 2
  },
@@ -544,7 +544,7 @@
    "name": "Legend: Alacrity",
    "icon": "perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png",
    "short_desc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent <b>Attack Speed</b>. ",
-   "long_desc": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+   "long_desc": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every championSnapshot takedown, epic monster takedown, large monster kill, and minion kill.",
    "slot_number": 2,
    "tree_number": 2
  },
@@ -553,7 +553,7 @@
    "name": "Legend: Tenacity",
    "icon": "perk-images/Styles/Precision/LegendTenacity/LegendTenacity.png",
    "short_desc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent <b>Tenacity</b>. ",
-   "long_desc": "Gain 5% tenacity plus an additional 2.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+   "long_desc": "Gain 5% tenacity plus an additional 2.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every championSnapshot takedown, epic monster takedown, large monster kill, and minion kill.",
    "slot_number": 2,
    "tree_number": 2
  },
@@ -571,7 +571,7 @@
    "name": "Hail of Blades",
    "icon": "perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png",
    "short_desc": "Gain a large amount of Attack Speed for the first 3 attacks made against enemy champions.",
-   "long_desc": "Gain 110% Attack Speed when you attack an enemy champion for up to 3 attacks.<br><br>No more than 3s can elapse between attacks or this effect will end.<br><br>Cooldown: 12s.<br><br><rules>Attack resets increase the attack limit by 1.<br>Allows you to temporarily exceed the attack speed limit.</rules>",
+   "long_desc": "Gain 110% Attack Speed when you attack an enemy championSnapshot for up to 3 attacks.<br><br>No more than 3s can elapse between attacks or this effect will end.<br><br>Cooldown: 12s.<br><br><rules>Attack resets increase the attack limit by 1.<br>Allows you to temporarily exceed the attack speed limit.</rules>",
    "slot_number": 0,
    "tree_number": 0
  }

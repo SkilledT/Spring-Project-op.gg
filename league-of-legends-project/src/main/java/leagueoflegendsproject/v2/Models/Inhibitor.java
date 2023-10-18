@@ -1,20 +1,17 @@
 package leagueoflegendsproject.v2.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
 public class Inhibitor {
 
     @Id
@@ -24,4 +21,6 @@ public class Inhibitor {
     private int kills;
     private boolean first;
 
+    @OneToOne
+    private TeamObjective teamObjective;
 }

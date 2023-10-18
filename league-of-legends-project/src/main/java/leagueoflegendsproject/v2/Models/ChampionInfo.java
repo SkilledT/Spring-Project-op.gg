@@ -1,23 +1,19 @@
 package leagueoflegendsproject.v2.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class ChampionInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer attack;
@@ -27,5 +23,5 @@ public class ChampionInfo {
 
     @OneToOne(mappedBy = "info")
     @JoinColumn
-    private Champion champion;
+    private ChampionSnapshot championSnapshot;
 }

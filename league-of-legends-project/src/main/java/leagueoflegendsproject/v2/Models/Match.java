@@ -1,26 +1,26 @@
 package leagueoflegendsproject.v2.Models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
 public class Match {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String matchId;
+    private String externalMatchId;
     private Integer gameId;
     private String gameType;
     private Integer queueId;
@@ -30,6 +30,7 @@ public class Match {
     private Long gameCreation;
     private Integer mapId;
     private String gameMode;
+    private String apiVersion;
 
 
     @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

@@ -126,7 +126,7 @@
    "total_cost": "350",
    "sell": "140",
    "base_cost": "350",
-   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Challenging Path:</passive> Smiting 5 times consumes this item upgrade your Smite to <attention>Challenging Smite</attention> and increases its damage to monsters. Challenging Smite marks champions for 4 seconds. During this time, you deal  <truedamage>48 - 125 (based on level)</truedamage> bonus true damage to them over 2.5 seconds on hit and take 20% reduced damage from them.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average champion level of the game, monster kills grant bonus experience. </rules><br><rules>Only attacks and abilities apply Challenging Smite's burn</rules></mainText><br>",
+   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Challenging Path:</passive> Smiting 5 times consumes this item upgrade your Smite to <attention>Challenging Smite</attention> and increases its damage to monsters. Challenging Smite marks champions for 4 seconds. During this time, you deal  <truedamage>48 - 125 (based on level)</truedamage> bonus true damage to them over 2.5 seconds on hit and take 20% reduced damage from them.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average championSnapshot level of the game, monster kills grant bonus experience. </rules><br><rules>Only attacks and abilities apply Challenging Smite's burn</rules></mainText><br>",
    "name": "Emberknife"
  },
  {
@@ -166,7 +166,7 @@
    "total_cost": "350",
    "sell": "140",
    "base_cost": "350",
-   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Chilling Path:</passive> Smiting 5 times consumes this item upgrade your Smite to <attention>Chilling Smite</attention> and increases its damage to monsters. When smiting champions Chilling Smite deals <truedamage>20 - 156 (based on level)</truedamage> true damage and steals 20% of their Move Speed for 2 seconds.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average champion level of the game, monster kills grant bonus experience. </rules><br><br></mainText><br>",
+   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Chilling Path:</passive> Smiting 5 times consumes this item upgrade your Smite to <attention>Chilling Smite</attention> and increases its damage to monsters. When smiting champions Chilling Smite deals <truedamage>20 - 156 (based on level)</truedamage> true damage and steals 20% of their Move Speed for 2 seconds.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average championSnapshot level of the game, monster kills grant bonus experience. </rules><br><br></mainText><br>",
    "name": "Hailblade"
  },
  {
@@ -176,7 +176,7 @@
    "total_cost": "350",
    "sell": "140",
    "base_cost": "350",
-   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Auto Path:</passive> Smiting 5 times consumes this item upgrade your Attack-Smite, increasing its damage to monsters.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average champion level of the game, monster kills grant bonus experience. </rules></mainText><br>",
+   "description": "<mainText><stats></stats>8% Omnivamp vs. Monsters<br><li><passive>Sear:</passive> Damaging Monsters burns them for <magicDamage>(60 + 30% Ability Power + 5% bonus Attack Damage + 2% bonus Health) magic damage</magicDamage> over 5 seconds.<li><passive>Auto Path:</passive> Smiting 5 times consumes this item upgrade your Attack-Smite, increasing its damage to monsters.<li><passive>Huntsman:</passive> Killing Large Monsters grants bonus experience.<li><passive>Recoup:</passive> Regen up to 8 - 18 (based on level) mana per second when in the Jungle or River. <br><br><rules><status>Consuming</status> this item grants all item effects permanently and increases Smite damage to monsters. If you have gained more gold from minions than jungle monsters, gold and experience from minions is heavily reduced. Healing is not reduced on AoE attacks. If two levels behind the average championSnapshot level of the game, monster kills grant bonus experience. </rules></mainText><br>",
    "name": "Obsidian Edge"
  },
  {
@@ -236,7 +236,7 @@
    "total_cost": "450",
    "sell": "180",
    "base_cost": "450",
-   "description": "<mainText><stats><attention>80</attention> Health</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to minions.<li><passive>Recovery:</passive> Restores <healing>6 Health</healing> every 5 seconds.<li><passive>Endure:</passive> Restores up to <healing>40 Health</healing> over 8 seconds after taking damage from a champion, large jungle monster, or epic jungle monster. Restoration increases when you are low Health.<br><br><rules><passive>Endure</passive> 66% effective when owned by Ranged champions or when taking damage from area of effect or periodic damage sources.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>80</attention> Health</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to minions.<li><passive>Recovery:</passive> Restores <healing>6 Health</healing> every 5 seconds.<li><passive>Endure:</passive> Restores up to <healing>40 Health</healing> over 8 seconds after taking damage from a championSnapshot, large jungle monster, or epic jungle monster. Restoration increases when you are low Health.<br><br><rules><passive>Endure</passive> 66% effective when owned by Ranged champions or when taking damage from area of effect or periodic damage sources.</rules></mainText><br>",
    "name": "Doran's Shield"
  },
  {
@@ -256,7 +256,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>70</attention> Health</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to minions. <li><passive>Drain:</passive> Restore <scaleMana>0.75 Mana</scaleMana> every second. Damaging an enemy champion increases this amount to <scaleMana>1.25 Mana</scaleMana> every second for 10 seconds. If you can't gain Mana, restore 50% of the value as Health instead. </mainText><br>",
+   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>70</attention> Health</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to minions. <li><passive>Drain:</passive> Restore <scaleMana>0.75 Mana</scaleMana> every second. Damaging an enemy championSnapshot increases this amount to <scaleMana>1.25 Mana</scaleMana> every second for 10 seconds. If you can't gain Mana, restore 50% of the value as Health instead. </mainText><br>",
    "name": "Doran's Ring"
  },
  {
@@ -286,7 +286,7 @@
    "total_cost": "350",
    "sell": "140",
    "base_cost": "350",
-   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>40</attention> Health</stats><br><li><passive>Glory:</passive> Gain 2 stacks for a champion kill or 1 stack for an assist (up to 10 stacks total). Lose 5 stacks on death.<li><passive>Dread:</passive> Grants <scaleAP>4 Ability Power</scaleAP> per stack of <passive>Glory</passive>.<br><br><rules>Obtained <passive>Glory</passive> stacks are preserved between this item and <rarityLegendary>Mejai's Soulstealer</rarityLegendary>.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>40</attention> Health</stats><br><li><passive>Glory:</passive> Gain 2 stacks for a championSnapshot kill or 1 stack for an assist (up to 10 stacks total). Lose 5 stacks on death.<li><passive>Dread:</passive> Grants <scaleAP>4 Ability Power</scaleAP> per stack of <passive>Glory</passive>.<br><br><rules>Obtained <passive>Glory</passive> stacks are preserved between this item and <rarityLegendary>Mejai's Soulstealer</rarityLegendary>.</rules></mainText><br>",
    "name": "Dark Seal"
  },
  {
@@ -632,7 +632,7 @@
  {
    "item_id": 2047,
    "icon_url": "2047.png",
-   "plain_text": "Allows champion to see invisible or unseen enemy units",
+   "plain_text": "Allows championSnapshot to see invisible or unseen enemy units",
    "total_cost": "300",
    "sell": "120",
    "base_cost": "300",
@@ -696,7 +696,7 @@
    "total_cost": "500",
    "sell": "200",
    "base_cost": "500",
-   "description": "<mainText><stats></stats><active>Active - Consume:</active> Drink to gain <scaleHealth>300 Health</scaleHealth>, 25% Tenacity, and increased champion size for 3 minutes. While active, moving leaves a path behind that boosts allied champions' <speed>Move Speed by 15%</speed>.<br><br><rules>Drinking a different Elixir will replace the existing one's effects.</rules></mainText><br>",
+   "description": "<mainText><stats></stats><active>Active - Consume:</active> Drink to gain <scaleHealth>300 Health</scaleHealth>, 25% Tenacity, and increased championSnapshot size for 3 minutes. While active, moving leaves a path behind that boosts allied champions' <speed>Move Speed by 15%</speed>.<br><br><rules>Drinking a different Elixir will replace the existing one's effects.</rules></mainText><br>",
    "name": "Elixir of Iron"
  },
  {
@@ -706,7 +706,7 @@
    "total_cost": "500",
    "sell": "200",
    "base_cost": "500",
-   "description": "<mainText><stats></stats><active>Active - Consume:</active> Drink to gain <scaleAP>50 Ability Power</scaleAP> and <scaleMana>15% Mana Regen</scaleMana> for 3 minutes. While active, damaging a champion or turret deals <trueDamage>25 bonus true damage</trueDamage> (5s cooldown).<br><br><rules>Champion level <attention>9</attention> or greater required to purchase. Elixir of Sorcery's true damage effect has no cooldown when attacking turrets. Drinking a different Elixir will replace the existing one's effects.</rules></mainText><br>",
+   "description": "<mainText><stats></stats><active>Active - Consume:</active> Drink to gain <scaleAP>50 Ability Power</scaleAP> and <scaleMana>15% Mana Regen</scaleMana> for 3 minutes. While active, damaging a championSnapshot or turret deals <trueDamage>25 bonus true damage</trueDamage> (5s cooldown).<br><br><rules>Champion level <attention>9</attention> or greater required to purchase. Elixir of Sorcery's true damage effect has no cooldown when attacking turrets. Drinking a different Elixir will replace the existing one's effects.</rules></mainText><br>",
    "name": "Elixir of Sorcery"
  },
  {
@@ -806,7 +806,7 @@
    "total_cost": "2600",
    "sell": "1820",
    "base_cost": "550",
-   "description": "<mainText><stats><attention>60</attention> Ability Power<br><attention>500</attention> Mana<br><attention>200</attention> Health</stats><br><li><passive>Awe:</passive> Gain Ability Haste equal to <scaleMana>0.5% bonus mana.</scaleMana><li><passive>Mana Charge:</passive> Strike a target with an Ability to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a champion. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Seraph's Embrace</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
+   "description": "<mainText><stats><attention>60</attention> Ability Power<br><attention>500</attention> Mana<br><attention>200</attention> Health</stats><br><li><passive>Awe:</passive> Gain Ability Haste equal to <scaleMana>0.5% bonus mana.</scaleMana><li><passive>Mana Charge:</passive> Strike a target with an Ability to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a championSnapshot. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Seraph's Embrace</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
    "name": "Archangel's Staff"
  },
  {
@@ -816,7 +816,7 @@
    "total_cost": "2900",
    "sell": "2030",
    "base_cost": "1050",
-   "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>500</attention> Mana<br><attention>15</attention> Ability Haste</stats><br><li><passive>Awe:</passive> Gain bonus <scaleAD>Attack Damage equal to 2.5% max Mana</scaleAD>. <li><passive>Mana Charge:</passive> Strike a target with an Ability or Attack to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a champion. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Muramana</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
+   "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>500</attention> Mana<br><attention>15</attention> Ability Haste</stats><br><li><passive>Awe:</passive> Gain bonus <scaleAD>Attack Damage equal to 2.5% max Mana</scaleAD>. <li><passive>Mana Charge:</passive> Strike a target with an Ability or Attack to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a championSnapshot. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Muramana</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
    "name": "Manamune"
  },
  {
@@ -932,7 +932,7 @@
  {
    "item_id": 3026,
    "icon_url": "3026.png",
-   "plain_text": "Periodically revives champion upon death",
+   "plain_text": "Periodically revives championSnapshot upon death",
    "total_cost": "2800",
    "sell": "1120",
    "base_cost": "50",
@@ -996,7 +996,7 @@
    "total_cost": "2500",
    "sell": "1750",
    "base_cost": "650",
-   "description": "<mainText><stats><attention>25</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>20%</attention> Critical Strike Chance<br><attention>7%</attention> Move Speed</stats><br><li><passive>Sepsis:</passive> Dealing physical damage applies <status>40% Grievous Wounds</status> to enemy champions for 3 seconds. Dealing 3 consecutive Attacks to an enemy champion enhances this effect to <status>60% Grievous Wounds</status> against them until the effect is allowed to elapse.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>25</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>20%</attention> Critical Strike Chance<br><attention>7%</attention> Move Speed</stats><br><li><passive>Sepsis:</passive> Dealing physical damage applies <status>40% Grievous Wounds</status> to enemy champions for 3 seconds. Dealing 3 consecutive Attacks to an enemy championSnapshot enhances this effect to <status>60% Grievous Wounds</status> against them until the effect is allowed to elapse.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
    "name": "Mortal Reminder"
  },
  {
@@ -1036,7 +1036,7 @@
    "total_cost": "1600",
    "sell": "1120",
    "base_cost": "1250",
-   "description": "<mainText><stats><attention>20</attention> Ability Power<br><attention>100</attention> Health</stats><br><li><passive>Glory:</passive> Gain 4 stacks for a champion kill or 2 stacks for an assist (up to 25 stacks total). Lose 10 stacks on death.<li><passive>Dread:</passive> Grants <scaleAP>5 Ability Power</scaleAP> per stack of <passive>Glory</passive>. Gain <speed>10% Move Speed</speed> if you have at least 10 stacks.<br><br><rules>Obtained <passive>Glory</passive> stacks are preserved between this item and <rarityGeneric>Dark Seal</rarityGeneric>.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>20</attention> Ability Power<br><attention>100</attention> Health</stats><br><li><passive>Glory:</passive> Gain 4 stacks for a championSnapshot kill or 2 stacks for an assist (up to 25 stacks total). Lose 10 stacks on death.<li><passive>Dread:</passive> Grants <scaleAP>5 Ability Power</scaleAP> per stack of <passive>Glory</passive>. Gain <speed>10% Move Speed</speed> if you have at least 10 stacks.<br><br><rules>Obtained <passive>Glory</passive> stacks are preserved between this item and <rarityGeneric>Dark Seal</rarityGeneric>.</rules></mainText><br>",
    "name": "Mejai's Soulstealer"
  },
  {
@@ -1066,7 +1066,7 @@
    "total_cost": "1100",
    "sell": "770",
    "base_cost": "350",
-   "description": "<mainText><stats><attention>15</attention> Attack Damage<br><attention>200</attention> Health</stats><br><li><passive>Sturdy:</passive> After you deal physical damage to a champion, restore <healing>2% max Health</healing> over 6 seconds.<br><br><rules>Restoration reduced to 50% for Ranged users.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>15</attention> Attack Damage<br><attention>200</attention> Health</stats><br><li><passive>Sturdy:</passive> After you deal physical damage to a championSnapshot, restore <healing>2% max Health</healing> over 6 seconds.<br><br><rules>Restoration reduced to 50% for Ranged users.</rules></mainText><br>",
    "name": "Phage"
  },
  {
@@ -1196,7 +1196,7 @@
    "total_cost": "400",
    "sell": "280",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>240</attention> Mana</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to Minions.<li><passive>Mana Charge:</passive> Strike a target with an Ability to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a champion. Grants a maximum of 360 Mana.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
+   "description": "<mainText><stats><attention>240</attention> Mana</stats><br><li><passive>Focus:</passive> Attacks deal an additional <physicalDamage>5 physical damage</physicalDamage> to Minions.<li><passive>Mana Charge:</passive> Strike a target with an Ability to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a championSnapshot. Grants a maximum of 360 Mana.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
    "name": "Tear of the Goddess"
  },
  {
@@ -1206,7 +1206,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "850",
-   "description": "<mainText><stats><attention>45</attention> Attack Damage<br><attention>350</attention> Health<br><attention>30</attention> Ability Haste</stats><br><li><passive>Carve:</passive> Dealing physical damage to a champion applies a stack of <scaleArmor>5% Armor reduction</scaleArmor> for 6 seconds (max <scaleArmor>30% Armor reduction</scaleArmor>).<li><passive>Rage:</passive> Dealing physical damage to a champion grants 3 Move Speed per stack of <unique>Carve</unique> on them for 2 seconds.</mainText><br>",
+   "description": "<mainText><stats><attention>45</attention> Attack Damage<br><attention>350</attention> Health<br><attention>30</attention> Ability Haste</stats><br><li><passive>Carve:</passive> Dealing physical damage to a championSnapshot applies a stack of <scaleArmor>5% Armor reduction</scaleArmor> for 6 seconds (max <scaleArmor>30% Armor reduction</scaleArmor>).<li><passive>Rage:</passive> Dealing physical damage to a championSnapshot grants 3 Move Speed per stack of <unique>Carve</unique> on them for 2 seconds.</mainText><br>",
    "name": "Black Cleaver"
  },
  {
@@ -1246,7 +1246,7 @@
    "total_cost": "2700",
    "sell": "1890",
    "base_cost": "1000",
-   "description": "<mainText><stats><attention>350</attention> Health<br><attention>60</attention> Armor</stats><br><li><passive>Thorns:</passive> When struck by an Attack, deal <magicDamage>(10 + 10% bonus Armor) magic damage</magicDamage> to the attacker and apply 40% <status>Grievous Wounds</status> for 3 seconds if they are a champion. Immobilizing enemy champions also applies 60% <status>Grievous Wounds</status> for 3 seconds.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>350</attention> Health<br><attention>60</attention> Armor</stats><br><li><passive>Thorns:</passive> When struck by an Attack, deal <magicDamage>(10 + 10% bonus Armor) magic damage</magicDamage> to the attacker and apply 40% <status>Grievous Wounds</status> for 3 seconds if they are a championSnapshot. Immobilizing enemy champions also applies 60% <status>Grievous Wounds</status> for 3 seconds.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
    "name": "Thornmail"
  },
  {
@@ -1256,7 +1256,7 @@
    "total_cost": "800",
    "sell": "560",
    "base_cost": "200",
-   "description": "<mainText><stats><attention>30</attention> Armor</stats><br><li><passive>Thorns:</passive> When struck by an Attack, deal <magicDamage>3 magic damage</magicDamage> to the attacker and apply <status>40% Grievous Wounds</status> for 3 seconds if they are a champion.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>30</attention> Armor</stats><br><li><passive>Thorns:</passive> When struck by an Attack, deal <magicDamage>3 magic damage</magicDamage> to the attacker and apply <status>40% Grievous Wounds</status> for 3 seconds if they are a championSnapshot.<br><br><rules><status>Grievous Wounds</status> reduces the effectiveness of Healing and Regeneration effects.</rules></mainText><br>",
    "name": "Bramble Vest"
  },
  {
@@ -1276,7 +1276,7 @@
    "total_cost": "3333",
    "sell": "2333",
    "base_cost": "833",
-   "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>30%</attention> Attack Speed<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a champion, increase your <scaleAD>base Attack Damage by 4%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>20% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
+   "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>30%</attention> Attack Speed<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a championSnapshot, increase your <scaleAD>base Attack Damage by 4%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>20% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
    "name": "Trinity Force"
  },
  {
@@ -1306,7 +1306,7 @@
    "total_cost": "2550",
    "sell": "1785",
    "base_cost": "900",
-   "description": "<stats>+800 Health<br>+100% Base Health Regen </stats><br><br><unique>UNIQUE Passive:</unique> Upon champion kill or assist, restores 300 Health over 5 seconds.",
+   "description": "<stats>+800 Health<br>+100% Base Health Regen </stats><br><br><unique>UNIQUE Passive:</unique> Upon championSnapshot kill or assist, restores 300 Health over 5 seconds.",
    "name": "Overlord's Bloodmail"
  },
  {
@@ -1536,7 +1536,7 @@
    "total_cost": "2700",
    "sell": "1890",
    "base_cost": "1100",
-   "description": "<mainText><stats><attention>350</attention> Health<br><attention>500</attention> Mana<br><attention>15</attention> Ability Haste</stats><br><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Mana Charge:</passive> Strike a target with an Ability or Attack to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a champion. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Fimbulwinter</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
+   "description": "<mainText><stats><attention>350</attention> Health<br><attention>500</attention> Mana<br><attention>15</attention> Ability Haste</stats><br><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Mana Charge:</passive> Strike a target with an Ability or Attack to consume a charge and gain <scaleMana>3 bonus Mana</scaleMana>, doubled if the target is a championSnapshot. Grants a maximum of 360 Mana at which point this item transforms into <rarityLegendary>Fimbulwinter</rarityLegendary>.<br><br><rules>Gain a new <passive>Mana Charge</passive> every 8 seconds (max 4).</rules></mainText><br>",
    "name": "Winter's Approach"
  },
  {
@@ -1546,7 +1546,7 @@
    "total_cost": "2700",
    "sell": "1890",
    "base_cost": "2700",
-   "description": "<mainText><stats><attention>350</attention> Health<br><attention>860</attention> Mana<br><attention>15</attention> Ability Haste</stats><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Everlasting:</passive> <status>Immobilizing</status> or <status>Slowing</status> (Melee only) an enemy champion consumes <scaleMana>3% current Mana</scaleMana> and grants a Shield for 3 seconds, absorbing <scaleMana>100-200 + 5% current Mana</scaleMana> damage (8s). The Shield is increased by <attention>80%</attention> if more than one enemy is nearby.<br><br><rules>This effect only activates while you have greater than 20% Mana.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>350</attention> Health<br><attention>860</attention> Mana<br><attention>15</attention> Ability Haste</stats><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Everlasting:</passive> <status>Immobilizing</status> or <status>Slowing</status> (Melee only) an enemy championSnapshot consumes <scaleMana>3% current Mana</scaleMana> and grants a Shield for 3 seconds, absorbing <scaleMana>100-200 + 5% current Mana</scaleMana> damage (8s). The Shield is increased by <attention>80%</attention> if more than one enemy is nearby.<br><br><rules>This effect only activates while you have greater than 20% Mana.</rules></mainText><br>",
    "name": "Fimbulwinter"
  },
  {
@@ -1572,11 +1572,11 @@
  {
    "item_id": 3128,
    "icon_url": "3128.png",
-   "plain_text": "Activate to increase all magic damage dealt to an enemy champion",
+   "plain_text": "Activate to increase all magic damage dealt to an enemy championSnapshot",
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "850",
-   "description": "<stats>+120 Ability Power<br>+10% Cooldown Reduction</stats><br><br><active>UNIQUE Active:</active> Deals 15% of target champion's maximum Health in magic damage and increases all subsequent magic damage taken by the target by 20% for 4 seconds (90 second cooldown).",
+   "description": "<stats>+120 Ability Power<br>+10% Cooldown Reduction</stats><br><br><active>UNIQUE Active:</active> Deals 15% of target championSnapshot's maximum Health in magic damage and increases all subsequent magic damage taken by the target by 20% for 4 seconds (90 second cooldown).",
    "name": "Deathfire Grasp"
  },
  {
@@ -1636,7 +1636,7 @@
    "total_cost": "2700",
    "sell": "1890",
    "base_cost": "300",
-   "description": "<stats>+50% Attack Speed<br>+45 Magic Resist<br>+10% Cooldown Reduction</stats><br><br><active>UNIQUE Active - Quicksilver:</active> Removes all debuffs, and if the champion is melee, also grants +50% bonus Movement Speed for 1 second (90 second cooldown).",
+   "description": "<stats>+50% Attack Speed<br>+45 Magic Resist<br>+10% Cooldown Reduction</stats><br><br><active>UNIQUE Active - Quicksilver:</active> Removes all debuffs, and if the championSnapshot is melee, also grants +50% bonus Movement Speed for 1 second (90 second cooldown).",
    "name": "Dervish Blade"
  },
  {
@@ -1682,11 +1682,11 @@
  {
    "item_id": 3144,
    "icon_url": "3144.png",
-   "plain_text": "Activate to deal magic damage and slow target champion",
+   "plain_text": "Activate to deal magic damage and slow target championSnapshot",
    "total_cost": "1600",
    "sell": "1120",
    "base_cost": "350",
-   "description": "<stats>+25 Attack Damage<br>+10% Life Steal</stats><br><br><active>UNIQUE Active:</active> Deals 100 magic damage and slows the target champion's Movement Speed by 25% for 2 seconds (90 second cooldown).",
+   "description": "<stats>+25 Attack Damage<br>+10% Life Steal</stats><br><br><active>UNIQUE Active:</active> Deals 100 magic damage and slows the target championSnapshot's Movement Speed by 25% for 2 seconds (90 second cooldown).",
    "name": "Bilgewater Cutlass"
  },
  {
@@ -1696,7 +1696,7 @@
    "total_cost": "1050",
    "sell": "735",
    "base_cost": "215",
-   "description": "<mainText><stats><attention>25</attention> Ability Power<br><attention>150</attention> Health</stats><br><li><passive>Revved:</passive> Damaging a champion deals an additional <magicDamage>50 - 125 (based on level) magic damage</magicDamage> (40s cooldown).</mainText><br>",
+   "description": "<mainText><stats><attention>25</attention> Ability Power<br><attention>150</attention> Health</stats><br><li><passive>Revved:</passive> Damaging a championSnapshot deals an additional <magicDamage>50 - 125 (based on level) magic damage</magicDamage> (40s cooldown).</mainText><br>",
    "name": "Hextech Alternator"
  },
  {
@@ -1706,7 +1706,7 @@
    "total_cost": "3400",
    "sell": "2380",
    "base_cost": "750",
-   "description": "<stats>+40 Attack Damage<br>+80 Ability Power</stats><br><br><unique>UNIQUE Passive:</unique> Heal for 15% of damage dealt. This is 33% as effective for Area of Effect damage.<br><active>UNIQUE Active - Lightning Bolt:</active> Deals <scaleLevel>175 - 253</scaleLevel> (+30% of Ability Power) magic damage and slows the target champion's Movement Speed by 40% for 2 seconds (40 second cooldown, shared with other <font color='#9999FF'><a href='itembolt'>Hextech</a></font> items).",
+   "description": "<stats>+40 Attack Damage<br>+80 Ability Power</stats><br><br><unique>UNIQUE Passive:</unique> Heal for 15% of damage dealt. This is 33% as effective for Area of Effect damage.<br><active>UNIQUE Active - Lightning Bolt:</active> Deals <scaleLevel>175 - 253</scaleLevel> (+30% of Ability Power) magic damage and slows the target championSnapshot's Movement Speed by 40% for 2 seconds (40 second cooldown, shared with other <font color='#9999FF'><a href='itembolt'>Hextech</a></font> items).",
    "name": "Hextech Gunblade"
  },
  {
@@ -1716,7 +1716,7 @@
    "total_cost": "2900",
    "sell": "2030",
    "base_cost": "700",
-   "description": "<stats>+60 Attack Damage<br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive</unique>: +21 <a href='Lethality'>Lethality</a><br><unique>UNIQUE Passive - Nightstalker:</unique> After being unseen for at least 1 second, your next basic attack against an enemy champion deals <scaleLevel>30 - 150</scaleLevel> bonus physical damage and slows them by 99% for 0.25 seconds. Ranged basic attacks do not apply the slow. (Lasts for 5 seconds after being seen by an enemy champion).",
+   "description": "<stats>+60 Attack Damage<br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive</unique>: +21 <a href='Lethality'>Lethality</a><br><unique>UNIQUE Passive - Nightstalker:</unique> After being unseen for at least 1 second, your next basic attack against an enemy championSnapshot deals <scaleLevel>30 - 150</scaleLevel> bonus physical damage and slows them by 99% for 0.25 seconds. Ranged basic attacks do not apply the slow. (Lasts for 5 seconds after being seen by an enemy championSnapshot).",
    "name": "Duskblade of Draktharr"
  },
  {
@@ -1746,7 +1746,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "525",
-   "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>8%</attention> Life Steal</stats><br><li><passive>Mist's Edge:</passive> Attacks apply <physicalDamage>physical damage</physicalDamage> <OnHit>On-Hit</OnHit> equal to (12% for Melee users | 8% for Ranged users) of the target's current Health. <li><passive>Siphon:</passive> Attacking a champion 3 times deals <magicDamage>40 - 150 (based on level) magic damage</magicDamage> and steals 25% Move Speed for 2 seconds (20s cooldown).<br><br><rules>Maximum <passive>Mist's Edge</passive> damage dealt to monsters and minions is 60.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>8%</attention> Life Steal</stats><br><li><passive>Mist's Edge:</passive> Attacks apply <physicalDamage>physical damage</physicalDamage> <OnHit>On-Hit</OnHit> equal to (12% for Melee users | 8% for Ranged users) of the target's current Health. <li><passive>Siphon:</passive> Attacking a championSnapshot 3 times deals <magicDamage>40 - 150 (based on level) magic damage</magicDamage> and steals 25% Move Speed for 2 seconds (20s cooldown).<br><br><rules>Maximum <passive>Mist's Edge</passive> damage dealt to monsters and minions is 60.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
    "name": "Blade of The Ruined King"
  },
  {
@@ -1796,7 +1796,7 @@
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "900",
-   "description": "<stats>+65 Attack Damage<br>+200 Health<br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive:</unique> <a href='FlatDamageReduction'>Reduce damage</a> from champion attacks and abilities by 10 plus 15% of bonus attack damage (maximum 300).<br><unique>UNIQUE Passive:</unique> When near at least 3 enemy champions, land a basic attack to gain <unlockedPassive>Dragon Heart</unlockedPassive> (90s cooldown).<br><br><unlockedPassive>Dragon Heart:</unlockedPassive> Block 300% more damage for 8s, refreshing on takedown.<br><br><rules></rules>",
+   "description": "<stats>+65 Attack Damage<br>+200 Health<br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive:</unique> <a href='FlatDamageReduction'>Reduce damage</a> from championSnapshot attacks and abilities by 10 plus 15% of bonus attack damage (maximum 300).<br><unique>UNIQUE Passive:</unique> When near at least 3 enemy champions, land a basic attack to gain <unlockedPassive>Dragon Heart</unlockedPassive> (90s cooldown).<br><br><unlockedPassive>Dragon Heart:</unlockedPassive> Block 300% more damage for 8s, refreshing on takedown.<br><br><rules></rules>",
    "name": "Spear of Shojin"
  },
  {
@@ -1916,7 +1916,7 @@
    "total_cost": "3200",
    "sell": "2240",
    "base_cost": "1050",
-   "description": "<mainText><stats><attention>60</attention> Armor<br><attention>60</attention> Magic Resist<br><attention>15</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Unbreakable:</active> Gain a <shield>(100 + 100% bonus Health) Shield</shield>  that decays and grow 25% in size for 2.5 seconds. (90s cooldown).<br><li><passive>Fortify:</passive> Taking damage from a champion grants a stack of <scaleArmor>5% bonus Armor</scaleArmor> and <scaleMR>5% bonus Magic Resist</scaleMR> for 6 seconds.<br><br><rules>Max 5 stacks; 1 per champion.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>60</attention> Armor<br><attention>60</attention> Magic Resist<br><attention>15</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Unbreakable:</active> Gain a <shield>(100 + 100% bonus Health) Shield</shield>  that decays and grow 25% in size for 2.5 seconds. (90s cooldown).<br><li><passive>Fortify:</passive> Taking damage from a championSnapshot grants a stack of <scaleArmor>5% bonus Armor</scaleArmor> and <scaleMR>5% bonus Magic Resist</scaleMR> for 6 seconds.<br><br><rules>Max 5 stacks; 1 per championSnapshot.</rules></mainText><br>",
    "name": "Gargoyle Stoneplate"
  },
  {
@@ -1976,17 +1976,17 @@
    "total_cost": "1250",
    "sell": "875",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>250</attention> Health<br><attention>25</attention> Magic Resist</stats><br><li><passive>Incorporeal:</passive> After taking damage from a champion, gain <scaleHealth>150% base Health Regen</scaleHealth> for up to 10 seconds (duration increases with damage taken).</mainText><br>",
+   "description": "<mainText><stats><attention>250</attention> Health<br><attention>25</attention> Magic Resist</stats><br><li><passive>Incorporeal:</passive> After taking damage from a championSnapshot, gain <scaleHealth>150% base Health Regen</scaleHealth> for up to 10 seconds (duration increases with damage taken).</mainText><br>",
    "name": "Spectre's Cowl"
  },
  {
    "item_id": 3222,
    "icon_url": "3222.png",
-   "plain_text": "Activate to remove all disabling effects from an allied champion",
+   "plain_text": "Activate to remove all disabling effects from an allied championSnapshot",
    "total_cost": "2300",
    "sell": "1610",
    "base_cost": "600",
-   "description": "<mainText><stats><attention>20%</attention> Heal and Shield Power<br><attention>50</attention> Magic Resist<br><attention>15</attention> Ability Haste<br><attention>100%</attention> Base Mana Regen</stats><br><br><active>Active -</active> <active>Purify:</active> Remove all crowd control debuffs (except <status>Knockups</status> and <status>Suppression</status>) from an ally champion and restore <healing>100 - 200 (based on ally level) Health</healing> (120s cooldown).</mainText><br>",
+   "description": "<mainText><stats><attention>20%</attention> Heal and Shield Power<br><attention>50</attention> Magic Resist<br><attention>15</attention> Ability Haste<br><attention>100%</attention> Base Mana Regen</stats><br><br><active>Active -</active> <active>Purify:</active> Remove all crowd control debuffs (except <status>Knockups</status> and <status>Suppression</status>) from an ally championSnapshot and restore <healing>100 - 200 (based on ally level) Health</healing> (120s cooldown).</mainText><br>",
    "name": "Mikael's Blessing"
  },
  {
@@ -2116,7 +2116,7 @@
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "0",
-   "description": "<stats><font color='#FFFFFF'>+550 Health</font><br><font color='#FFFFFF'>+60 Attack Damage</font><br>+20% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive:</unique> Dealing physical damage to an enemy champion Cleaves them, reducing their Armor by 4% for 6 seconds (stacks up to 6 times, up to 24%).<br><unique>UNIQUE Passive - Rage:</unique> Dealing physical damage grants 20 movement speed for 2 seconds. Assists on Cleaved enemy champions or kills on any unit grant 60 movement speed for 2 seconds instead. This Movement Speed is halved for ranged champions.",
+   "description": "<stats><font color='#FFFFFF'>+550 Health</font><br><font color='#FFFFFF'>+60 Attack Damage</font><br>+20% Cooldown Reduction</stats><br><br><unique>UNIQUE Passive:</unique> Dealing physical damage to an enemy championSnapshot Cleaves them, reducing their Armor by 4% for 6 seconds (stacks up to 6 times, up to 24%).<br><unique>UNIQUE Passive - Rage:</unique> Dealing physical damage grants 20 movement speed for 2 seconds. Assists on Cleaved enemy champions or kills on any unit grant 60 movement speed for 2 seconds instead. This Movement Speed is halved for ranged champions.",
    "name": "Obsidian Cleaver"
  },
  {
@@ -2186,7 +2186,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "0",
-   "description": "<stats><font color='#FFFFFF'>+55 Attack Damage</font><br><font color='#FFFFFF'>+40% Attack Speed</font><br>+12% Life Steal</stats><br><br><unique>UNIQUE Passive:</unique> Basic attacks deal 8% of the target's current Health as bonus physical damage on hit (Melee users deal 12%).<br><active>UNIQUE Active:</active> Deals 100 magic damage to target champion and steals 25% of their Movement Speed for 3 seconds (90 second cooldown).<br><br><rules>Minimum bonus physical damage dealt is 15.<br>Maximum bonus physical damage dealt to monsters and minions is 60.<br>User's Life Steal is applied to bonus physical damage dealt.</rules>",
+   "description": "<stats><font color='#FFFFFF'>+55 Attack Damage</font><br><font color='#FFFFFF'>+40% Attack Speed</font><br>+12% Life Steal</stats><br><br><unique>UNIQUE Passive:</unique> Basic attacks deal 8% of the target's current Health as bonus physical damage on hit (Melee users deal 12%).<br><active>UNIQUE Active:</active> Deals 100 magic damage to target championSnapshot and steals 25% of their Movement Speed for 3 seconds (90 second cooldown).<br><br><rules>Minimum bonus physical damage dealt is 15.<br>Maximum bonus physical damage dealt to monsters and minions is 60.<br>User's Life Steal is applied to bonus physical damage dealt.</rules>",
    "name": "Might of the Ruined King"
  },
  {
@@ -2206,7 +2206,7 @@
    "total_cost": "0",
    "sell": "0",
    "base_cost": "0",
-   "description": "<mainText><stats></stats><active>Active - Consume:</active> Gain 0 gold.<br><br><rules>Bonus gold given to an ally when Pyke executes an enemy champion using his Ultimate Ability. If no ally was involved in the kill, Pyke gets to keep the Cut!</rules></mainText><br>",
+   "description": "<mainText><stats></stats><active>Active - Consume:</active> Gain 0 gold.<br><br><rules>Bonus gold given to an ally when Pyke executes an enemy championSnapshot using his Ultimate Ability. If no ally was involved in the kill, Pyke gets to keep the Cut!</rules></mainText><br>",
    "name": "Your Cut"
  },
  {
@@ -2336,7 +2336,7 @@
    "total_cost": "1425",
    "sell": "998",
    "base_cost": "525",
-   "description": "<stats>+325 Health<br>+15% Bonus Health</stats><br><br><unique>UNIQUE Passive - Immolate:</unique> Deals 7 (+2 per champion level) magic damage a second to nearby enemies while in combat. Deals 100% bonus damage to monsters. ",
+   "description": "<stats>+325 Health<br>+15% Bonus Health</stats><br><br><unique>UNIQUE Passive - Immolate:</unique> Deals 7 (+2 per championSnapshot level) magic damage a second to nearby enemies while in combat. Deals 100% bonus damage to monsters. ",
    "name": "Enchantment: Cinderhulk"
  },
  {
@@ -2406,7 +2406,7 @@
    "total_cost": "0",
    "sell": "0",
    "base_cost": "0",
-   "description": "<active>Active - <a href='FeedTheKing'>Feed The King</a>:</active> The King draws you to himself. For up to 4 seconds, you are untargetable and pacified. You may mouse click to fly to target position, stopping at the first enemy champion hit and knocking all enemies in a small radius back. The shockwave from your flight deals <scaleLevel>230-680</scaleLevel> physical damage in a cone. (120s cooldown)",
+   "description": "<active>Active - <a href='FeedTheKing'>Feed The King</a>:</active> The King draws you to himself. For up to 4 seconds, you are untargetable and pacified. You may mouse click to fly to target position, stopping at the first enemy championSnapshot hit and knocking all enemies in a small radius back. The shockwave from your flight deals <scaleLevel>230-680</scaleLevel> physical damage in a cone. (120s cooldown)",
    "name": "Dawnbringer Snax"
  },
  {
@@ -2476,7 +2476,7 @@
    "total_cost": "0",
    "sell": "0",
    "base_cost": "0",
-   "description": "<passive>Passive - Stellar Fealty: </passive>Thresh cannot kill units directly - their souls, experience, and gold belong to the Dark Star.<br><br>Pulling or pushing an enemy into the Dark Star will destroy them instantly, scoring points for your team (+5, or +1 for Abyss Scuttlers).<br><br>Winning a round requires 100 points, and the final points must be from a champion kill.",
+   "description": "<passive>Passive - Stellar Fealty: </passive>Thresh cannot kill units directly - their souls, experience, and gold belong to the Dark Star.<br><br>Pulling or pushing an enemy into the Dark Star will destroy them instantly, scoring points for your team (+5, or +1 for Abyss Scuttlers).<br><br>Winning a round requires 100 points, and the final points must be from a championSnapshot kill.",
    "name": "Dark Star Sigil"
  },
  {
@@ -2506,7 +2506,7 @@
    "total_cost": "2900",
    "sell": "2030",
    "base_cost": "900",
-   "description": "<mainText><stats><attention>300</attention> Health<br><attention>45</attention> Armor<br><attention>5%</attention> Move Speed</stats><li><passive>Shipwrecker:</passive> While moving, build up to <speed>40 bonus Move Speed</speed>. Your next Attack discharges built up Move Speed to deal up to <physicalDamage>40 (+100% base Attack Damage) physical damage</physicalDamage>. If dealt by a Melee champion at top speed, the Attack also <status>Slows</status> the target by 50% for 1 second.<br><br><flavorText>''There's only one way you'll get this armor from me...'' - forgotten namesake</flavorText></mainText><br>",
+   "description": "<mainText><stats><attention>300</attention> Health<br><attention>45</attention> Armor<br><attention>5%</attention> Move Speed</stats><li><passive>Shipwrecker:</passive> While moving, build up to <speed>40 bonus Move Speed</speed>. Your next Attack discharges built up Move Speed to deal up to <physicalDamage>40 (+100% base Attack Damage) physical damage</physicalDamage>. If dealt by a Melee championSnapshot at top speed, the Attack also <status>Slows</status> the target by 50% for 1 second.<br><br><flavorText>''There's only one way you'll get this armor from me...'' - forgotten namesake</flavorText></mainText><br>",
    "name": "Dead Man's Plate"
  },
  {
@@ -2536,7 +2536,7 @@
    "total_cost": "2650",
    "sell": "1855",
    "base_cost": "1100",
-   "description": "<stats>+400 Health<br><mana>+300 Mana</mana><br>+30 Armor<br>+100% Base Health Regen <br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Active:</unique> Grants 75% Movement Speed when moving towards enemies or enemy turrets for 4 seconds. Once near an enemy (or after 4 seconds) a shockwave is emitted, slowing nearby enemy champion Movement Speed by 75% for 2 second(s) (90 second cooldown).",
+   "description": "<stats>+400 Health<br><mana>+300 Mana</mana><br>+30 Armor<br>+100% Base Health Regen <br>+10% Cooldown Reduction</stats><br><br><unique>UNIQUE Active:</unique> Grants 75% Movement Speed when moving towards enemies or enemy turrets for 4 seconds. Once near an enemy (or after 4 seconds) a shockwave is emitted, slowing nearby enemy championSnapshot Movement Speed by 75% for 2 second(s) (90 second cooldown).",
    "name": "Righteous Glory"
  },
  {
@@ -2586,7 +2586,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>8</attention> Ability Power<br><attention>10</attention> Health<br><attention>50%</attention> Base Mana Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><br><li><passive>Tribute:</passive> While nearby an ally champion, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Frostfang</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>8</attention> Ability Power<br><attention>10</attention> Health<br><attention>50%</attention> Base Mana Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><br><li><passive>Tribute:</passive> While nearby an ally championSnapshot, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Frostfang</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
    "name": "Spellthief's Edge"
  },
  {
@@ -2596,7 +2596,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>70</attention> Health<br><attention>75%</attention> Base Mana Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><br><br><br><li><passive>Tribute:</passive> While nearby an ally champion, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Shard of True Ice</rarityLegendary>.</mainText><br>",
+   "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>70</attention> Health<br><attention>75%</attention> Base Mana Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><br><br><br><li><passive>Tribute:</passive> While nearby an ally championSnapshot, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Shard of True Ice</rarityLegendary>.</mainText><br>",
    "name": "Frostfang"
  },
  {
@@ -2616,7 +2616,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>3</attention> Attack Damage<br><attention>30</attention> Health<br><attention>25%</attention> Base Health Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><li><passive>Spoils of War:</passive> While nearby an allied champion, Attacks execute minions below (50% for Melee Users | 30% for Ranged Users) of their max Health. Killing a minion grants the same kill gold to the nearest allied champion. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Runesteel Spaulders</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>3</attention> Attack Damage<br><attention>30</attention> Health<br><attention>25%</attention> Base Health Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><li><passive>Spoils of War:</passive> While nearby an allied championSnapshot, Attacks execute minions below (50% for Melee Users | 30% for Ranged Users) of their max Health. Killing a minion grants the same kill gold to the nearest allied championSnapshot. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Runesteel Spaulders</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
    "name": "Steel Shoulderguards"
  },
  {
@@ -2626,7 +2626,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>6</attention> Attack Damage<br><attention>100</attention> Health<br><attention>50%</attention> Base Health Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Spoils of War:</passive> While nearby an allied champion, Attacks execute minions below 50% of their max Health. Killing a minion grants the same kill gold to the nearest allied champion. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Bulwark of the Mountain</rarityLegendary>. </mainText><br>",
+   "description": "<mainText><stats><attention>6</attention> Attack Damage<br><attention>100</attention> Health<br><attention>50%</attention> Base Health Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Spoils of War:</passive> While nearby an allied championSnapshot, Attacks execute minions below 50% of their max Health. Killing a minion grants the same kill gold to the nearest allied championSnapshot. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Bulwark of the Mountain</rarityLegendary>. </mainText><br>",
    "name": "Runesteel Spaulders"
  },
  {
@@ -2646,7 +2646,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>5</attention> Ability Power<br><attention>30</attention> Health<br><attention>25%</attention> Base Health Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><li><passive>Spoils of War:</passive> While nearby an allied champion, Attacks execute minions below (50% for Melee Users | 30% for Ranged Users) of their max Health. Killing a minion grants the same kill gold to the nearest allied champion. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Targon's Buckler</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>5</attention> Ability Power<br><attention>30</attention> Health<br><attention>25%</attention> Base Health Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><li><passive>Spoils of War:</passive> While nearby an allied championSnapshot, Attacks execute minions below (50% for Melee Users | 30% for Ranged Users) of their max Health. Killing a minion grants the same kill gold to the nearest allied championSnapshot. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Targon's Buckler</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
    "name": "Relic Shield"
  },
  {
@@ -2656,7 +2656,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>10</attention> Ability Power<br><attention>100</attention> Health<br><attention>50%</attention> Base Health Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Spoils of War:</passive> While nearby an allied champion, Attacks execute minions below 50% of their max Health. Killing a minion grants the same kill gold to the nearest allied champion. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Bulwark of the Mountain</rarityLegendary>. </mainText><br>",
+   "description": "<mainText><stats><attention>10</attention> Ability Power<br><attention>100</attention> Health<br><attention>50%</attention> Base Health Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 3 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Spoils of War:</passive> While nearby an allied championSnapshot, Attacks execute minions below 50% of their max Health. Killing a minion grants the same kill gold to the nearest allied championSnapshot. These effects recharge every 35 seconds (Max 3 charges).<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Bulwark of the Mountain</rarityLegendary>. </mainText><br>",
    "name": "Targon's Buckler"
  },
  {
@@ -2676,7 +2676,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>5</attention> Attack Damage<br><attention>10</attention> Health<br><attention>25%</attention> Base Mana Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><br><li><passive>Tribute:</passive> While nearby an ally champion, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Harrowing Crescent</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>5</attention> Attack Damage<br><attention>10</attention> Health<br><attention>25%</attention> Base Mana Regen<br><attention>2</attention> Gold Per 10 Seconds</stats><br><li><passive>Tribute:</passive> While nearby an ally championSnapshot, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 500 gold from this item to transform it into <rarityGeneric>Harrowing Crescent</rarityGeneric>, gaining <active>Active -</active> <active>Warding</active>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
    "name": "Spectral Sickle"
  },
  {
@@ -2686,7 +2686,7 @@
    "total_cost": "400",
    "sell": "160",
    "base_cost": "400",
-   "description": "<mainText><stats><attention>10</attention> Attack Damage<br><attention>60</attention> Health<br><attention>50%</attention> Base Mana Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Tribute:</passive> While nearby an ally champion, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Black Mist Scythe</rarityLegendary>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>10</attention> Attack Damage<br><attention>60</attention> Health<br><attention>50%</attention> Base Mana Regen<br><attention>3</attention> Gold Per 10 Seconds</stats><br><br><active>Active -</active> <active>Ward:</active> Place a Stealth Ward on the ground that is <keywordStealth>Invisible</keywordStealth> to enemies but grants your team vision of the surrounding area. Stores up to 0 Stealth Wards, which refill upon visiting the shop. <br><li><passive>Tribute:</passive> While nearby an ally championSnapshot, damaging Abilities and Attacks against champions or buildings grant 20 gold. This can occur up to 3 times every 30 seconds.<li><passive>Quest:</passive> Earn 1000 gold from this item to transform it into <rarityLegendary>Black Mist Scythe</rarityLegendary>.<br><br><rules>This item grants reduced gold from minions if you kill excessive numbers of them.</rules></mainText><br>",
    "name": "Harrowing Crescent"
  },
  {
@@ -2796,7 +2796,7 @@
    "total_cost": "2500",
    "sell": "1750",
    "base_cost": "750",
-   "description": "<mainText><stats><attention>40</attention> Ability Power<br><attention>200</attention> Health<br><attention>20</attention> Ability Haste<br><attention>100%</attention> Base Mana Regen</stats><br><li><passive>Coordinated Fire:</passive> Abilities that <status>Slow</status> or <status>Immobilize</status> a champion deal <magicDamage>45 - 75 (based on level) bonus magic damage</magicDamage> and marks them for 4 seconds (6s cooldown per champion). Ally champion damage detonates the mark, dealing an additional <magicDamage>90 - 150 (based on ally level) magic damage</magicDamage> and granting you both <speed>20% Move Speed</speed> for 2 seconds. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>15</attention> Ability Power. <br><br><rules>Strength of level-scaling effects are based on the ally's level.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>40</attention> Ability Power<br><attention>200</attention> Health<br><attention>20</attention> Ability Haste<br><attention>100%</attention> Base Mana Regen</stats><br><li><passive>Coordinated Fire:</passive> Abilities that <status>Slow</status> or <status>Immobilize</status> a championSnapshot deal <magicDamage>45 - 75 (based on level) bonus magic damage</magicDamage> and marks them for 4 seconds (6s cooldown per championSnapshot). Ally championSnapshot damage detonates the mark, dealing an additional <magicDamage>90 - 150 (based on ally level) magic damage</magicDamage> and granting you both <speed>20% Move Speed</speed> for 2 seconds. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>15</attention> Ability Power. <br><br><rules>Strength of level-scaling effects are based on the ally's level.</rules></mainText><br>",
    "name": "Imperial Mandate"
  },
  {
@@ -2826,7 +2826,7 @@
    "total_cost": "2625",
    "sell": "1838",
    "base_cost": "1275",
-   "description": "<stats>+350 Health<br>+10% Bonus Health</stats><br><br><unique>UNIQUE Passive - Immolate:</unique> Deals 11 (+1 per champion level) magic damage a second to nearby enemies while in combat. Deals 200% bonus damage to minions and monsters.<br><br><unique>UNIQUE Passive - Chilling Smite:</unique> Smite can be cast on enemy champions, dealing reduced true damage and stealing 20% Movement Speed for 2 seconds.<br><br><groupLimit>Limited to 1 Starter item.</groupLimit>",
+   "description": "<stats>+350 Health<br>+10% Bonus Health</stats><br><br><unique>UNIQUE Passive - Immolate:</unique> Deals 11 (+1 per championSnapshot level) magic damage a second to nearby enemies while in combat. Deals 200% bonus damage to minions and monsters.<br><br><unique>UNIQUE Passive - Chilling Smite:</unique> Smite can be cast on enemy champions, dealing reduced true damage and stealing 20% Movement Speed for 2 seconds.<br><br><groupLimit>Limited to 1 Starter item.</groupLimit>",
    "name": "Enchantment: Cinderhulk"
  },
  {
@@ -2856,7 +2856,7 @@
    "total_cost": "450",
    "sell": "180",
    "base_cost": "450",
-   "description": "<stats>+100 Health</stats><br><br><passive>Passive: </passive>Restores 15 Health every 5 seconds.<br><passive>Passive: </passive>Basic attacks deal an additional 5 physical damage to minions on hit.<br><unique>UNIQUE Passive:</unique> Regain an additional 20 health over 10 seconds after taking damage from an enemy champion.<br><br><groupLimit>Limited to 1 Starter item.</groupLimit>",
+   "description": "<stats>+100 Health</stats><br><br><passive>Passive: </passive>Restores 15 Health every 5 seconds.<br><passive>Passive: </passive>Basic attacks deal an additional 5 physical damage to minions on hit.<br><unique>UNIQUE Passive:</unique> Regain an additional 20 health over 10 seconds after taking damage from an enemy championSnapshot.<br><br><groupLimit>Limited to 1 Starter item.</groupLimit>",
    "name": "Doran's Lost Shield"
  },
  {
@@ -2922,11 +2922,11 @@
  {
    "item_id": 4628,
    "icon_url": "4628.png",
-   "plain_text": "Immobilizing a champion causes lightning to strike them",
+   "plain_text": "Immobilizing a championSnapshot causes lightning to strike them",
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "1050",
-   "description": "<mainText><stats><attention>85</attention> Ability Power<br><attention>150</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Hypershot:</passive> Damaging a champion with a non-targeted Ability at over 700 range or <status>Slowing or Immobilizing</status> them <keywordStealth>Reveals</keywordStealth> them and increases their damage taken from you by 10% for 6 seconds. <br><br><rules>The Ability that triggers <passive>Hypershot</passive> also benefits from the damage increase. Pets and non-immobilizing traps do not trigger this effect. Only the initial placement of zone Abilities will trigger this effect. Distance is measured from the Ability cast position. </rules></mainText><br>",
+   "description": "<mainText><stats><attention>85</attention> Ability Power<br><attention>150</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Hypershot:</passive> Damaging a championSnapshot with a non-targeted Ability at over 700 range or <status>Slowing or Immobilizing</status> them <keywordStealth>Reveals</keywordStealth> them and increases their damage taken from you by 10% for 6 seconds. <br><br><rules>The Ability that triggers <passive>Hypershot</passive> also benefits from the damage increase. Pets and non-immobilizing traps do not trigger this effect. Only the initial placement of zone Abilities will trigger this effect. Distance is measured from the Ability cast position. </rules></mainText><br>",
    "name": "Horizon Focus"
  },
  {
@@ -2936,7 +2936,7 @@
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "850",
-   "description": "<mainText><stats><attention>65</attention> Ability Power<br><attention>200</attention> Health<br><attention>30</attention> Ability Haste<br><attention>5%</attention> Move Speed</stats><br><li><passive>Spelldance:</passive> Damaging a champion with 3 separate Attacks or Spells grants <speed>15% Move Speed</speed> (decaying to <speed>5%</speed>) and <scaleAP>40 Ability Power</scaleAP> until exiting champion combat.<br></mainText><br>",
+   "description": "<mainText><stats><attention>65</attention> Ability Power<br><attention>200</attention> Health<br><attention>30</attention> Ability Haste<br><attention>5%</attention> Move Speed</stats><br><li><passive>Spelldance:</passive> Damaging a championSnapshot with 3 separate Attacks or Spells grants <speed>15% Move Speed</speed> (decaying to <speed>5%</speed>) and <scaleAP>40 Ability Power</scaleAP> until exiting championSnapshot combat.<br></mainText><br>",
    "name": "Cosmic Drive"
  },
  {
@@ -2986,7 +2986,7 @@
    "total_cost": "3200",
    "sell": "2240",
    "base_cost": "865",
-   "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>300</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a champion deals an additional <magicDamage>(125 +15% Ability Power) magic damage</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per champion).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new champion will extend the duration of the Move Speed bonus.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>300</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a championSnapshot deals an additional <magicDamage>(125 +15% Ability Power) magic damage</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per championSnapshot).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new championSnapshot will extend the duration of the Move Speed bonus.</rules></mainText><br>",
    "name": "Night Harvester"
  },
  {
@@ -3046,7 +3046,7 @@
    "total_cost": "2800",
    "sell": "1960",
    "base_cost": "265",
-   "description": "<mainText><stats><attention>60</attention> Ability Power<br><attention>250</attention> Health<br><attention>600</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><li><passive>Divine Safeguard:</passive> You are <keywordMajor>Safeguarded</keywordMajor>, reducing incoming champion damage by 75%. <keywordMajor>Safeguard</keywordMajor> persists for 1.5 seconds after taking champion damage. (40 second cooldown). <li><passive>Holy Gift:</passive> While <keywordMajor>Safeguarded</keywordMajor> and for 3 seconds after it is broken, gain <scaleAP>10-40 Ability Power</scaleAP>. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>1%</attention> Move Speed and 8 Ability Power.</mainText><br>",
+   "description": "<mainText><stats><attention>60</attention> Ability Power<br><attention>250</attention> Health<br><attention>600</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><li><passive>Divine Safeguard:</passive> You are <keywordMajor>Safeguarded</keywordMajor>, reducing incoming championSnapshot damage by 75%. <keywordMajor>Safeguard</keywordMajor> persists for 1.5 seconds after taking championSnapshot damage. (40 second cooldown). <li><passive>Holy Gift:</passive> While <keywordMajor>Safeguarded</keywordMajor> and for 3 seconds after it is broken, gain <scaleAP>10-40 Ability Power</scaleAP>. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>1%</attention> Move Speed and 8 Ability Power.</mainText><br>",
    "name": "Crown of the Shattered Queen"
  },
  {
@@ -3126,7 +3126,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "300",
-   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each champion hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
+   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each championSnapshot hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
    "name": "Goredrinker"
  },
  {
@@ -3146,7 +3146,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "700",
-   "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target max Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a champion, also heal for 7.8% (3.6% for Ranged owners) target max Health.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target max Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a championSnapshot, also heal for 7.8% (3.6% for Ranged owners) target max Health.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
    "name": "Divine Sunderer"
  },
  {
@@ -3266,7 +3266,7 @@
    "total_cost": "3000",
    "sell": "2100",
    "base_cost": "425",
-   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>20%</attention> Critical Strike Chance<br><attention>12</attention> Lethality</stats><br><li><passive>Death and Taxes:</passive> Dealing damage that would leave an enemy champion below 5% Health executes them. Champion kills grant an additional 25 gold.</mainText><br>",
+   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>20%</attention> Critical Strike Chance<br><attention>12</attention> Lethality</stats><br><li><passive>Death and Taxes:</passive> Dealing damage that would leave an enemy championSnapshot below 5% Health executes them. Champion kills grant an additional 25 gold.</mainText><br>",
    "name": "The Collector"
  },
  {
@@ -3286,7 +3286,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "900",
-   "description": "<mainText><stats><attention>60</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>20</attention> Ability Haste</stats><br><li><passive>Nightstalker:</passive> Attacking a champion deals an additional <physicalDamage>(75 + 30% bonus Attack Damage for melee / 55 + 25% bonus Attack Damage for ranged) physical damage</physicalDamage> (15s cooldown). If dealt by a Melee champion, this Attack also <status>Slows</status> the target by 99% for 0.25 seconds.  When a champion that you have damaged within the last 3 seconds dies, this cooldown is refreshed and you become <keywordStealth>Invisible</keywordStealth> for 1.5 seconds.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br></mainText><br>",
+   "description": "<mainText><stats><attention>60</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>20</attention> Ability Haste</stats><br><li><passive>Nightstalker:</passive> Attacking a championSnapshot deals an additional <physicalDamage>(75 + 30% bonus Attack Damage for melee / 55 + 25% bonus Attack Damage for ranged) physical damage</physicalDamage> (15s cooldown). If dealt by a Melee championSnapshot, this Attack also <status>Slows</status> the target by 99% for 0.25 seconds.  When a championSnapshot that you have damaged within the last 3 seconds dies, this cooldown is refreshed and you become <keywordStealth>Invisible</keywordStealth> for 1.5 seconds.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br></mainText><br>",
    "name": "Duskblade of Draktharr"
  },
  {
@@ -3296,7 +3296,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "750",
-   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>8%</attention> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a champion with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (8s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
+   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>8%</attention> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a championSnapshot with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (8s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
    "name": "Eclipse"
  },
  {
@@ -3306,7 +3306,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "900",
-   "description": "<mainText><stats><attention>60</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Sandswipe:</active> Dash through target enemy champion, dealing <physicalDamage>(75 + 30% bonus Attack Damage) physical damage</physicalDamage>. For the next 3 seconds, you deal 15% increased damage to the target. (90s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Lethality</mainText><br>",
+   "description": "<mainText><stats><attention>60</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Sandswipe:</active> Dash through target enemy championSnapshot, dealing <physicalDamage>(75 + 30% bonus Attack Damage) physical damage</physicalDamage>. For the next 3 seconds, you deal 15% increased damage to the target. (90s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Lethality</mainText><br>",
    "name": "Prowler's Claw"
  },
  {
@@ -3326,7 +3326,7 @@
    "total_cost": "2600",
    "sell": "1820",
    "base_cost": "625",
-   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>12</attention> Lethality</stats><br><li><passive>Shield Reaver:</passive> Dealing damage to an enemy champion reduces any shields they gain by (50% | 35% for Ranged Champions) for 3 seconds. When you damage an enemy who is unaffected by Shield Reaver, reduce all shields on them by (50% | 35% for Ranged Champions).<br><br><rules>Additional damage not applied to targets with shields that only block magic damage.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
+   "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>12</attention> Lethality</stats><br><li><passive>Shield Reaver:</passive> Dealing damage to an enemy championSnapshot reduces any shields they gain by (50% | 35% for Ranged Champions) for 3 seconds. When you damage an enemy who is unaffected by Shield Reaver, reduce all shields on them by (50% | 35% for Ranged Champions).<br><br><rules>Additional damage not applied to targets with shields that only block magic damage.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
    "name": "Serpent's Fang"
  },
  {
@@ -3346,7 +3346,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><br><active>Active -</active> <active>Sandswipe:</active> Dash through target enemy champion, dealing <physicalDamage>(75 + 30% bonus Attack Damage) physical damage</physicalDamage>. For the next 3 seconds, you deal 15% increased damage to the target. (90s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Lethality</mainText><br>",
+   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><br><active>Active -</active> <active>Sandswipe:</active> Dash through target enemy championSnapshot, dealing <physicalDamage>(75 + 30% bonus Attack Damage) physical damage</physicalDamage>. For the next 3 seconds, you deal 15% increased damage to the target. (90s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Lethality</mainText><br>",
    "name": "Sandshrike's Claw"
  },
  {
@@ -3356,7 +3356,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>10%</ornnBonus> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a champion with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (8s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
+   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>10%</ornnBonus> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a championSnapshot with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (8s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
    "name": "Syzygy"
  },
  {
@@ -3366,7 +3366,7 @@
    "total_cost": "3100",
    "sell": "2170",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Nightstalker:</passive> Attacking a champion deals an additional <physicalDamage>(75 + 30% bonus Attack Damage for melee / 55 + 25% bonus Attack Damage for ranged) physical damage</physicalDamage> (15s cooldown). If dealt by a Melee champion, this Attack also <status>Slows</status> the target by 99% for 0.25 seconds.  When a champion that you have damaged within the last 3 seconds dies, this cooldown is refreshed and you become <keywordStealth>Invisible</keywordStealth> for 1.5 seconds.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br></mainText><br>",
+   "description": "<mainText><stats><ornnBonus>75</ornnBonus> Attack Damage<br><ornnBonus>26</ornnBonus> Lethality<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Nightstalker:</passive> Attacking a championSnapshot deals an additional <physicalDamage>(75 + 30% bonus Attack Damage for melee / 55 + 25% bonus Attack Damage for ranged) physical damage</physicalDamage> (15s cooldown). If dealt by a Melee championSnapshot, this Attack also <status>Slows</status> the target by 99% for 0.25 seconds.  When a championSnapshot that you have damaged within the last 3 seconds dies, this cooldown is refreshed and you become <keywordStealth>Invisible</keywordStealth> for 1.5 seconds.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br></mainText><br>",
    "name": "Draktharr's Shadowcarver"
  },
  {
@@ -3446,7 +3446,7 @@
    "total_cost": "3200",
    "sell": "2240",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>120</ornnBonus> Ability Power<br><ornnBonus>400</ornnBonus> Health<br><ornnBonus>20</ornnBonus> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a champion deals an additional <magicDamage>(125 +15% Ability Power) magic damage</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per champion).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new champion will extend the duration of the Move Speed bonus.</rules></mainText><br>",
+   "description": "<mainText><stats><ornnBonus>120</ornnBonus> Ability Power<br><ornnBonus>400</ornnBonus> Health<br><ornnBonus>20</ornnBonus> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a championSnapshot deals an additional <magicDamage>(125 +15% Ability Power) magic damage</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per championSnapshot).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new championSnapshot will extend the duration of the Move Speed bonus.</rules></mainText><br>",
    "name": "Vespertide"
  },
  {
@@ -3496,7 +3496,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>70</ornnBonus> Attack Damage<br><ornnBonus>450</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste<br><ornnBonus>15%</ornnBonus> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each champion hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
+   "description": "<mainText><stats><ornnBonus>70</ornnBonus> Attack Damage<br><ornnBonus>450</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste<br><ornnBonus>15%</ornnBonus> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each championSnapshot hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
    "name": "Ceaseless Hunger"
  },
  {
@@ -3516,7 +3516,7 @@
    "total_cost": "3300",
    "sell": "2310",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>60</ornnBonus> Attack Damage<br><ornnBonus>450</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target max Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a champion, also heal for 7.8% (3.6% for Ranged owners) target max Health.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
+   "description": "<mainText><stats><ornnBonus>60</ornnBonus> Attack Damage<br><ornnBonus>450</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target max Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a championSnapshot, also heal for 7.8% (3.6% for Ranged owners) target max Health.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
    "name": "Deicide"
  },
  {
@@ -3526,7 +3526,7 @@
    "total_cost": "3333",
    "sell": "2333",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>45</ornnBonus> Attack Damage<br><ornnBonus>40%</ornnBonus> Attack Speed<br><ornnBonus>400</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a champion, increase your <scaleAD>base Attack Damage by 4%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>20% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
+   "description": "<mainText><stats><ornnBonus>45</ornnBonus> Attack Damage<br><ornnBonus>40%</ornnBonus> Attack Speed<br><ornnBonus>400</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a championSnapshot, increase your <scaleAD>base Attack Damage by 4%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>20% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
    "name": "Infinity Force"
  },
  {
@@ -3566,7 +3566,7 @@
    "total_cost": "2500",
    "sell": "1750",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>70</ornnBonus> Ability Power<br><ornnBonus>300</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste<br><ornnBonus>200%</ornnBonus> Base Mana Regen</stats><br><li><passive>Coordinated Fire:</passive> Abilities that <status>Slow</status> or <status>Immobilize</status> a champion deal <magicDamage>45 - 75 (based on level) bonus magic damage</magicDamage> and marks them for 4 seconds (6s cooldown per champion). Ally champion damage detonates the mark, dealing an additional <magicDamage>90 - 150 (based on ally level) magic damage</magicDamage> and granting you both <speed>20% Move Speed</speed> for 2 seconds. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>15</attention> Ability Power. <br><br><rules>Strength of level-scaling effects are based on the ally's level.</rules></mainText><br>",
+   "description": "<mainText><stats><ornnBonus>70</ornnBonus> Ability Power<br><ornnBonus>300</ornnBonus> Health<br><ornnBonus>25</ornnBonus> Ability Haste<br><ornnBonus>200%</ornnBonus> Base Mana Regen</stats><br><li><passive>Coordinated Fire:</passive> Abilities that <status>Slow</status> or <status>Immobilize</status> a championSnapshot deal <magicDamage>45 - 75 (based on level) bonus magic damage</magicDamage> and marks them for 4 seconds (6s cooldown per championSnapshot). Ally championSnapshot damage detonates the mark, dealing an additional <magicDamage>90 - 150 (based on ally level) magic damage</magicDamage> and granting you both <speed>20% Move Speed</speed> for 2 seconds. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>15</attention> Ability Power. <br><br><rules>Strength of level-scaling effects are based on the ally's level.</rules></mainText><br>",
    "name": "Seat of Command"
  },
  {
@@ -3586,7 +3586,7 @@
    "total_cost": "2800",
    "sell": "1960",
    "base_cost": "0",
-   "description": "<mainText><stats><ornnBonus>80</ornnBonus> Ability Power<br><ornnBonus>350</ornnBonus> Health<br><ornnBonus>800</ornnBonus> Mana<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Divine Safeguard:</passive> You are <keywordMajor>Safeguarded</keywordMajor>, reducing incoming champion damage by 75%. <keywordMajor>Safeguard</keywordMajor> persists for 1.5 seconds after taking champion damage. (40 second cooldown). <li><passive>Holy Gift:</passive> While <keywordMajor>Safeguarded</keywordMajor> and for 3 seconds after it is broken, gain <scaleAP>10-40 Ability Power</scaleAP>. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>1%</attention> Move Speed and 8 Ability Power.</mainText><br>",
+   "description": "<mainText><stats><ornnBonus>80</ornnBonus> Ability Power<br><ornnBonus>350</ornnBonus> Health<br><ornnBonus>800</ornnBonus> Mana<br><ornnBonus>25</ornnBonus> Ability Haste</stats><br><li><passive>Divine Safeguard:</passive> You are <keywordMajor>Safeguarded</keywordMajor>, reducing incoming championSnapshot damage by 75%. <keywordMajor>Safeguard</keywordMajor> persists for 1.5 seconds after taking championSnapshot damage. (40 second cooldown). <li><passive>Holy Gift:</passive> While <keywordMajor>Safeguarded</keywordMajor> and for 3 seconds after it is broken, gain <scaleAP>10-40 Ability Power</scaleAP>. <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>1%</attention> Move Speed and 8 Ability Power.</mainText><br>",
    "name": "Caesura"
  },
  {

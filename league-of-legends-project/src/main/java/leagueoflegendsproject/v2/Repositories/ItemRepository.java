@@ -12,9 +12,12 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    @Query("select e from leagueoflegendsproject.v2.Models.Item e where e.externalId = :externalId")
+    @Query("select e from Item e where e.externalId = :externalId")
     Optional<Item> findByExternalId(@Param("externalId") Integer externalId);
 
-    @Query("select e from leagueoflegendsproject.v2.Models.Item e where e.externalId IN :externalIds")
-    List<Item> findByExternalIds(List<Integer> externalIds);
+    @Query("select e from Item e where e.externalId = :externalId and e.version = :version")
+    Optional<Item> findByExternalIdAndVersion(@Param("externalId") Integer externalId, @Param("version") String version);
+
+    @Query("select e from Item e where e.externalId IN :externalIds and e.version = :version")
+    List<Item> findByExternalIdsAndVersion(List<Integer> externalIds, String version);
 }

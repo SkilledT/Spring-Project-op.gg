@@ -1,23 +1,22 @@
 package leagueoflegendsproject.v2.Models;
 
-import leagueoflegendsproject.Helpers.TestUtils.Constants;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
 public class MatchParticipant {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Boolean win;
@@ -37,7 +36,7 @@ public class MatchParticipant {
     private Integer pentakills;
     private Integer spell3Casts;
     private Boolean firstTowerKill;
-    private Constants.MatchParticipantConstants.IndividualPosition individualPosition;
+    private String individualPosition;
     private Integer wardsPlaced;
     private Integer totalDamageDealt;
     private Integer largestKillingSpree;
@@ -117,10 +116,10 @@ public class MatchParticipant {
     private Team team;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Champion champion;
+    private ChampionSnapshot championSnapshot;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Summoner summoner;
+    private SummonerSnapshot summonerSnapshot;
 
     @OneToMany(mappedBy = "matchParticipant", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<MatchParticipantPerk> matchParticipantPerks = new HashSet<>();

@@ -3,10 +3,11 @@ package leagueoflegendsproject.v2.Services;
 import leagueoflegendsproject.v2.Models.Inhibitor;
 import leagueoflegendsproject.v2.Repositories.InhibitorRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class InhibitorService {
 
     private final InhibitorRepository inhibitorRepository;

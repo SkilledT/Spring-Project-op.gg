@@ -18,14 +18,4 @@ public class LeagueOfLegendsProjectApplication {
 		SpringApplication.run(LeagueOfLegendsProjectApplication.class, args);
 	}
 
-
-	@Bean
-	public RiotHttpClient getInstanceOfRiotHttpClient(){
-		return new RiotHttpClient();
-	}
-
-	@Bean
-	public CorsFilter getInstanceOfCorsFilter(){return new CorsFilter();}
-
-
 }

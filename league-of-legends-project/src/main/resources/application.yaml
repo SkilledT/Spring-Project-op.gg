@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+riot:
+  api:
+    key: RGAPI-a454b52d-5f8a-4d8a-9b1e-6292a91df8bd
+    headerApiKey: X-Riot-Token
+  leagueOfLegends:
+    challengers:
+      numberOfMatches: 5

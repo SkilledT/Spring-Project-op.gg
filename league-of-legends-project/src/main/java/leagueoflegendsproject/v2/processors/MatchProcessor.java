@@ -1,4 +1,4 @@
-package leagueoflegendsproject.v2.Processors;
+package leagueoflegendsproject.v2.processors;
 
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.IntegrationMatchService;
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Matches.matchId.Match;
@@ -6,11 +6,10 @@ import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Matche
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Matches.matchId.SelectionsItem;
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Matches.matchId.TeamsItem;
 import leagueoflegendsproject.v2.Models.*;
-import leagueoflegendsproject.v2.Processors.Creators.TeamProcessorCreator;
+import leagueoflegendsproject.v2.processors.Creators.TeamProcessorCreator;
 import leagueoflegendsproject.v2.Services.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

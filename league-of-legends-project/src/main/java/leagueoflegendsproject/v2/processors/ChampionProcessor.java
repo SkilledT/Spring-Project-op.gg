@@ -1,4 +1,4 @@
-package leagueoflegendsproject.v2.Processors;
+package leagueoflegendsproject.v2.processors;
 
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Champions.ChampionItem;
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.IntegrationChampionService;
@@ -12,7 +12,6 @@ import leagueoflegendsproject.v2.Services.ChampionSnapshotService;
 import leagueoflegendsproject.v2.Services.ChampionStatsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

@@ -1,15 +1,21 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/db
-    username: admin
-    password: admin
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
 riot:
   api:
     key: RGAPI-a454b52d-5f8a-4d8a-9b1e-6292a91df8bd
@@ -20,4 +26,4 @@ riot:
 
 app:
   scheduling:
-    enabled: ${SCHEDULING_ENABLED:true}
+    enabled: false

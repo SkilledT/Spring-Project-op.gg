@@ -1,6 +1,6 @@
 package leagueoflegendsproject.Schedulers;
 
-import leagueoflegendsproject.v2.Processors.PatchVersionProcessor;
+import leagueoflegendsproject.v2.processors.PatchVersionProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

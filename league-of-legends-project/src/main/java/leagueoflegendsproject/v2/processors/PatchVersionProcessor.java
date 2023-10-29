@@ -1,4 +1,4 @@
-package leagueoflegendsproject.v2.Processors;
+package leagueoflegendsproject.v2.processors;
 
 import leagueoflegendsproject.v2.Scrappers.PatchVersionScrapper;
 import leagueoflegendsproject.v2.Services.PatchVersionService;
@@ -18,9 +18,8 @@ public class PatchVersionProcessor {
 
     public void processPatchVersions() {
         var patchVersions = patchVersionScrapper.scrapPatchVersions();
-        patchVersions.forEach(scrappedVersion -> {
-            patchVersionService.savePatchVersion(scrappedVersion.getVersion(),
-                    Timestamp.from(scrappedVersion.getDate()));
-        });
+        patchVersions.forEach(scrappedVersion ->
+                patchVersionService.savePatchVersion(scrappedVersion.getVersion(),
+                Timestamp.from(scrappedVersion.getDate())));
     }
 }

@@ -1,13 +1,9 @@
 package leagueoflegendsproject.v2.Scrappers;
 
-import com.joestelmach.natty.NattyTokenSource;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import leagueoflegendsproject.utils.scrapper.JsoupHttpConnectionWrapper;
+import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,21 +12,21 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class PatchVersionScrapper {
 
-    private static final String URL = "https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360018987893-Patch-Schedule-League-of-Legends";
+    private final JsoupHttpConnectionWrapper jsoupHttpConnectionWrapper;
+
+    public static final String URL = "https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360018987893-Patch-Schedule-League-of-Legends";
 
     public List<LoLPatchVersion> scrapPatchVersions() {
         try {
-            Document doc = Jsoup.connect(URL)
-                    .userAgent("PostmanRuntime/7.29.2")
-                    .get();
+            Document doc = jsoupHttpConnectionWrapper.getDocument(URL);
             Element table = doc.select("table").first();
             Element body = table.select("tbody").first();
             Elements rows = body.select("tr");

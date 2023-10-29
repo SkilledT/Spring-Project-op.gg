@@ -1,4 +1,4 @@
-package leagueoflegendsproject.v2.Processors;
+package leagueoflegendsproject.v2.processors;
 
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.League.EncryptedSummonerId.SummonerLeagueResponseItem;
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.IntegrationSummonerService;
@@ -6,7 +6,6 @@ import leagueoflegendsproject.v2.Models.Summoner;
 import leagueoflegendsproject.v2.Services.SummonerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

@@ -1,11 +1,10 @@
-package leagueoflegendsproject.v2.Processors;
+package leagueoflegendsproject.v2.processors;
 
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.Services.IntegrationItemService;
 import leagueoflegendsproject.Integrations.Riot.LeagueOfLegends.ApiModels.Items.Item;
 import leagueoflegendsproject.v2.Services.ItemComponentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

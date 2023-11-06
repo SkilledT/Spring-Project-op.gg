@@ -19,15 +19,15 @@ import java.util.stream.Collectors;
 public class IntegrationChampionService {
     private final RiotHttpClient httpClient;
 
-    public HttpResponseWrapper<List<ChampionItem>> getChampions() {
+    public HttpResponseWrapper<List<ChampionItem>> getChampions(String patchVersion) {
         Gson gson = new Gson();
-        HttpResponseWrapper<String> response = sendHttpRequest(RiotLinksProvider.RIOT_CHAMPION_URL);
+        HttpResponseWrapper<Object> response = sendHttpRequest(RiotLinksProvider.ChampionLinkProvider.getDDragonChampionsURL(patchVersion));
 
-        Object o = gson.fromJson(response.getResponse(), Object.class);
         /// keys: type, version, format, data[]
-        Map<String, Object> wrappedObjects = (Map<String, Object>) o;
+        Map<String, Object> wrappedObjects = response.getResponse() != null ? (Map<String, Object>) response.getResponse() :
+                Collections.emptyMap();
 
-        if (!wrappedObjects.keySet().contains(DataDragonChampionKeyEnum.DATA.getValue())) {
+        if (!wrappedObjects.containsKey(DataDragonChampionKeyEnum.DATA.getValue())) {
             return new HttpResponseWrapper(false, null, response.getResponseMessage(), response.getStatusCode());
         }
 
@@ -38,7 +38,7 @@ public class IntegrationChampionService {
             var cItem = gson.fromJson(json, ChampionItem.class);
             return cItem;
         }).collect(Collectors.toList());
-        return new HttpResponseWrapper(true, items, response.getResponse(), response.getStatusCode());
+        return new HttpResponseWrapper(response.isSuccess(), items, response.getResponse().toString(), response.getStatusCode());
     }
 
     private Map<String, Object> getChampionsByDataDragonEnum(Map<String, Object> wrappedObjects, DataDragonChampionKeyEnum dataDragonItemKeyEnum) {
@@ -46,12 +46,7 @@ public class IntegrationChampionService {
     }
 
 
-    private HttpResponseWrapper<String> sendHttpRequest(String url) {
-        try {
-            return httpClient.get(url, String.class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new InvalidRequestStateException("Unable to send request to RIOT's API");
-        }
+    private HttpResponseWrapper<Object> sendHttpRequest(String url) {
+        return httpClient.get(url, Object.class);
     }
 }

@@ -58,15 +58,9 @@ public class IntegrationMatchService {
 
     private List<String> getMatchIds(String puuid, int numberOfMatches) {
         String[] matchesIds;
-        try {
-            matchesIds = riotHttpClient.get(
-                    RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
-                    String[].class).getResponse();
-        } catch (IOException | InterruptedException e) {
-            throw new IllegalArgumentException(
-                    "Unable to find suitable records for link: " +
-                            RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches));
-        }
+        matchesIds = riotHttpClient.get(
+                RiotLinksProvider.MatchLinksProvider.getMatchCollectionUrl(puuid, numberOfMatches),
+                String[].class).getResponse();
         return List.of(matchesIds);
     }
 
@@ -77,13 +71,8 @@ public class IntegrationMatchService {
     @Cacheable(cacheNames = "matchCache", unless = "#result == null", key = "id")
     public Match getMatchByIdSync(String id) {
         HttpResponseWrapper<Match> matchHttpResponseWrapper;
-        try {
-            matchHttpResponseWrapper = riotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id),
-                    Match.class);
-        } catch (IOException | InterruptedException e) {
-            throw new IllegalArgumentException("Unable to find suitable records for link: " +
-                    RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id));
-        }
+        matchHttpResponseWrapper = riotHttpClient.get(RiotLinksProvider.MatchLinksProvider.getMatchDetailsUrl(id),
+                Match.class);
         if (!matchHttpResponseWrapper.isSuccess())
             throw new IllegalStateException("Data from Riot's API cannot be retrieved");
         return matchHttpResponseWrapper.getResponse();

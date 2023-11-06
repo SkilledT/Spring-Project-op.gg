@@ -30,6 +30,7 @@ public class ChampionSnapshot {
     private String version;
     private String name;
     private String title;
+    @Column(length = 10485760)
     private String blurb;
     private String partype;
     private Instant createdAt = Instant.now();

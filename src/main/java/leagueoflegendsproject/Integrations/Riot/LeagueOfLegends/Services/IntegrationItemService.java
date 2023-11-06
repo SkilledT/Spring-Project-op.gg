@@ -51,11 +51,6 @@ public class IntegrationItemService {
     }
 
     private HttpResponseWrapper<String> sendHttpRequest(String url) {
-        try {
-            return riotHttpClient.get(url, String.class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new InvalidRequestStateException("Unable to send request to RIOT's API");
-        }
+        return riotHttpClient.get(url, String.class);
     }
 }

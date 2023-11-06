@@ -4,13 +4,11 @@ import leagueoflegendsproject.v2.Models.PatchVersion;
 import leagueoflegendsproject.v2.Repositories.PatchVersionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,5 +54,9 @@ public class PatchVersionService {
     public Optional<PatchVersion> findNewestPatchVersion(long timestampInMillis) {
         Timestamp timestamp = new Timestamp(timestampInMillis);
         return findNewestPatchVersion(timestamp);
+    }
+
+    public List<PatchVersion> findAll() {
+        return patchVersionRepository.findAll();
     }
 }

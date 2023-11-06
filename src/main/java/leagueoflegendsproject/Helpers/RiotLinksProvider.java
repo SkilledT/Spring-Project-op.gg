@@ -4,8 +4,7 @@ package leagueoflegendsproject.Helpers;
 public class RiotLinksProvider {
 
     public final static String RIOT_VERSION = "13.4.1";
-    public final static String RIOT_CHAMPION_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/champion.json";
-    public final static String RIOT_CHAMPION_PERKS_URL = "http://ddragon.leagueoflegends.com/cdn/" + RIOT_VERSION + "/data/en_US/runesReforged.json";
+    private final static String RIOT_CHAMPION_URL_TEMPLATE = "http://ddragon.leagueoflegends.com/cdn/%s.1/data/en_US/champion.json";
 
     public static class MatchLinksProvider {
         public static String getMatchCollectionUrl(String puuid, Integer numberOfMatches) {
@@ -59,6 +58,10 @@ public class RiotLinksProvider {
 
         public static String getIconImg(String championName) {
             return String.format(basicUrlIcon, RIOT_VERSION, championName);
+        }
+
+        public static String getDDragonChampionsURL(String version) {
+            return String.format(RIOT_CHAMPION_URL_TEMPLATE, version);
         }
     }
 

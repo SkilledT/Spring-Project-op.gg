@@ -26,11 +26,7 @@ public class HttpSummonerService {
         nickname = nickname.replace(" ", "%20");
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerByNicknameUrl(nickname);
         HttpResponseWrapper<Summoner> responseWrapper = null;
-        try {
-            responseWrapper = riotHttpClient.get(url, Summoner.class);
-        } catch (IOException | InterruptedException e) {
-            log.error("Unable to retrieve object, message: " + e.getMessage());
-        }
+        responseWrapper = riotHttpClient.get(url, Summoner.class);
         if (responseWrapper == null || !responseWrapper.isSuccess())
             log.error("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         return responseWrapper.getResponse();

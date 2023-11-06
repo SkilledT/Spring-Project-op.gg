@@ -23,11 +23,7 @@ public class IntegrationSummonerService {
         nickname = nickname.replace(" ", "%20");
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerByNicknameUrl(nickname);
         HttpResponseWrapper<Summoner> responseWrapper = null;
-        try {
-            responseWrapper = riotHttpClient.get(url, Summoner.class);
-        } catch (IOException | InterruptedException e) {
-            log.error("Unable to retrieve object, message: " + e.getMessage());
-        }
+        responseWrapper = riotHttpClient.get(url, Summoner.class);
         if (responseWrapper == null || !responseWrapper.isSuccess())
             log.error("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         return responseWrapper.getResponse();
@@ -39,12 +35,7 @@ public class IntegrationSummonerService {
         String summonerEncryptedId = summoner.getId();
         String url = RiotLinksProvider.SummonerLinksProvider.getSummonerLeagueByNicknameUrl(summonerEncryptedId);
         HttpResponseWrapper<SummonerLeagueResponseItem[]> responseWrapper;
-        try {
-            responseWrapper = riotHttpClient.get(url, SummonerLeagueResponseItem[].class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Unable to retrieve object, message: " + e.getMessage());
-        }
+        responseWrapper = riotHttpClient.get(url, SummonerLeagueResponseItem[].class);
         if (!responseWrapper.isSuccess() || responseWrapper.getResponse() == null)
             throw new IllegalArgumentException("Unable to retrieve object, message: " + responseWrapper.getResponseMessage());
         return responseWrapper.getResponse();

@@ -6,20 +6,15 @@ import leagueoflegendsproject.v2.Models.ChampionSnapshot;
 import leagueoflegendsproject.v2.Models.ChampionImage;
 import leagueoflegendsproject.v2.Models.ChampionInfo;
 import leagueoflegendsproject.v2.Models.ChampionStats;
-import leagueoflegendsproject.v2.Services.ChampionImageService;
-import leagueoflegendsproject.v2.Services.ChampionInfoService;
-import leagueoflegendsproject.v2.Services.ChampionSnapshotService;
-import leagueoflegendsproject.v2.Services.ChampionStatsService;
+import leagueoflegendsproject.v2.Services.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-@Transactional
 @Slf4j
 public class ChampionProcessor {
 
@@ -27,23 +22,30 @@ public class ChampionProcessor {
     private final ChampionInfoService championInfoService;
     private final ChampionStatsService championStatsService;
     private final ChampionImageService championImageService;
-    private final IntegrationChampionService
-            integrationChampionService;
+    private final IntegrationChampionService integrationChampionService;
+    private final PatchVersionService patchVersionService;
 
     public void fetchAndSaveChampions() {
         log.info("=============== START FETCHING CHAMPIONS ===============");
-        List<ChampionItem> championItems = integrationChampionService.getChampions().getResponse();
-        for (var championItem : championItems) {
-            if (championService.findByNameAndVersion(championItem.getName(), championItem.getVersion()).isEmpty()) {
-                var champion = createChampion(championItem);
-                createChampionInfo(championItem, champion);
-                createChampionImage(championItem, champion);
-                createChampionStats(championItem, champion);
-            } else {
-                // TODO: ADD AUDIT AND UPDATE ENTITY INSTEAD OF SKIPPING
-                log.error("Champion with name {} and version {} already exist and will not be proceed",
-                        championItem.getName(),
-                        championItem.getVersion());
+        var patchVersions = patchVersionService.findAll();
+        for (var patchVersion : patchVersions) {
+            var championResponse = integrationChampionService.getChampions(patchVersion.getVersion());
+            if (!championResponse.isSuccess()) {
+                log.info("Cannot get champion snapshots for version {}", patchVersion.getVersion());
+                continue;
+            }
+            List<ChampionItem> championItems = integrationChampionService.getChampions(patchVersion.getVersion()).getResponse();
+            for (var championItem : championItems) {
+                if (championService.findByNameAndVersion(championItem.getName(), championItem.getVersion()).isEmpty()) {
+                    var champion = createChampion(championItem);
+                    createChampionInfo(championItem, champion);
+                    createChampionImage(championItem, champion);
+                    createChampionStats(championItem, champion);
+                } else {
+                    log.debug("Champion with name {} and version {} already exist and will not be proceed",
+                            championItem.getName(),
+                            championItem.getVersion());
+                }
             }
         }
         log.info("=============== END FETCHING CHAMPIONS ===============");
